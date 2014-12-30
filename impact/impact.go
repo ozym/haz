@@ -1,0 +1,84 @@
+// Package impact provides types and methods for impact messages.
+package impact
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"regexp"
+	"time"
+)
+
+var source = regexp.MustCompile(`^[a-zA-Z0-9\.\-]+$`)
+
+// Intensity is for measured or reported intensity messages e.g.,
+//  {
+//     "Time": "2014-12-31T02:39:00Z",
+//     "Longitude": 172,
+//     "Latitude": -42.4,
+//     "MMI": 4,
+//     "Comment": "",
+//     "Quality": "measured",
+//     "Source": "test.test"
+//  }
+type Intensity struct {
+	// Source is used to uniquely identify the intensity source.
+	// 'measured' and 'reported' values are stored separately.
+	// Use a prefix if to keep them distinct in major populations
+	// and make sure sources are distinct wihin a population.
+	// Good choices might be 'ios.xxx', 'android.xxx', 'NZ.xxx'.
+	// Must match the regexp `^[a-zA-Z0-9\.\-]+$`
+	Source    string
+	Quality   string    // allowed values are 'measured' or 'reported'.
+	Comment   string    // max length 140 char.  Ignored for 'measured'.
+	MMI       int       // range 1 - 12
+	Latitude  float64   //  WGS84, -90 to 90.
+	Longitude float64   // WGS84, -180 to 180.
+	Time      time.Time // date time ISO8601 UTC.
+}
+
+// Valid returns a non nil error if the Intensity pointed to by i is not valid.
+// i.Comment is trimmed to 140 char.
+func (i *Intensity) Valid() error {
+
+	if !source.MatchString(i.Source) {
+		return fmt.Errorf("invalid source: %s must match %s", i.Source, source.String())
+	}
+
+	if !(i.Quality == "measured" || i.Quality == "reported") {
+		return fmt.Errorf("invalid quality: %s", i.Quality)
+	}
+
+	if i.MMI < 1 || i.MMI > 12 {
+		return fmt.Errorf("invalid MMI: %d", i.MMI)
+	}
+
+	// we currently use postgis and it will convert any numeric value to valid long lat so this
+	// is not strictly necessary.  Useful in the interest of future predictability and better
+	// error messages.
+	if !(i.Longitude < 180.0 && i.Longitude > -180.0) {
+		return fmt.Errorf("longitude not in range -180 to 180: %f", i.Longitude)
+	}
+
+	if !(i.Latitude < 90.0 && i.Latitude > -90.0) {
+		return fmt.Errorf("latitude not in range -90 to 90: %f", i.Latitude)
+	}
+
+	if len(i.Comment) > 139 {
+		i.Comment = i.Comment[0:139]
+	}
+
+	return nil
+}
+
+// Decode reads from r and decodes the JSON into i.
+func (i *Intensity) Decode(r io.Reader) error {
+	d := json.NewDecoder(r)
+
+	return d.Decode(i)
+}
+
+// Marshal returns the JSON encoding of i.
+func (i *Intensity) Marshal() ([]byte, error) {
+	return json.Marshal(i)
+}
