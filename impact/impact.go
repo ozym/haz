@@ -82,3 +82,8 @@ func (i *Intensity) Decode(r io.Reader) error {
 func (i *Intensity) Marshal() ([]byte, error) {
 	return json.Marshal(i)
 }
+
+// Unmarshal unmarshals the JSON in b into i.
+func (i *Intensity) Unmarshal(b []byte) error {
+	return json.Unmarshal(b, i)
+}
