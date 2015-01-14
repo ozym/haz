@@ -4,12 +4,12 @@ package impact
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"regexp"
 	"time"
 )
 
 var source = regexp.MustCompile(`^[a-zA-Z0-9\.\-]+$`)
+var MeasuredAge = time.Duration(-60) * time.Minute // measured intensity messages older than this are not saved to the DB.
 
 // Intensity is for measured or reported intensity messages e.g.,
 //  {
@@ -35,47 +35,66 @@ type Intensity struct {
 	Latitude  float64   //  WGS84, -90 to 90.
 	Longitude float64   // WGS84, -180 to 180.
 	Time      time.Time // date time ISO8601 UTC.
+	err       error
 }
 
-// Valid returns a non nil error if the Intensity pointed to by i is not valid.
-// i.Comment is trimmed to 140 char.
-func (i *Intensity) Valid() error {
+func (i *Intensity) Err() error {
+	return i.err
+}
 
+func (i Intensity) SetErr(err error) {
+	i.err = err
+}
+
+// Valid returns true if the Intensity pointed to by i is valid, false if not.
+// For invalid intensity additional information is available in i.Err().
+// i.Comment is trimmed to 140 char.
+func (i *Intensity) Valid() bool {
 	if !source.MatchString(i.Source) {
-		return fmt.Errorf("invalid source: %s must match %s", i.Source, source.String())
+		i.err = fmt.Errorf("invalid source: %s must match %s", i.Source, source.String())
+		return false
 	}
 
 	if !(i.Quality == "measured" || i.Quality == "reported") {
-		return fmt.Errorf("invalid quality: %s", i.Quality)
+		i.err = fmt.Errorf("invalid quality: %s", i.Quality)
+		return false
 	}
 
 	if i.MMI < 1 || i.MMI > 12 {
-		return fmt.Errorf("invalid MMI: %d", i.MMI)
+		i.err = fmt.Errorf("invalid MMI: %d", i.MMI)
+		return false
 	}
 
 	// we currently use postgis and it will convert any numeric value to valid long lat so this
 	// is not strictly necessary.  Useful in the interest of future predictability and better
 	// error messages.
 	if !(i.Longitude < 180.0 && i.Longitude > -180.0) {
-		return fmt.Errorf("longitude not in range -180 to 180: %f", i.Longitude)
+		i.err = fmt.Errorf("longitude not in range -180 to 180: %f", i.Longitude)
+		return false
 	}
 
 	if !(i.Latitude < 90.0 && i.Latitude > -90.0) {
-		return fmt.Errorf("latitude not in range -90 to 90: %f", i.Latitude)
+		i.err = fmt.Errorf("latitude not in range -90 to 90: %f", i.Latitude)
+		return false
 	}
 
 	if len(i.Comment) > 139 {
 		i.Comment = i.Comment[0:139]
 	}
 
-	return nil
+	return true
 }
 
-// Decode reads from r and decodes the JSON into i.
-func (i *Intensity) Decode(r io.Reader) error {
-	d := json.NewDecoder(r)
-
-	return d.Decode(i)
+// Old returns true if the intensity pointed to by i is older then 60 minutes.
+// When Old returns true additional information is available in i.Err()
+func (i *Intensity) Old() bool {
+	// No disctinction between measured and reported intensity at the moment.
+	// We may need to allow slightly older reported intensity messages in the future?
+	if i.Time.Before(time.Now().UTC().Add(MeasuredAge)) {
+		i.err = fmt.Errorf("old message for %s", i.Source)
+		return true
+	}
+	return false
 }
 
 // Marshal returns the JSON encoding of i.
@@ -84,6 +103,6 @@ func (i *Intensity) Marshal() ([]byte, error) {
 }
 
 // Unmarshal unmarshals the JSON in b into i.
-func (i *Intensity) Unmarshal(b []byte) error {
-	return json.Unmarshal(b, i)
+func (i *Intensity) Unmarshal(b []byte) {
+	i.err = json.Unmarshal(b, i)
 }
