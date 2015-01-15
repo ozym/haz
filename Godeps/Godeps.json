@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/GeoNet/msg",
+	"GoVersion": "go1.3.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/GeoNet/app/metrics",
+			"Rev": "c76d68e75602362e5f4d49bd643f1000458fe203"
+		}
+	]
+}
