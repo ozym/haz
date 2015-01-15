@@ -21,6 +21,8 @@ var MeasuredAge = time.Duration(-60) * time.Minute // measured intensity message
 //     "Quality": "measured",
 //     "Source": "test.test"
 //  }
+//
+// Implements msg.Message
 type Intensity struct {
 	// Source is used to uniquely identify the intensity source.
 	// 'measured' and 'reported' values are stored separately.
