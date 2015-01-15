@@ -32,7 +32,7 @@ type Intensity struct {
 	// Must match the regexp `^[a-zA-Z0-9\.\-]+$`
 	Source    string
 	Quality   string    // allowed values are 'measured' or 'reported'.
-	Comment   string    // max length 140 char.  Ignored for 'measured'.
+	Comment   string    // max length 140 char.
 	MMI       int       // range 1 - 12
 	Latitude  float64   //  WGS84, -90 to 90.
 	Longitude float64   // WGS84, -180 to 180.
