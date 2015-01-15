@@ -99,10 +99,13 @@ func (i *Intensity) Old() bool {
 
 // Marshal returns the JSON encoding of i.
 func (i *Intensity) Marshal() ([]byte, error) {
-	return json.Marshal(i)
+	b, err := json.Marshal(i)
+	i.err = err
+	return b, err
 }
 
 // Unmarshal unmarshals the JSON in b into i.
-func (i *Intensity) Unmarshal(b []byte) {
+func (i *Intensity) Unmarshal(b []byte) error {
 	i.err = json.Unmarshal(b, i)
+	return i.err
 }
