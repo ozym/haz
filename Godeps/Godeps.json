@@ -4,7 +4,7 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/GeoNet/app/metrics",
-			"Rev": "c76d68e75602362e5f4d49bd643f1000458fe203"
+			"Rev": "a032fbf02c7ee61fc99ada98e6b62cd870afc2cc"
 		}
 	]
 }
