@@ -8,15 +8,21 @@ import (
 )
 
 // Timer satisifies the expvar.Var interface.  Tracks the average time.
+// Avg is a buffered channel of length 1 that is updated with the average
+// when it is calculated.  It is optional to listen to the channel for metrics.
+// If the channel is not empty the channel update is
+// skipped.
 type Timer struct {
 	count   int
 	time    float64
 	average float64
 	mu      sync.RWMutex
+	Avg     chan float64
 }
 
 // Init the Timer.  The average time(s) is calculated every period.
 func (t *Timer) Init(period time.Duration) {
+	t.Avg = make(chan float64, 1)
 	go t.avg(period)
 }
 
@@ -32,6 +38,9 @@ func (t *Timer) avg(period time.Duration) {
 		}
 		t.time = 0
 		t.count = 0
+		if len(t.Avg) < cap(t.Avg) {
+			t.Avg <- t.average
+		}
 		t.mu.Unlock()
 	}
 }
@@ -51,15 +60,21 @@ func (t *Timer) String() string {
 	return strconv.FormatFloat(t.average, 'g', -1, 64)
 }
 
-// Rate satisfies the expvar.Rate interface.  Tracks the average rate.
+// Rate satisfies the expvar.Var interface.  Tracks the average rate.
+// Avg is a buffered channel of length 1 that is updated with the average
+// when it is calculated.  It is optional to listen to the channel for metrics.
+// If the channel is not empty the channel update is
+// skipped.
 type Rate struct {
 	count   int
 	average float64
 	mu      sync.RWMutex
+	Avg     chan float64
 }
 
 // Init initialises Rate.  The average rate per interval is calculated every period.
 func (r *Rate) Init(interval time.Duration, period time.Duration) {
+	r.Avg = make(chan float64, 1)
 	go r.avg(interval, period)
 }
 
@@ -75,6 +90,9 @@ func (r *Rate) avg(interval time.Duration, period time.Duration) {
 		r.mu.Lock()
 		r.average = float64(r.count) / (period.Seconds() / interval.Seconds())
 		r.count = 0
+		if len(r.Avg) < cap(r.Avg) {
+			r.Avg <- r.average
+		}
 		r.mu.Unlock()
 	}
 }
