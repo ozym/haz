@@ -1,5 +1,4 @@
-// Package impact provides types and methods for impact messages.
-package impact
+package msg
 
 import (
 	"encoding/json"
