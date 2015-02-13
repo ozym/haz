@@ -43,7 +43,7 @@ func (i *Intensity) Err() error {
 	return i.err
 }
 
-func (i Intensity) SetErr(err error) {
+func (i *Intensity) SetErr(err error) {
 	i.err = err
 }
 
