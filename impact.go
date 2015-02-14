@@ -20,8 +20,6 @@ var MeasuredAge = time.Duration(-60) * time.Minute // measured intensity message
 //     "Quality": "measured",
 //     "Source": "test.test"
 //  }
-//
-// Partially implements msg.Message, client code should implement msg.Message.Process().
 type Intensity struct {
 	// Source is used to uniquely identify the intensity source.
 	// 'measured' and 'reported' values are stored separately.
@@ -47,7 +45,7 @@ func (i *Intensity) SetErr(err error) {
 	i.err = err
 }
 
-// Valid sets Err if i is invalid.
+// Valid sets i.err if i is invalid.
 // i.Comment is trimmed to 140 char.
 func (i *Intensity) Valid() {
 	if i.err != nil {
@@ -66,17 +64,6 @@ func (i *Intensity) Valid() {
 		i.err = fmt.Errorf("invalid MMI: %d", i.MMI)
 	}
 
-	// we currently use postgis and it will convert any numeric value to valid long lat so this
-	// is not strictly necessary.  Useful in the interest of future predictability and better
-	// error messages.
-	if !(i.Longitude < 180.0 && i.Longitude > -180.0) {
-		i.err = fmt.Errorf("longitude not in range -180 to 180: %f", i.Longitude)
-	}
-
-	if !(i.Latitude < 90.0 && i.Latitude > -90.0) {
-		i.err = fmt.Errorf("latitude not in range -90 to 90: %f", i.Latitude)
-	}
-
 	if len(i.Comment) > 139 {
 		i.Comment = i.Comment[0:139]
 	}
@@ -84,7 +71,7 @@ func (i *Intensity) Valid() {
 	return
 }
 
-// Old sets Err if the intensity pointed to by i is older then 60 minutes.
+// Old sets i.err if the intensity pointed to by i is older then 60 minutes.
 func (i *Intensity) Old() {
 	if i.err != nil {
 		return
@@ -102,5 +89,9 @@ func (i *Intensity) Decode(b []byte) {
 }
 
 func (i *Intensity) Encode() ([]byte, error) {
+	if i.err != nil {
+		return nil, i.err
+	}
+
 	return json.Marshal(i)
 }
