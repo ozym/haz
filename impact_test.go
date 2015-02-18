@@ -1,4 +1,4 @@
-package impact
+package  msg
 
 import (
 	"testing"

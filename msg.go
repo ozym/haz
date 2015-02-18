@@ -2,10 +2,6 @@
 //
 // Models a message flow that looks like:
 //   [transport] receive -> decode -> process -> encode -> send [transport]
-//
-// Logs errors and periodically logs metrics
-// If the env var LIBRATO_USER and LIBRATO_KEY are set then also sends
-// metrics to Librato Metrics.
 package msg
 
 import (
@@ -18,16 +14,14 @@ import (
 )
 
 // Message defines an interface the allows for message processing.
-// Types that implement Message should use an err check no-op approach in m.Process().
-// See for example github.com/GeoNet/msg/impact.Intensity
 type Message interface {
-	Decode(b []byte)
-	Encode() ([]byte, error)
 	Process() (reprocess bool) // a hint to try to reprocess the message.
 	Err() error
 }
 
 // Process excutes m.Process with logging and metrics.
+// If the env var LIBRATO_USER and LIBRATO_KEY are set then also sends
+// metrics to Librato Metrics.
 func Process(m Message) bool {
 	mtr.r.Inc()
 	start := time.Now()
@@ -35,7 +29,7 @@ func Process(m Message) bool {
 	mtr.pt.Inc(start)
 	mtr.p.Inc()
 	if m.Err() != nil {
-		log.Printf("WARN %s", m.Err())
+		log.Printf("%s", m.Err().Error())
 		mtr.e.Inc()
 	}
 	return s
