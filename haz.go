@@ -18,21 +18,8 @@ func (h *Haz) Decode(b []byte) {
 	h.err = json.Unmarshal(b, h)
 }
 
-// Err returns the first non nil error of h, h.Quake, h.HeartBeat otherwise nil.
 func (h *Haz) Err() error {
-	if h.err != nil {
-		return h.err
-	}
-
-	if h.Quake != nil && h.Quake.err != nil {
-		return h.Quake.err
-	}
-
-	if h.HeartBeat != nil && h.HeartBeat.err != nil {
-		return h.HeartBeat.err
-	}
-
-	return nil
+	return h.err
 }
 
 func (h *Haz) SetErr(err error) {
