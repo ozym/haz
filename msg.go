@@ -20,8 +20,6 @@ type Message interface {
 }
 
 // Process excutes m.Process with logging and metrics.
-// If the env var LIBRATO_USER and LIBRATO_KEY are set then also sends
-// metrics to Librato Metrics.
 func Process(m Message) bool {
 	mtr.r.Inc()
 	start := time.Now()
@@ -49,12 +47,14 @@ var (
 	mtr metric
 )
 
-func init() {
+// InitLibrato initialises gathering and sending metrics to Librato metrics.
+// Call from an init func.  Use empty strings to send metrics to the logs only.
+func InitLibrato(user, key string) {
 	mtr = metric{
 		interval:    time.Duration(60) * time.Second,
 		period:      time.Duration(60) * time.Second,
-		libratoUser: os.Getenv("LIBRATO_USER"),
-		libratoKey:  os.Getenv("LIBRATO_KEY"),
+		libratoUser: user,
+		libratoKey:  key,
 	}
 
 	mtr.pt.Init(mtr.period)
