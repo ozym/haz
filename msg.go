@@ -95,8 +95,6 @@ func (m *metric) libratoMetrics() {
 
 	librato.Init(m.libratoUser, m.libratoKey, lbr)
 
-	rate := m.interval.String()
-
 	host, err := os.Hostname()
 	if err != nil {
 		host = "unknown"
@@ -117,19 +115,15 @@ func (m *metric) libratoMetrics() {
 		case v := <-m.pt.Avg:
 			ptg.SetValue(v)
 			g = append(g, *ptg)
-			log.Printf("Metric: Messages.AverageProcessingTime=%fs", ptg.Value)
 		case v := <-m.p.Avg:
 			pg.SetValue(v)
 			g = append(g, *pg)
-			log.Printf("Metric: Messages.Processed=%f per %s", pg.Value, rate)
 		case v := <-m.e.Avg:
 			eg.SetValue(v)
 			g = append(g, *eg)
-			log.Printf("Metric: Messages.Errors=%f per %s", eg.Value, rate)
 		case v := <-m.r.Avg:
 			rg.SetValue(v)
 			g = append(g, *rg)
-			log.Printf("Metric: Messages.Received=%f per %s", rg.Value, rate)
 		}
 		if len(g) == 4 {
 			if len(lbr) < cap(lbr) { // the lbr chan shouldn't be blocked but would rather drop metrics and keep operating.
