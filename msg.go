@@ -36,11 +36,11 @@ func Process(m Message) bool {
 // metrics gathering
 
 type metric struct {
-	interval                time.Duration // Rates calculated over interval.
-	period                  time.Duration // Metrics updated every period.
-	libratoUser, libratoKey string
-	r, p, e                 metrics.Rate
-	pt                      metrics.Timer
+	interval                        time.Duration // Rates calculated over interval.
+	period                          time.Duration // Metrics updated every period.
+	libratoUser, libratoKey, source string
+	r, p, e                         metrics.Rate
+	pt                              metrics.Timer
 }
 
 var (
@@ -48,13 +48,16 @@ var (
 )
 
 // InitLibrato initialises gathering and sending metrics to Librato metrics.
+// Source can be used to further identify the source of the metrics.  If it is
+// non empty it is appended to the hostname to form the metric source.
 // Call from an init func.  Use empty strings to send metrics to the logs only.
-func InitLibrato(user, key string) {
+func InitLibrato(user, key, source string) {
 	mtr = metric{
 		interval:    time.Duration(60) * time.Second,
 		period:      time.Duration(60) * time.Second,
 		libratoUser: user,
 		libratoKey:  key,
+		source:      source,
 	}
 
 	mtr.pt.Init(mtr.period)
@@ -100,13 +103,17 @@ func (m *metric) libratoMetrics() {
 		host = "unknown"
 	}
 
-	a := strings.Split(os.Args[0], "/")
-	source := a[len(a)-1]
+	if m.source != "" {
+		host = host + "-" + m.source
+	}
 
-	ptg := &librato.Gauge{Source: host, Name: source + ".Messages.ProcessingTime"}
-	rg := &librato.Gauge{Source: source, Name: "Messages.Received"}
-	pg := &librato.Gauge{Source: source, Name: "Messages.Processed"}
-	eg := &librato.Gauge{Source: source, Name: "Messages.Error"}
+	a := strings.Split(os.Args[0], "/")
+	exe := a[len(a)-1]
+
+	ptg := &librato.Gauge{Source: host, Name: exe + ".Messages.ProcessingTime"}
+	rg := &librato.Gauge{Source: host, Name: exe + ".Messages.Received"}
+	pg := &librato.Gauge{Source: host, Name: exe + ".Messages.Processed"}
+	eg := &librato.Gauge{Source: host, Name: exe + ".Messages.Error"}
 
 	var g []librato.Gauge
 
