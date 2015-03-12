@@ -115,6 +115,8 @@ func (m *metric) libratoMetrics() {
 	pg := &librato.Gauge{Source: host, Name: exe + ".Messages.Processed"}
 	eg := &librato.Gauge{Source: host, Name: exe + ".Messages.Error"}
 
+	rate := m.interval.String()
+
 	var g []librato.Gauge
 
 	for {
@@ -131,6 +133,7 @@ func (m *metric) libratoMetrics() {
 		case v := <-m.r.Avg:
 			rg.SetValue(v)
 			g = append(g, *rg)
+			log.Printf("Messages received=%f per %s", v, rate)
 		}
 		if len(g) == 4 {
 			if len(lbr) < cap(lbr) { // the lbr chan shouldn't be blocked but would rather drop metrics and keep operating.
