@@ -3,8 +3,8 @@
 	"GoVersion": "go1.4.1",
 	"Deps": [
 		{
-			"ImportPath": "github.com/GeoNet/app/metrics",
-			"Rev": "decc98b6b17ecad6a18c23beaf203b31597322ca"
+			"ImportPath": "github.com/GeoNet/metrics",
+			"Rev": "5158ab74e9727c455363acfe401df619eff17b52"
 		},
 		{
 			"ImportPath": "github.com/StefanSchroeder/Golang-Ellipsoid/ellipsoid",

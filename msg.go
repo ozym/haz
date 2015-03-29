@@ -5,8 +5,8 @@
 package msg
 
 import (
-	"github.com/GeoNet/app/metrics"
-	"github.com/GeoNet/app/metrics/librato"
+	"github.com/GeoNet/metrics"
+	"github.com/GeoNet/metrics/librato"
 	"log"
 	"os"
 	"strings"
