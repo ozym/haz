@@ -42,6 +42,7 @@ type origin struct {
 	Latitude         value        `xml:"latitude"`
 	Longitude        value        `xml:"longitude"`
 	Depth            value        `xml:"depth"`
+	DepthType        string       `xml:"depthType"`
 	Quality          quality      `xml:"quality"`
 	MethodID         string       `xml:"methodID"`
 	EarthModelID     string       `xml:"earthModelID"`
@@ -203,6 +204,7 @@ func (s *sc3ml07) quake() (q Quake) {
 	q.EarthModelID = s.EventParameters.Event.PreferredOrigin.EarthModelID
 	q.EvaluationMode = s.EventParameters.Event.PreferredOrigin.EvaluationMode
 	q.EvaluationStatus = s.EventParameters.Event.PreferredOrigin.EvaluationStatus
+	q.DepthType = s.EventParameters.Event.PreferredOrigin.DepthType
 	q.MagnitudeType = s.EventParameters.Event.PreferredMagnitude.Type
 
 	mt, err := s.quakeModTime()

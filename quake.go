@@ -24,6 +24,7 @@ type Quake struct {
 	Latitude              float64
 	Longitude             float64
 	Depth                 float64
+	DepthType             string
 	MethodID              string
 	EarthModelID          string
 	EvaluationMode        string
