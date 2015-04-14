@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Message defines an interface the allows for message processing.
+// Message defines an interface that allows for message processing.
 type Message interface {
 	Process() (reprocess bool) // a hint to try to reprocess the message.
 	Err() error
@@ -31,6 +31,11 @@ func Process(m Message) bool {
 		mtr.e.Inc()
 	}
 	return s
+}
+
+// MessageTx defines an interface that allows for message transmission.
+type MessageTx interface {
+	ReceiptHandle() string
 }
 
 // metrics gathering
