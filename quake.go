@@ -2,7 +2,7 @@ package msg
 
 import (
 	"fmt"
-	"github.com/StefanSchroeder/Golang-Ellipsoid/ellipsoid"
+	"github.com/GeoNet/Golang-Ellipsoid/ellipsoid"
 	"log"
 	"math"
 	"time"
