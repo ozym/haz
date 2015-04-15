@@ -53,10 +53,6 @@ func TestDecodeSC3ML07(t *testing.T) {
 	if !reflect.DeepEqual(ev, es) {
 		t.Error("events ev and es not equal")
 	}
-
-	if ev.Status() != "automatic" {
-		t.Errorf("incorrect status for ev expected automatic got %s", ev.Status())
-	}
 }
 
 func TestUnmarshalBadSC3ML07(t *testing.T) {
