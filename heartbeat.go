@@ -5,18 +5,30 @@ import (
 	"time"
 )
 
+var hearbeatAge = time.Duration(-5) * time.Minute
+
 type HeartBeat struct {
 	ServiceID string
 	SentTime  time.Time
 	err       error
 }
 
-func (h *HeartBeat) RxLog() {
+// Logs receipt of h.
+// Returns true if the h is old.  False if not.
+func (h *HeartBeat) RxLog() bool {
 	if h.err != nil {
-		return
+		return true
 	}
 
-	log.Printf("Received heartbeat for %s", h.ServiceID)
+	b := h.SentTime.Before(time.Now().UTC().Add(hearbeatAge))
+	switch b {
+	case true:
+		log.Printf("Received old heartbeat for %s", h.ServiceID)
+	case false:
+		log.Printf("Received heartbeat for %s", h.ServiceID)
+	}
+
+	return b
 }
 
 func (h *HeartBeat) TxLog() {
