@@ -16,6 +16,11 @@ var retry = time.Duration(30) * time.Second
 // Messages from SQS can be received from the read chan.  Receipt handles for messages that should be deleted from SQS
 // can be sent to the write chan.
 //
+// Messages are read from the SQS queue s.MaxNumberOfMessages at a time.  They remain
+// invisible or inflight on the SQS queue until either they are deleted by sending the ReceiptHandle to the write
+// chan or they become visible again after s.VisibilityTimeout seconds when they are redelivered.
+// Messages are delivered by SQS at least once.  Applications should handle receiving message duplicates.
+//
 // The chans block for slow consumers.
 func InitRx(s *cfg.SQS) (<-chan msg.Raw, chan<- string, error) {
 	var rx = make(chan msg.Raw)
