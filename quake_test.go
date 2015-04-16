@@ -197,9 +197,59 @@ func TestAlertQuality(t *testing.T) {
 
 }
 
+func TestPublish(t *testing.T) {
+	q := Quake{}
+
+	eq(t, false, q.Publish("primary"))
+	eq(t, false, q.Publish("backup"))
+
+	q.Type = ""
+	q.EvaluationStatus = "automatic"
+
+	eq(t, false, q.Publish("primary"))
+	eq(t, false, q.Publish("backup"))
+
+	q.EvaluationStatus = "confirmed"
+
+	eq(t, true, q.Publish("primary"))
+	eq(t, true, q.Publish("backup"))
+
+	q.EvaluationStatus = "automatic"
+	q.Depth = 0.01
+	q.AzimuthalGap = 321.0
+	q.MinimumDistance = 3.0
+
+	eq(t, false, q.Publish("primary"))
+	eq(t, false, q.Publish("backup"))
+
+	q.EvaluationStatus = "automatic"
+	q.Depth = 0.2
+	q.AzimuthalGap = 319.0
+	q.MinimumDistance = 2.4
+
+	eq(t, true, q.Publish("primary"))
+	eq(t, false, q.Publish("backup"))
+
+	q.EvaluationStatus = "confirmed"
+
+	eq(t, true, q.Publish("primary"))
+	eq(t, true, q.Publish("backup"))
+
+	q.SetErr(fmt.Errorf("errored quake"))
+
+	eq(t, false, q.Publish("primary"))
+	eq(t, false, q.Publish("backup"))
+}
+
 func delta(t *testing.T, expected, actual, delta float64) {
 	if math.Abs(expected-actual) > delta {
 		t.Errorf("%s expected %f got %f diff = %f", loc(), expected, actual, math.Abs(expected-actual))
+	}
+}
+
+func eq(t *testing.T, expected, actual interface{}) {
+	if expected != actual {
+		t.Error("%s not equal", loc())
 	}
 }
 

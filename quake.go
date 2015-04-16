@@ -203,3 +203,24 @@ func (q *Quake) AlertQuality() bool {
 
 	return true
 }
+
+// Publish returns true if the quake is suitable for publishing.
+// site is either 'primary' or 'backup'.
+func (q *Quake) Publish(site string) bool {
+	if q.err != nil {
+		return false
+	}
+
+	p := true
+	switch site {
+	case "primary":
+		if q.Status() == "automatic" && !(q.Depth >= 0.1 && q.AzimuthalGap <= 320.0 && q.MinimumDistance <= 2.5) {
+			p = false
+		}
+	case "backup":
+		if q.Status() == "automatic" {
+			p = false
+		}
+	}
+	return p
+}
