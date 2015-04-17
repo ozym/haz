@@ -5,6 +5,7 @@ import (
 	"math"
 	"runtime"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
@@ -239,6 +240,88 @@ func TestPublish(t *testing.T) {
 
 	eq(t, false, q.Publish("primary"))
 	eq(t, false, q.Publish("backup"))
+}
+
+func TestAlertDuty(t *testing.T) {
+	q := Quake{
+		PublicID:              "2015p278423",
+		Time:                  time.Now().UTC(),
+		Latitude:              -37.92257397,
+		Longitude:             178.3544071,
+		Depth:                 9.62890625,
+		EvaluationStatus:      "automatic",
+		UsedPhaseCount:        25,
+		AzimuthalGap:          180,
+		MinimumDistance:       2.4,
+		Magnitude:             5.0,
+		MagnitudeStationCount: 12,
+	}
+
+	ab, am := q.AlertDuty()
+	eq(t, true, ab)
+	eq(t, true, strings.HasPrefix(am, "Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 5 km south-east of Ruatoria,"))
+
+	q.Longitude = 179.8 // quake off shore should still alert the Duty people.
+	ab, am = q.AlertDuty()
+	eq(t, true, ab)
+	eq(t, true, strings.HasPrefix(am, "Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 130 km east of Te Araroa,"))
+
+	q.Magnitude = 3.0 // small quake off shore no alert.
+	ab, _ = q.AlertDuty()
+	eq(t, false, ab)
+
+	q.Magnitude = 5.5
+	q.SetErr(fmt.Errorf("errored quake no alert"))
+	ab, _ = q.AlertDuty()
+	eq(t, false, ab)
+}
+
+func TestAlertPIM(t *testing.T) {
+	q := Quake{
+		PublicID:              "2015p278423",
+		Time:                  time.Now().UTC(),
+		Latitude:              -37.92257397,
+		Longitude:             178.3544071,
+		Depth:                 9.62890625,
+		EvaluationStatus:      "automatic",
+		UsedPhaseCount:        25,
+		AzimuthalGap:          180,
+		MinimumDistance:       2.4,
+		Magnitude:             6.0,
+		MagnitudeStationCount: 12,
+	}
+
+	ab, am := q.AlertPIM()
+	eq(t, true, ab)
+	eq(t, true, strings.HasPrefix(am, "Eq Rpt: MAG 6.0, MM8, DEP 10, LOC 5 km south-east of Ruatoria,"))
+
+	q.Magnitude = 3.0 // small quake off shore no alert.
+	ab, _ = q.AlertPIM()
+	eq(t, false, ab)
+}
+
+func TestAlertEqNews(t *testing.T) {
+	q := Quake{
+		PublicID:              "2015p278423",
+		Time:                  time.Now().UTC(),
+		Latitude:              -37.92257397,
+		Longitude:             178.3544071,
+		Depth:                 9.62890625,
+		EvaluationStatus:      "automatic",
+		UsedPhaseCount:        25,
+		AzimuthalGap:          180,
+		MinimumDistance:       2.4,
+		Magnitude:             6.0,
+		MagnitudeStationCount: 12,
+	}
+
+	ab, subject, body := q.AlertEqNews()
+	eq(t, true, ab)
+
+	eq(t, "NZ EQ: M6.0, severe intensity, 10km deep, 5 km south-east of Ruatoria", subject)
+
+	// there is no sensible way to test the body (we have to change the quake time to now) so just eyeball it.
+	fmt.Println(body)
 }
 
 func delta(t *testing.T, expected, actual, delta float64) {

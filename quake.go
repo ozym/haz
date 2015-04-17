@@ -1,18 +1,73 @@
 package msg
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/GeoNet/Golang-Ellipsoid/ellipsoid"
 	"log"
 	"math"
+	"text/template"
 	"time"
 )
 
-var geo ellipsoid.Ellipsoid
-var alertAge = time.Duration(-60) * time.Minute
+var (
+	geo      ellipsoid.Ellipsoid
+	alertAge = time.Duration(-60) * time.Minute
+	nz       *time.Location
+	t        = template.Must(template.New("eqNews").Parse(eqNews))
+)
+
+const (
+	dutyTime    = "3:04 PM, 02/01/2006 MST"
+	eqNewsNow   = "Mon 2 Jan 2006 at 3:04 pm"
+	eqNewsUTC   = "2006/01/02 at 15:04:05"
+	eqNewsLocal = "(MST):      Monday 2 Jan 2006 at 3:04 pm"
+)
+
+const eqNews = `                PRELIMINARY EARTHQUAKE REPORT
+
+                      GeoNet Data Centre
+                         GNS Science
+                   Lower Hutt, New Zealand
+                   http://www.geonet.org.nz
+
+        Report Issued at: {{.Now}}
+
+
+A likely felt earthquake has been detected by GeoNet; this is PRELIMINARY information only:
+
+        Public ID:              {{.Q.PublicID}}
+        Universal Time:         {{.UT}}
+        Local Time {{.LT}}
+        Latitude, Longitude:    {{.LL}}
+        Location:               {{.Location}}
+        Intensity:              {{.Intensity}} {{ printf "(MM%.f)"  .MMI}}
+        Depth:                  {{ printf "%.f"  .Q.Depth}} km
+        Magnitude:              {{ printf "%.1f"  .Q.Magnitude}}
+
+Check for the LATEST information at http://www.geonet.org.nz/quakes/{{.Q.PublicID}}
+`
+
+type eqNewsD struct {
+	Q         *Quake
+	MMI       float64
+	Location  string
+	Now       string
+	TZ        string // timezone for the quake.
+	UT        string // quake time in UTC
+	LT        string // quake in local time
+	LL        string // lon lat string
+	Intensity string // word version of MMI
+}
 
 func init() {
 	geo = ellipsoid.Init("WGS84", ellipsoid.Degrees, ellipsoid.Kilometer, ellipsoid.LongitudeIsSymmetric, ellipsoid.BearingNotSymmetric)
+	var err error
+	nz, err = time.LoadLocation("Pacific/Auckland")
+	if err != nil {
+		log.Println("Error loading TZNZ carrying on with UTC")
+		nz = time.UTC
+	}
 }
 
 type Quake struct {
@@ -223,4 +278,164 @@ func (q *Quake) Publish(site string) bool {
 		}
 	}
 	return p
+}
+
+// AlertDuty returns alert = true and message formated if the quake is suitable for alerting the
+// duty people, alert = false and empty message if not.
+func (q *Quake) AlertDuty() (alert bool, message string) {
+	if q.Err() != nil {
+		return
+	}
+
+	if !q.AlertQuality() {
+		return
+	}
+
+	mmi := q.MMI()
+
+	if mmi >= 6 || q.Magnitude >= 4.5 {
+		alert = true
+
+		c, d, b, err := q.Closest()
+		if err != nil {
+			q.SetErr(err)
+			return
+		}
+
+		// Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 105 km N of White Island, TIME 08:33 AM, 26/02/2015
+		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%.f, DEP %.f, LOC %s %s of %s, TIME %s",
+			q.Magnitude,
+			mmi,
+			q.Depth,
+			Distance(d),
+			Compass(b),
+			c.Name,
+			q.Time.In(nz).Format(dutyTime))
+	}
+
+	return
+}
+
+// AlertPIM returns alert = true and message formated if the quake is suitable for alerting the
+// Pubilc Information people, alert = false and empty message if not.
+func (q *Quake) AlertPIM() (alert bool, message string) {
+	if q.Err() != nil {
+		return
+	}
+
+	if !q.AlertQuality() {
+		return
+	}
+
+	if q.Magnitude >= 6.0 {
+		alert = true
+
+		mmi := q.MMI()
+
+		c, d, b, err := q.Closest()
+		if err != nil {
+			q.SetErr(err)
+			return
+		}
+
+		// Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 105 km N of White Island, TIME 08:33 AM, 26/02/2015
+		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%.f, DEP %.f, LOC %s %s of %s, TIME %s",
+			q.Magnitude,
+			mmi,
+			q.Depth,
+			Distance(d),
+			Compass(b),
+			c.Name,
+			q.Time.In(nz).Format(dutyTime))
+	}
+
+	return
+}
+
+func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
+	if q.Err() != nil {
+		return
+	}
+
+	if !q.AlertQuality() {
+		return
+	}
+
+	mmi := q.MMI()
+
+	c, d, b, err := q.Closest()
+	if err != nil {
+		q.SetErr(err)
+		return
+	}
+
+	mmid := MMIDistance(d, q.Depth, mmi)
+
+	if mmi >= 7.0 || mmid >= 3.5 {
+		alert = true
+
+		// NZ EQ: M3.5, weak intensity, 5km deep, 20 km N of Reefton
+		subject = fmt.Sprintf("NZ EQ: M%.1f, %s intensity, %.fkm deep, %s %s of %s",
+			q.Magnitude,
+			MMIIntensity(mmi),
+			q.Depth,
+			Distance(d),
+			Compass(b),
+			c.Name)
+
+	}
+
+	buf := new(bytes.Buffer)
+
+	err = t.ExecuteTemplate(buf, "eqNews", &eqNewsD{
+		Q:         q,
+		MMI:       mmi,
+		Location:  fmt.Sprintf("%s %s of %s", Distance(d), Compass(b), c.Name),
+		Now:       time.Now().In(nz).Format(eqNewsNow),
+		UT:        q.Time.Format(eqNewsUTC),
+		LT:        q.Time.In(nz).Format(eqNewsLocal),
+		LL:        q.eqNewsLonLat(),
+		Intensity: MMIIntensity(mmi),
+	})
+	if err != nil {
+		q.SetErr(err)
+		alert = false
+		return
+	}
+
+	body = buf.String()
+
+	return
+
+}
+
+func Distance(km float64) string {
+	s := "Within 5 km of"
+
+	d := math.Floor(km / 5.0)
+	if d > 0 {
+		s = fmt.Sprintf("%.f km", d*5)
+	}
+	return s
+}
+
+func (q *Quake) eqNewsLonLat() string {
+	var lon, lat string
+
+	switch q.Longitude < 0.0 {
+	case true:
+		lon = fmt.Sprintf("%.2fW", q.Longitude*-1.0)
+	case false:
+		lon = fmt.Sprintf("%.2fE", q.Longitude)
+	}
+
+	switch q.Latitude < 0.0 {
+	case true:
+		lat = fmt.Sprintf("%.2fS", q.Latitude*-1.0)
+	case false:
+		lat = fmt.Sprintf("%.2fN", q.Latitude)
+	}
+
+	// 41.94S, 171.86E
+	return lat + ", " + lon
 }
