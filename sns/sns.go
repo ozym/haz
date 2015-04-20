@@ -53,7 +53,9 @@ func (s *SNS) Publish(m msg.Raw, retries int) (err error) {
 		}
 		c++
 
+		log.Println("WARN " + err.Error())
 		log.Println("WARN error sending to SNS.  Sleeping and trying again")
+
 		time.Sleep(retry)
 	}
 	return err
