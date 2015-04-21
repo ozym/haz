@@ -202,15 +202,23 @@ func TestPublish(t *testing.T) {
 	q := Quake{}
 
 	eq(t, false, q.Publish("primary"))
+
+	q.SetErr(nil)
+
 	eq(t, false, q.Publish("backup"))
 
 	q.Type = ""
 	q.EvaluationStatus = "automatic"
+	q.SetErr(nil)
 
 	eq(t, false, q.Publish("primary"))
+
+	q.SetErr(nil)
+
 	eq(t, false, q.Publish("backup"))
 
 	q.EvaluationStatus = "confirmed"
+	q.SetErr(nil)
 
 	eq(t, true, q.Publish("primary"))
 	eq(t, true, q.Publish("backup"))
@@ -219,18 +227,24 @@ func TestPublish(t *testing.T) {
 	q.Depth = 0.01
 	q.AzimuthalGap = 321.0
 	q.MinimumDistance = 3.0
+	q.SetErr(nil)
 
 	eq(t, false, q.Publish("primary"))
+
+	q.SetErr(nil)
+
 	eq(t, false, q.Publish("backup"))
 
 	q.EvaluationStatus = "automatic"
 	q.Depth = 0.2
 	q.AzimuthalGap = 319.0
 	q.MinimumDistance = 2.4
+	q.SetErr(nil)
 
 	eq(t, true, q.Publish("primary"))
 	eq(t, false, q.Publish("backup"))
 
+	q.SetErr(nil)
 	q.EvaluationStatus = "confirmed"
 
 	eq(t, true, q.Publish("primary"))

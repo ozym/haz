@@ -271,10 +271,12 @@ func (q *Quake) Publish(site string) bool {
 	case "primary":
 		if q.Status() == "automatic" && !(q.Depth >= 0.1 && q.AzimuthalGap <= 320.0 && q.MinimumDistance <= 2.5) {
 			p = false
+			q.SetErr(fmt.Errorf("Not publising automatic quake %s with poor quality from primary site.", q.PublicID))
 		}
 	case "backup":
 		if q.Status() == "automatic" {
 			p = false
+			q.SetErr(fmt.Errorf("Not publising unreviewed quake %s from backup site.", q.PublicID))
 		}
 	}
 	return p
