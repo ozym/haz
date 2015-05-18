@@ -9,6 +9,7 @@ import (
 	"github.com/GeoNet/metrics/librato"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -77,6 +78,7 @@ func InitLibrato(user, key, source string) {
 	} else {
 		log.Println("Sending metrics to logger only.")
 		go mtr.logMetrics()
+		go logRuntimeStats()
 	}
 }
 
@@ -88,7 +90,7 @@ func (m *metric) logMetrics() {
 	for {
 		select {
 		case v := <-m.pt.Avg:
-			log.Printf("Metric: Messages.AverageProcessingTime=%fs", v)
+			log.Printf("Metric: Messages.ProcessingTime=%fs", v)
 		case v := <-m.p.Avg:
 			log.Printf("Metric: Messages.Processed=%f per %s", v, rate)
 		case v := <-m.e.Avg:
@@ -121,6 +123,13 @@ func (m *metric) libratoMetrics() {
 	pg := &librato.Gauge{Source: host, Name: exe + ".Messages.Processed"}
 	eg := &librato.Gauge{Source: host, Name: exe + ".Messages.Error"}
 
+	// run time stats.
+	mem := &runtime.MemStats{}
+	memSys := &librato.Gauge{Source: host, Name: exe + ".MemStats.Sys"}
+	memHeap := &librato.Gauge{Source: host, Name: exe + ".MemStats.HeapAlloc"}
+	memStack := &librato.Gauge{Source: host, Name: exe + ".MemStats.StackInuse"}
+	goRoutines := &librato.Gauge{Source: host, Name: exe + ".NumGoroutine"}
+
 	rate := m.interval.String()
 
 	var g []librato.Gauge
@@ -142,10 +151,35 @@ func (m *metric) libratoMetrics() {
 			log.Printf("Messages received=%f per %s", v, rate)
 		}
 		if len(g) == 4 {
+			runtime.ReadMemStats(mem)
+			memSys.SetValue(float64(mem.Sys))
+			memHeap.SetValue(float64(mem.HeapAlloc))
+			memStack.SetValue(float64(mem.StackInuse))
+			goRoutines.SetValue(float64(runtime.NumGoroutine()))
+
+			g = append(g, *memSys)
+			g = append(g, *memHeap)
+			g = append(g, *memStack)
+			g = append(g, *goRoutines)
+
 			if len(lbr) < cap(lbr) { // the lbr chan shouldn't be blocked but would rather drop metrics and keep operating.
 				lbr <- g
 			}
 			g = nil
 		}
+	}
+}
+
+func logRuntimeStats() {
+	m := &runtime.MemStats{}
+	s := time.Duration(60) * time.Second
+
+	for {
+		runtime.ReadMemStats(m)
+		log.Printf("MemStats.Sys %d", m.Sys)
+		log.Printf("MemStats.HeapAlloc %d", m.HeapAlloc)
+		log.Printf("MemStats.StackInuse %d", m.StackInuse)
+		log.Printf("NumGoroutine %d", runtime.NumGoroutine())
+		time.Sleep(s)
 	}
 }
