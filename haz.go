@@ -6,12 +6,10 @@ import (
 
 // Haz is a useful wire format.  Clients will typically expect only one
 // of the members to be non nil.
-// Implements MessageTx
 type Haz struct {
-	Quake         *Quake
-	HeartBeat     *HeartBeat
-	err           error
-	receiptHandle string
+	Quake     *Quake
+	HeartBeat *HeartBeat
+	err       error
 }
 
 // Decode decodes JSON into h.
