@@ -201,39 +201,46 @@ func TestAlertQuality(t *testing.T) {
 func TestPublish(t *testing.T) {
 	q := Quake{}
 
-	eq(t, false, q.Publish("primary"))
+	q.Site = "primary"
+	eq(t, false, q.Publish())
 
 	q.SetErr(nil)
 
-	eq(t, false, q.Publish("backup"))
+	q.Site = "backup"
+	eq(t, false, q.Publish())
 
 	q.Type = ""
 	q.EvaluationStatus = "automatic"
 	q.SetErr(nil)
 
-	eq(t, false, q.Publish("primary"))
+	q.Site = "primary"
+	eq(t, false, q.Publish())
 
 	q.SetErr(nil)
 
-	eq(t, false, q.Publish("backup"))
+	q.Site = "backup"
+	eq(t, false, q.Publish())
 
 	q.EvaluationStatus = "confirmed"
 	q.SetErr(nil)
 
-	eq(t, true, q.Publish("primary"))
-	eq(t, true, q.Publish("backup"))
+	q.Site = "primary"
+	eq(t, true, q.Publish())
+	q.Site = "backup"
+	eq(t, true, q.Publish())
 
 	q.EvaluationStatus = "automatic"
 	q.Depth = 0.01
 	q.AzimuthalGap = 321.0
 	q.MinimumDistance = 3.0
+	q.Site = "primary"
 	q.SetErr(nil)
 
-	eq(t, false, q.Publish("primary"))
+	eq(t, false, q.Publish())
 
 	q.SetErr(nil)
-
-	eq(t, false, q.Publish("backup"))
+	q.Site = "backup"
+	eq(t, false, q.Publish())
 
 	q.EvaluationStatus = "automatic"
 	q.Depth = 0.2
@@ -241,19 +248,25 @@ func TestPublish(t *testing.T) {
 	q.MinimumDistance = 2.4
 	q.SetErr(nil)
 
-	eq(t, true, q.Publish("primary"))
-	eq(t, false, q.Publish("backup"))
+	q.Site = "primary"
+	eq(t, true, q.Publish())
+	q.Site = "backup"
+	eq(t, false, q.Publish())
 
 	q.SetErr(nil)
 	q.EvaluationStatus = "confirmed"
 
-	eq(t, true, q.Publish("primary"))
-	eq(t, true, q.Publish("backup"))
+	q.Site = "primary"
+	eq(t, true, q.Publish())
+	q.Site = "backup"
+	eq(t, true, q.Publish())
 
 	q.SetErr(fmt.Errorf("errored quake"))
 
-	eq(t, false, q.Publish("primary"))
-	eq(t, false, q.Publish("backup"))
+	q.Site = "primary"
+	eq(t, false, q.Publish())
+	q.Site = "backup"
+	eq(t, false, q.Publish())
 }
 
 func TestAlertDuty(t *testing.T) {

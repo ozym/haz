@@ -93,6 +93,7 @@ type Quake struct {
 	MagnitudeUncertainty  float64
 	MagnitudeType         string
 	MagnitudeStationCount int
+	Site                  string
 	err                   error
 }
 
@@ -261,14 +262,14 @@ func (q *Quake) AlertQuality() bool {
 
 // Publish returns true if the quake is suitable for publishing.
 // site is either 'primary' or 'backup'.
-func (q *Quake) Publish(site string) bool {
+func (q *Quake) Publish() bool {
 	if q.err != nil {
 		return false
 	}
 
 	p := true
-	switch site {
-	case "primary":
+	switch q.Site {
+	case "primary", "":
 		if q.Status() == "automatic" && !(q.Depth >= 0.1 && q.AzimuthalGap <= 320.0 && q.MinimumDistance <= 2.5) {
 			p = false
 			q.SetErr(fmt.Errorf("Not publising automatic quake %s with poor quality from primary site.", q.PublicID))
