@@ -41,7 +41,7 @@ A likely felt earthquake has been detected by GeoNet; this is PRELIMINARY inform
         Local Time {{.LT}}
         Latitude, Longitude:    {{.LL}}
         Location:               {{.Location}}
-        Intensity:              {{.Intensity}} {{.MMI}}
+        Intensity:              {{.Intensity}} (MM{{.MMI}})
         Depth:                  {{ printf "%.f"  .Q.Depth}} km
         Magnitude:              {{ printf "%.1f"  .Q.Magnitude}}
 
