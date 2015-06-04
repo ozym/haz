@@ -41,7 +41,7 @@ A likely felt earthquake has been detected by GeoNet; this is PRELIMINARY inform
         Local Time {{.LT}}
         Latitude, Longitude:    {{.LL}}
         Location:               {{.Location}}
-        Intensity:              {{.Intensity}} {{ printf "(MM%.f)"  .MMI}}
+        Intensity:              {{.Intensity}} {{.MMI}}
         Depth:                  {{ printf "%.f"  .Q.Depth}} km
         Magnitude:              {{ printf "%.1f"  .Q.Magnitude}}
 
@@ -50,7 +50,7 @@ Check for the LATEST information at http://www.geonet.org.nz/quakes/{{.Q.PublicI
 
 type eqNewsD struct {
 	Q         *Quake
-	MMI       float64
+	MMI       int
 	Location  string
 	Now       string
 	TZ        string // timezone for the quake.
@@ -306,9 +306,9 @@ func (q *Quake) AlertDuty() (alert bool, message string) {
 		}
 
 		// Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 105 km N of White Island, TIME 08:33 AM, 26/02/2015
-		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%.f, DEP %.f, LOC %s %s of %s, TIME %s",
+		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%d, DEP %.f, LOC %s %s of %s, TIME %s",
 			q.Magnitude,
-			mmi,
+			int(mmi),
 			q.Depth,
 			Distance(d),
 			Compass(b),
@@ -342,9 +342,9 @@ func (q *Quake) AlertPIM() (alert bool, message string) {
 		}
 
 		// Eq Rpt: MAG 5.0, MM7, DEP 10, LOC 105 km N of White Island, TIME 08:33 AM, 26/02/2015
-		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%.f, DEP %.f, LOC %s %s of %s, TIME %s",
+		message = fmt.Sprintf("Eq Rpt: MAG %.1f, MM%d, DEP %.f, LOC %s %s of %s, TIME %s",
 			q.Magnitude,
-			mmi,
+			int(mmi),
 			q.Depth,
 			Distance(d),
 			Compass(b),
@@ -392,7 +392,7 @@ func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 
 	err = t.ExecuteTemplate(buf, "eqNews", &eqNewsD{
 		Q:         q,
-		MMI:       mmi,
+		MMI:       int(mmi),
 		Location:  fmt.Sprintf("%s %s of %s", Distance(d), Compass(b), c.Name),
 		Now:       time.Now().In(nz).Format(eqNewsNow),
 		UT:        q.Time.Format(eqNewsUTC),
