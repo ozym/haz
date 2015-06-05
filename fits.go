@@ -45,5 +45,5 @@ func (o *Observation) RxLog() {
 		return
 	}
 
-	log.Printf("Received observation %s", o)
+	log.Printf("Received observation %s.%s %s %s", o.NetworkID, o.SiteID, o.TypeID, o.MethodID)
 }
