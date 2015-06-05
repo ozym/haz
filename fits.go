@@ -2,6 +2,7 @@ package msg
 
 import (
 	"encoding/json"
+	"log"
 	"time"
 )
 
@@ -37,4 +38,12 @@ func (o *Observation) Encode() ([]byte, error) {
 	}
 
 	return json.Marshal(o)
+}
+
+func (o *Observation) RxLog() {
+	if o.err != nil {
+		return
+	}
+
+	log.Printf("Received observation %s.%s %s %s", o.NetworkID, o.SiteID, o.TypeID, o.MethodID)
 }
