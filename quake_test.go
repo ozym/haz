@@ -351,6 +351,31 @@ func TestAlertEqNews(t *testing.T) {
 	fmt.Println(body)
 }
 
+func TestAlertTwitter(t *testing.T) {
+	q := Quake{
+		PublicID:              "2015p278423",
+		Time:                  time.Now().UTC(),
+		Latitude:              -37.92257397,
+		Longitude:             178.3544071,
+		Depth:                 9.62890625,
+		EvaluationStatus:      "automatic",
+		UsedPhaseCount:        25,
+		AzimuthalGap:          180,
+		MinimumDistance:       2.4,
+		Magnitude:             6.0,
+		MagnitudeStationCount: 12,
+	}
+
+	a, m := q.AlertTwitter(0)
+
+	eq(t, true, a)
+	eq(t, true, strings.HasPrefix(m, `Quake 5 km south-east of Ruatoria, intensity severe, approx. M6.0, depth 10 km http://geonet.org.nz/quakes/2015p278423`))
+
+	a, m = q.AlertTwitter(7)
+	eq(t, false, a)
+
+}
+
 func delta(t *testing.T, expected, actual, delta float64) {
 	if math.Abs(expected-actual) > delta {
 		t.Errorf("%s expected %f got %f diff = %f", loc(), expected, actual, math.Abs(expected-actual))

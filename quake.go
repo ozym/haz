@@ -22,6 +22,7 @@ const (
 	eqNewsNow   = "Mon 2 Jan 2006 at 3:04 pm"
 	eqNewsUTC   = "2006/01/02 at 15:04:05"
 	eqNewsLocal = "(MST):      Monday 2 Jan 2006 at 3:04 pm"
+	twitterTime = "Mon 2 Jan 2006 3:04 pm (MST)"
 )
 
 const eqNews = `                PRELIMINARY EARTHQUAKE REPORT
@@ -350,6 +351,56 @@ func (q *Quake) AlertPIM() (alert bool, message string) {
 			Compass(b),
 			c.Name,
 			q.Time.In(nz).Format(dutyTime))
+	}
+
+	return
+}
+
+/*
+AlertTwitter returns alert = true and message formatted for sending to twitter if
+the quake is suitable for alerting and above the minMagnitude threshold.  alert = false
+and message empty if not.
+*/
+func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) {
+	if q.Err() != nil {
+		return
+	}
+
+	if !q.AlertQuality() {
+		return
+	}
+
+	if q.Magnitude < minMagnitude {
+		return
+	}
+
+	mmi := q.MMI()
+
+	c, d, b, err := q.Closest()
+	if err != nil {
+		q.SetErr(err)
+		return
+	}
+
+	mmiD := MMIDistance(d, q.Depth, mmi)
+
+	if mmiD >= 3.0 {
+		alert = true
+
+		// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
+		message = fmt.Sprintf("Quake %s %s of %s, intensity %s, approx. M%.1f, depth %.f km http://geonet.org.nz/quakes/%s %s",
+			Distance(d),
+			Compass(b),
+			c.Name,
+			MMIIntensity(mmi),
+			q.Magnitude,
+			q.Depth,
+			q.PublicID,
+			q.Time.In(nz).Format(twitterTime))
+	}
+
+	if len(message) > 140 {
+		message = message[0:140]
 	}
 
 	return
