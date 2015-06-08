@@ -237,7 +237,7 @@ func (q *Quake) Closest() (locality Locality, distance float64, bearing float64,
 }
 
 // Returns true of the Quake is of high enough quality to consider for alerting.
-//  false if not.  If false Quake.Err() is also set.
+//  false if not.
 func (q *Quake) AlertQuality() bool {
 	if q.err != nil {
 		return false
@@ -245,16 +245,16 @@ func (q *Quake) AlertQuality() bool {
 
 	switch {
 	case q.Status() == "deleted":
-		q.err = fmt.Errorf("%s status deleted not suitable for alerting.", q.PublicID)
+		log.Printf("%s status deleted not suitable for alerting.", q.PublicID)
 		return false
 	case q.Status() == "duplicate":
-		q.err = fmt.Errorf("%s status duplicate not suitable for alerting.", q.PublicID)
+		log.Printf("%s status duplicate not suitable for alerting.", q.PublicID)
 		return false
 	case q.Status() == "automatic" && (q.UsedPhaseCount < 20 || q.MagnitudeStationCount < 10):
-		q.err = fmt.Errorf("%s unreviewed with %d phases and %d magnitudes not suitable for alerting.", q.PublicID, q.UsedPhaseCount, q.MagnitudeStationCount)
+		log.Printf("%s unreviewed with %d phases and %d magnitudes not suitable for alerting.", q.PublicID, q.UsedPhaseCount, q.MagnitudeStationCount)
 		return false
 	case q.Time.Before(time.Now().UTC().Add(alertAge)):
-		q.err = fmt.Errorf("%s to old for alerting", q.PublicID)
+		log.Printf("%s to old for alerting", q.PublicID)
 		return false
 	}
 
@@ -273,12 +273,12 @@ func (q *Quake) Publish() bool {
 	case "primary", "":
 		if q.Status() == "automatic" && !(q.Depth >= 0.1 && q.AzimuthalGap <= 320.0 && q.MinimumDistance <= 2.5) {
 			p = false
-			q.SetErr(fmt.Errorf("Not publising automatic quake %s with poor quality from primary site.", q.PublicID))
+			log.Printf("Not publising automatic quake %s with poor quality from primary site.", q.PublicID)
 		}
 	case "backup":
 		if q.Status() == "automatic" {
 			p = false
-			q.SetErr(fmt.Errorf("Not publising unreviewed quake %s from backup site.", q.PublicID))
+			log.Printf("Not publising unreviewed quake %s from backup site.", q.PublicID)
 		}
 	}
 	return p
