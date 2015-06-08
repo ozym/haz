@@ -95,24 +95,12 @@ func TestAlertQuality(t *testing.T) {
 		t.Error("should not alert for automatic with 8 phases and mags.")
 	}
 
-	if q.Err() == nil {
-		t.Errorf("err  should be set for low phases and mags.")
-	}
-
-	q.SetErr(nil)
-
 	q.UsedPhaseCount = 22
 	q.MagnitudeStationCount = 8
 
 	if q.AlertQuality() {
 		t.Error("should not alert for automatic with 22 phases and 8 mags.")
 	}
-
-	if q.Err() == nil {
-		t.Errorf("err  should be set for 22 phases and 8 mags.")
-	}
-
-	q.SetErr(nil)
 
 	q.UsedPhaseCount = 22
 	q.MagnitudeStationCount = 12
@@ -127,19 +115,11 @@ func TestAlertQuality(t *testing.T) {
 		t.Error("should not alert for deleted quake.")
 	}
 
-	if q.Err() == nil {
-		t.Errorf("err  should be set for deleted quake.")
-	}
-
 	q.Type = "duplicate"
 	q.SetErr(nil)
 
 	if q.AlertQuality() {
 		t.Error("should not alert for duplicate quake.")
-	}
-
-	if q.Err() == nil {
-		t.Errorf("err  should be set for duplicate quake.")
 	}
 
 	q = Quake{}
@@ -178,10 +158,6 @@ func TestAlertQuality(t *testing.T) {
 		t.Error("should not alert for old reviewed quake.")
 	}
 
-	if q.Err() == nil {
-		t.Errorf("err should be set for old reviewed quake.")
-	}
-
 	q = Quake{}
 	q.Time = time.Now().UTC().Add(time.Duration(-61) * time.Minute)
 	q.Type = "earthquake"
@@ -191,11 +167,6 @@ func TestAlertQuality(t *testing.T) {
 	if q.AlertQuality() {
 		t.Error("should not alert for old high quality quake.")
 	}
-
-	if q.Err() == nil {
-		t.Errorf("err should be set for old high quality quake.")
-	}
-
 }
 
 func TestPublish(t *testing.T) {
