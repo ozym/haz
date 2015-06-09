@@ -22,7 +22,8 @@ const (
 	eqNewsNow   = "Mon 2 Jan 2006 at 3:04 pm"
 	eqNewsUTC   = "2006/01/02 at 15:04:05"
 	eqNewsLocal = "(MST):      Monday 2 Jan 2006 at 3:04 pm"
-	twitterTime = "Mon 2 Jan 2006 3:04 pm (MST)"
+	twitterTime = "Mon Jan 2 2006 3:04 PM (MST)"
+	tcoUrlLen   = len("http://t.co/7gZ0yUcmSx") // 09/06/2015 Twitter's t.co url sample (22 chars)
 )
 
 const eqNews = `                PRELIMINARY EARTHQUAKE REPORT
@@ -388,19 +389,23 @@ func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) 
 		alert = true
 
 		// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
-		message = fmt.Sprintf("Quake %s %s of %s, intensity %s, approx. M%.1f, depth %.f km http://geonet.org.nz/quakes/%s %s",
+		qUrl := fmt.Sprintf("http://geonet.org.nz/quakes/%s", q.PublicID)
+		message = fmt.Sprintf("Quake %s %s of %s, intensity %s, approx. M%.1f, depth %.f km %s %s",
 			Distance(d),
 			Compass(b),
 			c.Name,
 			MMIIntensity(mmi),
 			q.Magnitude,
 			q.Depth,
-			q.PublicID,
+			qUrl,
 			q.Time.In(nz).Format(twitterTime))
-	}
 
-	if len(message) > 140 {
-		message = message[0:140]
+		// Make sure we'll only send message less than 140 chars (after url shortened with t.co)
+		t := len(message) - len(qUrl) + tcoUrlLen - 140
+		if t > 0 {
+			message = message[0 : len(message)-t]
+			log.Println("WARNING: Twitter message truncated", t, "chars to:", message)
+		}
 	}
 
 	return
