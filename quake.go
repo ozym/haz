@@ -411,6 +411,33 @@ func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) 
 	return
 }
 
+func (q *Quake) AlertUAPush() (message string, tags []string) {
+	if q.Err() != nil {
+		return
+	}
+
+	mmi := q.MMI()
+
+	c, d, b, err := q.Closest()
+	if err != nil {
+		q.SetErr(err)
+		return
+	}
+
+	tags = q.uaTags()
+	m := fmt.Sprintf("%s quake %s %s of %s",
+		MMIIntensity(mmi),
+		Distance(d),
+		Compass(b),
+		c.Name)
+
+	// capitalize intensity
+	t := []byte(m)
+	t[0] = t[0] - ('a' - 'A')
+	message = string(t)
+	return
+}
+
 func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 	if q.Err() != nil {
 		return

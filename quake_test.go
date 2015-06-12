@@ -347,6 +347,27 @@ func TestAlertTwitter(t *testing.T) {
 
 }
 
+func TestAlertUAPush(t *testing.T) {
+	q := Quake{
+		PublicID:              "2015p278423",
+		Time:                  time.Now().UTC(),
+		Latitude:              -37.92257397,
+		Longitude:             178.3544071,
+		Depth:                 9.62890625,
+		EvaluationStatus:      "automatic",
+		UsedPhaseCount:        25,
+		AzimuthalGap:          180,
+		MinimumDistance:       2.4,
+		Magnitude:             6.0,
+		MagnitudeStationCount: 12,
+	}
+
+	m, _ := q.AlertUAPush()
+
+	eq(t, true, m == `Severe quake 5 km south-east of Ruatoria`)
+
+}
+
 func delta(t *testing.T, expected, actual, delta float64) {
 	if math.Abs(expected-actual) > delta {
 		t.Errorf("%s expected %f got %f diff = %f", loc(), expected, actual, math.Abs(expected-actual))
