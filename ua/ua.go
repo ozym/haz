@@ -112,7 +112,7 @@ func (a *Client) Push(c *cfg.UA, publicID string, message string, tags []string)
 			return // success, we're out
 		default:
 			respString, _ := ioutil.ReadAll(res.Body)
-			err = fmt.Errorf("Response error message from UA:", string(respString[:]))
+			err = fmt.Errorf("Response error message from UA: %s", string(respString))
 			return
 		}
 	}
