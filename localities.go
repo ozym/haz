@@ -13,6 +13,13 @@ type Locality struct {
 	size                int
 }
 
+type LocalityQuake struct {
+	Locality    Locality
+	Distance    float64 // distance from quake to locality km
+	Bearing     float64 // bearing from the locality to the quake
+	MMIDistance float64 // calculated MMI at the locality.
+}
+
 func init() {
 	localities = []Locality{
 		{Name: `Akaroa`, Longitude: 172.97, Latitude: -43.82, size: 2},
