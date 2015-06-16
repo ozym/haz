@@ -50,17 +50,19 @@ type extra struct {
 
 type Client struct {
 	h *http.Client
+	c *cfg.UA
 }
 
 func Init(c *cfg.UA) *Client {
 	a := &Client{
 		h: &http.Client{},
+		c: c,
 	}
 
 	return a
 }
 
-func (a *Client) Push(c *cfg.UA, publicID string, message string, tags []string) (err error) {
+func (a *Client) Push(publicID string, message string, tags []string) (err error) {
 	e := extra{
 		PublicID: publicID,
 	}
@@ -98,7 +100,7 @@ func (a *Client) Push(c *cfg.UA, publicID string, message string, tags []string)
 		return
 	}
 
-	req.SetBasicAuth(c.AppKey, c.AppMasterSecret)
+	req.SetBasicAuth(a.c.AppKey, a.c.AppMasterSecret)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/vnd.urbanairship+json; version=3;")
 
