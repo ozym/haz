@@ -1,5 +1,9 @@
 package msg
 
+import (
+	"log"
+)
+
 type VolcanicAlert struct {
 	Level    int
 	Activity string
@@ -111,4 +115,20 @@ func (v *VAL) Err() error {
 
 func (v *VAL) SetErr(err error) {
 	v.err = err
+}
+
+func (v *VAL) RxLog() {
+	if v.err != nil {
+		return
+	}
+
+	log.Printf("Received volcanic alert level update: %s %d", v.Volcano.Title, v.VolcanicAlert.Level)
+}
+
+func (v *VAL) TxLog() {
+	if v.err != nil {
+		return
+	}
+
+	log.Printf("Sending volcanic alert level update: %s %d", v.Volcano.Title, v.VolcanicAlert.Level)
 }
