@@ -424,6 +424,11 @@ func (q *Quake) AlertUAPush() (message string, tags []string) {
 		return
 	}
 
+	mmiD := MMIDistance(d, q.Depth, mmi)
+	if mmiD < 3.0 {
+		return
+	}
+
 	tags = q.uaTags()
 	m := fmt.Sprintf("%s quake %s %s of %s",
 		MMIIntensity(mmi),
