@@ -199,15 +199,17 @@ func MMIIntensity(mmi float64) string {
 	}
 }
 
-// Closest returns the New Zealand Locality closest to the quake. Distance is from the
-// Quake to the Locality in km.  Bearing is from the Locality to the Quake in degrees.
-func (q *Quake) Closest() (locality Locality, distance float64, bearing float64, err error) {
+// Closest returns the New Zealand LocalityQuake closest to the quake.
+func (q *Quake) Closest() (loc LocalityQuake, err error) {
+	// func (q *Quake) Closest() (locality Locality, distance float64, bearing float64, err error) {
 	if q.err != nil {
 		err = q.err
 		return
 	}
 
-	distance = 20000.0
+	distance := 20000.0
+	var bearing float64
+	var locality Locality
 
 	for _, l := range localities {
 		d, b := geo.To(l.Latitude, l.Longitude, q.Latitude, q.Longitude)
@@ -234,7 +236,43 @@ func (q *Quake) Closest() (locality Locality, distance float64, bearing float64,
 		}
 	}
 
-	return locality, distance, bearing, nil
+	loc.Locality = locality
+	loc.Distance = distance
+	loc.Bearing = bearing
+	loc.MMIDistance = MMIDistance(distance, q.Depth, q.MMI())
+
+	return loc, nil
+}
+
+/*
+LocalitiesQuake returns localities that have an MMI at a distance >= minMMIDistance
+for the quake.
+*/
+func (q Quake) Localities(minMMIDistance float64) (l []LocalityQuake) {
+	if q.err != nil {
+		return
+	}
+
+	mmi := q.MMI()
+
+	for _, loc := range localities {
+		d, b := geo.To(loc.Latitude, loc.Longitude, q.Latitude, q.Longitude)
+
+		mmid := MMIDistance(d, q.Depth, mmi)
+
+		if mmid >= minMMIDistance {
+			c := LocalityQuake{
+				Locality:    loc,
+				Distance:    d,
+				Bearing:     b,
+				MMIDistance: mmid,
+			}
+
+			l = append(l, c)
+		}
+	}
+
+	return
 }
 
 // Returns true of the Quake is of high enough quality to consider for alerting.
@@ -301,7 +339,7 @@ func (q *Quake) AlertDuty() (alert bool, message string) {
 	if mmi >= 6 || q.Magnitude >= 4.5 {
 		alert = true
 
-		c, d, b, err := q.Closest()
+		c, err := q.Closest()
 		if err != nil {
 			q.SetErr(err)
 			return
@@ -312,9 +350,9 @@ func (q *Quake) AlertDuty() (alert bool, message string) {
 			q.Magnitude,
 			int(mmi),
 			q.Depth,
-			Distance(d),
-			Compass(b),
-			c.Name,
+			Distance(c.Distance),
+			Compass(c.Bearing),
+			c.Locality.Name,
 			q.Time.In(nz).Format(dutyTime))
 	}
 
@@ -337,7 +375,7 @@ func (q *Quake) AlertPIM() (alert bool, message string) {
 
 		mmi := q.MMI()
 
-		c, d, b, err := q.Closest()
+		c, err := q.Closest()
 		if err != nil {
 			q.SetErr(err)
 			return
@@ -348,9 +386,9 @@ func (q *Quake) AlertPIM() (alert bool, message string) {
 			q.Magnitude,
 			int(mmi),
 			q.Depth,
-			Distance(d),
-			Compass(b),
-			c.Name,
+			Distance(c.Distance),
+			Compass(c.Bearing),
+			c.Locality.Name,
 			q.Time.In(nz).Format(dutyTime))
 	}
 
@@ -375,26 +413,22 @@ func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) 
 		return
 	}
 
-	mmi := q.MMI()
-
-	c, d, b, err := q.Closest()
+	c, err := q.Closest()
 	if err != nil {
 		q.SetErr(err)
 		return
 	}
 
-	mmiD := MMIDistance(d, q.Depth, mmi)
-
-	if mmiD >= 3.0 {
+	if c.MMIDistance >= 3.0 {
 		alert = true
 
 		// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
 		qUrl := fmt.Sprintf("http://geonet.org.nz/quakes/%s", q.PublicID)
 		message = fmt.Sprintf("Quake %s %s of %s, intensity %s, approx. M%.1f, depth %.f km %s %s",
-			Distance(d),
-			Compass(b),
-			c.Name,
-			MMIIntensity(mmi),
+			Distance(c.Distance),
+			Compass(c.Bearing),
+			c.Locality.Name,
+			MMIIntensity(q.MMI()),
 			q.Magnitude,
 			q.Depth,
 			qUrl,
@@ -416,25 +450,22 @@ func (q *Quake) AlertUAPush() (message string, tags []string) {
 		return
 	}
 
-	mmi := q.MMI()
-
-	c, d, b, err := q.Closest()
+	c, err := q.Closest()
 	if err != nil {
 		q.SetErr(err)
 		return
 	}
 
-	mmiD := MMIDistance(d, q.Depth, mmi)
-	if mmiD < 3.0 {
+	if c.MMIDistance < 3.0 {
 		return
 	}
 
 	tags = q.uaTags()
 	m := fmt.Sprintf("%s quake %s %s of %s",
-		MMIIntensity(mmi),
-		Distance(d),
-		Compass(b),
-		c.Name)
+		MMIIntensity(q.MMI()),
+		Distance(c.Distance),
+		Compass(c.Bearing),
+		c.Locality.Name)
 
 	// capitalize intensity
 	t := []byte(m)
@@ -454,15 +485,13 @@ func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 
 	mmi := q.MMI()
 
-	c, d, b, err := q.Closest()
+	c, err := q.Closest()
 	if err != nil {
 		q.SetErr(err)
 		return
 	}
 
-	mmid := MMIDistance(d, q.Depth, mmi)
-
-	if mmi >= 7.0 || mmid >= 3.5 {
+	if mmi >= 7.0 || c.MMIDistance >= 3.5 {
 		alert = true
 
 		// NZ EQ: M3.5, weak intensity, 5km deep, 20 km N of Reefton
@@ -470,9 +499,9 @@ func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 			q.Magnitude,
 			MMIIntensity(mmi),
 			q.Depth,
-			Distance(d),
-			Compass(b),
-			c.Name)
+			Distance(c.Distance),
+			Compass(c.Bearing),
+			c.Locality.Name)
 
 	}
 
@@ -481,7 +510,7 @@ func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 	err = t.ExecuteTemplate(buf, "eqNews", &eqNewsD{
 		Q:         q,
 		MMI:       int(mmi),
-		Location:  fmt.Sprintf("%s %s of %s", Distance(d), Compass(b), c.Name),
+		Location:  fmt.Sprintf("%s %s of %s", Distance(c.Distance), Compass(c.Bearing), c.Locality.Name),
 		Now:       time.Now().In(nz).Format(eqNewsNow),
 		UT:        q.Time.Format(eqNewsUTC),
 		LT:        q.Time.In(nz).Format(eqNewsLocal),

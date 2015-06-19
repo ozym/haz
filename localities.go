@@ -13,6 +13,23 @@ type Locality struct {
 	size                int
 }
 
+type LocalityQuake struct {
+	Locality    Locality
+	Distance    float64 // distance from quake to locality km
+	Bearing     float64 // bearing from the locality to the quake
+	MMIDistance float64 // calculated MMI at the locality.
+}
+
+/*
+ByDistance implements sort.Interface for []QuakeLocality based on Distance with closest
+localities first.
+*/
+type ByDistance []LocalityQuake
+
+func (a ByDistance) Len() int           { return len(a) }
+func (a ByDistance) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByDistance) Less(i, j int) bool { return a[i].Distance < a[j].Distance }
+
 func init() {
 	localities = []Locality{
 		{Name: `Akaroa`, Longitude: 172.97, Latitude: -43.82, size: 2},

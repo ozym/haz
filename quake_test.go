@@ -66,17 +66,17 @@ func TestClosest(t *testing.T) {
 	q.Longitude = 171.29
 	q.Latitude = -43.06
 
-	l, d, b, err := q.Closest()
+	l, err := q.Closest()
 	if err != nil {
 		t.Error("non nil error for closest locality.")
 	}
 
-	if l.Name != `Arthur's Pass` {
-		t.Errorf("expected name Arthur's Pass got %s", l.Name)
+	if l.Locality.Name != `Arthur's Pass` {
+		t.Errorf("expected name Arthur's Pass got %s", l.Locality.Name)
 	}
 
-	delta(t, 25.89, d, 0.05)
-	delta(t, 241.74, b, 0.05)
+	delta(t, 25.89, l.Distance, 0.05)
+	delta(t, 241.74, l.Bearing, 0.05)
 }
 
 func TestAlertQuality(t *testing.T) {
