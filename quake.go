@@ -450,6 +450,10 @@ func (q *Quake) AlertUAPush() (message string, tags []string) {
 		return
 	}
 
+	if !q.AlertQuality() {
+		return
+	}
+
 	c, err := q.Closest()
 	if err != nil {
 		q.SetErr(err)
