@@ -201,6 +201,12 @@ func MMIIntensity(mmi float64) string {
 
 // Closest returns the New Zealand LocalityQuake closest to the quake.
 func (q *Quake) Closest() (loc LocalityQuake, err error) {
+	loc, err = q.ClosestInRegion(NewZealand)
+	return
+}
+
+// Closest returns the Region LocalityQuake closest to the quake.
+func (q *Quake) ClosestInRegion(r RegionID) (loc LocalityQuake, err error) {
 	// func (q *Quake) Closest() (locality Locality, distance float64, bearing float64, err error) {
 	if q.err != nil {
 		err = q.err
@@ -211,7 +217,7 @@ func (q *Quake) Closest() (loc LocalityQuake, err error) {
 	var bearing float64
 	var locality Locality
 
-	for _, l := range localities {
+	for _, l := range regions[r] {
 		d, b := geo.To(l.Latitude, l.Longitude, q.Latitude, q.Longitude)
 		if d < distance {
 			distance = d
@@ -224,7 +230,7 @@ func (q *Quake) Closest() (loc LocalityQuake, err error) {
 	if distance > 300 && locality.size >= 2 {
 		distance = 20000
 
-		for _, l := range localities {
+		for _, l := range regions[r] {
 			if l.size == 0 || l.size == 1 {
 				d, b := geo.To(l.Latitude, l.Longitude, q.Latitude, q.Longitude)
 				if d < distance {
@@ -245,7 +251,7 @@ func (q *Quake) Closest() (loc LocalityQuake, err error) {
 }
 
 /*
-LocalitiesQuake returns localities that have an MMI at a distance >= minMMIDistance
+LocalitiesQuake returns localities in New Zealand that have an MMI at a distance >= minMMIDistance
 for the quake.
 */
 func (q Quake) Localities(minMMIDistance float64) (l []LocalityQuake) {
@@ -255,7 +261,7 @@ func (q Quake) Localities(minMMIDistance float64) (l []LocalityQuake) {
 
 	mmi := q.MMI()
 
-	for _, loc := range localities {
+	for _, loc := range regions[NewZealand] {
 		d, b := geo.To(loc.Latitude, loc.Longitude, q.Latitude, q.Longitude)
 
 		mmid := MMIDistance(d, q.Depth, mmi)
