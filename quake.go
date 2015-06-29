@@ -120,6 +120,27 @@ func (q *Quake) Status() string {
 	}
 }
 
+func (q *Quake) Quality() string {
+	if q.err != nil {
+		return "error"
+	}
+
+	status := q.Status()
+
+	switch {
+	case status == "reviewed":
+		return "best"
+	case status == "deleted":
+		return "deleted"
+	case q.UsedPhaseCount < 20 || q.MagnitudeStationCount < 10:
+		return "caution"
+	case q.UsedPhaseCount >= 20 && q.MagnitudeStationCount >= 10:
+		return "good"
+	default:
+		return "unknown"
+	}
+}
+
 func (q *Quake) Err() error {
 	return q.err
 }
@@ -207,7 +228,6 @@ func (q *Quake) Closest() (loc LocalityQuake, err error) {
 
 // Closest returns the Region LocalityQuake closest to the quake.
 func (q *Quake) ClosestInRegion(r RegionID) (loc LocalityQuake, err error) {
-	// func (q *Quake) Closest() (locality Locality, distance float64, bearing float64, err error) {
 	if q.err != nil {
 		err = q.err
 		return
