@@ -132,12 +132,10 @@ func (q *Quake) Quality() string {
 		return "best"
 	case status == "deleted":
 		return "deleted"
-	case q.UsedPhaseCount < 20 || q.MagnitudeStationCount < 10:
-		return "caution"
 	case q.UsedPhaseCount >= 20 && q.MagnitudeStationCount >= 10:
 		return "good"
 	default:
-		return "unknown"
+		return "caution"
 	}
 }
 
