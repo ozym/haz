@@ -218,6 +218,24 @@ func MMIIntensity(mmi float64) string {
 	}
 }
 
+// IntensityMMI returns the minimum MMI for the instensity.
+func IntensityMMI(Intensity string) float64 {
+	switch Intensity {
+	case "severe":
+		return 7
+	case "strong":
+		return 6
+	case "modeerate":
+		return 5
+	case "light":
+		return 4
+	case "weak":
+		return 3
+	default:
+		return 0
+	}
+}
+
 // Closest returns the New Zealand LocalityQuake closest to the quake.
 func (q *Quake) Closest() (loc LocalityQuake, err error) {
 	loc, err = q.ClosestInRegion(NewZealand)
