@@ -177,9 +177,11 @@ func init() {
 		},
 	}
 
+	var nz []Locality
 	for _, v := range regions {
-		regions[NewZealand] = append(regions[NewZealand], v...)
+		nz = append(nz, v...)
 	}
+	regions[NewZealand] = nz
 }
 
 // Compass converts bearing (0-360) to a compass bearing name e.g., south-east.
