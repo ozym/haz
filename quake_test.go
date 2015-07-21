@@ -77,6 +77,22 @@ func TestClosest(t *testing.T) {
 
 	delta(t, 25.89, l.Distance, 0.05)
 	delta(t, 241.74, l.Bearing, 0.05)
+
+	if l.Location() != `25 km south-west of Arthur's Pass` {
+		t.Error("incorrect location")
+	}
+
+	q.Longitude = 171.57
+	q.Latitude = -42.95
+
+	l, err = q.Closest()
+	if err != nil {
+		t.Error("non nil error for closest locality.")
+	}
+
+	if l.Location() != `Within 5 km of Arthur's Pass` {
+		t.Error("incorrect location")
+	}
 }
 
 func TestAlertQuality(t *testing.T) {

@@ -466,10 +466,8 @@ func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) 
 
 		// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
 		qUrl := fmt.Sprintf("http://geonet.org.nz/quakes/%s", q.PublicID)
-		message = fmt.Sprintf("Quake %s %s of %s, intensity %s, approx. M%.1f, depth %.f km %s %s",
-			Distance(c.Distance),
-			Compass(c.Bearing),
-			c.Locality.Name,
+		message = fmt.Sprintf("Quake %s, intensity %s, approx. M%.1f, depth %.f km %s %s",
+			c.Location(),
 			MMIIntensity(q.MMI()),
 			q.Magnitude,
 			q.Depth,
@@ -507,11 +505,7 @@ func (q *Quake) AlertUAPush() (message string, tags []string) {
 	}
 
 	tags = q.uaTags()
-	m := fmt.Sprintf("%s quake %s %s of %s",
-		MMIIntensity(q.MMI()),
-		Distance(c.Distance),
-		Compass(c.Bearing),
-		c.Locality.Name)
+	m := fmt.Sprintf("%s quake %s", MMIIntensity(q.MMI()), c.Location())
 
 	// capitalize intensity
 	t := []byte(m)
@@ -556,7 +550,7 @@ func (q *Quake) AlertEqNews() (alert bool, subject, body string) {
 	err = t.ExecuteTemplate(buf, "eqNews", &eqNewsD{
 		Q:         q,
 		MMI:       int(mmi),
-		Location:  fmt.Sprintf("%s %s of %s", Distance(c.Distance), Compass(c.Bearing), c.Locality.Name),
+		Location:  c.Location(),
 		Now:       time.Now().In(nz).Format(eqNewsNow),
 		UT:        q.Time.Format(eqNewsUTC),
 		LT:        q.Time.In(nz).Format(eqNewsLocal),

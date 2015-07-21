@@ -1,5 +1,10 @@
 package msg
 
+import (
+	"fmt"
+	"math"
+)
+
 /*
 psql -h 127.0.0.1 hazard hazard_w -c "select format('{Name:\`%s\`, Longitude:%s, Latitude:%s, size:"%s"},', name, ST_X(locality_geom), ST_Y(locality_geom), size)
 from qrt.locality where size in (0,1,2) AND  ST_Contains((SELECT geom FROM qrt.region WHERE regionname = 'wellington'), locality_geom) order  by name;"
@@ -208,4 +213,12 @@ func Compass(bearing float64) string {
 	default:
 		return "north"
 	}
+}
+
+func (l LocalityQuake) Location() string {
+	if l.Distance < 5 {
+		return "Within 5 km of " + l.Locality.Name
+	}
+
+	return fmt.Sprintf("%.f km %s of %s", math.Floor(l.Distance/5.0)*5, Compass(l.Bearing), l.Locality.Name)
 }
