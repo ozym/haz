@@ -1,0 +1,10 @@
+haz-aws-messaging/haz-aws-messaging
+haz-db-consumer/haz-db-consumer
+haz-db-loader/haz-db-loader
+haz-duty-consumer/haz-duty-consumer
+haz-eqnews-consumer/haz-eqnews-consumer
+haz-pim-consumer/haz-pim-consumer
+haz-sc3-producer/haz-sc3-producer
+haz-twitter-consumer/haz-twitter-consumer
+haz-ua-consumer/haz-ua-consumer
+bin/

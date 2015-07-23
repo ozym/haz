@@ -205,3 +205,24 @@ func (db *DB) SaveQuake(q msg.Quake) error {
 
 	return err
 }
+
+func (db *DB) SaveHeartBeat(h msg.HeartBeat) error {
+	txn, err := db.Begin()
+	if err != nil {
+		return err
+	}
+
+	_, err = txn.Exec(`DELETE FROM haz.soh WHERE serverID = $1`, h.ServiceID)
+	if err != nil {
+		txn.Rollback()
+		return err
+	}
+
+	_, err = txn.Exec(`INSERT INTO haz.soh(serverID, timeReceived) VALUES($1,$2)`, h.ServiceID, h.SentTime)
+	if err != nil {
+		txn.Rollback()
+		return err
+	}
+
+	return txn.Commit()
+}
