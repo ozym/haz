@@ -1,0 +1,24 @@
+{
+	"PagerDuty": {
+		"ApiToken": "",
+		"ServiceKey": ""
+	},
+	"SQS": {
+		"AWSRegion": "ap-southeast-2",
+		"QueueName": "",
+		"AccessKey": "",
+		"SecretKey": "",
+		"NumberOfListeners": 1
+	},
+	"Env": {
+		"Prefix": "DUTY_CONSUMER"
+	},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+	},
+	"Logentries": {
+		"Token": ""
+	}
+}

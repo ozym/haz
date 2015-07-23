@@ -1,0 +1,28 @@
+{
+	"SQS": {
+		"AWSRegion": "ap-southeast-2",
+		"QueueName": "",
+		"AccessKey": "",
+		"SecretKey": "",
+		"NumberOfListeners": 1
+		},
+	"SMTP": {
+		"Host": "email-smtp.us-west-2.amazonaws.com",
+		"Port":587,
+		"UserName": "",
+		"Password": "",
+		"From":"",
+		"To":""
+		},
+	"Env": {
+		"Prefix": "EQNEWS"
+		},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+		},
+	"Logentries": {
+		"Token": ""
+	}
+}

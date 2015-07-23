@@ -1,0 +1,24 @@
+{
+	"SQS": {
+		"AWSRegion": "ap-southeast-2",
+		"QueueName": "XXX",
+		"AccessKey": "XXX",
+		"SecretKey": "XXX",
+		"NumberOfListeners": 1
+	},
+	"Env": {
+		"Prefix": "UA_CONSUMER"
+	},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+	},
+	"Logentries": {
+		"Token": ""
+	},
+	"UA" : {
+		"AppKey" : "XXX",
+		"AppMasterSecret" : "XXX"
+	}
+}

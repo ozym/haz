@@ -1,0 +1,27 @@
+{
+	"SQS": {
+		"AWSRegion": "ap-southeast-2",
+		"QueueName": "XXX",
+		"AccessKey": "XXX",
+		"SecretKey": "XXX",
+		"NumberOfListeners": 1
+	},
+	"Env": {
+		"Prefix": "TWITTER_CONSUMER"
+	},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+	},
+	"Logentries": {
+		"Token": ""
+	},
+	"Twitter" : {
+		"ConsumerKey" : "XXX",
+		"ConsumerSecret" : "XXX",
+		"OAuthToken" : "XXX",
+		"OAuthSecret" : "XXX",
+		"MinMagnitude" : 1.0
+	}
+}
