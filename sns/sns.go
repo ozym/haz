@@ -6,7 +6,7 @@ import (
 	"github.com/AdRoll/goamz/aws" // Have to use the AdRoll version can't use a fork with GeoNet/goamz/sns
 	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/goamz/sns"
-	"github.com/GeoNet/msg"
+	"github.com/GeoNet/haz/msg"
 	"log"
 	"time"
 )

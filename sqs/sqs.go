@@ -4,7 +4,7 @@ package sqs
 import (
 	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/goamz/sqs"
-	"github.com/GeoNet/msg"
+	"github.com/GeoNet/haz/msg"
 	"log"
 	"strconv"
 	"time"
