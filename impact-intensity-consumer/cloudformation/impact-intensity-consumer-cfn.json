@@ -1,0 +1,70 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Create resources for the Impact Intensity Consumer.",
+    "Resources": {
+        "queue": {
+            "Type": "AWS::SQS::Queue",
+            "Properties": {
+                "MessageRetentionPeriod": 1209600,
+                "ReceiveMessageWaitTimeSeconds": 20,
+                "VisibilityTimeout": 600
+            }
+        },
+        "user": {
+            "Type": "AWS::IAM::User"
+        },
+        "accessKey": {
+            "Type": "AWS::IAM::AccessKey",
+            "Properties": {
+                "UserName": {
+                    "Ref": "user"
+                }
+            }
+        },
+        "queuePolicy": {
+            "Type": "AWS::SQS::QueuePolicy",
+            "Properties": {
+                "PolicyDocument": {
+                    "Id": "MyQueuePolicy",
+                    "Statement": [
+                        {
+                            "Sid": "Allow-read",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": {
+                                    "Fn::GetAtt": [ "user", "Arn" ]
+                                }
+                            },
+                            "Action": [
+                                "sqs:SendMessage",
+                                "sqs:DeleteMessage",
+                                "sqs:ReceiveMessage",
+                                "sqs:GetQueueUrl"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Queues": [
+                    {
+                        "Ref": "queue"
+                    }
+                ]
+             }
+        }
+    },
+    "Outputs": {
+        "accessKey": {
+            "Value": { "Ref": "accessKey" },
+            "Description": "This is the accessKey property for the intensity queue."
+        },
+        "accessSecret": {
+            "Value": { "Fn::GetAtt": [ "accessKey", "SecretAccessKey" ] },
+            "Description": "This is the accessSecret property for the intensity queue."
+        },
+        "queue": {
+            "Value": { "Fn::GetAtt": [ "queue", "QueueName" ] },
+            "Description": "This is the queue name property for the intensity queue."
+        }
+    }
+}

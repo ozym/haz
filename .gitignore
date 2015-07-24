@@ -7,4 +7,5 @@ haz-pim-consumer/haz-pim-consumer
 haz-sc3-producer/haz-sc3-producer
 haz-twitter-consumer/haz-twitter-consumer
 haz-ua-consumer/haz-ua-consumer
+impact-intensity-consumer/impact-intensity-consumer
 bin/
