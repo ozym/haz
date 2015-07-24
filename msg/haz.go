@@ -9,7 +9,6 @@ import (
 type Haz struct {
 	Quake     *Quake
 	HeartBeat *HeartBeat
-	VAL       *VAL
 	err       error
 }
 
@@ -31,10 +30,6 @@ func (h *Haz) Err() error {
 
 	if h.HeartBeat != nil && h.HeartBeat.err != nil {
 		return h.HeartBeat.err
-	}
-
-	if h.VAL != nil && h.VAL.err != nil {
-		return h.VAL.err
 	}
 
 	return nil
