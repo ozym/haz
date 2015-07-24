@@ -1,0 +1,97 @@
+{
+	"ImportPath": "github.com/GeoNet/haz",
+	"GoVersion": "go1.4.1",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/AdRoll/goamz/aws",
+			"Rev": "c73835dc8fc6958baf8df8656864ee4d6d04b130"
+		},
+		{
+			"ImportPath": "github.com/ChimeraCoder/anaconda",
+			"Rev": "e7eb7903ed45b34a2d892c4b36d2013174b93cd4"
+		},
+		{
+			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
+			"Rev": "c5a927568de7aad8a58127d80bcd36ca4e71e454"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/Golang-Ellipsoid/ellipsoid",
+			"Rev": "5a1ed895422f6c368aa215e90ff758835205d896"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/cfg",
+			"Rev": "cc35fef26934add6106cf0abd8ea2ae1a963ade6"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/goamz/sns",
+			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/goamz/sqs",
+			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/log/logentries",
+			"Rev": "18c2731b9dd6d1f74215d1018b21f7b8d270d4fe"
+		},
+		{
+			"ImportPath": "github.com/GeoNet/metrics",
+			"Rev": "5161e09d1ca5d85798d090752c2f7d5ab9ab6e17"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/aws",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/endpoints",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/protocol/query",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/protocol/xml/xmlutil",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/signer/v4",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/service/iam",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/service/sns",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/awslabs/aws-sdk-go/service/sqs",
+			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+		},
+		{
+			"ImportPath": "github.com/dustin/go-jsonpointer",
+			"Rev": "75939f54b39e7dafae879e61f65438dadc5f288c"
+		},
+		{
+			"ImportPath": "github.com/dustin/gojson",
+			"Rev": "af16e0e771e2ed110f2785564ae33931de8829e4"
+		},
+		{
+			"ImportPath": "github.com/garyburd/go-oauth/oauth",
+			"Rev": "3131beb69b81ff119923bdefbf029318f1f53794"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Rev": "fbed41b4c063a307ab21bf37ae6705519fb34ca3"
+		},
+		{
+			"ImportPath": "github.com/vaughan0/go-ini",
+			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
+		}
+	]
+}

@@ -9,3 +9,4 @@ haz-twitter-consumer/haz-twitter-consumer
 haz-ua-consumer/haz-ua-consumer
 impact-intensity-consumer/impact-intensity-consumer
 bin/
+*/ca-certificates.crt
