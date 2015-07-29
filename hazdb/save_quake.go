@@ -132,7 +132,7 @@ func (db *DB) SaveQuake(q msg.Quake) error {
 		return err
 	}
 
-	_, err = txn.Exec(`DELETE FROM haz.quake WHERE PublicID = $1 AND ModificationTime < $2`, q.PublicID, q.ModificationTime)
+	_, err = txn.Exec(`DELETE FROM haz.quake WHERE PublicID = $1 AND ModificationTime <= $2`, q.PublicID, q.ModificationTime)
 	if err != nil {
 		txn.Rollback()
 		return err
@@ -169,7 +169,7 @@ func (db *DB) SaveQuake(q msg.Quake) error {
 		return err
 	}
 
-	_, err = txn.Exec(`DELETE FROM haz.quakeapi WHERE PublicID = $1 AND ModificationTime < $2`, q.PublicID, q.ModificationTime)
+	_, err = txn.Exec(`DELETE FROM haz.quakeapi WHERE PublicID = $1 AND ModificationTime <= $2`, q.PublicID, q.ModificationTime)
 	if err != nil {
 		txn.Rollback()
 		return err
