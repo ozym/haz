@@ -1,9 +1,0 @@
-{
-	"NetworkID": "CG",
-	"SiteID": "VGT2",
-	"TypeID": "Test",
-	"MethodID": "TestMethod",
-	"DateTime": "2012-07-31T12:01:04.000000Z",
-	"Value": 12.5,
-	"Error": 0.0
-}
