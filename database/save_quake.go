@@ -1,4 +1,4 @@
-package hazdb
+package database
 
 import (
 	"fmt"

@@ -4,7 +4,7 @@ package main
 
 import (
 	"github.com/GeoNet/cfg"
-	"github.com/GeoNet/haz/hazdb"
+	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/log/logentries"
@@ -15,7 +15,7 @@ import (
 //go:generate configer haz-db-consumer.json
 var (
 	config = cfg.Load()
-	db     hazdb.DB
+	db     database.DB
 )
 
 func init() {
@@ -33,7 +33,7 @@ type message struct {
 func main() {
 	var err error
 
-	db, err = hazdb.InitPG(config.DataBase)
+	db, err = database.InitPG(config.DataBase)
 	if err != nil {
 		log.Fatalf("ERROR: problem with DB config: %s", err)
 	}

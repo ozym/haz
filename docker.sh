@@ -10,9 +10,9 @@ docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e
  cp /etc/ssl/certs/ca-certificates.crt docker-build-tmp
 
 # Copy in and rename the Dockerfiles.  Exclude the db Dockerfile.
-find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" ! -path "./db/*" ! -path "./hazdb/*" | awk -F '/' '{print "cp "$0" docker-build-tmp/"$3"-"$2}' | sh
+find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" | awk -F '/' '{print "cp "$0" docker-build-tmp/"$3"-"$2}' | sh
 # Copy in the json config file for each excutable
-find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" ! -path "./db/*" ! -path "./hazdb/*" | awk -F '/' '{print "cp "$2"/"$2".json docker-build-tmp/"}' | sh
+find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" | awk -F '/' '{print "cp "$2"/"$2".json docker-build-tmp/"}' | sh
 
 build=(`ls docker-build-tmp/Dockerfile-* | awk -F 'Dockerfile-' '{print $2}'`)
 
