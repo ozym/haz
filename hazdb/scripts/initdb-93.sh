@@ -29,6 +29,7 @@ export PGPASSWORD=$2
 # Restart postgres.
 #
 dropdb --host=127.0.0.1 --username=$db_user hazard
+psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/create-users.ddl
 psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/create-db.ddl
 
 # Function security means adding postgis has to be done as a superuser - here that is the postgres user.
