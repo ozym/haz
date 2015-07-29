@@ -1,0 +1,42 @@
+{{define "capQuake"}}<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+ <identifier>{{.ID}}</identifier> 
+ <sender>http://geonet.org.nz</sender> 
+ <sent>{{capTime .Quake.ModificationTime}}</sent>
+ <status>Actual</status> 
+ <msgType>{{ msgType .Status .References}}</msgType>
+ <scope>Public</scope>
+ {{if .References}}<references>{{range $r :=.References}}http://geonet.org.nz,{{$r}} {{end}}</references>{{end}}
+ <info>
+ <language>en-NZ</language>
+  <category>Geo</category>
+  <event>Earthquake</event>   
+  <responseType>Monitor</responseType>
+  <urgency>Past</urgency>   
+  <severity>{{severity .Closest.MMIDistance}}</severity>   
+  <certainty>{{certainty .Quake .Status}}</certainty>
+  <onset>{{capTime .Quake.Time}}</onset>
+  <expires>{{expires .Quake.ModificationTime}}</expires>
+  <senderName>GNS Science (GeoNet)</senderName>
+  <headline>Quake {{location .Closest.Distance .Closest.Bearing .Closest.Locality.Name}}, intensity {{.Intensity}}, approx. M{{printf "%.1f" .Quake.Magnitude}}, depth {{printf "%.f" .Quake.Depth}} km {{nzTime .Quake.Time}}.</headline>
+  <description>A magnitude {{printf "%.1f" .Quake.Magnitude}} earthquake occurred {{distance .Closest.Distance}} {{compass .Closest.Bearing}} of {{.Closest.Locality.Name}}, New Zealand at {{nzTime .Quake.Time}}.  
+    The quake was {{printf "%.f" .Quake.Depth}} kilometres deep and the intensity was {{.Intensity}} close to the quake.  The quake may have been felt in {{feltIn .Localities}} and surrounding localities.</description>
+    <instruction>During an earthquake, if you are inside a building, move no more than a few steps, then Drop, Cover and Hold. Stay indoors until the shaking stops and you are sure it is safe to exit. If you are outdoors when the shaking starts, move no more than a few steps away from buildings, trees, streetlights and power lines, then Drop, Cover and Hold.
+
+After an earthquake, listen to your local radio stations as emergency management officials will be broadcasting the most appropriate advice for your community and situation. Expect to feel aftershocks. If you are in a damaged building, try to get outside and find a safe, open place. Use the stairs, not the elevators.</instruction>
+    <web>http://geonet.org.nz/quakes/{{.Quake.PublicID}}</web>
+    <contact>info@geonet.org.nz</contact>
+    <parameter>
+    <valueName>Magnitude</valueName>
+    <value>{{printf "%.1f" .Quake.Magnitude}}</value>
+  </parameter>
+  <parameter>
+    <valueName>Intensity</valueName>
+    <value>{{.Intensity}}</value>
+  </parameter>
+    <area>       
+  <areaDesc>{{area .Localities}}</areaDesc>
+  <circle>{{printf "%.2f" .Quake.Latitude}},{{printf "%.2f" .Quake.Longitude}} {{radius .Localities | printf "%.1f"}}</circle>
+</area>
+</info>
+</alert>{{end}}

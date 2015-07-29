@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "quay.io/geonet/haz:geonet-rest"
+      },
+      "Ports": [
+      {
+        "ContainerPort": "8080"
+      }
+      ],
+      "Logging": "/var/log/"
+}

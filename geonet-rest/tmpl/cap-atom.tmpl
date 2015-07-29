@@ -1,0 +1,20 @@
+{{define "capAtom"}}<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<id>{{.ID}}</id>
+<title>{{.Title}}</title>
+<updated>{{atomTime .Updated}}</updated>
+<author>
+  <name>GNS Science (GeoNet)</name>
+  <email>info@geonet.org.nz</email>
+  <uri>http://geonet.org.nz</uri>
+</author>
+<link rel="self" href="{{.Link}}" />{{range .Entries}}
+<entry>
+<id>{{.ID}}</id>
+<title>{{.Title}}</title>
+<updated>{{atomTime .Updated}}</updated>
+<summary>{{.Summary}}</summary>
+<link rel="alternate" type="text/html" href="{{.HrefHTML}}"/>
+<link rel="alternate" type="application/cap+xml" href="{{.HrefCAP}}"/>
+</entry>{{end}}
+</feed>{{end}}

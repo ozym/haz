@@ -42,6 +42,10 @@
 			"Rev": "5161e09d1ca5d85798d090752c2f7d5ab9ab6e17"
 		},
 		{
+			"ImportPath": "github.com/GeoNet/web",
+			"Rev": "fc6bb152fc12094c4e168a786c4d411e83d883e1"
+		},
+		{
 			"ImportPath": "github.com/awslabs/aws-sdk-go/aws",
 			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
 		},

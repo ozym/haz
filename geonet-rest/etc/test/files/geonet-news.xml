@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title>GeoNet News RSS Feed</title>
+  <link rel="alternate" href="http://info.geonet.org.nz" />
+  <subtitle>Confluence Syndication Feed</subtitle>
+  <id>http://info.geonet.org.nz</id>
+  <entry>
+    <title>Strong quake wakes southern North Island</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/quake/2014/09/23/Strong+quake+wakes+southern+North+Island" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11567177-5</id>
+    <updated>2014-09-22T16:11:48Z</updated>
+    <published>2014-09-22T16:11:48Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;A strong earthquake occurred &lt;a href="http://www.geonet.org.nz/quakes/region/newzealand/2014p715167" class="external-link" rel="nofollow"&gt;15 km west of the settlement of Pongaroa&lt;/a&gt; just after twenty to three this morning.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 291px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11567177/pongaroa_map.png?version=1&amp;amp;modificationDate=1411401685245&amp;amp;api=v2' width='291' height='300' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 291px"&gt;
+                    &lt;div class="gallery-caption"&gt;A map showing the three earthquakes this year greater than magnitude 5.0 in the lower North Island. This morning&amp;#39;s quake is east of the January Eketahuna quake. The other is further north, near Waipukurau.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As shown on the accompanying map, it occurred a little to the east of the epicentre of the &lt;a href="http://info.geonet.org.nz/display/quake/M+6.2%2C+Eketahuna%2C+20+January+2014"&gt;M6.0 Eketahuna quake&lt;/a&gt; earlier this year. It is the third earthquake of magnitude 5.0 or more to strike this region of New Zealand, with the &lt;a href="http://www.geonet.org.nz/quakes/region/newzealand/2014p240655" class="external-link" rel="nofollow"&gt;third one&lt;/a&gt; occurring at the end of March in the vicinity of Waipukurau.&lt;/p&gt;&lt;p&gt;Over 2,000 felt reports had been submitted within the first hour of the quake, but with only one report of any damage at Terrace End, in Palmerston North, by that time.&lt;/p&gt;&lt;p&gt;Its epicentre close to the January shake is the main scientific point of interest. There had been very few, and only very minor, aftershocks by 4 am, 100 minutes after the earthquake.&lt;/p&gt;    &lt;div class="aui-message success shadowed information-macro"&gt;
+                            &lt;span class="aui-icon icon-success"&gt;Icon&lt;/span&gt;
+                &lt;div class="message-content"&gt;
+                            &lt;ul&gt;&lt;li&gt;&lt;a href="http://www.geonet.org.nz/quakes/region/wellington/all" class="external-link" rel="nofollow"&gt;See the list of all recent quakes in this region&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://www.geonet.org.nz/quakes/drums/birchfarm" class="external-link" rel="nofollow"&gt;Check out the nearest seismograph drum at Birch Farm&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+                    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/quake/2014/09/23/Strong+quake+wakes+southern+North+Island"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-09-22T16:11:48Z</dc:date>
+  </entry>
+  <entry>
+    <title>Moving GeoNet to the Cloud</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/appdata/2014/09/10/Moving+GeoNet+to+the+Cloud" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11567138-1</id>
+    <updated>2014-09-09T21:57:15Z</updated>
+    <published>2014-09-09T21:57:15Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;Cloud computing has brought about a explosion of services. A quick internet search will give you more definitions of Cloud Computing than you need. For those of us working on the IT systems for GeoNet it's meant the chance to be more efficient by reducing the amount work we do. This lets us focus on our core business problems, move faster, and do more than it seems should be possible with a small team. Geoff Clitheroe, GeoNet's Systems Development Manager, expands on this below.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;p&gt;There are many other Cloud services that we use when developing, running, or maintaining GeoNet - from &lt;a href="http://info.geonet.org.nz/pages/viewpage.action?pageId=1475598"&gt;GeoNet Rapid&lt;/a&gt; running “in the cloud” at &lt;a href="http://www.webdrive.co.nz/files/gns.pdf" class="external-link" rel="nofollow"&gt;WebDrive&lt;/a&gt; in Auckland, through to day-to-day development tools. There is a list of services we are currently using included at the end. A few are worth singling out because of the impact they have had on the way we work.&lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11567138/aws.png?version=1&amp;amp;modificationDate=1410299861033&amp;amp;api=v2' width='300' height='119' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;Amazon Web Services - now in a continent near you!&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id="MovingGeoNettotheCloud-AmazonWebServices"&gt;Amazon Web Services&lt;/h3&gt;&lt;p&gt;&lt;a href="http://aws.amazon.com/" class="external-link" rel="nofollow"&gt;Amazon Web Services&lt;/a&gt; (AWS) are cloud computing services from the online retailer Amazon. We use a range of their services and we make extensive use of:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Amazon CloudFormation for infrastructure automation;&lt;/li&gt;&lt;li&gt;Amazon EC2 for virtual machines;&lt;/li&gt;&lt;li&gt;Amazon Elastic Beanstalk for application deployment;&lt;/li&gt;&lt;li&gt;Amazon RDS for relational databases;&lt;/li&gt;&lt;li&gt;Amazon S3 for storage;&lt;/li&gt;&lt;li&gt;Amazon SNS and SQS for messaging.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Learning how to effectively use AWS has been quite an effort but by adopting common cross-cutting technology we've found we can collaborate really effectively on problem solving. By using AWS we can very quickly go from development to production (often in minutes). For a developer watching an application automatically scale to meet rising demand is pretty close to magic. Equally importantly, when requirements change, we can turn services off and stop paying for them immediately. Expensive and under-utilised IT hardware gathering dust in the bottom of data centre racks should become a thing of the past.&lt;/p&gt;&lt;h3 id="MovingGeoNettotheCloud-Github"&gt;Github&lt;/h3&gt;&lt;p&gt;Source control is critical to good software development. To an outsider the processes involved can appear quite arcane. We use &lt;a href="http://git-scm.com/" class="external-link" rel="nofollow"&gt;Git&lt;/a&gt; for our source control and we have Git repositories hosted at &lt;a href="https://github.com/" class="external-link" rel="nofollow"&gt;Github&lt;/a&gt;. Github also provides us with tools for code review and issue tracking. Github has completely replaced a number of systems that we used to run ourselves. These systems were a lot of work to maintain and often didn't play well together. Github has removed a lot of the mystery from the source control process and we've now got a wider range of people than ever before using these tools.&lt;/p&gt;&lt;p&gt;Our open source projects are available on &lt;a href="https://github.com/GeoNet" class="external-link" rel="nofollow"&gt;Github&lt;/a&gt;.&lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 180px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11567138/Screenshot_2014-06-19-10-24-12.png?version=1&amp;amp;modificationDate=1410299908014&amp;amp;api=v2' width='180' height='300' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 180px"&gt;
+                    &lt;div class="gallery-caption"&gt;PagerDuty - get paged for your incidents on your smartphone; kiss your old pager goodbye.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id="MovingGeoNettotheCloud-PagerDuty"&gt;PagerDuty&lt;/h3&gt;&lt;p&gt;We run three on-call duty teams to support GeoNet, so when the ground shakes, the volcanoes rumble, or an application crashes the appropriate duty person has to be notified. We use &lt;a href="http://www.pagerduty.com/" class="external-link" rel="nofollow"&gt;PagerDuty&lt;/a&gt; to manage our on-call schedules and alert the correct person when something needs attention. Our physical pagers have been replaced by a &lt;a href="http://www.pagerduty.com/tour/mobile-incident-management/" class="external-link" rel="nofollow"&gt;smart phone application&lt;/a&gt;. PagerDuty has completely replaced our internal paging systems and really streamlined organising the three duty teams.&lt;/p&gt;&lt;p&gt;There is nothing that will make being woken at 2am by a pager pleasant, but no longer having to juggle two pagers and an on-call roster in a spreadsheet has made being on duty a bit easier.&lt;/p&gt;&lt;h3 id="MovingGeoNettotheCloud-ListofCloudServices"&gt;List of Cloud Services&lt;/h3&gt;&lt;p&gt;Most of these cloud services have been adopted by us over the last two to three years. They have often replaced something that we were running ourselves. Because many cloud services allow free experimentation we have tried many more products than listed here:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://aws.amazon.com/" class="external-link" rel="nofollow"&gt;Amazon Web Services&lt;/a&gt; - a wide range of cloud computing services brought to you by the same company that started as a book store.&lt;/li&gt;&lt;li&gt;&lt;a href="https://www.jfrog.com/home/v_artifactorycloud_overview" class="external-link" rel="nofollow"&gt;Artifactory Cloud&lt;/a&gt; - build artifact management. When we compile our code it goes here.&lt;/li&gt;&lt;li&gt;&lt;a href="http://try.crashlytics.com/" class="external-link" rel="nofollow"&gt;Crashlytics&lt;/a&gt; - crash reporting for smart phone applications.&lt;/li&gt;&lt;li&gt;&lt;a href="http://www.code42.com/crashplan/" class="external-link" rel="nofollow"&gt;CrashPlan&lt;/a&gt; - laptop backups for when fat fingers or hardware failures inevitably happen.&lt;/li&gt;&lt;li&gt;&lt;a href="http://www.fastly.com/" class="external-link" rel="nofollow"&gt;Fastly&lt;/a&gt; - global CDN with nodes in New Zealand. It's &lt;a href="https://www.varnish-cache.org/" class="external-link" rel="nofollow"&gt;Varnish&lt;/a&gt;-based, and we like Varnish!&lt;/li&gt;&lt;li&gt;&lt;a href="https://github.com/" class="external-link" rel="nofollow"&gt;GitHub&lt;/a&gt; - hosted Git repos, ticketing, and code review.&lt;/li&gt;&lt;li&gt;&lt;a href="https://www.hipchat.com/" class="external-link" rel="nofollow"&gt;HipChat&lt;/a&gt; - group chat and clearing house for notifications from many other systems.&lt;/li&gt;&lt;li&gt;&lt;a href="https://lastpass.com/" class="external-link" rel="nofollow"&gt;LastPass&lt;/a&gt; - secure password management and sharing. Crucial when you and your team have a lot of cloud services to login to.&lt;/li&gt;&lt;li&gt;&lt;a href="https://metrics.librato.com/" class="external-link" rel="nofollow"&gt;Librato&lt;/a&gt; - metrics collection with beautiful graphs.&lt;/li&gt;&lt;li&gt;&lt;a href="https://logentries.com/" class="external-link" rel="nofollow"&gt;Logentries&lt;/a&gt; - application and server logging.&lt;/li&gt;&lt;li&gt;&lt;a href="http://www.pagerduty.com/" class="external-link" rel="nofollow"&gt;Pagerduty&lt;/a&gt; - scheduling and alerting for all duty teams.&lt;/li&gt;&lt;li&gt;&lt;a href="https://www.pingdom.com/" class="external-link" rel="nofollow"&gt;Pingdom&lt;/a&gt; - web site monitoring.&lt;/li&gt;&lt;li&gt;&lt;a href="https://snap-ci.com/" class="external-link" rel="nofollow"&gt;Snap-ci&lt;/a&gt; - continuous integration and delivery.&lt;/li&gt;&lt;li&gt;&lt;a href="http://urbanairship.com/" class="external-link" rel="nofollow"&gt;Urban Airship&lt;/a&gt; - push notifications to smart phones.&lt;/li&gt;&lt;li&gt;&lt;a href="http://www.webdrive.co.nz/" class="external-link" rel="nofollow"&gt;WebDrive&lt;/a&gt; - high up time virtual machines.&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/appdata/2014/09/10/Moving+GeoNet+to+the+Cloud"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-09-09T21:57:15Z</dc:date>
+  </entry>
+  <entry>
+    <title>Changes to camera and drum URLs</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/appdata/2014/09/09/Changes+to+camera+and+drum+URLs" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11567108-2</id>
+    <updated>2014-09-09T02:05:02Z</updated>
+    <published>2014-09-09T02:05:02Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href="http://info.geonet.org.nz/display/appdata/2014/08/12/Taking+it+global+with+Fastly"&gt;Last month we told you about our move to Fastly&lt;/a&gt;, improving the way we serve our web content to you. If you use any of our image URLs, here's what you need to know.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;p&gt;We have changed the URLs for the volcano camera images and GeoJSON feeds. Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://info.geonet.org.nz/display/appdata/Volcano+Camera+Images"&gt;Volcano Camera Images&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If you use the seismic drums, or RSAM/SSAM images, please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://info.geonet.org.nz/display/appdata/Seismic+Drums+and+RSAM-SSAM+Images"&gt;Seismic Drums and RSAM-SSAM Images&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;We will maintain re-directs for the old format for a while, so please make your changes in advance of them going away.&lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/appdata/2014/09/09/Changes+to+camera+and+drum+URLs"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-09-09T02:05:02Z</dc:date>
+  </entry>
+  <entry>
+    <title>August 2014 landslides</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/slide/2014/09/09/August+2014+landslides" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206892-1</id>
+    <updated>2014-09-08T23:15:38Z</updated>
+    <published>2014-09-08T23:15:38Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;Landslides reported from media sources during August 2014.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;h3 id="August2014landslides-Wednesday6August"&gt;Wednesday 6 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A slip temporarily blocked one lane of the Paekakariki Hill Road on the Kapiti Coast, about 200 metres up the hill on the Paekakariki side.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Thursday7August"&gt;Thursday 7 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;In Northland, one lane of Diggers Valley Road, Herekino, was closed by a landslide,  21km from Kaitaia-Awaroa Road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Saturday9August"&gt;Saturday 9 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A small slip after prolonged rain blocked a private road in Brooklyn, Wellington.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Tuesday12August"&gt;Tuesday 12 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;There were several new shallow soil slips in the Taihape- Mangaweka area.  A slip temporarily blocked SH1 between Hunterville and Taihape, just south of Manui Road, Mangaweka.  A slip affected the northbound lane of SH1 6km north of Taihape, near Paengaroa Road, and there were about 5 other small slips on pasture land visible from SH1, near Mataroa Road. Two small slips affected SH1 just south of Utiku (near the 2 rest areas). (There was 50mm of rainfall recorded at Taihape and 68 mm recorded at Makohine by Horizons Regional Council between 12 and 16 August.)&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Friday15August"&gt;Friday 15 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;SH 4 from Wanganui to Raetihi was affected by multiple slips and rockfalls. (There was 68.5 mm of rainfall recorded by Horizons at Bangonie, Mangawhero River, between 12 and 14 August).&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Saturday16August"&gt;Saturday 16 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;SH6 from Haast to Makarora was closed due to a new rockfall at the Diana Falls slip site.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="August2014landslides-Wednesday20August"&gt;Wednesday 20 August&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;In Northland, Pupuke Mangapa Road, Otangaroa, was closed due to landslides.&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/slide/2014/09/09/August+2014+landslides"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-09-08T23:15:38Z</dc:date>
+  </entry>
+  <entry>
+    <title>Volcanic Landslides</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/volc/2014/09/06/Volcanic+Landslides" />
+    <category term="white_island" />
+    <category term="volcano" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206865-4</id>
+    <updated>2014-09-07T20:17:18Z</updated>
+    <published>2014-09-07T20:17:18Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;Volcano camera reveals some of its other secrets.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;p&gt;Images from our camera on the north rim at White Island are usually dominated by the vivid white gas and steam plumes from the active vents. What is less obvious is the source of the single largest natural event on the volcano in historic time - the 1914 landslide. This was more deadly than any eruption has been historically.&lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	     
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206865/1914_Landslide_Camera_sml.png?version=1&amp;amp;modificationDate=1410121145137&amp;amp;api=v2' width='300' height='225' &gt;
+                                &lt;/td&gt;
+                                                &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206865/2004_Landslide.jpg?version=1&amp;amp;modificationDate=1410120987267&amp;amp;api=v2' width='300' height='250' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;Web camera image showing 1914 landslide.&lt;/div&gt;
+                &lt;/td&gt;
+                                                &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;2004 landslide, note geologists (red circle).&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Around 9 or 10 September 1914, a large portion of the Main Crater wall at White Island collapsed onto the crater floor and consumed a mining camp. Sulphur was mined for the manufacture of sulphuric acid and fertiliser.  At the time this was headlined as “the greatest eruption in the Dominion since Tarawera on June 10, 1886” (Bay of Plenty Times 21 September 1914). Ten sulphur miners perished; the only survivor was the company cat, Peter the Great.  &lt;/p&gt;&lt;p&gt;The exact date and timing of the landslide is not well known. The island was visited by a launch from Opotiki on 15 September, however the launch master was not able to attract the attention of people ashore and could not land due to the sea conditions and darkness. He returned on 19 September. On landing he was immediately aware that a disaster had struck. He returned to the mainland and organised a rescue mission, but no trace of the miners was ever found.  An unusual cloud of ‘black smoke’ was noted from the mainland above the island on 10 September and this is thought to be ‘dust’ from the landslide and the most likely day of the event.&lt;/p&gt;&lt;p&gt;The source area of the landslide can often be seen in images from our web camera on the north rim and extends from the crater floor to the sky line. At the time of the 1914 landslide much of the Main Crater floor was covered by a crater lake, much larger than the lake there today.  The landslide came down into this lake, mixed with water and then flowed across the Main Crater floor and into the sea. The landslide has left hummocky mounds across the crater floor. The top of these mounds are great places to take panorama pictures of the island. Scientifically this is classed as a debris flow and the mounds are known as debris mounds. Similar deposits are found around many New Zealand volcanoes (especially  Ruapehu and Taranaki).   &lt;/p&gt;&lt;p&gt;Landslides are a common feature of White Island due to the high steep walls and weak nature of the material in the walls. The latest moderate size landslide occurred during heavy rainfall in July 2004, when a landslide off the north wall crossed half way across the crater floor. The landslide dammed some of the small streams on the crater floor. But this was very small compared to the 1914 one, only covering about 7% of the area of the 1914 one.&lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/volc/2014/09/06/Volcanic+Landslides"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-09-07T20:17:18Z</dc:date>
+  </entry>
+  <entry>
+    <title>Record week for GeoNet gas flights</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/volc/2014/08/29/Record+week+for+GeoNet+gas+flights" />
+    <category term="volcano" />
+    <category term="gas" />
+    <category term="flights" />
+    <author>
+      <name>Brad Scott</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206719-10</id>
+    <updated>2014-08-29T04:30:43Z</updated>
+    <published>2014-08-29T04:30:43Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~scottb
+"&gt;Brad Scott&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;Gas flights have been completed at all of our active volcanoes this week.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;p&gt;The GeoNet volcano gas team like to make gas flights about once a month at our active volcanoes; White Island (Whakaari), Ruapehu and Tongariro (Te Maari). However the weather has a big say in this. This week we have had a great run of fine weather and the team has made measurements at all of our active volcanoes.&lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206719/P1070416.JPG?version=1&amp;amp;modificationDate=1409286483297&amp;amp;api=v2' width='300' height='169' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;Gas plume from White Island&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206719/P1070403.JPG?version=1&amp;amp;modificationDate=1409286499421&amp;amp;api=v2' width='300' height='170' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;Logging the flight data&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We mount our gas instruments in a modified Scenica aircraft operated by HeliPro. Some of the instruments ‘sniff’ the gas, while others look up through the plume.  At White Island we also have two permanent gas sensors (MiniDOAS) that give us addition data between the flights. You can find out more about the methods we use &lt;a href="http://info.geonet.org.nz/display/volc/Gas" rel="nofollow"&gt;here&lt;/a&gt; or watch the &lt;a href="http://youtu.be/GkvHJFgJxDE" class="external-link" rel="nofollow"&gt;video clip&lt;/a&gt; to see the team in action. We measure the amount of CO&lt;sub&gt;2&lt;/sub&gt; (carbon dioxide), SO&lt;sub&gt;2&lt;/sub&gt; (sulphur dioxide) and H&lt;sub&gt;2&lt;/sub&gt;S (hydrogen sulphide).&lt;/p&gt;&lt;p&gt;On Monday Tongariro was flown, this is the most difficult one for us due to the topography around the vents, so we can not fly too close or low.  When the wind is from the right direction we can also mount our gas gear in a car and measure it by driving along the road under the volcano. Since the eruptions in 2012 the vents at Te Maari have been pumping out a lot of volcanic gas. The amount of gas has remained steady for the last year and a half; CO&lt;sub&gt;2&lt;/sub&gt; ranging 180 to 630 tons per day, while SO&lt;sub&gt;2&lt;/sub&gt; ranges 18 to 60 tons per day and H&lt;sub&gt;2&lt;/sub&gt;S ranges 3 to 40 tons per day.&lt;/p&gt;&lt;p&gt;On Tuesday Mt Ruapehu was flown. The amount of gas from here is usually low and sometimes we can not detect the gases at all. It’s quiet different if the volcano is active and erupting, then it produces a lot of gas. The crater lake also has an affect, absorbing some of the gas. The amount of gas output since 2010 has typically ranged 50 to 2000 tons per day for CO&lt;sub&gt;2&lt;/sub&gt;, while SO&lt;sub&gt;2&lt;/sub&gt; ranges 0 to 190 tons per day and H&lt;sub&gt;2&lt;/sub&gt;S ranges 0 to 0.4 tons per day.&lt;/p&gt;&lt;p&gt;Then on Wednesday, a flight was completed at White Island. This is by far the easiest one to do as it always has some gas coming out of it and there are no other hills around.  White Island was active in 2012, when some small eruptions occurred. Since then the amount of gas has declined slightly. Recently the CO&lt;sub&gt;2&lt;/sub&gt; has ranged 1050 to 2600 tons per day, while SO&lt;sub&gt;2&lt;/sub&gt; ranged 360 to 2000 tons per day and H&lt;sub&gt;2&lt;/sub&gt;S ranges 4 to 80 tons per day.&lt;/p&gt;&lt;p&gt; &lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/volc/2014/08/29/Record+week+for+GeoNet+gas+flights"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Brad Scott</dc:creator>
+    <dc:date>2014-08-29T04:30:43Z</dc:date>
+  </entry>
+  <entry>
+    <title>Volcanic Alert Bulletin: WI – 2014/03  Earthquake activity near Whakaari / White Island.</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/pages/viewpage.action?pageId=11206708" />
+    <category term="vab" />
+    <category term="white_island" />
+    <author>
+      <name>Brad Scott</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206708-4</id>
+    <updated>2014-08-28T00:52:20Z</updated>
+    <published>2014-08-28T00:52:20Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~scottb
+"&gt;Brad Scott&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;Thursday 28 August 2014 11:00 am, &lt;strong&gt;Earthquake activity near Whakaari / White Island. &lt;/strong&gt;&lt;strong&gt;Volcanic Alert Level remains at 1&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;&lt;p&gt;The GeoNet seismic network has detected a sequence of small earthquakes near White Island this morning. The largest event is magnitude 3.3 and was located within  5km of the island.  The earthquake sequence is continuing.&lt;/p&gt;&lt;p&gt;Since 9.25 am today we have located 5 earthquakes near White Island and recorded several smaller ones that cannot be located. All of the earthquakes appear to be within 5 km of White Island The size of the locatable events ranges from magnitude 2.5 to 3.3 and all are shallow (less than 10 km depth).&lt;/p&gt;&lt;p&gt;We have not recorded or observed any changes on the volcano since the earthquakes started. Yesterday we measured volcanic gases at the island and the results do not show any changes in the amount of gas been released from the volcano.&lt;/p&gt;&lt;p&gt;Earthquake sequences are relatively frequent near White Island and have not resulted in changes in activity on the island in the past.&lt;/p&gt;&lt;p&gt;White Island remains in a state of volcanic unrest. A range of eruptive activity can occur under these conditions and eruptions can start with little or no prior warning. Larger eruptions can eject mud and rocks and may impact the crater floor area. The Volcanic Alert Level remains at &lt;a href="http://info.geonet.org.nz/display/volc/Volcanic+Alert+Levels" rel="nofollow"&gt;Level 1&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;GNS Science is continuing to closely monitor the activity at White Island (and other New Zealand volcanoes) through the GeoNet project.&lt;/p&gt;&lt;p&gt;Want to learn more about volcano monitoring, see &lt;a href="http://www.gns.cri.nz/Home/Learning/Science-Topics/Volcanoes/Monitoring-Our-Volcanoes" style="line-height: 1.4285715;" class="external-link" rel="nofollow"&gt;here&lt;/a&gt; ?&lt;/p&gt;&lt;p&gt;Want to learn more about the Volcanic Alert Levels, see &lt;a href="http://info.geonet.org.nz/display/volc/Volcanic+Alert+Levels" rel="nofollow"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;p&gt; &lt;/p&gt;&lt;p&gt;Contact:&lt;/p&gt;&lt;p&gt;Duty Volcanologist: Tony Hurst&lt;/p&gt;&lt;p&gt;Volcano information: Brad Scott&lt;/p&gt;&lt;p&gt;07 374 8211&lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/pages/viewpage.action?pageId=11206708"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Brad Scott</dc:creator>
+    <dc:date>2014-08-28T00:52:20Z</dc:date>
+  </entry>
+  <entry>
+    <title>July 2014 landslides</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/slide/2014/08/21/July+2014+landslides" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206697-3</id>
+    <updated>2014-08-21T01:44:42Z</updated>
+    <published>2014-08-21T01:44:42Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;Landslides reported from media sources during July 2014.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;h3 id="July2014landslides-Tuesday1July"&gt;Tuesday 1 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Skippers Road, Coronet Peak, was closed by a landslide at Blue Slip.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Wednesday2July"&gt;Wednesday 2 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;In north Canterbury, Manuka Bay Road, Domett, and Macdonald Downs Road, Pyramid Valley, were closed by landslides.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt; &lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 275px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206697/northland_landslides_jul2014.jpg?version=2&amp;amp;modificationDate=1408585179781&amp;amp;api=v2' width='275' height='300' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 275px"&gt;
+                    &lt;div class="gallery-caption"&gt;Location of landslides in Northland during July 2014.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+    &lt;div class="aui-message hint shadowed information-macro"&gt;
+                            &lt;span class="aui-icon icon-hint"&gt;Icon&lt;/span&gt;
+                &lt;div class="message-content"&gt;
+                            &lt;p&gt;&lt;strong&gt;&lt;em&gt;In Northland, a period of heavy rain from 8 July to 14 July caused widespread flooding and many roads were closed or affected by landslides.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+                    &lt;/div&gt;
+    &lt;/div&gt;
+&lt;h3 id="July2014landslides-Thursday10July"&gt;Thursday 10 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Matawaia Maromaku Road, Opahi, was closed by two landslides between Callaghans Road and Tipene Road, and near Opahi Road.&lt;/li&gt;&lt;li&gt;The Kopu-Hikuai Road (SH25A), Coromandel, was closed near the junction with SH25 by a landslide on the Thames side of One Tonne Straight.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Friday11July"&gt;Friday 11 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;In Northland, landslides closed one lane of Marlow Road, Towai, and one lane of Manawaroa Road, Parekura Bay.&lt;/li&gt;&lt;li&gt;On East Cape, a landslide closed one lane of Anaura Road, Arero.&lt;strong&gt; &lt;/strong&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Saturday12July"&gt;Saturday 12 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Continued heavy rain and flooding in the Waiomio Stream caused a 10 metre-long washout that closed State Highway 1 just south of Kawakawa (near Maromaku Road) in Northland. The highway was closed for 7 days.  &lt;/li&gt;&lt;li&gt;Northland Civil Defence Emergency Management (CDEM) Group reported that 128mm of rain had fallen in the upper Waitangi catchment between 3pm Friday and 6am Saturday. Rainfall intensities of up to 36mm an hour were recorded in the upper part of the catchment at Towai. Between 8am Tuesday (8 July) and 6am Saturday (12 July) parts of Northland had received &amp;quot;huge amounts of rain&amp;quot;, with 524mm recorded at Puhipuhi and 475.5mm in the upper Waitangi catchment. Kaikohe had received 509mmm of rain in the first 13 days of July. Farmers and a number of horticulturists in the Hikurangi region and across Northland sustained significant damage to pastures and farms. Some said it was the worst storm in a decade, others compared it to Cyclone Bola.&lt;/li&gt;&lt;li&gt;Many roads were affected by landslides and extensive flooding in Northland following heavy overnight rain. Roads affected by landslides included:&lt;ul&gt;&lt;li&gt;Whatuwhiwhi Road, Whatuwhiwhi,&lt;strong&gt; &lt;/strong&gt;one lane closed;&lt;/li&gt;&lt;li&gt;Victoria Valley Road, Victoria Valley, one lane closed;&lt;/li&gt;&lt;li&gt;Ruapekapeka Road, Towai, one lane closed, impassable for heavy vehicles;&lt;/li&gt;&lt;li&gt;Waiare Road, Okaihau, one lane closed;&lt;/li&gt;&lt;li&gt;Akerama Road, Towai, one lane closed;&lt;/li&gt;&lt;li&gt;Kaitaia-Awaroa Road, Herekino, one lane closed 17.3km from Ahipara Road;&lt;/li&gt;&lt;li&gt;Redcliffs Road, Kerikeri, one lane closed;&lt;/li&gt;&lt;li&gt;Richardson Street, Opua, one lane closed;&lt;/li&gt;&lt;li&gt;Helmsdale Road, Waipu, one lane closed at Grant Road and Millbrook Road;&lt;/li&gt;&lt;li&gt;Runaruna Road, Panguru, one lane closed near Hollands Quarry;&lt;/li&gt;&lt;li&gt;Manawaora Road, Parekura Bay, one lane closed.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Sunday13July"&gt;Sunday 13 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Waimatenui Road, Nukutawhiti&lt;strong style="line-height: 1.4285715;"&gt; &lt;/strong&gt;was&lt;strong style="line-height: 1.4285715;"&gt; &lt;/strong&gt;closed by landslides. Taratara Road, Otangaroa was closed by a landslide.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Monday14July"&gt;Monday 14 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Continued heavy rain in Northland caused landslides that affected the following roads:&lt;ul&gt;&lt;li&gt;Okura Bay Road, Totara North, closed - landslides at the end of the road;&lt;/li&gt;&lt;li&gt;Russell Whakapara Road, Russell, one lane closed by landslides;&lt;/li&gt;&lt;li&gt;Pipiwai Road, Opahi,  closed by landslides north of James Road;&lt;/li&gt;&lt;li&gt;Fern Flat Road, Peria,  closed, landslides approximately 11 km of Kohumaru Road;&lt;/li&gt;&lt;li&gt;Gammon Road, Awarua, one lane closed by landslides;&lt;/li&gt;&lt;li&gt;Takitu Road, Nukutawhiti Road closed due to landslides 150m south of the bridge and north of the bridge;&lt;/li&gt;&lt;li&gt;Walker Road, Waiotira, one lane closed by landslides, 1km from the Neville Road intersection;&lt;/li&gt;&lt;li&gt;Abbey Caves Road, Parihaka, lane closed by landslides, approximately 0.5 km on the Whangarei side of the caves;&lt;/li&gt;&lt;li&gt;Pupuke Mangapa Road, Otangaroa, one lane closed by landslides;&lt;/li&gt;&lt;li&gt;Wright Road, Parakao, one lane closed, landslides at the McCraddle Road intersection;&lt;/li&gt;&lt;li&gt;Waikare Road, Kawakawa, one lane closed by landslides near SH11;&lt;/li&gt;&lt;li&gt;Victoria Valley Road, Victoria Valley, one lane closed by landslides.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;In the Coromandel, the southbound lane of SH 25 Thames Coast Road was closed due to several slips.&lt;/li&gt;&lt;/ul&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206697/gardiner_hut.jpg?version=1&amp;amp;modificationDate=1408585264317&amp;amp;api=v2' width='300' height='225' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;Gardiner Hut, damaged by the rock avalanche from South (or Hillary) ridge. Photo by J. Spencer, Department of Conservation.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id="July2014landslides-Tuesday15July"&gt;Tuesday 15 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://info.geonet.org.nz/display/slide/2014/07/16/Landslide+team+responds+to+Hillary+Ridge+landslide"&gt;A large rock avalanche on Aoraki/Mount Cook&lt;/a&gt; engulfed a climbers hut. It is possible the collapse began the evening before, followed by a major collapse mid-morning 15 July. The rockfall happened on the South (or Hillary) Ridge of the mountain and swept down Noeline Glacier and over Pudding Rock and made a spectacular mess across the Hooker Valley, badly damaging Gardiner Hut on the way. The rockfall is the third to strike the area in the last 18 months. There was one on the other side of South Ridge near Ball Pass, and another near Mount Haast.&lt;/li&gt;&lt;li&gt;In Northland, the following roads were affected by landslides:&lt;ul&gt;&lt;li&gt;Matawherohia Road, Waiare,  one lane closed;&lt;/li&gt;&lt;li&gt;Church Road, Kaitaia, one lane closed, approx 10km off Matthews Avenue;&lt;/li&gt;&lt;li&gt;Diggers Valley Road, Takahue, one lane closed, landslides approx 21km off Kaitaia Awaroa Road;&lt;/li&gt;&lt;li&gt;Patutahi Road, Purua, one lane closed, 200 m from beginning;&lt;/li&gt;&lt;li&gt;Durham Road, Waipu, one lane closed, 200m from the end;&lt;/li&gt;&lt;li&gt;Waiotehue Road, Takahue, road closed, 40m section of road closed 9.1km from intersection with Takahue Road due to overslip;&lt;/li&gt;&lt;li&gt;Tapuhi Road, Hukerenui.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Wednesday16July"&gt;Wednesday 16 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;SH 12 between Kaikohe and Dargaville was down to one lane due to landslides near Kaihu Wood Road intersection.&lt;/li&gt;&lt;li&gt;Orakau Road, Tautoro, one lane closed by landslides, approximately 13km from Mangakahia Road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Thursday17July"&gt;Thursday 17 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Matawaia Maromaku Road, Opahi, one lane closed, landslides approx 8km from Pipiwai Road.&lt;/li&gt;&lt;li&gt;Mangakahia Road, Kaikohe,&lt;strong&gt; &lt;/strong&gt;a number of&lt;strong&gt; &lt;/strong&gt;landslides closed one lane approximately 12km from Kaikohe.&lt;/li&gt;&lt;li&gt;A 3 km section of road between Broadway and Kaikohe was down to one lane due to several landslides.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Friday18July"&gt;&lt;strong&gt;Friday 18 July&lt;/strong&gt;&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Peria Valley Road, Peria&lt;strong style="line-height: 1.4285715;"&gt;, &lt;/strong&gt;lane closed due to landslides, 3.9 km off Victoria Valley Road.&lt;/li&gt;&lt;li&gt;Bull Road, Paparoa, closed by landslides.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Saturday19JulytoSunday20July"&gt;Saturday 19 July to Sunday 20 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A second period of heavy rain struck the Far North causing flooding and landslides on the following days. &amp;quot;About&amp;quot; nine slips were reported between Whangarei and Auckland. Affected areas included Wellsford, Waipu, Ruakaka and Maungatapere.&lt;/li&gt;&lt;li&gt;SH12 between Kaikohe and Dargaville was down to one lane due to road washouts.&lt;/li&gt;&lt;li&gt;SH1 reopened at Brynderwyn Hills&lt;strong&gt; &lt;/strong&gt;after a major washout on 12 July closed the highway, just south of Artillery Road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Monday21July"&gt;Monday 21 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Waipu Gorge Road, Waipu Cove was closed for heavy vehicles due to the risk of washouts.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Tuesday22July"&gt;Tuesday 22 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Girls High School Road, Omana, was closed for heavy vehicles due to a slip near the Omana Road end.&lt;/li&gt;&lt;li&gt;Tapuhi Road, Hukerenui, one lane closed by slips near SH1.&lt;/li&gt;&lt;li&gt;Martin Road, Opahi, one lane closed by slips.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Wednesday23July"&gt;Wednesday 23 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Tipene Road, Opahi, one lane closed by landslides.&lt;/li&gt;&lt;li&gt;Callaghan Road, Towai,&lt;strong&gt; &lt;/strong&gt;one lane closed by landslides.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Sunday27July"&gt;Sunday 27 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The Glenorchy-Queenstown road was temporarily blocked after a landslide occurred in the morning.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Monday28July"&gt;Monday 28 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Landslides blocked the northbound lane of SH75 on Banks Peninsula, between Birdlings Flat and Little River.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="July2014landslides-Tuesday29July"&gt;Tuesday 29 July&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;SH 6 from Punakaiki to Greymouth was closed due to a slip about 20km north of Greymouth (at Twelve Mile). The slip deposited about 50 cubic metres of debris onto the road. A motorist came round a corner and ran into the material on the highway. The driver was shaken but uninjured. MetService said the area had about 25 to 30mm of rain overnight.&lt;/li&gt;&lt;li&gt;Near Mahia, Tarewa Road, Waingake, was closed by landslides (5.5km from the SH2 end).&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/slide/2014/08/21/July+2014+landslides"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-08-21T01:44:42Z</dc:date>
+  </entry>
+  <entry>
+    <title>Taking it global with Fastly</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/appdata/2014/08/12/Taking+it+global+with+Fastly" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-11206664-3</id>
+    <updated>2014-08-11T22:18:17Z</updated>
+    <published>2014-08-11T22:18:17Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;edited&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p class="Standard"&gt;&lt;strong&gt;Here at GNS Science we run the web servers that host the &lt;a href="http://www.geonet.org.nz/" class="external-link" rel="nofollow"&gt;&lt;span style="color: windowtext;"&gt;www.geonet.org.nz&lt;/span&gt;&lt;/a&gt; website. From &lt;a href="http://info.geonet.org.nz/display/home/2004/05/27/May+27+2004+-+Pink+Dinosaur+Becomes+Global+Celebrity"&gt;Dino appearing on the White Island Volcano camera&lt;/a&gt;, to our &lt;a href="http://info.geonet.org.nz/pages/viewpage.action?pageId=1475060"&gt;peak hit rate of 16,257 requests per second&lt;/a&gt; (and every major event in between) it's a challenging task. Along the way, particularly while &lt;a href="http://info.geonet.org.nz/display/home/2012/03/01/Mar+1+2012+-+Better+access+to+our+content"&gt;scaling our hosting after the Christchurch quakes&lt;/a&gt;, we have been helped greatly by our internet service provider &lt;a href="http://www.fx.net.nz/" class="external-link" rel="nofollow"&gt;FX Networks&lt;/a&gt;. Now &lt;a href="http://www.fastly.com" class="external-link" rel="nofollow"&gt;Fastly&lt;/a&gt; is offering some exciting new opportunities to improve how we serve the GeoNet web content. GeoNet's System Development Manager, Geoff Clitheroe, explains further.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section right" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206664/fastly_global.png?version=1&amp;amp;modificationDate=1407794869294&amp;amp;api=v2' width='300' height='193' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;The Fastly global CDN includes two nodes in New Zealand – great for the geographical redundancy we need for serving GeoNet web content.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We use a Content Delivery Network (CDN) to serve the GeoNet web site content. Using a CDN allows us to get the web site content close to the users, be they in New Zealand or overseas. There are ten web servers in the CDN – six in New Zealand and four overseas. This set up has served us, and you, very well. It also gives us excellent geographical redundancy to make sure that we can keep operating through a major geological disaster.  &lt;/p&gt;&lt;p class="Standard"&gt;Keeping the GeoNet CDN maintained and running smoothly can be a fair amount of work for a small team. We always keep our eyes open for ways to be more efficient. These days that often means taking advantage of third party services and there are some excellent ones available. Enter &lt;a href="http://www.fastly.com/" class="external-link" rel="nofollow"&gt;Fastly&lt;/a&gt; - a global CDN provider. Not only do Fastly offer a &lt;a href="http://www.fastly.com/network/" class="external-link" rel="nofollow"&gt;fantastic global CDN&lt;/a&gt; but most excitingly for us they have two CDN nodes in New Zealand.&lt;/p&gt;&lt;p class="Standard"&gt;We have been using Fastly for a little while to improve the capacity of the &lt;a href="http://info.geonet.org.nz" rel="nofollow"&gt;info.geonet.org.nz&lt;/a&gt; web site. Now we're going to start using Fastly to serve some of the &lt;strong&gt;&lt;a href="http://www.geonet.org.nz/" class="external-link" rel="nofollow"&gt;www.geonet.org.nz&lt;/a&gt;&lt;/strong&gt; web content. Fastly will replace the four overseas web servers and two in New Zealand.&lt;/p&gt;&lt;p class="Standard"&gt;As a user of the GeoNet web site you should notice no change. We will carefully distribute how the content is served between our own New Zealand-based CDN and Fastly to make sure we keep everything performing well. If you use the volcano camera and drum image web services there will be some URL changes as we move some of that content to Fastly. We will keep you informed of any changes before they are made.&lt;/p&gt;&lt;p class="Standard"&gt;This is an exciting change for us – over time it should mean less work for us which means we can spend more time on new features.&lt;/p&gt;    
+&lt;div id="" class="rw_corners rw_page_left_section leftinvisible" style=""&gt;
+	&lt;p&gt;    
+    
+    
+
+&lt;div class="gallery"&gt;
+        &lt;table&gt;
+
+                        &lt;tr&gt;
+                                    &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206664/cdn_now.png?version=1&amp;amp;modificationDate=1407795237187&amp;amp;api=v2' width='300' height='287' &gt;
+                                &lt;/td&gt;
+                                                &lt;td class="gallery-image" style="width: 300px"&gt;
+                                    &lt;img border='0' src='/download/thumbnails/11206664/cdn_new.png?version=1&amp;amp;modificationDate=1407795267372&amp;amp;api=v2' width='300' height='287' &gt;
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                    &lt;tr&gt;
+                                    &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;The GeoNet website is currently hosted using ten web servers – six in New Zealand and four overseas.&lt;/div&gt;
+                &lt;/td&gt;
+                                                &lt;td style="width: 300px"&gt;
+                    &lt;div class="gallery-caption"&gt;The GeoNet web site is soon to be hosted using four servers run by us in New Zealand and Fastly. This gives us two Fastly nodes in New Zealand and lets us take advantage of their great international coverage.&lt;/div&gt;
+                &lt;/td&gt;
+                                &lt;/tr&gt;
+             &lt;/table&gt;
+&lt;/div&gt;
+ &lt;/p&gt;Map tiles by &lt;a href="http://stamen.com"&gt;Stamen Design&lt;/a&gt;, under &lt;a href="http://creativecommons.org/licenses/by/3.0"&gt;CC BY 3.0&lt;/a&gt;. Data by &lt;a href="http://openstreetmap.org"&gt;OpenStreetMap&lt;/a&gt;, under &lt;a href="http://creativecommons.org/licenses/by-sa/3.0"&gt;CC BY SA&lt;/a&gt;.
+&lt;/div&gt;
+
+&lt;p&gt; &lt;/p&gt;&lt;p&gt; &lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/appdata/2014/08/12/Taking+it+global+with+Fastly"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-08-11T22:18:17Z</dc:date>
+  </entry>
+  <entry>
+    <title>June 2014 landslides</title>
+    <link rel="alternate" href="http://info.geonet.org.nz/display/slide/2014/07/21/June+2014+landslides" />
+    <author>
+      <name>Kevin Fenaughty</name>
+    </author>
+    <id>tag:info.geonet.org.nz,2009:blogpost-10846237-1</id>
+    <updated>2014-07-21T05:19:11Z</updated>
+    <published>2014-07-21T05:19:11Z</published>
+    <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+        Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+                    &lt;a href="    http://info.geonet.org.nz/display/~kevinf
+"&gt;Kevin Fenaughty&lt;/a&gt;
+            &lt;/p&gt;
+        &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+        &lt;div class="panel" style="border-width: 1px;"&gt;&lt;div class="panelContent"&gt;
+&lt;p&gt;&lt;strong&gt;Landslides reported from media sources during June 2014.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;h3 id="June2014landslides-Monday9June"&gt;Monday 9 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A landslide closed Awahou South Road near Pohangina, in the Manawatu. The road was closed for 6 days.&lt;/li&gt;&lt;li&gt;Heavy rain caused flooding in North Canterbury, and rockfalls affected SH1 at various locations both north and south of Kaikoura (including just south of Ocean Ridge Boulevard).&lt;/li&gt;&lt;li&gt;Wangapeka River Road, in the Hope Range, was reduced to one lane by a landslide.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Tuesday10June"&gt;Tuesday 10 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Extreme rainfall in the northern part of Coromandel triggered debris flows in many of the streams draining the ranges there. Rainfall of 300mm in 6 hours was reported at a private rain gauge near Port Jackson (270mm in 24 hours at Waikato Regional Council rain gauge south of Whitianga). Streams from Waiaro to Port Jackson were affected, and it is estimated that more than $1M of damage was caused to roads and infrastructure (bridges, culverts, fencing, buildings etc). Debris flows initiated in both forest and pastureland, and brought down 5 meter plus diameter boulders and large amounts of tree debris from the native forest above. Stream channels were eroded, and large amounts of material was deposited forming debris flow fans. The debris flows closed Port Jackson Road, at Port Jackson, and Kennedy Bay Road, at Kennedy Bay. A video clip of the debris flows can be found here: &lt;a href="http://www.youtube.com/watch?feature=player_detailpage&amp;amp;v=em5yCfJcm3w" style="line-height: 1.4285715;" class="external-link" rel="nofollow"&gt;http://www.youtube.com/watch?feature=player_detailpage&amp;amp;v=em5yCfJcm3w&lt;/a&gt;&lt;/li&gt;&lt;li&gt;In Northland, Rawhiti Road was affected by a landslide (south of Manawaora Road) near Russell, and Scenic Drive, in the Henderson Valley was closed by landslides near Mountain Road.&lt;/li&gt;&lt;li&gt;Further south in the Wairarapa, slips blocked the southbound lane of SH2 over the Rimutaka Hill Road (about 1km from the Rimutaka Hill Road summit, on the Wairarapa side).&lt;/li&gt;&lt;li&gt;In North Canterbury, Ram Paddock Road, Pyramid Valley and Hurunui Bluff Road, Hawarden were closed by rockfalls. &lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Wednesday11June"&gt;Wednesday 11 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;In Northland, Waimangaro Road in Opua was reduced to one lane by landslides, as was Waiare Road, Waiare (approx 7km from the Kaeo end). Aranga Coast Road, Aranga was closed by landslips at the beach end.&lt;/li&gt;&lt;li&gt;Several landslides affected roads on Great Barrier Island. Port Fitzroy, Okiwi and Whangaparapara were cut off from the rest of the island and a bridge next to the Department of Conservation yards in Port Fitzroy was washed away. Heavy rain caused large slips across the northern side of the island - locals counted more than 20 slips on one road. At Orama, a slip deposited about two metres of debris, mud and trees from a ‘huge slip’ which came down near a building. A flyover video can be seen here: &lt;a href="http://www.3news.co.nz/Video-Great-Barrier-Island-damaged-in-storm/tabid/423/articleID/348308/Default.aspx" style="line-height: 1.4285715;" class="external-link" rel="nofollow"&gt;http://www.3news.co.nz/Video-Great-Barrier-Island-damaged-in-storm/tabid/423/articleID/348308/Default.aspx&lt;/a&gt;&lt;/li&gt;&lt;li&gt;In Coromandel, slips closed the coast road to the north of Thames and affected Kauaeranga Valley Road, Kauaeranga (near Thames).&lt;strong&gt; &lt;/strong&gt;Slips also affected the road to both the north and south of Whitianga, and the 309 Road, near Kaimarama, was reduced to one lane by landslides on the Whitianga side. SH25A from Kopu to Hikuai was closed by several slips.&lt;/li&gt;&lt;li&gt;Near Hamilton, Whatawhata Road (SH23) was closed by several slips. There were at least 16 slips that affected the road from Raglan to Whatawhata. Several other slips also occurred around Raglan at Manu Bay and Whale Bay. Rainfall of 98mm in 48 hours was recorded at the nearby Waingaro (Waikato Regional Council) rain gauge.&lt;/li&gt;&lt;li&gt;A landslide on SH29 across the lower Kaimai Ranges blocked both lanes with a 1.5m-high deposit of mud and vegetation. Ohauiti Road at Ohauiti (approximately 1km north of McPhail Road), south of Tauranga, was closed following a slip and three other roads were affected by slips or surface flooding. A landslide affected one lane of Pyes Pa Road (SH36 Tauranga to Ngongotaha, north of Taumata Road).&lt;/li&gt;&lt;li&gt;SH36 from Dudley Road to Te Matai Road remained under 24 hour manned single lane traffic control due to the high risk of further mudslides.&lt;/li&gt;&lt;li&gt;About a dozen roads closed in the Gisborne district, including a major slip at Devil’s Elbow south of Wairoa and on Anaura Road, Arero (just north of the river). Over the preceding 18 hours, more than 190mm of rain had fallen in areas north of Tolaga Bay and more than 210mm to the south-west.&lt;/li&gt;&lt;li&gt;In North Canterbury, Motunau Beach Road, Motunau Beach was closed due to landslips.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Thursday12June"&gt;Thursday 12 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Mangatokerau Road, near Tolaga Bay, was affected by landslides about 1km from the end of the road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Wednesday13June"&gt;Wednesday 13 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Rockfalls caused delays on SH3 from Eight Mile Junction to Awakino Tunnel. A lane closure was put in place as a precautionary measure. &lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Tuesday17June"&gt;Tuesday 17 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Panikau Road, Whangara, was affected by landslips.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Friday20June"&gt;Friday 20 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Waingake Road, Waingake was affected by slips at Shanks Road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Monday23June"&gt;Monday 23 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Thule Road, Oban (Stewart Island) was affected by landslips.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Wednesday25June"&gt;Wednesday 25 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Extensive surface flooding and road closures occurred in Nelson as a result of heavy rain. There were no reports of landslides, although they are likely to have occurred.&lt;/li&gt;&lt;li&gt;A slip near Rotorua closed SH36 between Dudley Road and Te Matai Road.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Thursday26June"&gt;Thursday 26 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;A large rockfall about 15km south of Makarora forced the closure of SH6. The road was reopened to a single lane on 28 June, with both lanes cleared of debris in the following days.&lt;/li&gt;&lt;/ul&gt;&lt;h3 id="June2014landslides-Saturday28June"&gt;Saturday 28 June&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;SH6 was affected by rockfalls from Boundary Creek Bridge to Sheepskin Creek Bridge.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt; &lt;/p&gt;
+    &lt;/div&gt;
+        &lt;div style="padding: 10px 0;"&gt;
+       &lt;a href="http://info.geonet.org.nz/display/slide/2014/07/21/June+2014+landslides"&gt;View Online&lt;/a&gt;
+                  &lt;/div&gt;
+&lt;/div&gt;</summary>
+    <dc:creator>Kevin Fenaughty</dc:creator>
+    <dc:date>2014-07-21T05:19:11Z</dc:date>
+  </entry>
+</feed>
+

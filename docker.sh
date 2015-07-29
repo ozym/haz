@@ -7,7 +7,11 @@ chmod +s docker-build-tmp
 docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e "CGO_ENABLED=0" -e "GOOS=linux" --rm -v \
 "$PWD":/usr/src/go/src/github.com/GeoNet/haz -w /usr/src/go/src/github.com/GeoNet/haz quay.io/geonet/golang-godep godep go install -a -installsuffix cgo ./...
 
- cp /etc/ssl/certs/ca-certificates.crt docker-build-tmp
+cp /etc/ssl/certs/ca-certificates.crt docker-build-tmp
+# For geonet-rest
+rsync --archive geonet-rest/tmpl docker-build-tmp
+# An alternative is to use $GOROOT/lib/time/zoneinfo.zip
+rsync --archive /usr/share/zoneinfo docker-build-tmp
 
 # Copy in and rename the Dockerfiles.  Exclude the db Dockerfile.
 find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" | awk -F '/' '{print "cp "$0" docker-build-tmp/"$3"-"$2}' | sh
