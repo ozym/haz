@@ -7,27 +7,35 @@ chmod +s docker-build-tmp
 docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e "CGO_ENABLED=0" -e "GOOS=linux" --rm -v \
 "$PWD":/usr/src/go/src/github.com/GeoNet/haz -w /usr/src/go/src/github.com/GeoNet/haz quay.io/geonet/golang-godep godep go install -a -installsuffix cgo ./...
 
+# Assemble common resource for ssl, timezones, and user.
 mkdir -p docker-build-tmp/common/etc/ssl/certs
 mkdir -p docker-build-tmp/common/usr/share
-
-cp passwd.minimal docker-build-tmp/common/etc/passwd
+echo "nobody:x:65534:65534:Nobody:/:" > docker-build-tmp/common/etc/passwd
 cp /etc/ssl/certs/ca-certificates.crt docker-build-tmp/common/etc/ssl/certs
 # An alternative is to use $GOROOT/lib/time/zoneinfo.zip
 rsync --archive /usr/share/zoneinfo docker-build-tmp/common/usr/share
 
-# For geonet-rest
-rsync --archive geonet-rest/tmpl docker-build-tmp
-
-# Copy in and rename the Dockerfiles.  Exclude the db Dockerfile.
-find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" | awk -F '/' '{print "cp "$0" docker-build-tmp/"$3"-"$2}' | sh
-# Copy in the json config file for each excutable
-find . -name 'Dockerfile' ! -path "./docker-build-tmp/*" | awk -F '/' '{print "cp "$2"/"$2".json docker-build-tmp/"}' | sh
-
-build=(`ls docker-build-tmp/Dockerfile-* | awk -F 'Dockerfile-' '{print $2}'`)
-
-for i in "${build[@]}"
+# Docker images for apps
+for i in *-consumer haz-sc3-producer
 do
-    :
-    docker build --rm=true -t quay.io/geonet/haz:$i -f docker-build-tmp/Dockerfile-$i docker-build-tmp
+	cp "${i}/${i}.json" docker-build-tmp
+	echo "FROM scratch" > docker-build-tmp/Dockerfile
+	echo "ADD common ${i} ${i}.json /" >> docker-build-tmp/Dockerfile
+	echo "USER nobody" >> docker-build-tmp/Dockerfile
+	echo "CMD [\"/${i}\"]" >> docker-build-tmp/Dockerfile
+	docker build --rm=true -t quay.io/geonet/haz:$i -f docker-build-tmp/Dockerfile docker-build-tmp
 done
 
+# Docker images for web apps with an open port and a tmpl directory
+for i in geonet-rest 
+do
+	cp "${i}/${i}.json" docker-build-tmp
+	rm -rf docker-build-tmp/common/tmpl
+	rsync --archive "${i}/tmpl" docker-build-tmp/common
+	echo "FROM scratch" > docker-build-tmp/Dockerfile
+	echo "ADD common ${i} ${i}.json /" >> docker-build-tmp/Dockerfile
+	echo "USER nobody" >> docker-build-tmp/Dockerfile
+	echo "EXPOSE 8080" >> docker-build-tmp/Dockerfile
+	echo "CMD [\"/${i}\"]" >> docker-build-tmp/Dockerfile
+	docker build --rm=true -t quay.io/geonet/haz:$i -f docker-build-tmp/Dockerfile docker-build-tmp
+done
