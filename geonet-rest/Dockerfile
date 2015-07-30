@@ -1,8 +1,8 @@
 FROM scratch
-ADD ca-certificates.crt /etc/ssl/certs/
-ADD zoneinfo /usr/share/zoneinfo
+ADD common /
 ADD geonet-rest /
 ADD tmpl /tmpl
 ADD geonet-rest.json /
+USER nobody
 EXPOSE 8080
 CMD ["/geonet-rest"]
