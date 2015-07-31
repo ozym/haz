@@ -2,6 +2,8 @@
 
 Projects related to haz messaging and the haz DB.  
 
+[![Build Status](https://travis-ci.org/GeoNet/haz.svg?branch=master)](https://travis-ci.org/GeoNet/haz)
+
 ## Sub Projects
 
 ### Messaging Applications
