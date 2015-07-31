@@ -4,6 +4,14 @@ Projects related to haz messaging and the haz DB.
 
 [![Build Status](https://travis-ci.org/GeoNet/haz.svg?branch=master)](https://travis-ci.org/GeoNet/haz)
 
+## Working with Forks
+
+To work with a fork of this repo you will need to clone the fork in such a way to preserve the import paths.  Fork and clone to preserve the organization name.  This could possibly include reseting GOPATH if you need to keep origin and a fork.
+
+```
+ git clone git@github.com:gclitheroe/haz.git ${GOPATH}/src/github.com/GeoNet/haz
+```
+
 ## Sub Projects
 
 ### Messaging Applications
