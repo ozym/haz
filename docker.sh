@@ -3,9 +3,11 @@
 mkdir -p docker-build-tmp
 chmod +s docker-build-tmp
 
+BUILD='-X github.com/GeoNet/cfg.Build -'`git rev-parse --short HEAD` 
+
 # Build all executables in the golang-godep container.  Output statically linked binaries to docker-build-tmp
-docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e "CGO_ENABLED=0" -e "GOOS=linux" --rm -v \
-"$PWD":/usr/src/go/src/github.com/GeoNet/haz -w /usr/src/go/src/github.com/GeoNet/haz quay.io/geonet/golang-godep godep go install -a -installsuffix cgo ./...
+docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e "CGO_ENABLED=0" -e "GOOS=linux" -e "BUILD=$BUILD" --rm -v \
+"$PWD":/usr/src/go/src/github.com/GeoNet/haz -w /usr/src/go/src/github.com/GeoNet/haz quay.io/geonet/golang-godep godep go install -a  -ldflags "${BUILD}" -installsuffix cgo ./...
 
 # Assemble common resource for ssl, timezones, and user.
 mkdir -p docker-build-tmp/common/etc/ssl/certs

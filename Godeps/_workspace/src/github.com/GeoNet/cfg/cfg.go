@@ -15,6 +15,9 @@ import (
 // the directory to look for config override files in.
 var over = "/etc/sysconfig"
 
+// compile passing -ldflags "-X github.com/GeoNet/cfg.Build <build sha1>"
+var Build string
+
 type Config struct {
 	DataBase   *DataBase
 	WebServer  *WebServer
@@ -196,7 +199,7 @@ func (c *Config) env() {
 func Load() Config {
 	a := strings.Split(os.Args[0], "/")
 	name := a[len(a)-1]
-	log.SetPrefix(name + " ")
+	log.SetPrefix(name + Build + " ")
 
 	c := name + ".json"
 	ov := over + "/" + c

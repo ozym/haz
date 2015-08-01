@@ -19,3 +19,10 @@ var (
 ```
 
 Then run `go generate` to create the `docker-run.sh` file from your JSON config file.
+
+The log prefix is set to the executable name.  The an additional string can optionally be appended to the prefix by setting cfg.Build
+at compile time e.g.,
+
+```
+ ... -ldflags "-X github.com/GeoNet/cfg.Build `git rev-parse --short HEAD`" ...
+ ```
