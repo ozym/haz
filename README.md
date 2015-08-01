@@ -6,11 +6,13 @@ Projects related to haz messaging and the haz DB.
 
 ## Working with Forks
 
-To work with a fork of this repo you will need to clone the fork in such a way to preserve the import paths.  Fork and clone to preserve the organization name.  This could possibly include reseting GOPATH if you need to keep origin and a fork.
+To work with a fork of this repo you will need to clone the fork in such a way to preserve the import paths.  Fork and clone to preserve the organization name e.g.,  
 
 ```
- git clone git@github.com:gclitheroe/haz.git ${GOPATH}/src/github.com/GeoNet/haz
+ git clone git@github.com:YOUR_FORK/haz.git ${GOPATH}/src/github.com/GeoNet/haz
 ```
+
+This could possibly include reseting GOPATH if you need to keep origin and a fork
 
 ## Sub Projects
 
@@ -35,12 +37,15 @@ Subprojects `*-consumer` consume `msg.Haz` or `msg.Impact` messages from SQS and
 
 ## Database
 
-Uses postgis.  There is a script to initialise the DB e.g.,
+Uses postgis.  Pull and run an image that initializes the database on startup (without further configuration):
 
 ```
-docker run --name postgis -p 5432:5432 -d quay.io/geonet/postgis:latest
-./database/scripts/initdb-93.sh
-```
+docker run --name hazdb -p 5432:5432 -d  quay.io/geonet/haz:database
+``` 
+
+On start the hazard DB is initialized which will delay DB availability.  The image can also be built using `./docker-db.sh`
+
+There is also a script to (re)initialise the DB  `./database/scripts/initdb-93.sh`
 
 ### Loading Quake Data
 
@@ -85,32 +90,16 @@ docker push quay.io/geonet/haz:geonet-rest
 
 ### Container Testing
 
-TODO - this can be improved with Docker compose.
+docker-compose can be used to run a number of the containers together to test messaging.
 
-Each subproject that is run in Docker has a  `docker-run.sh` that documents env var config overrides.
-
-Container linking must be done manually e.g., find the DB container IP address and then run the `geonet-rest` container linked to the DB:
-
-```
-docker inspect --format='{{.NetworkSettings.IPAddress}}' postgis
-> 172.17.0.7
-
-docker run -e "GEONET_REST_DATABASE_HOST=172.17.0.7" -p 8080:8080 quay.io/geonet/haz:geonet-rest
-```
-
-Visit the api-docs at http://localhost:8080/api-docs 
-
-Add in messaging containers (use `haz-aws-messaging` to generate AWS resources.  The `nobody` user in the container will need to be able to read and remove files from the spool dir:
+Copy `dev.env` to `secret.env` (ignored by Git) and edit `secret.env` adding the outputs from running `haz-aws-messaging`.
 
 ```
 mkdir /work/spool
 sudo chown nobody /work/spool
 ```
 
-```
-docker run -e "SC3_PRODUCER_SNS_ACCESS_KEY=XXX" -e "SC3_PRODUCER_SNS_SECRET_KEY=XXX" -e "SC3_PRODUCER_SNS_TOPIC_ARN=XXX"  -v /work/spool:/work/spool quay.io/geonet/haz:haz-sc3-producer
-docker run -e "HAZ_DB_CONSUMER_DATABASE_HOST=XXX"  -e "HAZ_DB_CONSUMER_SQS_QUEUE_NAME=XXX" -e "HAZ_DB_CONSUMER_SQS_ACCESS_KEY=XXX" -e "HAZ_DB_CONSUMER_SQS_SECRET_KEY=XXX" -v /work/spool:/work/spool quay.io/geonet/haz:haz-db-consumer
-```
+Run the containers with `docker-compose up`.
 
 Visit http://localhost:8080/soh and check that heartbeat messages are arriving.
 
