@@ -81,7 +81,7 @@ type HeartBeat struct {
 
 type SC3 struct {
 	SpoolDir string `doc:"Spool directory for SeisComPML files." env:"${PREFIX}_SC3_SPOOL_DIR"`
-	Site     string `doc:"The SC3 site - primary or backup." env:${PREFIX}_SC3_SITE"`
+	Site     string `doc:"The SC3 site - primary or backup." env:"${PREFIX}_SC3_SITE"`
 }
 
 type Librato struct {

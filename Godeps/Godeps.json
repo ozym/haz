@@ -23,7 +23,7 @@
 		},
 		{
 			"ImportPath": "github.com/GeoNet/cfg",
-			"Rev": "a798ca6d2d6c6d544811b76a6bba2bb83f05efbe"
+			"Rev": "b51878e675a922de805b890cb579385651a6d087"
 		},
 		{
 			"ImportPath": "github.com/GeoNet/goamz/sns",
