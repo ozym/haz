@@ -18,6 +18,8 @@ var queueNames = []string{
 	`haz-eqnews-consumer`,
 	`haz-pim-consumer`,
 	`haz-twitter-consumer`,
+	`haz-twitter-consumer-above4`,
+	`haz-twitter-consumer-above5`,
 	`haz-ua-consumer`,
 	`haz-db-consumer-api`,
 }
