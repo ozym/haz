@@ -13,7 +13,6 @@ import (
 )
 
 var queueNames = []string{
-	`haz-web-consumer-api`, // for api.geonet.org.nz in AWS
 	`haz-duty-consumer`,
 	`haz-eqnews-consumer`,
 	`haz-pim-consumer`,
@@ -21,7 +20,7 @@ var queueNames = []string{
 	`haz-twitter-consumer-above4`,
 	`haz-twitter-consumer-above5`,
 	`haz-ua-consumer`,
-	`haz-db-consumer-api`,
+	`haz-db-consumer-api`, // for api.geonet.org.nz in AWS
 }
 
 var (
