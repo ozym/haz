@@ -66,7 +66,7 @@ func procSC3ML(sc3ml <-chan os.FileInfo) {
 		q := msg.ReadSC3ML07(config.SC3.SpoolDir + "/" + fi.Name())
 		if q.Err() != nil {
 			log.Println("WARN ignoring errored SC3ML: " + fi.Name() + " " + q.Err().Error())
-			return
+			continue
 		}
 
 		err := db.SaveQuake(q)
