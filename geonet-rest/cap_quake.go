@@ -167,8 +167,8 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 
 	atom := capAtomFeed{
 		Title: `CAP quakes`,
-		ID:    fmt.Sprintf("http://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
-		Link:  fmt.Sprintf("http://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
+		ID:    fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
+		Link:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
 	}
 
 	/*
@@ -216,7 +216,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 			Title:    fmt.Sprintf("Quake CAP Message %s.%d", p, i),
 			Updated:  t,
 			Summary:  fmt.Sprintf("Quake CAP Message %s.%d", p, i),
-			HrefCAP:  fmt.Sprintf("http://%s/cap/1.2/GPA1.0/quake/%s.%d", config.WebServer.CNAME, p, i),
+			HrefCAP:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/quake/%s.%d", config.WebServer.CNAME, p, i),
 			HrefHTML: fmt.Sprintf("http://geonet.org.nz/quakes/%s", p),
 		}
 
