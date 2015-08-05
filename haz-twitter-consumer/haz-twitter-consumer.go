@@ -23,6 +23,7 @@ func init() {
 	logentries.Init(config.Logentries.Token)
 	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
 	threshold = config.Twitter.MinMagnitude
+	log.Printf("Twitter magnitude threshold %.1f", threshold)
 	config.SQS.MaxNumberOfMessages = 1
 	config.SQS.VisibilityTimeout = 600
 	config.SQS.WaitTimeSeconds = 20
