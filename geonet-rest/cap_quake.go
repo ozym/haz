@@ -183,7 +183,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 	(select publicid, min(modificationtimeunixmicro) as modificationtimeunixmicro 
 		from haz.quakehistory 
 		where status = 'reviewed' 
-		AND modificationTime - time > interval '1 hour' 
+		AND modificationTime - time < interval '1 hour' 
 		AND MMID_newzealand >= $1 
 		AND now() - time < interval '365 days' group by publicid)
 	select h.publicid, h.modificationtimeunixmicro, h.modificationTime 
@@ -191,7 +191,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 	where h.publicid = first_review.publicid 
 	and h.modificationtimeunixmicro >= first_review.modificationtimeunixmicro 
 	and status in ('reviewed','deleted') 
-	AND modificationTime - time > interval '1 hour' ORDER BY time DESC, modificationTime DESC`, minMMID)
+	AND modificationTime - time < interval '1 hour' ORDER BY time DESC, modificationTime DESC`, minMMID)
 	if err != nil {
 		web.ServiceUnavailable(w, r, err)
 		return

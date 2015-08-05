@@ -21,6 +21,3 @@ consumer:
   links:   
    - db
   env_file: secret.env
-twitter:
-  image: quay.io/geonet/haz:haz-twitter-consumer
-  env_file: secret.env
