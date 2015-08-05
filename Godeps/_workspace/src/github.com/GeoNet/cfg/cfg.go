@@ -19,19 +19,21 @@ var over = "/etc/sysconfig"
 var Build string
 
 type Config struct {
-	DataBase   *DataBase
-	WebServer  *WebServer
-	SQS        *SQS
-	SNS        *SNS
-	SC3        *SC3
-	Env        *Env
-	Librato    *Librato
-	Logentries *Logentries
-	HeartBeat  *HeartBeat
-	PagerDuty  *PagerDuty
-	SMTP       *SMTP
-	Twitter    *Twitter
-	UA         *UA
+	DataBase     *DataBase
+	WebServer    *WebServer
+	SQS          *SQS
+	SNS          *SNS
+	SC3          *SC3
+	Env          *Env
+	Librato      *Librato
+	Logentries   *Logentries
+	HeartBeat    *HeartBeat
+	PagerDuty    *PagerDuty
+	SMTP         *SMTP
+	Twitter      *Twitter
+	UA           *UA
+	S3           *S3
+	SeiscompmlS3 *SeiscompmlS3
 }
 
 // DataBase for database config.  Elements with an env tag can be overidden via env var.  See Load.
@@ -121,6 +123,21 @@ type UA struct {
 	AppMasterSecret string `doc:"The UrbanAirship App Master Secret." env:"${PREFIX}_UA_MSECRET"`
 }
 
+type S3 struct {
+	AWSRegion string `doc:"SNS region e.g., ap-southeast-2." env:"${PREFIX}_SNS_AWS_REGION"`
+	EndPoint  string `doc:"S3 endpoint eg. https://s3-ap-southeast-2.amazonaws.com" env:"${PREFIX}_S3_ENDPOINT`
+	Bucket    string `doc:"S3 bucket name" env:"${PREFIX}_S3_BUCKET`
+	AccessKey string `doc:"S3 user access key." env:"${PREFIX}_S3_ACCESS_KEY"`
+	SecretKey string `doc:"S3 user secret." env:"${PREFIX}_S3_SECRET_KEY"`
+}
+
+type SeiscompmlS3 struct {
+	CheckInterval  int    `doc:"Check folder interval" env:"${PREFIX}_SEIS_INTERVAL"`
+	InDir          string `doc:"Input directory" env:"${PREFIX}_SEIS_IN_DIR"`
+	OutDir         string `doc:"Output directory" env:"${PREFIX}_SEIS_OUT_DIR"`
+	UnprocessedDir string `doc:"Unprocess directory" env:"${PREFIX}_SEIS_UNPROCESS_DIR"`
+}
+
 func (c *Config) env() {
 	if c.Env != nil {
 		env(c.Env.Prefix, c.DataBase)
@@ -135,6 +152,8 @@ func (c *Config) env() {
 		env(c.Env.Prefix, c.SMTP)
 		env(c.Env.Prefix, c.Twitter)
 		env(c.Env.Prefix, c.UA)
+		env(c.Env.Prefix, c.S3)
+		env(c.Env.Prefix, c.SeiscompmlS3)
 	}
 }
 
@@ -276,6 +295,13 @@ func env(prefix string, v interface{}) {
 					} else {
 						log.Printf("ERROR parsing %s=%s from env as int: %s", key, val, err)
 					}
+				case reflect.Float64:
+					if f, err := strconv.ParseFloat(val, 64); err == nil {
+						log.Printf("overriding config %s.%s from env %s", e, field.Name, key)
+						sv.Field(i).SetFloat(f)
+					} else {
+						log.Printf("ERROR parsing %s=%s from env as float64: %s", key, val, err)
+					}
 				case reflect.Bool:
 					if b, err := strconv.ParseBool(val); err == nil {
 						log.Printf("overriding config %s.%s from env %s", e, field.Name, key)
@@ -309,6 +335,8 @@ func (c *Config) EnvDoc() (d []EnvDoc, err error) {
 		d = append(d, envDoc(c.Env.Prefix, c.SMTP)...)
 		d = append(d, envDoc(c.Env.Prefix, c.Twitter)...)
 		d = append(d, envDoc(c.Env.Prefix, c.UA)...)
+		d = append(d, envDoc(c.Env.Prefix, c.S3)...)
+		d = append(d, envDoc(c.Env.Prefix, c.SeiscompmlS3)...)
 	} else {
 		err = fmt.Errorf("Found nil Prefix in the config.  Don't know how to read env var.")
 	}

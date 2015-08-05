@@ -26,6 +26,9 @@ func TestLoad(t *testing.T) {
 	if c.Logentries.Token != "ZZZ" {
 		t.Errorf("got %s for Logentries.Token expected %s", c.Logentries.Token, "ZZZ")
 	}
+	if c.Twitter.MinMagnitude != 4.0 {
+		t.Error("got incorrect Twitter mag threshold.")
+	}
 
 	// change where Load will look for override files instead of /etc/sysconfig
 	over = "etc"
@@ -69,6 +72,9 @@ func TestLoad(t *testing.T) {
 	if c.DataBase.MaxOpenConns != 1 {
 		t.Errorf("got %d for DataBase.MaxOpenConns expected %d", c.DataBase.MaxOpenConns, 1)
 	}
+	if c.Twitter.MinMagnitude != 4.0 {
+		t.Error("got incorrect Twitter mag threshold.")
+	}
 
 	// set env and check override of local default config.
 	set()
@@ -89,6 +95,9 @@ func TestLoad(t *testing.T) {
 	if c.Logentries.Token != "ZZZZ" {
 		t.Errorf("got %s for Logentries.Token expected %s", c.Logentries.Token, "ZZZZ")
 	}
+	if c.Twitter.MinMagnitude != 5.0 {
+		t.Error("got incorrect Twitter mag threshold.")
+	}
 
 	d, err := c.EnvDoc()
 	if err != nil {
@@ -107,6 +116,7 @@ func unset() {
 	os.Setenv("GO_CFG_TEST_WEB_SERVER_PRODUCTION", "")
 	os.Setenv("GO_CFG_TEST_LIBRATO_USER", "")
 	os.Setenv("GO_CFG_TEST_LOGENTRIES_TOKEN", "")
+	os.Setenv("GO_CFG_TEST_TWITTER_THRESHOLD", "")
 }
 
 func set() {
@@ -115,4 +125,5 @@ func set() {
 	os.Setenv("GO_CFG_TEST_WEB_SERVER_PRODUCTION", "false")
 	os.Setenv("GO_CFG_TEST_LIBRATO_USER", "XXXX")
 	os.Setenv("GO_CFG_TEST_LOGENTRIES_TOKEN", "ZZZZ")
+	os.Setenv("GO_CFG_TEST_TWITTER_THRESHOLD", "5.0")
 }

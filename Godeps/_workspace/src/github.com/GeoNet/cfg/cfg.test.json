@@ -25,5 +25,12 @@
 	},
 	"Logentries": {
 		"Token": "ZZZ"
+	},
+	"Twitter" : {
+		"ConsumerKey" : "XXX",
+		"ConsumerSecret" : "XXX",
+		"OAuthToken" : "XXX",
+		"OAuthSecret" : "XXX",
+		"MinMagnitude" : 4.0
 	}
 }
