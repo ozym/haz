@@ -1,0 +1,26 @@
+{
+	"SeiscompmlS3": {
+		"CheckInterval": 60,
+		"InDir": "./s3/in",
+		"OutDir": "./s3/out",
+		"UnprocessedDir": "./s3/unprocessed"
+	},
+	"S3": {
+		"AWSRegion": "ap-southeast-2",
+		"EndPoint": "https://s3-ap-southeast-2.amazonaws.com",
+		"Bucket": "",
+		"AccessKey": "",
+		"SecretKey": ""
+	},
+	"Env": {
+		"Prefix": "SEISCOMPML_S3"
+	},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+	},
+	"Logentries": {
+		"Token": ""
+	}
+}
