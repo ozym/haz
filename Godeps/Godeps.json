@@ -34,6 +34,10 @@
 			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
 		},
 		{
+			"ImportPath": "github.com/GeoNet/goamz/s3",
+			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
+		},
+		{
 			"ImportPath": "github.com/GeoNet/log/logentries",
 			"Rev": "18c2731b9dd6d1f74215d1018b21f7b8d270d4fe"
 		},
