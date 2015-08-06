@@ -4,7 +4,7 @@
 package main
 
 import (
-	"github.com/GeoNet/goamz/aws"
+	"github.com/AdRoll/goamz/aws"
 	"github.com/GeoNet/goamz/s3"
 	"log"
 	"os"
