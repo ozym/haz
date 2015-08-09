@@ -225,7 +225,7 @@ func IntensityMMI(Intensity string) float64 {
 		return 7
 	case "strong":
 		return 6
-	case "modeerate":
+	case "moderate":
 		return 5
 	case "light":
 		return 4
