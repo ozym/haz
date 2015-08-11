@@ -28,14 +28,14 @@ export PGPASSWORD=$2
 #
 # Restart postgres.
 #
-dropdb --host=127.0.0.1 --username=$db_user hazard
-psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/drop-create-users.ddl
-psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/create-db.ddl
+# dropdb --host=127.0.0.1 --username=$db_user hazard
+# psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/drop-create-users.ddl
+# psql --host=127.0.0.1 -d postgres --username=$db_user --file=${ddl_dir}/create-db.ddl
 
 # Function security means adding postgis has to be done as a superuser - here that is the postgres user.
 # On AWS RDS the created functions have to be transfered to the rds_superuser.
 # http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS
-psql --host=127.0.0.1 -d hazard --username=$db_user -c 'create extension postgis;'
+# psql --host=127.0.0.1 -d hazard --username=$db_user -c 'create extension postgis;'
 
 psql --host=127.0.0.1 --quiet --username=$db_user --dbname=hazard -f ${ddl_dir}/wfs.ddl
 psql --host=127.0.0.1 --quiet --username=$db_user --dbname=hazard -f ${ddl_dir}/wfs-region.ddl
