@@ -232,7 +232,7 @@ func IntensityMMI(Intensity string) float64 {
 	case "weak":
 		return 3
 	default:
-		return 0
+		return -9
 	}
 }
 
