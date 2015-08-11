@@ -1,0 +1,30 @@
+{
+	"DataBase": {
+		"Host": "localhost",
+		"Name": "hazard",
+		"User": "hazard_w",
+		"Password": "test",
+		"MaxOpenConns": 2, 
+		"MaxIdleConns": 1, 
+		"ConnectionTimeOut": 300,
+		"SSLMode": "disable"
+	},
+	"SQS": {
+		"AWSRegion": "ap-southeast-2",
+		"QueueName": "XXX",
+		"AccessKey": "XXX",
+		"SecretKey": "XXX",
+		"NumberOfListeners": 1
+	},
+	"Env": {
+		"Prefix": "WFS_CONSUMER"
+	},
+	"Librato": {
+		"User": "",
+		"Key": "",
+		"Source": ""
+	},
+	"Logentries": {
+		"Token": ""
+	}
+}

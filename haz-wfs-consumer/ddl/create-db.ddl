@@ -1,0 +1,2 @@
+CREATE DATABASE hazard WITH OWNER geonetadmin TEMPLATE template0 ENCODING 'UTF8' ;
+ALTER DATABASE hazard SET timezone TO UTC;
