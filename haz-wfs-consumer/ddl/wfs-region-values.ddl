@@ -1,0 +1,14 @@
+-- Regions should be defined 0-360 and if you are testing if a point falls inside them
+-- then use ST_Shift_Longitude(geom) on the point being tested.
+-- should be consistent with qrt.region
+INSERT INTO wfs.region VALUES ('newzealand', 'New Zealand', 'region', st_geomfromtext('POLYGON((190 -20, 182 -37, 184 -44, 167 -49, 160 -54, 164 -47, 165 -44, 170 -35, 174 -32, 190 -20))'::text, 4326));
+INSERT INTO wfs.region VALUES ('aucklandnorthland', 'Auckland and Northland', 'north', st_geomfromtext('POLYGON((173.251 -38.138, 175.583 -38.045, 176.474 -36.379, 174.285 -34.026, 171.857 -34.135, 173.251 -38.138))'::text, 4326));
+INSERT INTO wfs.region VALUES ('tongagrirobayofplenty', 'Tongariro and Bay of Plenty', 'north', st_geomfromtext('POLYGON((175.028 -39.526, 175.722 -39.809, 176.931 -38.688, 178.346 -36.770, 176.474 -36.379, 175.583 -38.045, 175.028 -39.526))'::text, 4326));
+INSERT INTO wfs.region VALUES ('gisborne', 'Gisborne', 'north', st_geomfromtext('POLYGON((176.931 -38.688, 178.561 -39.274, 179.898 -37.361, 178.346 -36.770, 176.931 -38.688))'::text, 4326));
+INSERT INTO wfs.region VALUES ('hawkesbay', 'Hawke''s Bay', 'north', st_geomfromtext('POLYGON((176.931 -38.688, 175.722 -39.809, 177.560 -40.638, 178.561 -39.274, 176.931 -38.688))'::text, 4326));
+INSERT INTO wfs.region VALUES ('taranaki', 'Taranaki', 'north', st_geomfromtext('POLYGON((172.004 -39.632, 174.156 -40.456, 175.028 -39.526, 175.583 -38.045, 173.251 -38.138, 172.004 -39.632))'::text, 4326));
+INSERT INTO wfs.region VALUES ('wellington', 'Wellington and Marlborough', 'north', st_geomfromtext('POLYGON((172.951 -41.767, 175.748 -42.908, 177.560 -40.638, 175.028 -39.526, 174.109 -40.462, 172.951 -41.767))'::text, 4326));
+INSERT INTO wfs.region VALUES ('nelsonwestcoast', 'Nelson and West Coast', 'south', st_geomfromtext('POLYGON((167.399 -43.711, 169.168 -44.668, 169.564 -44.341, 172.001 -42.832, 172.951 -41.767, 174.109 -40.462, 172.004 -39.632, 170.180 -41.892, 167.399 -43.711))'::text, 4326));
+INSERT INTO wfs.region VALUES ('canterbury', 'Canterbury', 'south', st_geomfromtext('POLYGON((172.951 -41.767, 172.001 -42.832, 169.564 -44.341, 172.312 -45.412, 175.748 -42.908, 172.951 -41.767))'::text, 4326));
+INSERT INTO wfs.region VALUES ('fiordland', 'Fiordland', 'south', st_geomfromtext('POLYGON((164.218 -46.083, 163.787 -47.212, 165.247 -47.827, 169.168 -44.668, 167.399 -43.711, 164.218 -46.083))'::text, 4326));
+INSERT INTO wfs.region VALUES ('otagosouthland', 'Otago and Southland', 'south', st_geomfromtext('POLYGON((165.247 -47.827, 169.148 -48.410, 172.312 -45.412, 169.564 -44.341, 169.168 -44.668, 165.247 -47.827))'::text, 4326));
