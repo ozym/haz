@@ -5,7 +5,7 @@ CREATE SCHEMA impact;
 -- These are then used with group by to aggregate reports at zoom levels represented by the
 -- length (spatial extent) of the geohash.  Precomputing them is a preformance enhancement for the select.
 CREATE TABLE impact.intensity_reported (
-	source TEXT,
+	source TEXT NOT NULL,
 	time TIMESTAMP WITH TIME ZONE NOT NULL,
 	mmi int NOT NULL CONSTRAINT mmi_check CHECK (mmi >= 1 AND mmi <= 12),
 	comment varchar(140) NOT NULL,
