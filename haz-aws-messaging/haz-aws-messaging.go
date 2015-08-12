@@ -16,11 +16,12 @@ var queueNames = []string{
 	`haz-duty-consumer`,
 	`haz-eqnews-consumer`,
 	`haz-pim-consumer`,
-	`haz-twitter-consumer`,
-	`haz-twitter-consumer-above4`,
-	`haz-twitter-consumer-above5`,
+	// `haz-twitter-consumer`,
+	// `haz-twitter-consumer-above4`, // TODO comment these until can work around prefix checking below
+	// `haz-twitter-consumer-above5`,
 	`haz-ua-consumer`,
-	`haz-db-consumer-api`, // for api.geonet.org.nz in AWS
+	`haz-db-consumer-api`, // for api.geonet.org.nz in AWS,
+	`haz-wfs-consumer`,
 }
 
 var (
