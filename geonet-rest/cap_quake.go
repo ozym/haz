@@ -185,7 +185,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 		where status = 'reviewed' 
 		AND modificationTime - time < interval '1 hour' 
 		AND MMID_newzealand >= $1 
-		AND now() - time < interval '365 days' group by publicid)
+		AND now() - time < interval '48 hours' group by publicid)
 	select h.publicid, h.modificationtimeunixmicro, h.modificationTime 
 	from haz.quakehistory h, first_review 
 	where h.publicid = first_review.publicid 
