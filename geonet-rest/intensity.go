@@ -2,39 +2,14 @@ package main
 
 import (
 	"github.com/GeoNet/web"
-	"github.com/GeoNet/web/api/apidoc"
-	"html/template"
 	"net/http"
 	"regexp"
 )
 
-var impactDoc = apidoc.Endpoint{Title: "Impact",
-	Description: `Look up impact information`,
-	Queries: []*apidoc.Query{
-		intensityMeasuredLatestD,
-	},
-}
-
 var zoomRe = regexp.MustCompile(`^(5|6)$`)
 
-var intensityMeasuredLatestD = &apidoc.Query{
-	Accept:      web.V1GeoJSON,
-	Title:       "Measured Intensity - Latest",
-	Description: "Retrieve measured intensity information in the last sixty minutes.",
-	Example:     "/intensity?type=measured",
-	ExampleHost: exHost,
-	URI:         "/intensity?type",
-	Required: map[string]template.HTML{
-		"type": `<code>measured</code> is the only allowed value.`,
-	},
-	Props: map[string]template.HTML{
-		"max_mmi": `the maximum <a href="http://info.geonet.org.nz/x/w4IO">Modified Mercalli Intensity (MMI)</a> measured at the point in the last sixty minutes.`,
-	},
-}
-
-func intensityMeasuredLatest(w http.ResponseWriter, r *http.Request) {
-	if err := intensityMeasuredLatestD.CheckParams(r.URL.Query()); err != nil {
-		web.BadRequest(w, r, err.Error())
+func intensityMeasuredLatestV1(w http.ResponseWriter, r *http.Request) {
+	if badQuery(w, r, []string{"type"}, []string{}) {
 		return
 	}
 
@@ -63,5 +38,6 @@ func intensityMeasuredLatest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	b := []byte(d)
+	w.Header().Set("Content-Type", web.V1GeoJSON)
 	web.Ok(w, r, &b)
 }

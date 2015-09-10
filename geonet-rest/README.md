@@ -32,7 +32,7 @@ Run all tests (including those in sub dirs):
 
 ### API Documentation
 
-API documentation is generated from doc{} structs in the code.  Run the application and visit `http://localhost:8080/api-docs`.
+API documentation is Markdown in the docs dir.
 
 ### API Changes
 
@@ -40,7 +40,7 @@ API documentation is generated from doc{} structs in the code.  Run the applicat
 
 * Make non breaking **additions** as required.
 * Add to the tests.
-* Add Markdown documention to the tests and regenerate the API docs.
+* Update the docs.
 
 #### Breaking Changes
 
@@ -83,11 +83,6 @@ There are state of health pages available for montoring with web probes:
 Can be sent to Logentries and Librato Metrics respectively by setting the appropriate credentials in the config.
 
 Fatal application errors, 4xx and 5xx requests are syslogged.
-
-### Regions
-
-Regions change very rarely and are served with a long surrogate cache time.  If the regions are changed the regions will need to be
-purged from CDN.
 
 ### Database
 

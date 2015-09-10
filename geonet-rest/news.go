@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"github.com/GeoNet/web"
-	"github.com/GeoNet/web/api/apidoc"
-	"html/template"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -15,14 +13,6 @@ const (
 	mlink   = "http://info.geonet.org.nz/m/view-rendered-page.action?abstractPageId="
 	newsURL = "http://info.geonet.org.nz/createrssfeed.action?types=blogpost&spaces=conf_all&title=GeoNet+News+RSS+Feed&labelString%3D&excludedSpaceKeys%3D&sort=created&maxResults=10&timeSpan=500&showContent=true&publicFeed=true&confirm=Create+RSS+Feed"
 )
-
-var newsDoc = apidoc.Endpoint{
-	Title:       "News",
-	Description: `GeoNet news stories.`,
-	Queries: []*apidoc.Query{
-		newsD,
-	},
-}
 
 // Feed is used for unmarshaling XML (from the GeoNet RSS news feed)
 // and marshaling JSON
@@ -63,29 +53,8 @@ func unmarshalNews(b []byte) (f Feed, err error) {
 	return f, err
 }
 
-// /news/geonet
-
-var newsD = &apidoc.Query{
-	Accept:      web.V1JSON,
-	Title:       "News",
-	Description: " Returns a simple JSON version of the GeoNet News RSS feed.",
-	Example:     "/news/geonet",
-	ExampleHost: exHost,
-	URI:         "/news/geonet",
-	Params: map[string]template.HTML{
-		"none": `no query parameters are required.`,
-	},
-	Props: map[string]template.HTML{
-		"mlink":     "a link to a mobile version of the news story.",
-		"link":      "a link to the news story.",
-		"published": "the date the story was published",
-		"title":     "the title of the story.",
-	},
-}
-
-func news(w http.ResponseWriter, r *http.Request) {
-	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
+func newsV1(w http.ResponseWriter, r *http.Request) {
+	if badQuery(w, r, []string{}, []string{}) {
 		return
 	}
 
@@ -96,7 +65,23 @@ func news(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Surrogate-Control", web.MaxAge300)
+	w.Header().Set("Content-Type", web.V1JSON)
+	web.Ok(w, r, &j)
+}
 
+func newsV2(w http.ResponseWriter, r *http.Request) {
+	if badQuery(w, r, []string{}, []string{}) {
+		return
+	}
+
+	j, err := fetchRSS(newsURL)
+	if err != nil {
+		web.ServiceUnavailable(w, r, err)
+		return
+	}
+
+	w.Header().Set("Surrogate-Control", web.MaxAge300)
+	w.Header().Set("Content-Type", web.V2JSON)
 	web.Ok(w, r, &j)
 }
 

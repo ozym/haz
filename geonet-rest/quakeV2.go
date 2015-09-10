@@ -1,13 +1,17 @@
 package main
 
 import (
-	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/web"
 	"net/http"
 )
 
-func quakeV1(w http.ResponseWriter, r *http.Request) {
+func quakeV2(w http.ResponseWriter, r *http.Request) {
 	if badQuery(w, r, []string{}, []string{}) {
+		return
+	}
+
+	if len(r.URL.Query()) != 0 {
+		web.BadRequest(w, r, "incorrect number of query parameters.")
 		return
 	}
 
@@ -32,8 +36,7 @@ func quakeV1(w http.ResponseWriter, r *http.Request) {
                                 depth, 
                                 magnitude, 
                                 locality,
-                                intensity,
-                                intensity_newzealand as "regionIntensity",
+                                floor(mmid_newzealand) as "mmi",
                                 quality
                            ) as l
                          )) as properties FROM haz.quake as q where publicid = $1 ) As f )  as fc`, publicID).Scan(&d)
@@ -43,33 +46,19 @@ func quakeV1(w http.ResponseWriter, r *http.Request) {
 	}
 
 	b := []byte(d)
-	w.Header().Set("Content-Type", web.V1GeoJSON)
+	w.Header().Set("Content-Type", web.V2GeoJSON)
 	web.Ok(w, r, &b)
 }
 
-func quakesRegionV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{"regionID", "regionIntensity", "number", "quality"}, []string{}) {
+func quakesV2(w http.ResponseWriter, r *http.Request) {
+	if badQuery(w, r, []string{"MMI"}, []string{}) {
 		return
 	}
 
+	var mmi int
 	var ok bool
 
-	if _, ok = getRegionID(w, r); !ok {
-		return
-	}
-
-	if _, ok = getQuality(w, r); !ok {
-		return
-	}
-
-	var regionIntensity string
-
-	if regionIntensity, ok = getRegionIntensity(w, r); !ok {
-		return
-	}
-
-	var n int
-	if n, ok = getNumberQuakes(w, r); !ok {
+	if mmi, ok = getMMI(w, r); !ok {
 		return
 	}
 
@@ -87,18 +76,18 @@ func quakesRegionV1(w http.ResponseWriter, r *http.Request) {
                                 depth,
                                 magnitude,
                                 locality,
-                                intensity,
-                                intensity_newzealand as "regionIntensity",
+                                floor(mmid_newzealand) as "mmi",
                                 quality
                            ) as l
                          )) as properties FROM haz.quakeapi as q where mmid_newzealand >= $1
-                         ORDER BY time DESC  limit $2 ) as f ) as fc`, msg.IntensityMMI(regionIntensity), n).Scan(&d)
+		AND In_newzealand = true
+                         ORDER BY time DESC  limit 100 ) as f ) as fc`, mmi).Scan(&d)
 	if err != nil {
 		web.ServiceUnavailable(w, r, err)
 		return
 	}
 
 	b := []byte(d)
-	w.Header().Set("Content-Type", web.V1GeoJSON)
+	w.Header().Set("Content-Type", web.V2GeoJSON)
 	web.Ok(w, r, &b)
 }

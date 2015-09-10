@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/GeoNet/web"
-	"github.com/GeoNet/web/api/apidoc"
-	"html/template"
 	"net/http"
 	"regexp"
 	"strings"
@@ -15,29 +13,7 @@ import (
 
 const minMMID float64 = 5.0
 
-var capDoc = apidoc.Endpoint{Title: "CAP",
-	Description: `Information in Common Alerting Protocol format.`,
-	Queries: []*apidoc.Query{
-		capQuakeD,
-		capQuakeFeedD,
-	},
-}
-
 var capIDRe = regexp.MustCompile(`^[0-9a-z]+\.[0-9]+$`)
-
-var capQuakeD = &apidoc.Query{
-	Accept:      `queries to this endpoint are not versioned by accept header.`,
-	Title:       `Quake`,
-	Description: "Information in CAP format for a single quake.",
-	Example:     "/cap/1.2/GPA1.0/quake/2013p407387",
-	ExampleHost: exHost,
-	URI:         "/cap/(CAP version)/(CAP profile)/quake/ID",
-	Required: map[string]template.HTML{
-		"CAP profile": `the CAP profile to return.  The only permissable value is <code>GPA1.0</code> for Google Public Alerts version 1.0`,
-		"CAP version": `the CAP version to return.  The only permissable value is <code>1.2</code>`,
-		"ID":          `a valid quake CAP ID e.g., <code>2013p407387.1370036261549894</code>`,
-	},
-}
 
 func capQuake(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query()) != 0 {
@@ -137,23 +113,8 @@ func capQuake(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", web.CAP)
 	web.OkBuf(w, r, b)
-}
-
-var capQuakeFeedD = &apidoc.Query{
-	Accept:      `queries to this endpoint are not versioned by accept header.`,
-	Title:       `Quake Feed`,
-	Description: `Quake feed with CAP links for alerting.`,
-	Discussion: `<p>Feed of quakes in the last seven days of intensity moderate or higher in the New Zealand region and a suitable quality for alerting.   
-	Links (type <code>application/cap+xml</code>) to individual quakes in the requested CAP version and profile are included in the returned feed.</p>`,
-	Example:     "/cap/1.2/GPA1.0/feed/atom1.0/quake",
-	ExampleHost: exHost,
-	URI:         "/cap/(CAP version)/(Cap profile)/feed/(feed type)/quake",
-	Required: map[string]template.HTML{
-		"CAP profile": `the CAP profile to to us in feed links.  The only permissable value is <code>GPA1.0</code> for Google Public Alerts version 1.0`,
-		"CAP version": `the CAP version to use in feed links.  The only permissable value is <code>1.2</code>`,
-		"feed type":   `the only permissable value is <code>atom1.0</code>`,
-	},
 }
 
 func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
@@ -242,5 +203,6 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", web.Atom)
 	web.OkBuf(w, r, b)
 }
