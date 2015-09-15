@@ -84,6 +84,19 @@ func (i *Intensity) Old() {
 	return
 }
 
+// Future sets i.err if the intensity pointed to be i is in the future.
+func (i *Intensity) Future() {
+	if i.err != nil {
+		return
+	}
+
+	if i.Time.After(time.Now().UTC()) {
+		i.err = fmt.Errorf("future message for %s", i.Source)
+	}
+
+	return
+}
+
 func (i *Intensity) Decode(b []byte) {
 	i.err = json.Unmarshal(b, i)
 }
