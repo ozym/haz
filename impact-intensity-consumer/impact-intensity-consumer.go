@@ -85,8 +85,10 @@ func listen() {
 }
 
 func (m *message) Process() bool {
+	// To be stored to the DB messages must be valid and in the last 60 minutes.
 	m.Valid()
 	m.Old()
+	m.Future()
 
 	if m.Err() != nil {
 		return false

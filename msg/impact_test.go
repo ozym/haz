@@ -43,4 +43,24 @@ func TestImpact(t *testing.T) {
 	if i.Err() == nil {
 		t.Error("old should have set i.err.")
 	}
+
+	i = Intensity{}
+
+	i.Source = "test.test"
+	i.Quality = "measured"
+	i.MMI = 4
+
+	i.Time = time.Now().UTC().Add(time.Duration(-30) * time.Minute)
+
+	i.Future()
+	if i.Err() != nil {
+		t.Error("not future should have nil i.err.")
+	}
+
+	i.Time = time.Now().UTC().Add(time.Duration(30) * time.Minute)
+
+	i.Future()
+	if i.Err() == nil {
+		t.Error("future should have nil i.err.")
+	}
 }
