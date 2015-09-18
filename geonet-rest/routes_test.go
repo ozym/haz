@@ -216,25 +216,3 @@ func TestRoutes(t *testing.T) {
 	r.Test(ts, t)
 
 }
-
-func TestGeoJSON(t *testing.T) {
-	setup()
-	defer teardown()
-
-	// GeoJSON routes
-	r := webtest.Route{
-		Accept:     web.V1GeoJSON,
-		Content:    web.V1GeoJSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
-		Response:   http.StatusOK,
-		Vary:       "Accept",
-		TestAccept: false,
-	}
-	r.Add("/quake/2013p407387")
-	r.Add("/quake?regionID=newzealand&regionIntensity=unnoticeable&number=30&quality=best,caution,good")
-	r.Add("/felt/report?publicID=2013p407387")
-	r.Add("/intensity?type=measured")
-
-	r.GeoJSON(ts, t)
-}

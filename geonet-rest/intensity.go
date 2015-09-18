@@ -3,10 +3,7 @@ package main
 import (
 	"github.com/GeoNet/web"
 	"net/http"
-	"regexp"
 )
-
-var zoomRe = regexp.MustCompile(`^(5|6)$`)
 
 func intensityMeasuredLatestV1(w http.ResponseWriter, r *http.Request) {
 	if badQuery(w, r, []string{"type"}, []string{}) {

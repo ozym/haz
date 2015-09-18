@@ -73,11 +73,11 @@ func reportedLatest() (string, error) {
 						ST_AsGeoJSON(s.location)::json as geometry,
 						row_to_json(( select l from 
 							( 
-							select summary_mmi,
+							select mmi,
 							count
 							) as l )) 
 							as properties from (select st_pointfromgeohash(geohash6) as location, 
-							max(mmi) as summary_mmi, 
+							max(mmi) as mmi, 
 							count(mmi) as count 
 							FROM impact.intensity_reported 
 								WHERE time >= (now() - interval '60 minutes')
@@ -107,11 +107,11 @@ func reportedWindow(t time.Time) (string, error) {
 						ST_AsGeoJSON(s.location)::json as geometry,
 						row_to_json(( select l from 
 							( 
-							select summary_mmi,
+							select mmi,
 							count
 							) as l )) 
 							as properties from (select st_pointfromgeohash(geohash6) as location, 
-							max(mmi) as summary_mmi, 
+							max(mmi) as mmi, 
 							count(mmi) as count 
 							FROM impact.intensity_reported 
 								WHERE time >= $1
