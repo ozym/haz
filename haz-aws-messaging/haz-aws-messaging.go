@@ -21,7 +21,6 @@ var queueNames = []string{
 	// `haz-twitter-consumer-above5`,
 	`haz-ua-consumer`,
 	`haz-db-consumer-api`, // for api.geonet.org.nz in AWS,
-	`haz-wfs-consumer`,
 }
 
 var (

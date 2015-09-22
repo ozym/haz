@@ -9,7 +9,6 @@ addons:
 before_script: 
   - psql -U postgres -c "create extension postgis"
   - ./database/scripts/initdb-93.sh
-  - ./haz-wfs-consumer/scripts/initdb-93.sh
 
 install:
 # Add Godeps dependencies to GOPATH and PATH
