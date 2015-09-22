@@ -30,17 +30,7 @@ type LocalityQuake struct {
 type RegionID string
 
 const (
-	NewZealand            RegionID = `newzealand`
-	AucklandNorthland     RegionID = `aucklandnorthland`
-	TongagriroBayofPlenty RegionID = `tongagrirobayofplenty`
-	Gisborne              RegionID = `gisborne`
-	HawkesBay             RegionID = `hawkesbay`
-	Taranaki              RegionID = `taranaki`
-	Wellington            RegionID = `wellington`
-	NelsonWestCoast       RegionID = `nelsonwestcoast`
-	Canterbury            RegionID = `canterbury`
-	Fiordland             RegionID = `fiordland`
-	OtagoSouthland        RegionID = `otagosouthland`
+	NewZealand RegionID = `newzealand`
 )
 
 /*
@@ -55,7 +45,7 @@ func (a ByDistance) Less(i, j int) bool { return a[i].Distance < a[j].Distance }
 
 func init() {
 	regions = map[RegionID][]Locality{
-		AucklandNorthland: []Locality{
+		NewZealand: []Locality{
 			{Name: `Auckland`, Longitude: 174.77, Latitude: -36.85, size: 0},
 			{Name: `Cambridge`, Longitude: 175.47, Latitude: -37.88, size: 1},
 			{Name: `Cape Reinga`, Longitude: 172.68, Latitude: -34.43, size: 2},
@@ -69,8 +59,6 @@ func init() {
 			{Name: `Whangamata`, Longitude: 175.87, Latitude: -37.22, size: 2},
 			{Name: `Whangarei`, Longitude: 174.32, Latitude: -35.72, size: 1},
 			{Name: `Whitianga`, Longitude: 175.7, Latitude: -36.82, size: 2},
-		},
-		TongagriroBayofPlenty: []Locality{
 			{Name: `Murupara`, Longitude: 176.7, Latitude: -38.45, size: 2},
 			{Name: `Ohakune`, Longitude: 175.42, Latitude: -39.42, size: 2},
 			{Name: `Opotiki`, Longitude: 177.28, Latitude: -38.02, size: 2},
@@ -82,8 +70,6 @@ func init() {
 			{Name: `Turangi`, Longitude: 175.8, Latitude: -39, size: 2},
 			{Name: `Whakatane`, Longitude: 176.98, Latitude: -37.97, size: 1},
 			{Name: `White Island`, Longitude: 177.18, Latitude: -37.52, size: 2},
-		},
-		Gisborne: []Locality{
 			{Name: `Gisborne`, Longitude: 178.02, Latitude: -38.67, size: 1},
 			{Name: `Matawai`, Longitude: 177.53, Latitude: -38.35, size: 2},
 			{Name: `Ruatoria`, Longitude: 178.32, Latitude: -37.88, size: 2},
@@ -91,14 +77,10 @@ func init() {
 			{Name: `Te Kaha`, Longitude: 177.68, Latitude: -37.75, size: 2},
 			{Name: `Tokomaru Bay`, Longitude: 178.32, Latitude: -38.13, size: 2},
 			{Name: `Tolaga Bay`, Longitude: 178.3, Latitude: -38.37, size: 2},
-		},
-		HawkesBay: []Locality{
 			{Name: `Hastings`, Longitude: 176.85, Latitude: -39.65, size: 1},
 			{Name: `Napier`, Longitude: 176.9, Latitude: -39.5, size: 1},
 			{Name: `Waipukurau`, Longitude: 176.55, Latitude: -40, size: 2},
 			{Name: `Wairoa`, Longitude: 177.42, Latitude: -39.05, size: 2},
-		},
-		Taranaki: []Locality{
 			{Name: `Hawera`, Longitude: 174.28, Latitude: -39.58, size: 1},
 			{Name: `Mokau`, Longitude: 174.62, Latitude: -38.7, size: 2},
 			{Name: `New Plymouth`, Longitude: 174.07, Latitude: -39.07, size: 1},
@@ -107,8 +89,6 @@ func init() {
 			{Name: `Taumarunui`, Longitude: 175.27, Latitude: -38.88, size: 2},
 			{Name: `Te Kuiti`, Longitude: 175.17, Latitude: -38.33, size: 2},
 			{Name: `Waverley`, Longitude: 174.63, Latitude: -39.77, size: 2},
-		},
-		Wellington: []Locality{
 			{Name: `Blenheim`, Longitude: 173.95, Latitude: -41.52, size: 1},
 			{Name: `Castlepoint`, Longitude: 176.22, Latitude: -40.9, size: 2},
 			{Name: `Dannevirke`, Longitude: 176.1, Latitude: -40.2, size: 2},
@@ -127,8 +107,6 @@ func init() {
 			{Name: `Seddon`, Longitude: 174.07, Latitude: -41.67, size: 2},
 			{Name: `Wellington`, Longitude: 174.77, Latitude: -41.28, size: 0},
 			{Name: `Whanganui`, Longitude: 175.05, Latitude: -39.93, size: 1},
-		},
-		NelsonWestCoast: []Locality{
 			{Name: `Arthur's Pass`, Longitude: 171.57, Latitude: -42.95, size: 2},
 			{Name: `Collingwood`, Longitude: 172.68, Latitude: -40.68, size: 2},
 			{Name: `Greymouth`, Longitude: 171.2, Latitude: -42.45, size: 1},
@@ -142,8 +120,6 @@ func init() {
 			{Name: `Reefton`, Longitude: 171.87, Latitude: -42.12, size: 2},
 			{Name: `St Arnaud`, Longitude: 172.85, Latitude: -41.8, size: 2},
 			{Name: `Westport`, Longitude: 171.6, Latitude: -41.75, size: 2},
-		},
-		Canterbury: []Locality{
 			{Name: `Akaroa`, Longitude: 172.97, Latitude: -43.82, size: 2},
 			{Name: `Amberley`, Longitude: 172.73, Latitude: -43.17, size: 2},
 			{Name: `Ashburton`, Longitude: 171.75, Latitude: -43.9, size: 1},
@@ -159,13 +135,9 @@ func init() {
 			{Name: `Timaru`, Longitude: 171.25, Latitude: -44.4, size: 1},
 			{Name: `Twizel`, Longitude: 170.1, Latitude: -44.27, size: 2},
 			{Name: `Waimate`, Longitude: 171.05, Latitude: -44.73, size: 2},
-		},
-		Fiordland: []Locality{
 			{Name: `Milford Sound`, Longitude: 167.93, Latitude: -44.68, size: 2},
 			{Name: `Queenstown`, Longitude: 168.67, Latitude: -45.03, size: 2},
 			{Name: `Te Anau`, Longitude: 167.72, Latitude: -45.42, size: 2},
-		},
-		OtagoSouthland: []Locality{
 			{Name: `Alexandra`, Longitude: 169.38, Latitude: -45.25, size: 2},
 			{Name: `Balclutha`, Longitude: 169.73, Latitude: -46.23, size: 2},
 			{Name: `Dunedin`, Longitude: 170.5, Latitude: -45.88, size: 1},
@@ -181,12 +153,6 @@ func init() {
 			{Name: `Wanaka`, Longitude: 169.13, Latitude: -44.7, size: 2},
 		},
 	}
-
-	var nz []Locality
-	for _, v := range regions {
-		nz = append(nz, v...)
-	}
-	regions[NewZealand] = nz
 }
 
 // Compass converts bearing (0-360) to a compass bearing name e.g., south-east.

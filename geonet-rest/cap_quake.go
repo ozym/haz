@@ -152,7 +152,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 	where h.publicid = first_review.publicid 
 	and h.modificationtimeunixmicro >= first_review.modificationtimeunixmicro 
 	and status in ('reviewed','deleted') 
-	AND modificationTime - time < interval '1 hour' ORDER BY time DESC, modificationTime DESC`, minMMID)
+	AND modificationTime - time < interval '1 hour' ORDER BY time DESC, modificationTime DESC`, int(minMMID))
 	if err != nil {
 		web.ServiceUnavailable(w, r, err)
 		return
