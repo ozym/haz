@@ -26,6 +26,9 @@ const (
 	V1GeoJSON = "application/vnd.geo+json;version=1"
 	V1JSON    = "application/json;version=1"
 	V1CSV     = "text/csv;version=1"
+	V2GeoJSON = "application/vnd.geo+json;version=2"
+	V2JSON    = "application/json;version=2"
+	V2CSV     = "text/csv;version=2"
 )
 
 // These constants are for error and other pages.  They can be changed.

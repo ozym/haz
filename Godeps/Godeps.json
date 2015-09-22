@@ -43,7 +43,7 @@
 		},
 		{
 			"ImportPath": "github.com/GeoNet/web",
-			"Rev": "fc6bb152fc12094c4e168a786c4d411e83d883e1"
+			"Rev": "f7217228cd5862afda40ef47b2fe9e2b4558ab7d"
 		},
 		{
 			"ImportPath": "github.com/awslabs/aws-sdk-go/aws",
@@ -92,6 +92,15 @@
 		{
 			"ImportPath": "github.com/lib/pq",
 			"Rev": "fbed41b4c063a307ab21bf37ae6705519fb34ca3"
+		},
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-80-g8cec3a8",
+			"Rev": "8cec3a854e68dba10faabbe31c089abf4a3e57a6"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "244f5ac324cb97e1987ef901a0081a77bfd8e845"
 		},
 		{
 			"ImportPath": "github.com/vaughan0/go-ini",
