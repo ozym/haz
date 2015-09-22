@@ -92,7 +92,7 @@ func quakesRegionV1(w http.ResponseWriter, r *http.Request) {
                                 quality
                            ) as l
                          )) as properties FROM haz.quakeapi as q where mmid_newzealand >= $1
-                         ORDER BY time DESC  limit $2 ) as f ) as fc`, msg.IntensityMMI(regionIntensity), n).Scan(&d)
+                         ORDER BY time DESC  limit $2 ) as f ) as fc`, int(msg.IntensityMMI(regionIntensity)), n).Scan(&d)
 	if err != nil {
 		web.ServiceUnavailable(w, r, err)
 		return

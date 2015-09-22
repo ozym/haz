@@ -10,16 +10,6 @@ import (
 // These regions must exist in the DB.
 var regionIDs = []msg.RegionID{
 	msg.NewZealand,
-	msg.AucklandNorthland,
-	msg.TongagriroBayofPlenty,
-	msg.Gisborne,
-	msg.HawkesBay,
-	msg.Taranaki,
-	msg.Wellington,
-	msg.NelsonWestCoast,
-	msg.Canterbury,
-	msg.Fiordland,
-	msg.OtagoSouthland,
 }
 
 func (db *DB) SaveQuake(q msg.Quake) error {
@@ -59,8 +49,8 @@ func (db *DB) SaveQuake(q msg.Quake) error {
 	}
 
 	mmi := q.MMI()
-	qv[`MMI`] = mmi
 	qv[`Intensity`] = msg.MMIIntensity(mmi)
+	qv[`MMI`] = int(mmi)
 
 	// don't use time.UnixNano() for modificationTimeMicro, the zero time overflows int64.
 	mtUnixMicro := q.ModificationTime.Unix()*1000000 + int64(q.ModificationTime.Nanosecond()/1000)
@@ -76,7 +66,7 @@ func (db *DB) SaveQuake(q msg.Quake) error {
 			qv[`Intensity_`+string(v)] = msg.MMIIntensity(0.0)
 			continue
 		}
-		qv[`MMID_`+string(v)] = l.MMIDistance
+		qv[`MMID_`+string(v)] = int(l.MMIDistance)
 		qv[`Intensity_`+string(v)] = msg.MMIIntensity(l.MMIDistance)
 	}
 
