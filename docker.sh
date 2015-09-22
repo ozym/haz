@@ -34,6 +34,8 @@ do
 	cp "${i}/${i}.json" docker-build-tmp
 	rm -rf docker-build-tmp/common/tmpl
 	rsync --archive "${i}/tmpl" docker-build-tmp/common
+	rm -rf docker-build-tmp/common/docs
+	rsync --archive "${i}/docs" docker-build-tmp/common
 	echo "FROM scratch" > docker-build-tmp/Dockerfile
 	echo "ADD common ${i} ${i}.json /" >> docker-build-tmp/Dockerfile
 	echo "USER nobody" >> docker-build-tmp/Dockerfile
