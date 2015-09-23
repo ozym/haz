@@ -9,6 +9,7 @@ import (
 
 var source = regexp.MustCompile(`^[a-zA-Z0-9\.\-]+$`)
 var MeasuredAge = time.Duration(-60) * time.Minute // measured intensity messages older than this are not saved to the DB.
+var future = time.Duration(10) * time.Second
 
 // Intensity is for measured or reported intensity messages e.g.,
 //  {
@@ -90,7 +91,7 @@ func (i *Intensity) Future() {
 		return
 	}
 
-	if i.Time.After(time.Now().UTC()) {
+	if i.Time.After(time.Now().UTC().Add(future)) {
 		i.err = fmt.Errorf("future message for %s", i.Source)
 	}
 
