@@ -57,10 +57,23 @@ func TestImpact(t *testing.T) {
 		t.Error("not future should have nil i.err.")
 	}
 
-	i.Time = time.Now().UTC().Add(time.Duration(30) * time.Minute)
+	i.Time = time.Now().UTC().Add(time.Duration(30) * time.Second)
 
 	i.Future()
 	if i.Err() == nil {
-		t.Error("future should have nil i.err.")
+		t.Error("future should have non nil i.err.")
+	}
+
+	i = Intensity{}
+
+	i.Source = "test.test"
+	i.Quality = "measured"
+	i.MMI = 4
+
+	i.Time = time.Now().UTC().Add(time.Duration(9) * time.Second)
+
+	i.Future()
+	if i.Err() != nil {
+		t.Error("less than 10s in the future should have nil i.err.")
 	}
 }
