@@ -10,7 +10,8 @@ import (
 	"time"
 )
 
-const quakeLen = 7 //  len("/quake/")
+const quakeLen = 7         //  len("/quake/")
+const quakeHistoryLen = 15 //  len("/quake/history/")
 
 var publicIDRe = regexp.MustCompile(`^[0-9a-z]+$`)
 var intensityRe = regexp.MustCompile(`^(unnoticeable|weak|light|moderate|strong|severe)$`)
@@ -18,6 +19,29 @@ var qualityRe = regexp.MustCompile(`^(best|caution|deleted|good)$`)
 
 func getPublicIDPath(w http.ResponseWriter, r *http.Request) (string, bool) {
 	publicID := r.URL.Path[quakeLen:]
+
+	if !publicIDRe.MatchString(publicID) {
+		web.BadRequest(w, r, "invalid publicID: "+publicID)
+		return publicID, false
+	}
+
+	var d string
+
+	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
+	if err == sql.ErrNoRows {
+		web.NotFound(w, r, "invalid publicID: "+publicID)
+		return publicID, false
+	}
+	if err != nil {
+		web.ServiceUnavailable(w, r, err)
+		return publicID, false
+	}
+
+	return publicID, true
+}
+
+func getPublicIDHistoryPath(w http.ResponseWriter, r *http.Request) (string, bool) {
+	publicID := r.URL.Path[quakeHistoryLen:]
 
 	if !publicIDRe.MatchString(publicID) {
 		web.BadRequest(w, r, "invalid publicID: "+publicID)

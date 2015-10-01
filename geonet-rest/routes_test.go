@@ -50,6 +50,7 @@ func TestRoutes(t *testing.T) {
 		TestAccept: false,
 	}
 	r.Add("/quake/2013p407387")
+	r.Add("/quake/history/2013p407387")
 	r.Add("/quake?MMI=-1")
 	r.Add("/quake?MMI=0")
 	r.Add("/quake?MMI=1")

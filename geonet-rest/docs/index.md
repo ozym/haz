@@ -30,6 +30,7 @@ The code that provide these services is available at https://github.com/GeoNet/h
 * [Intensity](#intensity)
 * [News](#news)
 * [Quake](#quake)
+* [Quake History](#quakehistory)
 * [Quakes](#quakes)
 * [Quake CAP](#quakecap)
 * [Quake CAP Feed](#quakecapfeed)
@@ -150,6 +151,53 @@ quality
 
 [/quake/2013p407387](/quake/2013p407387)
 
+## Quake History ## {#quakehistory}
+
+Location history for a single quake.  Not all quakes have a location history.
+
+    [GET] /quake/history/(publicID)
+
+### Accept Version
+
+    application/vnd.geo+json;version=2
+
+### Parameters
+
+publicID
+:   A valid publicID for a quake e.g. `2014p715167`    
+
+### Response
+
+ GeoJSON features with the following properties:
+
+publicID
+:   the unique public identifier for this quake.
+
+time
+:   the origin time of the quake.
+
+modificationTime
+:   the modification time of this information.
+
+depth
+:    the depth of the quake in km.
+
+magnitude
+:   the summary magnitude for the quake.
+
+locality
+:    distance and direction to the nearest locality.
+
+MMI
+:   the calculated MMI shaking at the closest locality in the New Zealand region.
+
+quality
+:   the quality of this information; `best`, `good`, `caution`, `deleted`.
+
+### Examples
+
+[/quake/history/2013p407387](/quake/history/2013p407387)
+
 
 ## Quakes ## {#quakes}
 
@@ -208,11 +256,11 @@ Queries to this endpoint are not versioned by accept header.
 ### Parameters
 
 ID
-:   a valid quake CAP ID e.g., `2013p407387.1370036261549894`
+:   a valid quake CAP ID e.g., `2015p653589.1440964609134673`
 
 ### Examples
 
-[/cap/1.2/GPA1.0/quake/2013p407387.1370036261549894](/cap/1.2/GPA1.0/quake/2013p407387.1370036261549894)
+[/cap/1.2/GPA1.0/quake/2015p653589.1440964609134673](/cap/1.2/GPA1.0/quake/2013p407387.1370036261549894)
 
 ## Quake CAP Feed ## {#quakecapfeed}
 

@@ -29,6 +29,7 @@ func init() {
 	muxV2GeoJSON.HandleFunc("/intensity", intensityV2)
 	muxV2GeoJSON.HandleFunc("/quake", quakesV2)
 	muxV2GeoJSON.HandleFunc("/quake/", quakeV2)
+	muxV2GeoJSON.HandleFunc("/quake/history/", quakeHistoryV2)
 
 	muxV2JSON = http.NewServeMux()
 	muxV2JSON.HandleFunc("/news/geonet", newsV2)
@@ -43,6 +44,7 @@ func init() {
 	// The 'latest' version of the API for unversioned requests.
 	muxDefault.HandleFunc("/quake/", quakeV2)
 	muxDefault.HandleFunc("/quake", quakesV2)
+	muxDefault.HandleFunc("/quake/history/", quakeHistoryV2)
 	muxDefault.HandleFunc("/intensity", intensityV2)
 	muxDefault.HandleFunc("/news/geonet", newsV2)
 
