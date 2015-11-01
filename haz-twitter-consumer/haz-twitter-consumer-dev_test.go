@@ -58,4 +58,5 @@ func TestTweet(t *testing.T) {
 	if false != m.processTweet() {
 		t.Errorf("TestTweet failed")
 	}
+
 }

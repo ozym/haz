@@ -22,8 +22,8 @@ const (
 	eqNewsNow   = "Mon 2 Jan 2006 at 3:04 pm"
 	eqNewsUTC   = "2006/01/02 at 15:04:05"
 	eqNewsLocal = "(MST):      Monday 2 Jan 2006 at 3:04 pm"
-	twitterTime = "Mon Jan 2 2006 3:04 PM (MST)"
-	tcoUrlLen   = len("http://t.co/7gZ0yUcmSx") // 09/06/2015 Twitter's t.co url sample (22 chars)
+	twitterTime = "Mon Jan 2 2006 3:04 PM"
+	tcoUrlLen   = len("https://t.co/7gZ0yUcmSx") // 09/06/2015 Twitter's t.co url sample (22 chars)
 )
 
 const eqNews = `                PRELIMINARY EARTHQUAKE REPORT
