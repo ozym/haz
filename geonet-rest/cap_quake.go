@@ -132,27 +132,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 		Link:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
 	}
 
-	/*
-		There needs to be an Atom feed entity for every CAP message.
-		A CAP message ID is unique for each CAP message (and is not just the quake PublicID).
-		1. Find the first time any quake was reviewed within an hour of the quake
-		and was strong enough for a CAP message.  This is the first CAP message.
-		2. Select the first CAP message and any subsequent reviews or deletes that happened with an hour
-		of the quake.  Each of this is a CAP message and gets an entity in the feed.
-	*/
-	rows, err := db.Query(`with first_review as 
-	(select publicid, min(modificationtimeunixmicro) as modificationtimeunixmicro 
-		from haz.quakehistory 
-		where status = 'reviewed' 
-		AND modificationTime - time < interval '1 hour' 
-		AND MMID_newzealand >= $1 
-		AND now() - time < interval '48 hours' group by publicid)
-	select h.publicid, h.modificationtimeunixmicro, h.modificationTime 
-	from haz.quakehistory h, first_review 
-	where h.publicid = first_review.publicid 
-	and h.modificationtimeunixmicro >= first_review.modificationtimeunixmicro 
-	and status in ('reviewed','deleted') 
-	AND modificationTime - time < interval '1 hour' ORDER BY time DESC, modificationTime DESC`, int(minMMID))
+	rows, err := db.Query(capQuakeFeedSQL, int(minMMID))
 	if err != nil {
 		web.ServiceUnavailable(w, r, err)
 		return
