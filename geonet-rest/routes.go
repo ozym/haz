@@ -33,6 +33,7 @@ func init() {
 
 	muxV2JSON = http.NewServeMux()
 	muxV2JSON.HandleFunc("/news/geonet", newsV2)
+	muxV2JSON.HandleFunc("/quake/stats", quakeStatsV2)
 
 	// muxDefault handles routes with no Accept version.
 	muxDefault = http.NewServeMux()
@@ -45,6 +46,7 @@ func init() {
 	muxDefault.HandleFunc("/quake/", quakeV2)
 	muxDefault.HandleFunc("/quake", quakesV2)
 	muxDefault.HandleFunc("/quake/history/", quakeHistoryV2)
+	muxDefault.HandleFunc("/quake/stats", quakeStatsV2)
 	muxDefault.HandleFunc("/intensity", intensityV2)
 	muxDefault.HandleFunc("/news/geonet", newsV2)
 

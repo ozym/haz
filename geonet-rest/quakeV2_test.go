@@ -253,3 +253,68 @@ func TestQuakeHistoryV2(t *testing.T) {
 		t.Error("didn't find quake 2013p407387 in the list of Features.")
 	}
 }
+
+type magCountV2 struct {
+	MagnitudeCount struct {
+		Days7   map[string]int
+		Days28  map[string]int
+		Days365 map[string]int
+	}
+	Rate struct {
+		PerDay map[string]int
+	}
+}
+
+func TestQuakeStatsV2(t *testing.T) {
+	setup()
+	defer teardown()
+
+	c := webtest.Content{
+		Accept: web.V2JSON,
+		URI:    "/quake/stats",
+	}
+
+	b, err := c.Get(ts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var m magCountV2
+
+	err = json.Unmarshal(b, &m)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if m.MagnitudeCount.Days28["4"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days28["4"])
+	}
+
+	if m.MagnitudeCount.Days28["5"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days28["5"])
+	}
+
+	if m.MagnitudeCount.Days7["4"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days7["4"])
+	}
+
+	if m.MagnitudeCount.Days7["5"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days7["5"])
+	}
+
+	if m.MagnitudeCount.Days365["4"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days365["4"])
+	}
+
+	if m.MagnitudeCount.Days365["5"] != 1 {
+		t.Errorf("exptected 1 got %d", m.MagnitudeCount.Days365["5"])
+	}
+
+	if m.MagnitudeCount.Days28["6"] != 0 {
+		t.Errorf("exptected 0 got %d", m.MagnitudeCount.Days28["6"])
+	}
+
+	if m.Rate.PerDay["2015-11-03T00:00:00+00:00"] != 2 {
+		t.Errorf("expected 2 for daily rate, got %d", m.Rate.PerDay["2015-11-03T00:00:00+00:00"])
+	}
+}

@@ -145,3 +145,35 @@ where h.publicid = first_review.publicid
 and h.modificationtimeunixmicro >= first_review.modificationtimeunixmicro 
 and status in ('reviewed','deleted') 
 AND modificationTime - time < interval '1 hour' ORDER BY time DESC, modificationTime DESC`
+
+const quakeStatsV2SQL = `with mags as (
+	select floor(magnitude) as magnitude, time, date_trunc('day', time) as day
+	from haz.quakeapi 
+	where in_newzealand and not deleted
+	), year as (
+		select COALESCE(json_object_agg(summ.magnitude, summ.count), '{}') as count_mags 
+		from (select magnitude, count(magnitude) as count 
+			from mags where  time >= (now() - interval '365 days') group by magnitude) as summ
+),
+month as (
+	select COALESCE(json_object_agg(summ.magnitude, summ.count), '{}') as count_mags 
+	from (select magnitude, count(magnitude) as count 
+		from mags where  time >= (now() - interval '28 days') group by magnitude) as summ
+),
+week as (
+	select COALESCE(json_object_agg(summ.magnitude, summ.count), '{}') as count_mags 
+	from (select magnitude, count(magnitude) as count 
+		from mags where  time >= (now() - interval '7 days') group by magnitude) as summ
+),
+perday as (
+	select COALESCE(json_object_agg(summ.day, summ.count), '{}') as "perDay" 
+	from (select day, count(day) as count 
+		from mags group by day order by day) as summ
+)
+select row_to_json(f) from (
+	select row_to_json(fc) as "magnitudeCount", row_to_json(perday) as "rate" FROM perday, (
+		SELECT 
+		year.count_mags as "days365",
+		month.count_mags as "days28",
+		week.count_mags as "days7"
+		FROM year, month, week) as fc) as f`

@@ -86,3 +86,26 @@ func quakeHistoryV2(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", web.V2GeoJSON)
 	web.Ok(w, r, &b)
 }
+
+func quakeStatsV2(w http.ResponseWriter, r *http.Request) {
+	if badQuery(w, r, []string{}, []string{}) {
+		return
+	}
+
+	if len(r.URL.Query()) != 0 {
+		web.BadRequest(w, r, "incorrect number of query parameters.")
+		return
+	}
+
+	var d string
+	err := db.QueryRow(quakeStatsV2SQL).Scan(&d)
+	if err != nil {
+		web.ServiceUnavailable(w, r, err)
+		return
+	}
+
+	b := []byte(d)
+	w.Header().Set("Surrogate-Control", web.MaxAge300)
+	w.Header().Set("Content-Type", web.V2JSON)
+	web.Ok(w, r, &b)
+}
