@@ -23,7 +23,7 @@ Bugs
 
 ## Bugs
 
-The code that provide these services is available at https://github.com/GeoNet/haz/geonet-rest If you believe you have found a bug please raise an issue or pull request there.
+The code that provide these services is available at [https://github.com/GeoNet/haz/geonet-rest](https://github.com/GeoNet/haz/geonet-rest) If you believe you have found a bug please raise an issue or pull request there.
 
 # Endpoints
 
