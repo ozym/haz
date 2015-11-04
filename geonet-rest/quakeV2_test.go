@@ -314,7 +314,13 @@ func TestQuakeStatsV2(t *testing.T) {
 		t.Errorf("exptected 0 got %d", m.MagnitudeCount.Days28["6"])
 	}
 
-	if m.Rate.PerDay["2015-11-03T00:00:00+00:00"] != 2 {
-		t.Errorf("expected 2 for daily rate, got %d", m.Rate.PerDay["2015-11-03T00:00:00+00:00"])
+	if len(m.Rate.PerDay) != 1 {
+		t.Errorf("expected 1 for daily rate, got %d", len(m.Rate.PerDay))
+	}
+
+	for k, _ := range m.Rate.PerDay {
+		if m.Rate.PerDay[k] != 2 {
+			t.Errorf("expected 2 quakes for day %s", k)
+		}
 	}
 }
