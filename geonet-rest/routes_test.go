@@ -124,6 +124,7 @@ func TestRoutes(t *testing.T) {
 		TestAccept: false,
 	}
 	r.Add("/news/geonet")
+	r.Add("/quake/stats")
 
 	r.Test(ts, t)
 

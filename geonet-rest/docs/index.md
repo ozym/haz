@@ -23,7 +23,7 @@ Bugs
 
 ## Bugs
 
-The code that provide these services is available at https://github.com/GeoNet/haz/geonet-rest If you believe you have found a bug please raise an issue or pull request there.
+The code that provide these services is available at [https://github.com/GeoNet/haz/geonet-rest](https://github.com/GeoNet/haz/geonet-rest) If you believe you have found a bug please raise an issue or pull request there.
 
 # Endpoints
 
@@ -31,6 +31,7 @@ The code that provide these services is available at https://github.com/GeoNet/h
 * [News](#news)
 * [Quake](#quake)
 * [Quake History](#quakehistory)
+* [Quake Stats](#quakestats)
 * [Quakes](#quakes)
 * [Quake CAP](#quakecap)
 * [Quake CAP Feed](#quakecapfeed)
@@ -198,6 +199,27 @@ quality
 
 [/quake/history/2013p407387](/quake/history/2013p407387)
 
+## Quake Stats ## {#quakestats}
+
+Quake statistics. 
+
+ [GET] /quake/stats
+
+### Accept Version
+
+    application/vnd.geo+json;version=2
+
+### Response
+
+magnitudeCount
+:  contains three members that summarise magnitude by count over the last 7, 28, and 365 days.
+
+rate
+:  contains the member perDay that gives a per day summary by count of quake occurence.
+
+### Examples
+
+[/quake/stats](/quake/stats)
 
 ## Quakes ## {#quakes}
 
