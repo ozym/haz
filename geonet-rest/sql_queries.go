@@ -153,7 +153,7 @@ const quakeStatsV2SQL = `with mags as (
 	), year as (
 		select COALESCE(json_object_agg(summ.magnitude, summ.count), '{}') as count_mags 
 		from (select magnitude, count(magnitude) as count 
-			from mags where  time >= (now() - interval '365 days') group by magnitude) as summ
+			from mags where  time >= (now() - interval '364 days') group by magnitude) as summ
 ),
 month as (
 	select COALESCE(json_object_agg(summ.magnitude, summ.count), '{}') as count_mags 
