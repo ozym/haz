@@ -22,7 +22,6 @@ const (
 	eqNewsNow   = "Mon 2 Jan 2006 at 3:04 pm"
 	eqNewsUTC   = "2006/01/02 at 15:04:05"
 	eqNewsLocal = "(MST):      Monday 2 Jan 2006 at 3:04 pm"
-	twitterTime = "Mon Jan 2 2006 3:04 PM"
 	tcoUrlLen   = len("https://t.co/7gZ0yUcmSx") // 09/06/2015 Twitter's t.co url sample (22 chars)
 )
 
@@ -461,25 +460,21 @@ func (q *Quake) AlertTwitter(minMagnitude float64) (alert bool, message string) 
 		return
 	}
 
-	if c.MMIDistance >= 3.0 {
-		alert = true
+	if c.MMIDistance < 3.0 {
+		return
+	}
 
-		// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
-		qUrl := fmt.Sprintf("http://geonet.org.nz/quakes/%s", q.PublicID)
-		message = fmt.Sprintf("Quake %s, intensity %s, approx. M%.1f, depth %.f km %s %s",
-			c.Location(),
-			MMIIntensity(q.MMI()),
-			q.Magnitude,
-			q.Depth,
-			qUrl,
-			q.Time.In(nz).Format(twitterTime))
+	alert = true
 
-		// Make sure we'll only send message less than 140 chars (after url shortened with t.co)
-		t := len(message) - len(qUrl) + tcoUrlLen - 140
-		if t > 0 {
-			message = message[0 : len(message)-t]
-			log.Println("WARNING: Twitter message truncated", t, "chars to:", message)
-		}
+	// Quake 85 km east of Ruatoria, intensity moderate, approx. M3.6, depth 6 km http://geonet.org.nz/quakes/2011a868660 Fri Nov 18 2011 10:42 PM (NZDT)
+	qUrl := fmt.Sprintf("http://geonet.org.nz/quakes/%s", q.PublicID)
+	message = fmt.Sprintf("M%0.1f quake causing %s shaking near %s %s", q.Magnitude, MMIIntensity(c.MMIDistance), c.Locality.Name, qUrl)
+
+	// Make sure we'll only send message less than 140 chars (after url shortened with t.co)
+	t := len(message) - len(qUrl) + tcoUrlLen - 140
+	if t > 0 {
+		message = message[0 : len(message)-t]
+		log.Println("WARNING: Twitter message truncated", t, "chars to:", message)
 	}
 
 	return
@@ -505,12 +500,8 @@ func (q *Quake) AlertUAPush() (message string, tags []string) {
 	}
 
 	tags = q.uaTags()
-	m := fmt.Sprintf("%s quake %s", MMIIntensity(q.MMI()), c.Location())
+	message = fmt.Sprintf("M%0.1f quake causing %s shaking near %s", q.Magnitude, MMIIntensity(c.MMIDistance), c.Locality.Name)
 
-	// capitalize intensity
-	t := []byte(m)
-	t[0] = t[0] - ('a' - 'A')
-	message = string(t)
 	return
 }
 
