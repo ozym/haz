@@ -64,6 +64,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/intensity?type=measured")
 	r.Add("/intensity?type=reported")
 	r.Add("/intensity?type=reported&publicID=2013p407387")
+	r.Add("/volcano/val")
 
 	r.Test(ts, t)
 
@@ -81,6 +82,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/quake?MMI=3")
 	r.Add("/intensity?type=measured")
 	r.Add("/intensity?type=reported")
+	r.Add("/volcano/val")
 
 	r.Test(ts, t)
 
