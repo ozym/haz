@@ -279,11 +279,7 @@ Queries to this endpoint are not versioned by accept header.
 ### Parameters
 
 ID
-:   a valid quake CAP ID e.g., `2015p653589.1440964609134673`
-
-### Examples
-
-[/cap/1.2/GPA1.0/quake/2015p653589.1440964609134673](/cap/1.2/GPA1.0/quake/2013p407387.1370036261549894)
+:   a valid quake CAP ID from the Quake CAP Feed.
 
 ## Quake CAP Feed ## {#quakecapfeed}
 
