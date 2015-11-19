@@ -36,6 +36,11 @@ func docs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.URL.Path != "/" {
+		web.BadRequest(w, r, "invalid path")
+		return
+	}
+
 	web.Ok(w, r, &docsIndex)
 }
 

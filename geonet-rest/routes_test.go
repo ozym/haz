@@ -199,7 +199,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/quake?regionID=bad&intensity=unnoticeable&number=3&quality=best,caution,good")
 	r.Add("/region/bad")
 	r.Add("/region?type=badQuery")
-	r.Add("/")
+	r.Add("/fred")
 	r.Add("/felt/report?quakeID=2012p498491")
 	r.Add("/intensity?type=reported") // no reported at V1
 	r.Test(ts, t)
