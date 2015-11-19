@@ -356,7 +356,7 @@ func TestAlertTwitter(t *testing.T) {
 	a, m := q.AlertTwitter(0)
 
 	eq(t, true, a)
-	eq(t, true, strings.HasPrefix(m, `Quake 5 km south-east of Ruatoria, intensity severe, approx. M6.0, depth 10 km http://geonet.org.nz/quakes/2015p278423`))
+	eq(t, true, strings.HasPrefix(m, `M6.0 quake causing severe shaking near Ruatoria http://geonet.org.nz/quakes/2015p278423`))
 
 	a, m = q.AlertTwitter(7)
 	eq(t, false, a)
@@ -380,8 +380,9 @@ func TestAlertUAPush(t *testing.T) {
 
 	m, _ := q.AlertUAPush()
 
-	eq(t, true, m == `Severe quake 5 km south-east of Ruatoria`)
-
+	if m != `M6.0 quake causing severe shaking near Ruatoria` {
+		t.Errorf("Got %s expected %s", m, `M6.0 quake causing severe shaking near Ruatoria`)
+	}
 }
 
 func delta(t *testing.T, expected, actual, delta float64) {
