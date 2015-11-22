@@ -35,6 +35,7 @@ The code that provide these services is available at [https://github.com/GeoNet/
 * [Quakes](#quakes)
 * [Quake CAP](#quakecap)
 * [Quake CAP Feed](#quakecapfeed)
+* [Volcanic Alert Level](#val)
 
 ## Intensity ## {#intensity}
 
@@ -278,11 +279,7 @@ Queries to this endpoint are not versioned by accept header.
 ### Parameters
 
 ID
-:   a valid quake CAP ID e.g., `2015p653589.1440964609134673`
-
-### Examples
-
-[/cap/1.2/GPA1.0/quake/2015p653589.1440964609134673](/cap/1.2/GPA1.0/quake/2013p407387.1370036261549894)
+:   a valid quake CAP ID from the Quake CAP Feed.
 
 ## Quake CAP Feed ## {#quakecapfeed}
 
@@ -299,3 +296,36 @@ queries to this endpoint are not versioned by accept header.
 ### Examples
 
 [/cap/1.2/GPA1.0/feed/atom1.0/quake](/cap/1.2/GPA1.0/feed/atom1.0/quake)
+
+## Volcanic Alert Level ## {#val}
+
+Rerturns the current Volcanic Alert Level for volcanoes in the New Zealand.
+
+    [GET] /volcano/val
+
+### Accept Version
+
+    application/vnd.geo+json;version=2
+
+### Response
+
+ GeoJSON features with the following properties:
+
+volcanoID
+:  a unique identifier for the volcano.
+
+volcanoTitle
+:  the volcano title.
+
+level
+:  volcanic alert level.
+
+activity
+:  volcanic activity.
+
+hazards
+:  most likely hazards.
+
+### Examples
+
+[/volcano/val](/volcano/val)

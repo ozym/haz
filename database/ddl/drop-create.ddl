@@ -118,3 +118,59 @@ CREATE OR REPLACE VIEW haz.quake_search_v1
    geom::geometry AS origin_geom
 FROM haz.quake
 WHERE Deleted != true AND BackupSite != true ORDER BY time DESC;
+
+CREATE TABLE haz.volcanic_alert_level (
+    alert_level integer PRIMARY KEY,
+    hazards TEXT NOT NULL,
+    activity TEXT NOT NULL
+);
+
+CREATE TABLE haz.volcano (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    location GEOGRAPHY(POINT, 4326) NOT NULL,
+    alert_level integer references haz.volcanic_alert_level(alert_level)
+);
+
+INSERT INTO haz.volcanic_alert_level VALUES(0, 'Volcanic environment hazards.', 'No volcanic unrest.');
+INSERT INTO haz.volcanic_alert_level VALUES(1, 'Volcanic unrest hazards.', 'Minor volcanic unrest.');
+INSERT INTO haz.volcanic_alert_level VALUES(2, 'Volcanic unrest hazards, potential for eruption hazards.', 'Moderate to heightened volcanic unrest.');
+INSERT INTO haz.volcanic_alert_level VALUES(3, 'Eruption hazards near vent. Note: ash, lava flow, and lahar (mudflow) hazards may impact areas distant from the volcano.', 'Minor volcanic eruption.');
+INSERT INTO haz.volcanic_alert_level VALUES(4, 'Eruption hazards on and near volcano. Note: ash, lava flow, and lahar (mudflow) hazards may impact areas distant from the volcano.', 'Moderate volcanic eruption.');
+INSERT INTO haz.volcanic_alert_level VALUES(5, 'Eruption hazards on and beyond volcano. Note: ash, lava flow, and lahar (mudflow) hazards may impact areas distant from the volcano.', 'Major volcanic eruption.');
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('aucklandvolcanicfield', 'Auckland Volcanic Field', ST_GeographyFromText('POINT(174.77 -36.985)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('kermadecislands', 'Kermadec Islands', ST_GeographyFromText('POINT(-177.914 -29.254)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('mayorisland', 'Mayor Island', ST_GeographyFromText('POINT(176.251 -37.286)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('ngauruhoe', 'Ngauruhoe', ST_GeographyFromText('POINT(175.632 -39.156)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('northland', 'Northland', ST_GeographyFromText('POINT(173.63 -35.395)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('okataina', 'Okataina', ST_GeographyFromText('POINT(176.501 -38.119)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('rotorua', 'Rotorua', ST_GeographyFromText('POINT(176.281 -38.093)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('ruapehu', 'Ruapehu', ST_GeographyFromText('POINT(175.563 -39.281)'::text),1); 
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('taupo', 'Taupo', ST_GeographyFromText('POINT(175.896 -38.784)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('tongariro', 'Tongariro', ST_GeographyFromText('POINT(175.641727 -39.133318)'::text),0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('taranakiegmont', 'Taranaki/Egmont', ST_GeographyFromText('POINT(174.061 -39.298)'::text), 0);
+
+INSERT INTO haz.volcano (id, title, location, alert_level)
+VALUES ('whiteisland', 'White Island', ST_GeographyFromText('POINT(177.183 -37.521)'::text),1);

@@ -30,6 +30,7 @@ func init() {
 	muxV2GeoJSON.HandleFunc("/quake", quakesV2)
 	muxV2GeoJSON.HandleFunc("/quake/", quakeV2)
 	muxV2GeoJSON.HandleFunc("/quake/history/", quakeHistoryV2)
+	muxV2GeoJSON.HandleFunc("/volcano/val", valV2)
 
 	muxV2JSON = http.NewServeMux()
 	muxV2JSON.HandleFunc("/news/geonet", newsV2)
@@ -39,7 +40,6 @@ func init() {
 	muxDefault = http.NewServeMux()
 	muxDefault.HandleFunc("/soh", soh)
 	muxDefault.HandleFunc("/soh/impact", impactSOH)
-	muxDefault.HandleFunc("/api-docs", docs)
 	muxDefault.HandleFunc("/cap/1.2/GPA1.0/quake/", capQuake)
 	muxDefault.HandleFunc("/cap/1.2/GPA1.0/feed/atom1.0/quake", capQuakeFeed)
 	// The 'latest' version of the API for unversioned requests.
@@ -49,9 +49,10 @@ func init() {
 	muxDefault.HandleFunc("/quake/stats", quakeStatsV2)
 	muxDefault.HandleFunc("/intensity", intensityV2)
 	muxDefault.HandleFunc("/news/geonet", newsV2)
+	muxDefault.HandleFunc("/volcano/val", valV2)
 
 	for _, v := range []*http.ServeMux{muxV1JSON, muxV2JSON, muxV1GeoJSON, muxV2GeoJSON, muxDefault} {
-		v.HandleFunc("/", noRoute)
+		v.HandleFunc("/", docs)
 	}
 
 }

@@ -64,6 +64,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/intensity?type=measured")
 	r.Add("/intensity?type=reported")
 	r.Add("/intensity?type=reported&publicID=2013p407387")
+	r.Add("/volcano/val")
 
 	r.Test(ts, t)
 
@@ -81,6 +82,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/quake?MMI=3")
 	r.Add("/intensity?type=measured")
 	r.Add("/intensity?type=reported")
+	r.Add("/volcano/val")
 
 	r.Test(ts, t)
 
@@ -197,7 +199,7 @@ func TestRoutes(t *testing.T) {
 	r.Add("/quake?regionID=bad&intensity=unnoticeable&number=3&quality=best,caution,good")
 	r.Add("/region/bad")
 	r.Add("/region?type=badQuery")
-	r.Add("/")
+	r.Add("/fred")
 	r.Add("/felt/report?quakeID=2012p498491")
 	r.Add("/intensity?type=reported") // no reported at V1
 	r.Test(ts, t)
