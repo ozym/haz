@@ -281,6 +281,52 @@ Queries to this endpoint are not versioned by accept header.
 ID
 :   a valid quake CAP ID from the Quake CAP Feed.
 
+### Example Response
+
+The response is a CAP document using the Google Public Alerts CAP v1.0 profile e.g.,
+
+    <?xml version="1.0" encoding="UTF-8"?>
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+      <identifier>2015p822263.1446357128542910</identifier> 
+      <sender>http://geonet.org.nz</sender> 
+      <sent>2015-11-01T18:52:08+13:00</sent>
+      <status>Actual</status> 
+      <msgType>Alert</msgType>
+      <scope>Public</scope>
+      <info>
+        <language>en-NZ</language>
+        <category>Geo</category>
+        <event>Earthquake</event>   
+        <responseType>Monitor</responseType>
+        <urgency>Past</urgency>   
+        <severity>Minor</severity>   
+        <certainty>Observed</certainty>
+        <onset>2015-11-01T18:42:11+13:00</onset>
+        <expires>2015-11-03T18:52:08+13:00</expires>
+        <senderName>GNS Science (GeoNet)</senderName>
+        <headline>Quake 30 km NE of Taihape, intensity strong, approx. M5.4, depth 39 km Sun Nov 1 2015 6:42 PM (NZDT).</headline>
+        <description>A magnitude 5.4 earthquake occurred 30 km NE of Taihape, New Zealand at Sun Nov 1 2015 6:42 PM (NZDT).  
+    The quake was 39 kilometres deep and the intensity was strong close to the quake.  The quake may have been felt in Ohakune, Taihape, Taupo, Turangi, Hunterville and surrounding localities.</description>
+       <instruction>During an earthquake, if you are inside a building, move no more than a few steps, then Drop, Cover and Hold. Stay indoors until the shaking stops and you are sure it is safe to exit. If you are outdoors when the shaking starts, move no more than a few steps away from buildings, trees, streetlights and power lines, then Drop, Cover and Hold.
+    
+    After an earthquake, listen to your local radio stations as emergency management officials will be broadcasting the most appropriate advice for your community and situation. Expect to feel aftershocks. If you are in a damaged building, try to get outside and find a safe, open place. Use the stairs, not the elevators.</instruction>
+         <web>http://geonet.org.nz/quakes/2015p822263</web>
+         <contact>info@geonet.org.nz</contact>
+         <parameter>
+           <valueName>Magnitude</valueName>
+           <value>5.4</value>
+        </parameter>
+        <parameter>
+          <valueName>Intensity</valueName>
+          <value>strong</value>
+        </parameter>
+        <area>       
+          <areaDesc>30 km NE of Taihape, 45 km E of Ohakune, 45 km S of Turangi, 65 km NE of Hunterville, 75 km S of Taupo</areaDesc>
+          <circle>-39.40,175.95 79.0</circle>
+        </area>
+      </info>
+    </alert>
+
 ## Quake CAP Feed ## {#quakecapfeed}
 
 Quake feed with CAP links for alerting.
