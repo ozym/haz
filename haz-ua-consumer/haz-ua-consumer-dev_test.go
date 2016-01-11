@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/GeoNet/msg"
+	"github.com/GeoNet/haz/msg"
 	"testing"
 	"time"
 )
