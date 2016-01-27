@@ -83,6 +83,25 @@ func (rt *Route) Test(s *httptest.Server, t *testing.T) {
 	}
 }
 
+// Test the routes.  The following tests are performed:
+//    * Routes - as they are provided.
+//    * Routes busted - with a cache buster added to make sure an http.StatusBadRequest is returned.
+//    * Routes extra - if there are no query parameters then with extra parts added to the URI to make sure an http.StatusNotFound is returned.
+//    * Routes session - with a jsession added to the URI to make sure  an http.StatusBadRequest is returned.
+//    * Routes accept - if strict Accept versioning is used then with an empty Accept header to make an http.StatusBadRequest is returned.
+//
+// If the tests are not being run verbose (go test -v) then silences the application logging.
+func (rt *Route) TestExtra404(s *httptest.Server, t *testing.T) {
+	rt.test("Routes", s, t)
+	rt.busted(s, t)
+	rt.extra404(s, t)
+	rt.session(s, t)
+
+	if rt.TestAccept {
+		rt.accept(s, t)
+	}
+}
+
 func (rt *Route) busted(s *httptest.Server, t *testing.T) {
 	b := Route{
 		Accept:    rt.Accept,
@@ -112,6 +131,26 @@ func (rt *Route) extra(s *httptest.Server, t *testing.T) {
 		Cache:     web.MaxAge10,
 		Surrogate: web.MaxAge86400,
 		Response:  http.StatusBadRequest,
+	}
+
+	for _, r := range rt.routes {
+		if rt.Response == http.StatusOK {
+			if !strings.Contains(r.uri, "?") {
+				b.addRoute(r.id, r.uri+"/bob")
+			}
+		}
+	}
+
+	b.test("Routes extra", s, t)
+}
+
+func (rt *Route) extra404(s *httptest.Server, t *testing.T) {
+	b := Route{
+		Accept:    rt.Accept,
+		Content:   web.ErrContent,
+		Cache:     web.MaxAge10,
+		Surrogate: web.MaxAge10,
+		Response:  http.StatusNotFound,
 	}
 
 	for _, r := range rt.routes {
@@ -176,8 +215,11 @@ func (rt *Route) test(m string, s *httptest.Server, t *testing.T) {
 			t.Errorf("%s: wrong response code for test %s: got %d expected %d", m, r.id, res.StatusCode, rt.Response)
 		}
 
+		// Allow for error pages with type web.HtmlContent
 		if res.Header.Get("Content-Type") != rt.Content {
-			t.Errorf("%s: incorrect Content-Type for test %s: %s", m, r.id, res.Header.Get("Content-Type"))
+			if res.Header.Get("Content-Type") != web.HtmlContent {
+				t.Errorf("%s: incorrect Content-Type for test %s: %s", m, r.id, res.Header.Get("Content-Type"))
+			}
 		}
 
 		if res.Header.Get("Cache-Control") != rt.Cache {

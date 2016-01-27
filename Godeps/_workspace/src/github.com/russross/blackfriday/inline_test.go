@@ -153,6 +153,9 @@ func TestEmphasis(t *testing.T) {
 
 		"mix of *markers_\n",
 		"<p>mix of *markers_</p>\n",
+
+		"*What is A\\* algorithm?*\n",
+		"<p><em>What is A* algorithm?</em></p>\n",
 	}
 	doTestsInline(t, tests)
 }
@@ -263,6 +266,12 @@ func TestStrong(t *testing.T) {
 
 		"mix of **markers__\n",
 		"<p>mix of **markers__</p>\n",
+
+		"**`/usr`** : this folder is named `usr`\n",
+		"<p><strong><code>/usr</code></strong> : this folder is named <code>usr</code></p>\n",
+
+		"**`/usr`** :\n\n this folder is named `usr`\n",
+		"<p><strong><code>/usr</code></strong> :</p>\n\n<p>this folder is named <code>usr</code></p>\n",
 	}
 	doTestsInline(t, tests)
 }
@@ -291,7 +300,7 @@ func TestEmphasisMix(t *testing.T) {
 		"<p><strong>improper *nesting</strong> is* bad</p>\n",
 
 		"*improper **nesting* is** bad\n",
-		"<p><em>improper **nesting</em> is** bad</p>\n",
+		"<p>*improper <strong>nesting* is</strong> bad</p>\n",
 	}
 	doTestsInline(t, tests)
 }
@@ -942,6 +951,24 @@ what happens here
 
 	"Some text.[^note1][^note2]\n\n[^note1]: fn1\n[^note2]: fn2\n",
 	"<p>Some text.<sup class=\"footnote-ref\" id=\"fnref:note1\"><a rel=\"footnote\" href=\"#fn:note1\">1</a></sup><sup class=\"footnote-ref\" id=\"fnref:note2\"><a rel=\"footnote\" href=\"#fn:note2\">2</a></sup></p>\n<div class=\"footnotes\">\n\n<hr />\n\n<ol>\n<li id=\"fn:note1\">fn1\n</li>\n<li id=\"fn:note2\">fn2\n</li>\n</ol>\n</div>\n",
+
+	`Bla bla [^1] [WWW][w3]
+
+[^1]: This is a footnote
+
+[w3]: http://www.w3.org/
+`,
+	`<p>Bla bla <sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup> <a href="http://www.w3.org/">WWW</a></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">This is a footnote
+</li>
+</ol>
+</div>
+`,
 }
 
 func TestFootnotes(t *testing.T) {

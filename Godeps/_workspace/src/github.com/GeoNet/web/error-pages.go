@@ -53,6 +53,55 @@ const (
 	</body>
 	</html>
 	`
+	err400 = `<html>
+	<head>
+	<title>GeoNet - 404</title>
+	<style>
+	body
+	{
+		font: normal normal 14px/1.3 verdana,arial,helvetica,sans-serif;
+		color: #AEAEAE;
+	}
+	#container
+	{
+		margin: 10% auto;
+		width: 90%;
+		background: #EFEFEF;
+		border: #CCC solid 1px;
+		padding: 2em;
+	}
+	h1
+	{
+		font-size: 3em;
+		color: #AEAEAE;
+	}
+	p
+	{
+		color: #666;
+		text-shadow: #CCC .1em 0px .1em;
+	}
+	.corners-all
+	{
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}	
+	</style>
+	</head>
+	<body>
+	<div id="container" class="corners-all">
+	<h1>Error 400</h1>
+
+	<p><b>400 Page Not Found</b>: '400' is standard notation indicating a bad request, please correct your query and try again.</p>
+
+	<p>If you need more information about this error please contact us directly.</p>
+
+	<p>Many thanks for your patience,<br>
+	- The GeoNet Team.</p>
+	</div>
+	</body>
+	</html>
+	`
 
 	err503 = `<html>
 	<head>
@@ -99,5 +148,6 @@ const (
 	</html>`
 )
 
+var error400 = []byte(err400)
 var error404 = []byte(err404)
 var error503 = []byte(err503)

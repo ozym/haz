@@ -19,21 +19,24 @@ var over = "/etc/sysconfig"
 var Build string
 
 type Config struct {
-	DataBase     *DataBase
-	WebServer    *WebServer
-	SQS          *SQS
-	SNS          *SNS
-	SC3          *SC3
-	Env          *Env
-	Librato      *Librato
-	Logentries   *Logentries
-	HeartBeat    *HeartBeat
-	PagerDuty    *PagerDuty
-	SMTP         *SMTP
-	Twitter      *Twitter
-	UA           *UA
-	S3           *S3
-	SeiscompmlS3 *SeiscompmlS3
+	DataBase           *DataBase
+	WebServer          *WebServer
+	SQS                *SQS
+	SNS                *SNS
+	SC3                *SC3
+	Env                *Env
+	Librato            *Librato
+	Logentries         *Logentries
+	HeartBeat          *HeartBeat
+	PagerDuty          *PagerDuty
+	SMTP               *SMTP
+	Twitter            *Twitter
+	UA                 *UA
+	S3                 *S3
+	SeiscompmlS3       *SeiscompmlS3
+	GoogleCustomSearch *GoogleCustomSearch
+	FeltReport         *FeltReport
+	SocialMedia        *SocialMedia
 }
 
 // DataBase for database config.  Elements with an env tag can be overidden via env var.  See Load.
@@ -138,6 +141,23 @@ type SeiscompmlS3 struct {
 	UnprocessedDir string `doc:"Unprocess directory" env:"${PREFIX}_SEIS_UNPROCESS_DIR"`
 }
 
+type GoogleCustomSearch struct {
+	Cx  string `doc:"Google Custom Search Id" env:"${PREFIX}_CSE_CX"`
+	Key string `doc:"Server api key from Google Developer Console" env:"${PREFIX}_CSE_KEY"`
+}
+
+type FeltReport struct {
+	GooglePlaceKey     string `doc:"Secret Key for Google Place Search" env:"${PREFIX}_FELT_GOOGLE_KEY"`
+	ReCaptchaSiteKey   string `doc:"Site Key for reCAPTCHA" env:"${PREFIX}_FELT_RECAPTCHA_KEY"`
+	ReCaptchaSecretKey string `doc:"Secret Key for reCAPTCHA" env:"${PREFIX}_FELT_RECAPTCHA_SECRET"`
+}
+
+type SocialMedia struct {
+	FacebookAppId string `doc:"Facebook app_id for sharing link" env:"${PREFIX}_SOCIAL_FBID"`
+	TwitterId     string `doc:"Twitter id. eg: @geonet" env:"${PREFIX}_SOCIAL_TWITTERID"`
+	Origin        string `doc:"The site origin Url root for 'twitter:url' tag. eg: http://www.geonet.org.nz." env:"${PREFIX}_SOCIAL_ORIGIN"`
+}
+
 func (c *Config) env() {
 	if c.Env != nil {
 		env(c.Env.Prefix, c.DataBase)
@@ -154,6 +174,9 @@ func (c *Config) env() {
 		env(c.Env.Prefix, c.UA)
 		env(c.Env.Prefix, c.S3)
 		env(c.Env.Prefix, c.SeiscompmlS3)
+		env(c.Env.Prefix, c.GoogleCustomSearch)
+		env(c.Env.Prefix, c.FeltReport)
+		env(c.Env.Prefix, c.SocialMedia)
 	}
 }
 
@@ -337,6 +360,9 @@ func (c *Config) EnvDoc() (d []EnvDoc, err error) {
 		d = append(d, envDoc(c.Env.Prefix, c.UA)...)
 		d = append(d, envDoc(c.Env.Prefix, c.S3)...)
 		d = append(d, envDoc(c.Env.Prefix, c.SeiscompmlS3)...)
+		d = append(d, envDoc(c.Env.Prefix, c.GoogleCustomSearch)...)
+		d = append(d, envDoc(c.Env.Prefix, c.FeltReport)...)
+		d = append(d, envDoc(c.Env.Prefix, c.SocialMedia)...)
 	} else {
 		err = fmt.Errorf("Found nil Prefix in the config.  Don't know how to read env var.")
 	}
