@@ -3,12 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/awslabs/aws-sdk-go/aws"
-	"github.com/awslabs/aws-sdk-go/service/iam"
-	"github.com/awslabs/aws-sdk-go/service/sns"
-	"github.com/awslabs/aws-sdk-go/service/sqs"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/iam"
+	"github.com/aws/aws-sdk-go/service/sns"
+	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -16,17 +18,17 @@ var queueNames = []string{
 	`haz-duty-consumer`,
 	`haz-eqnews-consumer`,
 	`haz-pim-consumer`,
-	// `haz-twitter-consumer`,
-	// `haz-twitter-consumer-above4`, // TODO comment these until can work around prefix checking below
-	// `haz-twitter-consumer-above5`,
+	`haz-twitter-consumer`,
+	`haz-twitter-consumer-above4`,
+	`haz-twitter-consumer-above5`,
 	`haz-ua-consumer`,
 	`haz-db-consumer-api`, // for api.geonet.org.nz in AWS,
 }
 
 var (
-	sqsSvc = sqs.New(&aws.Config{})
-	snsSvc = sns.New(&aws.Config{})
-	iamSvc = iam.New(&aws.Config{})
+	sqsSvc *sqs.SQS
+	snsSvc *sns.SNS
+	iamSvc *iam.IAM
 )
 
 var (
@@ -54,6 +56,11 @@ func init() {
 
 	rx = prefix + "-haz-rx"
 	tx = prefix + "-haz-tx"
+
+	sqsSvc = sqs.New(session.New())
+	snsSvc = sns.New(session.New())
+	iamSvc = iam.New(session.New())
+
 }
 
 func main() {
@@ -101,16 +108,16 @@ func main() {
 	fmt.Printf("\nHaz SNS topic arn: %s\n", hazArn)
 	fmt.Println("\nHaz SNS topic subscriptions (please make sure all Haz sqs queues are subscribed):")
 	// Assuming less than 100 queues/subscriptions
-	sub, err := snsSvc.ListSubscriptionsByTopic(&sns.ListSubscriptionsByTopicInput{TopicARN: &hazArn})
+	sub, err := snsSvc.ListSubscriptionsByTopic(&sns.ListSubscriptionsByTopicInput{TopicArn: &hazArn})
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, s := range sub.Subscriptions {
-		a, err := snsSvc.GetSubscriptionAttributes(&sns.GetSubscriptionAttributesInput{SubscriptionARN: s.SubscriptionARN})
+		a, err := snsSvc.GetSubscriptionAttributes(&sns.GetSubscriptionAttributesInput{SubscriptionArn: s.SubscriptionArn})
 		if err != nil {
 			log.Fatal(err)
 		}
-		am := *a.Attributes
+		am := a.Attributes
 		fmt.Printf("%s RawMessageDelivery=%s\n", *s.Endpoint, *am["RawMessageDelivery"])
 	}
 
@@ -126,7 +133,7 @@ func makeKeys(name string) error {
 		return err
 	}
 	fmt.Println("Access keys.  Note these now.  The secret can't be retrieved again.")
-	fmt.Printf("User: %s ID: %s Secret: %s\n", name, *k.AccessKey.AccessKeyID, *k.AccessKey.SecretAccessKey)
+	fmt.Printf("User: %s ID: %s Secret: %s\n", name, *k.AccessKey.AccessKeyId, *k.AccessKey.SecretAccessKey)
 
 	return nil
 }
@@ -149,7 +156,7 @@ func makeUser(name string) (arn string, err error) {
 	}
 
 	u := *ru.User
-	arn = *u.ARN
+	arn = *u.Arn
 
 	return
 }
@@ -162,19 +169,22 @@ func makeHazQueue(name, dlqArn, hazTopicArn, rxUserArn string) error {
 		return err
 	}
 
-	switch len(l.QueueURLs) {
-	case 1:
-		return nil
-	case 0:
-		r, err := sqsSvc.CreateQueue(
-			&sqs.CreateQueueInput{
-				QueueName: &name,
-				Attributes: &map[string]*string{
-					`MessageRetentionPeriod`:        aws.String(`1209600`),
-					`ReceiveMessageWaitTimeSeconds`: aws.String(`20`),
-					`VisibilityTimeout`:             aws.String(`20`),
-					`RedrivePolicy`:                 aws.String(`{"maxReceiveCount":"3", "deadLetterTargetArn":"` + dlqArn + `"}`),
-					`Policy`: aws.String(`{
+	for _, qu := range l.QueueUrls {
+		if strings.HasSuffix(*qu, name) {
+			log.Printf("%s already exists, skipping.", name)
+			return nil
+		}
+	}
+
+	r, err := sqsSvc.CreateQueue(
+		&sqs.CreateQueueInput{
+			QueueName: &name,
+			Attributes: map[string]*string{
+				`MessageRetentionPeriod`:        aws.String(`1209600`),
+				`ReceiveMessageWaitTimeSeconds`: aws.String(`20`),
+				`VisibilityTimeout`:             aws.String(`20`),
+				`RedrivePolicy`:                 aws.String(`{"maxReceiveCount":"3", "deadLetterTargetArn":"` + dlqArn + `"}`),
+				`Policy`: aws.String(`{
 						"Version": "2012-10-17",
 						"Id": "haz-sqs-policy",
 						"Statement": [
@@ -203,60 +213,57 @@ func makeHazQueue(name, dlqArn, hazTopicArn, rxUserArn string) error {
 							}
 							]
 							}`),
-				},
-			})
-		if err != nil {
-			return err
-		}
-
-		// find queue ARN
-
-		at, err := sqsSvc.GetQueueAttributes(
-			&sqs.GetQueueAttributesInput{
-				QueueURL: r.QueueURL,
-				AttributeNames: []*string{
-					aws.String(`QueueArn`),
-				},
-			})
-		if err != nil {
-			return err
-		}
-
-		atr := *at.Attributes
-		arn := *atr[`QueueArn`]
-		if arn == "" {
-			return fmt.Errorf("Empty queue arn")
-
-		}
-
-		// Subscribe queue to haz topic
-
-		sub, err := snsSvc.Subscribe(
-			&sns.SubscribeInput{
-				Endpoint: &arn,
-				Protocol: aws.String(`sqs`),
-				TopicARN: &hazTopicArn,
-			})
-		if err != nil {
-			return err
-		}
-
-		// Make the subscription raw
-
-		_, err = snsSvc.SetSubscriptionAttributes(
-			&sns.SetSubscriptionAttributesInput{
-				AttributeName:   aws.String(`RawMessageDelivery`),
-				AttributeValue:  aws.String(`true`),
-				SubscriptionARN: sub.SubscriptionARN,
-			})
-		if err != nil {
-			return err
-		}
-
-		return nil
+			},
+		})
+	if err != nil {
+		return err
 	}
 
-	return fmt.Errorf("Found more than one queue with name prefix %s.  Can't recover.", name)
+	// find queue ARN
+
+	at, err := sqsSvc.GetQueueAttributes(
+		&sqs.GetQueueAttributesInput{
+			QueueUrl: r.QueueUrl,
+			AttributeNames: []*string{
+				aws.String(`QueueArn`),
+			},
+		})
+	if err != nil {
+		return err
+	}
+
+	atr := at.Attributes
+	arn := *atr[`QueueArn`]
+	if arn == "" {
+		return fmt.Errorf("Empty queue arn")
+
+	}
+
+	// Subscribe queue to haz topic
+
+	sub, err := snsSvc.Subscribe(
+		&sns.SubscribeInput{
+			Endpoint: &arn,
+			Protocol: aws.String(`sqs`),
+			TopicArn: &hazTopicArn,
+		})
+	if err != nil {
+		return err
+	}
+
+	// Make the subscription raw
+
+	_, err = snsSvc.SetSubscriptionAttributes(
+		&sns.SetSubscriptionAttributesInput{
+			AttributeName:   aws.String(`RawMessageDelivery`),
+			AttributeValue:  aws.String(`true`),
+			SubscriptionArn: sub.SubscriptionArn,
+		})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func makeDLQ() (string, error) {
@@ -269,12 +276,12 @@ func makeDLQ() (string, error) {
 		return "", err
 	}
 
-	switch len(l.QueueURLs) {
+	switch len(l.QueueUrls) {
 	case 1:
 		// / lookup arn
 		at, err := sqsSvc.GetQueueAttributes(
 			&sqs.GetQueueAttributesInput{
-				QueueURL: l.QueueURLs[0],
+				QueueUrl: l.QueueUrls[0],
 				AttributeNames: []*string{
 					aws.String(`QueueArn`),
 				},
@@ -283,7 +290,7 @@ func makeDLQ() (string, error) {
 			return "", err
 		}
 
-		atr := *at.Attributes
+		atr := at.Attributes
 		arn := *atr[`QueueArn`]
 		if arn == "" {
 			return "", fmt.Errorf("Empty queue arn")
@@ -295,7 +302,7 @@ func makeDLQ() (string, error) {
 		r, err := sqsSvc.CreateQueue(
 			&sqs.CreateQueueInput{
 				QueueName: &name,
-				Attributes: &map[string]*string{
+				Attributes: map[string]*string{
 					`MessageRetentionPeriod`: aws.String(`1209600`),
 					`Policy`:                 aws.String(`{"Version": "2012-10-17", "Id": "dlq-default-policy"}`),
 				},
@@ -306,7 +313,7 @@ func makeDLQ() (string, error) {
 
 		at, err := sqsSvc.GetQueueAttributes(
 			&sqs.GetQueueAttributesInput{
-				QueueURL: r.QueueURL,
+				QueueUrl: r.QueueUrl,
 				AttributeNames: []*string{
 					aws.String(`QueueArn`),
 				},
@@ -315,7 +322,7 @@ func makeDLQ() (string, error) {
 			return arn, err
 		}
 
-		atr := *at.Attributes
+		atr := at.Attributes
 		arn = *atr[`QueueArn`]
 		if arn == "" {
 			err = fmt.Errorf("Empty queue arn")
@@ -339,7 +346,7 @@ func makeHazTopic(txUserArn string) (arn string, err error) {
 
 	_, err = snsSvc.SetTopicAttributes(
 		&sns.SetTopicAttributesInput{
-			TopicARN:      resp.TopicARN,
+			TopicArn:      resp.TopicArn,
 			AttributeName: aws.String(`Policy`),
 			AttributeValue: aws.String(`{
 						"Version":"2012-10-17",
@@ -357,6 +364,6 @@ func makeHazTopic(txUserArn string) (arn string, err error) {
 							]
 							}`),
 		})
-	arn = *resp.TopicARN
+	arn = *resp.TopicArn
 	return
 }

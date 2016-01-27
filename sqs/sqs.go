@@ -3,10 +3,12 @@ package sqs
 
 import (
 	"github.com/GeoNet/cfg"
-	"github.com/GeoNet/goamz/sqs"
 	"github.com/GeoNet/haz/msg"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -26,38 +28,50 @@ func InitRx(s *cfg.SQS) (<-chan msg.Raw, chan<- string, error) {
 	var rx = make(chan msg.Raw)
 	var dx = make(chan string)
 
-	a, err := sqs.NewFrom(s.AccessKey, s.SecretKey, s.AWSRegion)
+	cred := credentials.NewStaticCredentials(s.AccessKey, s.SecretKey, "")
+	_, err := cred.Get()
 	if err != nil {
+		log.Fatal("Get credential error (did you put SQS in config?):", err)
 		return rx, dx, err
 	}
+	sess := session.New(&aws.Config{
+		Region:      aws.String(s.AWSRegion),
+		Credentials: cred,
+	})
+	svc := sqs.New(sess)
+	var q *sqs.GetQueueUrlOutput
 
-	var q *sqs.Queue
 	for {
-		q, err = a.GetQueue(s.QueueName)
+		params := &sqs.GetQueueUrlInput{
+			QueueName: aws.String(s.QueueName),
+		}
+		q, err = svc.GetQueueUrl(params)
 		if err != nil {
 			log.Printf("WARN - problem getting SQS queue: %s", err)
 			log.Println("WARN - sleeping and trying to get SQS queue again")
 			time.Sleep(retry)
 			continue
 		}
+
 		break
 	}
 
-	var rp = map[string]string{
-		"MaxNumberOfMessages": strconv.Itoa(s.MaxNumberOfMessages),
-		"VisibilityTimeout":   strconv.Itoa(s.VisibilityTimeout),
-		"WaitTimeSeconds":     strconv.Itoa(s.WaitTimeSeconds),
-	}
-
-	go receive(q, rp, rx)
-	go delete(q, dx)
+	go receive(*q.QueueUrl, s, svc, rx)
+	go delete(*q.QueueUrl, svc, dx)
 
 	return rx, dx, nil
 }
 
-func receive(q *sqs.Queue, receiveParams map[string]string, rx chan msg.Raw) {
+func receive(qUrl string, s *cfg.SQS, svc *sqs.SQS, rx chan msg.Raw) {
 	for {
-		r, err := q.ReceiveMessageWithParameters(receiveParams)
+		param := &sqs.ReceiveMessageInput{
+			QueueUrl:            aws.String(qUrl),
+			MaxNumberOfMessages: aws.Int64(int64(s.MaxNumberOfMessages)),
+			VisibilityTimeout:   aws.Int64(int64(s.VisibilityTimeout)),
+			WaitTimeSeconds:     aws.Int64(int64(s.WaitTimeSeconds)),
+		}
+
+		r, err := svc.ReceiveMessage(param)
 		if err != nil {
 			log.Println("WARN - problem receiving messages from SQS, sleeping, continuing.")
 			time.Sleep(retry)
@@ -67,25 +81,30 @@ func receive(q *sqs.Queue, receiveParams map[string]string, rx chan msg.Raw) {
 		if (len(r.Messages)) > 0 {
 			for _, raw := range r.Messages {
 				m := msg.Raw{
-					Body:          raw.Body,
-					ReceiptHandle: raw.ReceiptHandle,
+					Body:          *raw.Body,
+					ReceiptHandle: *raw.ReceiptHandle,
 				}
+				log.Println(m)
 				rx <- m
 			}
 		}
 	}
 }
 
-func delete(q *sqs.Queue, dx chan string) {
+func delete(qUrl string, svc *sqs.SQS, dx chan string) {
 	for {
 		m := <-dx
-		d := sqs.Message{
-			ReceiptHandle: m,
+
+		params := &sqs.DeleteMessageInput{
+			QueueUrl:      aws.String(qUrl), // Required
+			ReceiptHandle: aws.String(m),    // Required
 		}
 
-		_, err := q.DeleteMessage(&d)
+		_, err := svc.DeleteMessage(params)
+
 		if err != nil {
 			log.Println("WARN - problem deleting messages from SQS, continuing.")
 		}
+
 	}
 }
