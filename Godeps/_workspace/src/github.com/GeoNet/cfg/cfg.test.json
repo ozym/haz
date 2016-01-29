@@ -32,5 +32,9 @@
 		"OAuthToken" : "XXX",
 		"OAuthSecret" : "XXX",
 		"MinMagnitude" : 4.0
+	},
+	"GoogleCustomSearch" : {
+		"Cx" : "XXX",
+		"Key" : "XXX"
 	}
 }

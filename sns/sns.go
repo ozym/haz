@@ -3,10 +3,12 @@ package sns
 
 import (
 	"fmt"
-	"github.com/AdRoll/goamz/aws" // Have to use the AdRoll version can't use a fork with GeoNet/goamz/sns
 	"github.com/GeoNet/cfg"
-	"github.com/GeoNet/goamz/sns"
 	"github.com/GeoNet/haz/msg"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/sns"
 	"log"
 	"time"
 )
@@ -19,12 +21,20 @@ type SNS struct {
 }
 
 func Init(c *cfg.SNS) (SNS, error) {
-	sn, err := sns.New(aws.Auth{AccessKey: c.AccessKey, SecretKey: c.SecretKey},
-		aws.GetRegion(c.AWSRegion))
+	cred := credentials.NewStaticCredentials(c.AccessKey, c.SecretKey, "")
+	_, err := cred.Get()
+	if err != nil {
+		log.Fatal("Get credential error (did you put SNS in config?):", err)
+		return SNS{}, err
+	}
+	sess := session.New(&aws.Config{
+		Region:      aws.String(c.AWSRegion),
+		Credentials: cred,
+	})
 
 	s := SNS{
 		c: c,
-		s: sn,
+		s: sns.New(sess),
 	}
 
 	return s, err
@@ -35,12 +45,20 @@ func Init(c *cfg.SNS) (SNS, error) {
 // If an error is encountered then publishing is attempted retries more times with
 // a pause of 30s between each attempt.  retries can be 0 to attempt publishing only once.
 func (s *SNS) Publish(m msg.Raw, retries int) (err error) {
-	var r *sns.PublishResponse
 	c := 0
 	for {
-		r, err = s.s.Publish(&sns.PublishOptions{TopicArn: s.c.TopicArn, Message: m.Body, Subject: m.Subject})
+		params := &sns.PublishInput{
+			Message:  aws.String(m.Body),
+			TopicArn: aws.String(s.c.TopicArn),
+		}
+
+		if m.Subject != "" {
+			params.Subject = aws.String(m.Subject)
+		}
+
+		r, err := s.s.Publish(params)
 		if err == nil {
-			if r.MessageId == "" {
+			if *r.MessageId == "" {
 				err = fmt.Errorf("Empty MessageID from send to SNS ")
 			}
 

@@ -7,6 +7,8 @@ Usage:
 Export an env var for the AWS region you are using.  Set the AWS credentials profile as required.    
 http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs
 
+*NOTE: The identity in the given credential must has permission to create "IAM user", "SQS", and "SNS".*
+
 ```
 export AWS_REGION=ap-southeast-2
 export AWS_PROFILE=production

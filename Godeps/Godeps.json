@@ -1,17 +1,13 @@
 {
 	"ImportPath": "github.com/GeoNet/haz",
-	"GoVersion": "go1.4.1",
+	"GoVersion": "go1.5.1",
 	"Packages": [
 		"./..."
 	],
 	"Deps": [
 		{
-			"ImportPath": "github.com/AdRoll/goamz/aws",
-			"Rev": "c73835dc8fc6958baf8df8656864ee4d6d04b130"
-		},
-		{
 			"ImportPath": "github.com/ChimeraCoder/anaconda",
-			"Rev": "e7eb7903ed45b34a2d892c4b36d2013174b93cd4"
+			"Rev": "30bbada23836a6a3a3115ece035e3b708fc4c1fb"
 		},
 		{
 			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
@@ -23,15 +19,7 @@
 		},
 		{
 			"ImportPath": "github.com/GeoNet/cfg",
-			"Rev": "7b30459d934dd7b0f4bc9149716583c7d6c378d6"
-		},
-		{
-			"ImportPath": "github.com/GeoNet/goamz/sns",
-			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
-		},
-		{
-			"ImportPath": "github.com/GeoNet/goamz/sqs",
-			"Rev": "e0af8b0b22517e9fb1d6a4438fa8269c3e834d2d"
+			"Rev": "632f41947d1a6fbb13834b4dc681458bbbb2599c"
 		},
 		{
 			"ImportPath": "github.com/GeoNet/log/logentries",
@@ -43,39 +31,57 @@
 		},
 		{
 			"ImportPath": "github.com/GeoNet/web",
-			"Rev": "f7217228cd5862afda40ef47b2fe9e2b4558ab7d"
+			"Rev": "3a472533fb10994718ed548999b1e3b02a0ac141"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/aws",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/aws",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/endpoints",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/endpoints",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/protocol/query",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/query",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/protocol/xml/xmlutil",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/rest",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/internal/signer/v4",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/service/iam",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/signer/v4",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/service/sns",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/waiter",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
-			"ImportPath": "github.com/awslabs/aws-sdk-go/service/sqs",
-			"Rev": "89181488c74e6bbea5e96d1bd0e4bbe409d498a4"
+			"ImportPath": "github.com/aws/aws-sdk-go/service/iam",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/service/sns",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/service/sqs",
+			"Comment": "v1.0.7-23-gb7b1a09",
+			"Rev": "b7b1a098eeebcdf7db0af5818e255dc8569b88ce"
 		},
 		{
 			"ImportPath": "github.com/dustin/go-jsonpointer",
@@ -90,21 +96,28 @@
 			"Rev": "3131beb69b81ff119923bdefbf029318f1f53794"
 		},
 		{
+			"ImportPath": "github.com/go-ini/ini",
+			"Comment": "v0-54-g2e44421",
+			"Rev": "2e44421e256d82ebbf3d4d4fcabe8930b905eff3"
+		},
+		{
+			"ImportPath": "github.com/jmespath/go-jmespath",
+			"Comment": "0.2.2",
+			"Rev": "3433f3ea46d9f8019119e7dd41274e112a2359a9"
+		},
+		{
 			"ImportPath": "github.com/lib/pq",
-			"Rev": "fbed41b4c063a307ab21bf37ae6705519fb34ca3"
+			"Comment": "go1.0-cutoff-26-gf7ea31d",
+			"Rev": "f7ea31d05cd1cccff3ba98af46ccc261d4ff3fdd"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",
-			"Comment": "v1.2-80-g8cec3a8",
-			"Rev": "8cec3a854e68dba10faabbe31c089abf4a3e57a6"
+			"Comment": "v1.3-8-g53982c1",
+			"Rev": "53982c119c3f1095dcb09fba8d5e5bae523d8f12"
 		},
 		{
 			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
 			"Rev": "244f5ac324cb97e1987ef901a0081a77bfd8e845"
-		},
-		{
-			"ImportPath": "github.com/vaughan0/go-ini",
-			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
 		}
 	]
 }
