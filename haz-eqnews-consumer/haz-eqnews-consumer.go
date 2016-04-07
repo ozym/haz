@@ -1,36 +1,36 @@
 package main
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/log/logentries"
 	"log"
 	"net/smtp"
-	"strconv"
+	"os"
 )
 
 //go:generate configer haz-eqnews-consumer.json
 var (
-	config   = cfg.Load()
 	idp      = msg.IdpQuake{}
 	mailHost string
 	auth     smtp.Auth
+	smtpFrom = os.Getenv("SMTP_FROM")
+	smtpTo   = os.Getenv("SMTP_TO")
 )
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
-	config.SQS.MaxNumberOfMessages = 1
-	config.SQS.VisibilityTimeout = 600
-	config.SQS.WaitTimeSeconds = 20
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
+	sqs.MaxNumberOfMessages = 1
+	sqs.VisibilityTimeout = 600
+	sqs.WaitTimeSeconds = 20
 
-	mailHost = config.SMTP.Host + ":" + strconv.Itoa(config.SMTP.Port)
+	mailHost = os.Getenv("SMTP_HOST") + ":" + os.Getenv("SMTP_PORT")
 
 	auth = smtp.PlainAuth("",
-		config.SMTP.UserName,
-		config.SMTP.Password,
-		config.SMTP.Host)
+		os.Getenv("SMTP_USER"),
+		os.Getenv("SMTP_PASSWORD"),
+		os.Getenv("SMTP_HOST"))
 }
 
 type message struct {
@@ -38,7 +38,7 @@ type message struct {
 }
 
 func main() {
-	rx, dx, err := sqs.InitRx(config.SQS)
+	rx, dx, err := sqs.InitRx()
 	if err != nil {
 		log.Fatalf("ERROR - problem creating SQS from config: %s", err)
 	}
@@ -75,7 +75,7 @@ func (m *message) Process() bool {
 			mail := "Subject: " + subject + "\r\n\r\n" + body
 
 			err := smtp.SendMail(mailHost, auth,
-				config.SMTP.From, []string{config.SMTP.To},
+				smtpFrom, []string{smtpTo},
 				[]byte(mail))
 
 			if err != nil {

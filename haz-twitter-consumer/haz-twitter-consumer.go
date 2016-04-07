@@ -3,29 +3,32 @@
 package main
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/haz/twitter"
 	"github.com/GeoNet/log/logentries"
 	"log"
+	"os"
+	"strconv"
 )
 
 //go:generate configer haz-twitter-consumer.json
 var (
-	config    = cfg.Load()
 	idp       = msg.IdpQuake{}
-	threshold float64
 	ttr       twitter.Twitter
+	threshold float64
 )
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
-	threshold = config.Twitter.MinMagnitude
-	config.SQS.MaxNumberOfMessages = 1
-	config.SQS.VisibilityTimeout = 600
-	config.SQS.WaitTimeSeconds = 20
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
+	sqs.MaxNumberOfMessages = 1
+	sqs.VisibilityTimeout = 600
+	sqs.WaitTimeSeconds = 20
+	var err error
+	if threshold, err = strconv.ParseFloat(os.Getenv("TWITTER_THRESHOLD"), 64); err != nil {
+		log.Fatalln("TWITTER_THRESHOLD format error: ", err.Error())
+	}
 }
 
 type message struct {
@@ -33,12 +36,12 @@ type message struct {
 }
 
 func main() {
-	rx, dx, err := sqs.InitRx(config.SQS)
+	rx, dx, err := sqs.InitRx()
 	if err != nil {
 		log.Fatalf("ERROR - problem creating SQS from config: %s", err)
 	}
 
-	ttr, err = twitter.Init(config.Twitter)
+	ttr, err = twitter.Init()
 	if err != nil {
 		log.Fatalf("ERROR: Twitter init error: %s", err.Error())
 	}

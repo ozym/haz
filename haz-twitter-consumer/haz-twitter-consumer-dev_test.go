@@ -12,7 +12,7 @@ import (
 
 func setup() {
 	var err error
-	ttr, err = twitter.Init(config.Twitter)
+	ttr, err = twitter.Init()
 	if err != nil {
 		log.Fatalf("ERROR: Twitter init error: %s", err.Error())
 	}

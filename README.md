@@ -92,7 +92,7 @@ docker push quay.io/geonet/haz:geonet-rest
 
 docker-compose can be used to run a number of the containers together to test messaging.
 
-Copy `dev.env` to `secret.env` (ignored by Git) and edit `secret.env` adding the outputs from running `haz-aws-messaging`.
+Edit `sc3-producer.env`, `db-consumer.env`, and `geonet-rest.env` adding the outputs from running `haz-aws-messaging`.
 
 ```
 mkdir /work/spool

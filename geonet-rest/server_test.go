@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	_ "github.com/lib/pq"
@@ -49,8 +48,8 @@ var ts *httptest.Server
 func setup() {
 	// load some test data.  Needs a write user.
 	var err error
-	config.DataBase.User = "hazard_w"
-	tdb, err := database.InitPG(config.DataBase)
+	database.DBUser = "hazard_w"
+	tdb, err := database.InitPG()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -100,8 +99,8 @@ func setup() {
 
 	tdb.Close()
 
-	config.DataBase.User = "impact_w"
-	tdb, err = database.InitPG(config.DataBase)
+	database.DBUser = "impact_w"
+	tdb, err = database.InitPG()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -136,8 +135,8 @@ func setup() {
 
 	// switch back to the correct user for the tests.
 	// hazard_r can read haz and impact.
-	config.DataBase.User = "hazard_r"
-	db, err = sql.Open("postgres", config.DataBase.Postgres())
+	database.DBUser = "hazard_r"
+	db, err = database.InitPG()
 	if err != nil {
 		log.Fatal(err)
 	}
