@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/GeoNet/web"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -14,6 +15,7 @@ import (
 const minMMID float64 = 5.0
 
 var capIDRe = regexp.MustCompile(`^[0-9a-z]+\.[0-9]+$`)
+var serverCName = os.Getenv("WEB_SERVER_CNAME")
 
 func capQuake(w http.ResponseWriter, r *http.Request) {
 	if len(r.URL.Query()) != 0 {
@@ -128,8 +130,8 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 
 	atom := capAtomFeed{
 		Title: `CAP quakes`,
-		ID:    fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
-		Link:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", config.WebServer.CNAME),
+		ID:    fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", serverCName),
+		Link:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/feed/atom1.0/quake", serverCName),
 	}
 
 	rows, err := db.Query(capQuakeFeedSQL, int(minMMID))
@@ -157,7 +159,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 			Title:    fmt.Sprintf("Quake CAP Message %s.%d", p, i),
 			Updated:  t,
 			Summary:  fmt.Sprintf("Quake CAP Message %s.%d", p, i),
-			HrefCAP:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/quake/%s.%d", config.WebServer.CNAME, p, i),
+			HrefCAP:  fmt.Sprintf("https://%s/cap/1.2/GPA1.0/quake/%s.%d", serverCName, p, i),
 			HrefHTML: fmt.Sprintf("http://geonet.org.nz/quakes/%s", p),
 		}
 

@@ -1,20 +1,20 @@
 package main
 
 import (
-	"database/sql"
-	"github.com/GeoNet/cfg"
+	"github.com/GeoNet/haz/database"
+	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/log/logentries"
 	"github.com/GeoNet/web"
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
 //go:generate configer geonet-rest.json
 var (
-	config = cfg.Load()
-	db     *sql.DB
+	db     database.DB
 	client *http.Client
 )
 
@@ -25,22 +25,19 @@ var header = web.Header{
 }
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	web.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 }
 
 // main connects to the database, sets up request routing, and starts the http server.
 func main() {
 	var err error
-	db, err = sql.Open("postgres", config.DataBase.Postgres())
+	db, err = database.InitPG()
 	if err != nil {
 		log.Println("Problem with DB config.")
 		log.Fatal(err)
 	}
 	defer db.Close()
-
-	db.SetMaxIdleConns(config.DataBase.MaxIdleConns)
-	db.SetMaxOpenConns(config.DataBase.MaxOpenConns)
 
 	if err = db.Ping(); err != nil {
 		log.Println("ERROR: problem pinging DB - is it up and contactable? 500s will be served")
@@ -53,7 +50,7 @@ func main() {
 	}
 
 	http.Handle("/", handler())
-	log.Fatal(http.ListenAndServe(":"+config.WebServer.Port, nil))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("WEB_SERVER_PORT"), nil))
 }
 
 // handler creates a mux and wraps it with default handlers.  Seperate function to enable testing.

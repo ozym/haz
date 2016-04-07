@@ -6,7 +6,7 @@ web:
    - "8080:8080"
   links:   
    - db
-  env_file: secret.env
+  env_file: geonet-rest.env
 db:
   image: quay.io/geonet/haz:database 
   ports:
@@ -15,9 +15,9 @@ producer:
   image: quay.io/geonet/haz:haz-sc3-producer
   volumes: 
   - /work/spool:/work/spool
-  env_file: secret.env
+  env_file: sc3-producer.env
 consumer:
   image: quay.io/geonet/haz:haz-db-consumer
   links:   
    - db
-  env_file: secret.env
+  env_file: db-consumer.env

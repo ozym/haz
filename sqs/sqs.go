@@ -2,17 +2,29 @@
 package sqs
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
+	"os"
 	"time"
 )
 
-var retry = time.Duration(30) * time.Second
+var (
+	MaxNumberOfMessages = 1
+	VisibilityTimeout   = 600
+	WaitTimeSeconds     = 20
+)
+
+var (
+	retry     = time.Duration(30) * time.Second
+	accessKey = os.Getenv("SQS_ACCESS_KEY")
+	secretKey = os.Getenv("SQS_SECRET_KEY")
+	queueName = os.Getenv("SQS_QUEUE_NAME")
+	awsRegion = os.Getenv("AWS_REGION")
+)
 
 // InitRx handles receiving and deleting messages from AWS SQS via a pair of channels.
 // Messages from SQS can be received from the read chan.  Receipt handles for messages that should be deleted from SQS
@@ -24,18 +36,18 @@ var retry = time.Duration(30) * time.Second
 // Messages are delivered by SQS at least once.  Applications should handle receiving message duplicates.
 //
 // The chans block for slow consumers.
-func InitRx(s *cfg.SQS) (<-chan msg.Raw, chan<- string, error) {
+func InitRx() (<-chan msg.Raw, chan<- string, error) {
 	var rx = make(chan msg.Raw)
 	var dx = make(chan string)
 
-	cred := credentials.NewStaticCredentials(s.AccessKey, s.SecretKey, "")
+	cred := credentials.NewStaticCredentials(accessKey, secretKey, "")
 	_, err := cred.Get()
 	if err != nil {
 		log.Fatal("Get credential error (did you put SQS in config?):", err)
 		return rx, dx, err
 	}
 	sess := session.New(&aws.Config{
-		Region:      aws.String(s.AWSRegion),
+		Region:      aws.String(awsRegion),
 		Credentials: cred,
 	})
 	svc := sqs.New(sess)
@@ -43,7 +55,7 @@ func InitRx(s *cfg.SQS) (<-chan msg.Raw, chan<- string, error) {
 
 	for {
 		params := &sqs.GetQueueUrlInput{
-			QueueName: aws.String(s.QueueName),
+			QueueName: aws.String(queueName),
 		}
 		q, err = svc.GetQueueUrl(params)
 		if err != nil {
@@ -56,19 +68,19 @@ func InitRx(s *cfg.SQS) (<-chan msg.Raw, chan<- string, error) {
 		break
 	}
 
-	go receive(*q.QueueUrl, s, svc, rx)
+	go receive(*q.QueueUrl, svc, rx)
 	go delete(*q.QueueUrl, svc, dx)
 
 	return rx, dx, nil
 }
 
-func receive(qUrl string, s *cfg.SQS, svc *sqs.SQS, rx chan msg.Raw) {
+func receive(qUrl string, svc *sqs.SQS, rx chan msg.Raw) {
 	for {
 		param := &sqs.ReceiveMessageInput{
 			QueueUrl:            aws.String(qUrl),
-			MaxNumberOfMessages: aws.Int64(int64(s.MaxNumberOfMessages)),
-			VisibilityTimeout:   aws.Int64(int64(s.VisibilityTimeout)),
-			WaitTimeSeconds:     aws.Int64(int64(s.WaitTimeSeconds)),
+			MaxNumberOfMessages: aws.Int64(int64(MaxNumberOfMessages)),
+			VisibilityTimeout:   aws.Int64(int64(VisibilityTimeout)),
+			WaitTimeSeconds:     aws.Int64(int64(WaitTimeSeconds)),
 		}
 
 		r, err := svc.ReceiveMessage(param)

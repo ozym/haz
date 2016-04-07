@@ -3,37 +3,41 @@ package sns
 
 import (
 	"fmt"
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
 	"log"
+	"os"
 	"time"
 )
 
-var retry = time.Duration(30) * time.Second
+var (
+	retry     = time.Duration(30) * time.Second
+	accessKey = os.Getenv("SNS_ACCESS_KEY")
+	secretKey = os.Getenv("SNS_SECRET_KEY")
+	topicArn  = os.Getenv("SNS_TOPIC_ARN")
+	awsRegion = os.Getenv("AWS_REGION")
+)
 
 type SNS struct {
-	c *cfg.SNS
 	s *sns.SNS
 }
 
-func Init(c *cfg.SNS) (SNS, error) {
-	cred := credentials.NewStaticCredentials(c.AccessKey, c.SecretKey, "")
+func Init() (SNS, error) {
+	cred := credentials.NewStaticCredentials(accessKey, secretKey, "")
 	_, err := cred.Get()
 	if err != nil {
 		log.Fatal("Get credential error (did you put SNS in config?):", err)
 		return SNS{}, err
 	}
 	sess := session.New(&aws.Config{
-		Region:      aws.String(c.AWSRegion),
+		Region:      aws.String(awsRegion),
 		Credentials: cred,
 	})
 
 	s := SNS{
-		c: c,
 		s: sns.New(sess),
 	}
 
@@ -49,7 +53,7 @@ func (s *SNS) Publish(m msg.Raw, retries int) (err error) {
 	for {
 		params := &sns.PublishInput{
 			Message:  aws.String(m.Body),
-			TopicArn: aws.String(s.c.TopicArn),
+			TopicArn: aws.String(topicArn),
 		}
 
 		if m.Subject != "" {

@@ -7,7 +7,7 @@ haz-pim-consumer/haz-pim-consumer
 haz-sc3-producer/haz-sc3-producer
 haz-twitter-consumer/haz-twitter-consumer
 haz-ua-consumer/haz-ua-consumer
+haz-felt-consumer/haz-felt-consumer
 impact-intensity-consumer/impact-intensity-consumer
 geonet-rest/geonet-rest
-secret.env
 docker-build-tmp

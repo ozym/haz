@@ -3,7 +3,6 @@ package main
 // aws s3 sync s3://seiscompml07 ./ --exclude "*"  --include "2015p*"
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	_ "github.com/lib/pq"
@@ -15,14 +14,14 @@ import (
 )
 
 var (
-	config = cfg.Load()
-	db     database.DB
+	db       database.DB
+	spoolDir = os.Getenv("SC3_SPOOL_DIR")
 )
 
 func main() {
 	var err error
 
-	db, err = database.InitPG(config.DataBase)
+	db, err = database.InitPG()
 	if err != nil {
 		log.Fatalf("ERROR: problem with DB config: %s", err)
 	}
@@ -30,7 +29,7 @@ func main() {
 
 	db.Check()
 
-	files, err := ioutil.ReadDir(config.SC3.SpoolDir)
+	files, err := ioutil.ReadDir(spoolDir)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -63,7 +62,7 @@ func main() {
 func procSC3ML(sc3ml <-chan os.FileInfo) {
 	for fi := range sc3ml {
 		log.Println(fi.Name())
-		q := msg.ReadSC3ML07(config.SC3.SpoolDir + "/" + fi.Name())
+		q := msg.ReadSC3ML07(spoolDir + "/" + fi.Name())
 		if q.Err() != nil {
 			log.Println("WARN ignoring errored SC3ML: " + fi.Name() + " " + q.Err().Error())
 			continue

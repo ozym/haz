@@ -8,7 +8,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sns"
 	"github.com/GeoNet/log/logentries"
@@ -21,19 +20,21 @@ import (
 
 //go:generate configer haz-sc3-producer.json
 var (
-	config = cfg.Load()
-	sn     sns.SNS
+	sn          sns.SNS
+	sc3SpoolDir = os.Getenv("SC3_SPOOL_DIR")
+	sc3Site     = os.Getenv("SC3_SITE")
+	heartBeatId = os.Getenv("HEARTBEAT_SERVICE_ID")
 )
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 }
 
 // main kicks off SeisComPML processing and HeartBeat generation.
 func main() {
 	var err error
-	sn, err = sns.Init(config.SNS)
+	sn, err = sns.Init()
 	if err != nil {
 		log.Fatalf("ERROR AWS SNS config: %s", err.Error())
 	}
@@ -53,7 +54,7 @@ func sc3ml() {
 	inter := time.Duration(1) * time.Second
 
 	for {
-		files, err := ioutil.ReadDir(config.SC3.SpoolDir)
+		files, err := ioutil.ReadDir(sc3SpoolDir)
 		if err != nil {
 			log.Printf("WARN: %s", err.Error())
 		}
@@ -62,7 +63,7 @@ func sc3ml() {
 			if strings.HasSuffix(fi.Name(), ".xml") {
 				s := &sc3{f: fi.Name()}
 				if !msg.Process(s) {
-					if err := os.Remove(config.SC3.SpoolDir + "/" + s.f); err != nil {
+					if err := os.Remove(sc3SpoolDir + "/" + s.f); err != nil {
 						log.Println(err)
 					}
 				}
@@ -76,13 +77,13 @@ func sc3ml() {
 // Process processes SeisComPML files.  Converts them to a msg.Quake, checks the quality, sends them
 // to an AWS SNS topic as a msg.Haz encoded as JSON.
 func (s *sc3) Process() bool {
-	s.Quake = msg.ReadSC3ML07(config.SC3.SpoolDir + "/" + s.f)
+	s.Quake = msg.ReadSC3ML07(sc3SpoolDir + "/" + s.f)
 	if s.Err() != nil {
 		log.Println(s.Err())
 		return false
 	}
 
-	s.Quake.Site = config.SC3.Site
+	s.Quake.Site = sc3Site
 	s.RxLog()
 
 	if !s.Publish() {
@@ -118,7 +119,7 @@ func heartBeat() {
 	inter := time.Duration(15) * time.Second
 
 	for {
-		h := &hb{msg.Haz{HeartBeat: &msg.HeartBeat{ServiceID: config.HeartBeat.ServiceID, SentTime: time.Now().UTC()}}}
+		h := &hb{msg.Haz{HeartBeat: &msg.HeartBeat{ServiceID: heartBeatId, SentTime: time.Now().UTC()}}}
 		msg.Process(h)
 		time.Sleep(inter)
 	}

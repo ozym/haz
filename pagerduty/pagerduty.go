@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/GeoNet/cfg"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -22,14 +22,17 @@ type trigger struct {
 }
 
 type Client struct {
-	apiToken string
-	h        *http.Client
+	h *http.Client
 }
 
-func Init(c *cfg.PagerDuty) *Client {
+var (
+	apiToken   = os.Getenv("PAGERDUTY_API_TOKEN")
+	serviceKey = os.Getenv("PAGERDUTY_SERVICE")
+)
+
+func Init() *Client {
 	a := &Client{
-		apiToken: c.ApiToken,
-		h:        &http.Client{},
+		h: &http.Client{},
 	}
 
 	return a
@@ -40,9 +43,9 @@ func Init(c *cfg.PagerDuty) *Client {
 // If an error is encountered then creating the incident is attempted retries more times with
 // a pause of 30s between each attempt.  retries can be 0 to attempt publishing only once.
 // Anything other than a 200 response from the API is treated as an error.
-func (a *Client) Trigger(c *cfg.PagerDuty, Description, IncidentKey string, retries int) (err error) {
+func (a *Client) Trigger(Description, IncidentKey string, retries int) (err error) {
 	t := trigger{
-		ServiceKey:  c.ServiceKey,
+		ServiceKey:  serviceKey,
 		Description: Description,
 		IncidentKey: IncidentKey,
 		EventType:   "trigger",
@@ -58,7 +61,7 @@ func (a *Client) Trigger(c *cfg.PagerDuty, Description, IncidentKey string, retr
 		return
 	}
 
-	req.Header.Add("Authorization", "Token token="+a.apiToken)
+	req.Header.Add("Authorization", "Token token="+apiToken)
 	req.Header.Add("Content-Type", "application/json")
 
 	cnt := 0

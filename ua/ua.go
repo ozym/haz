@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/GeoNet/cfg"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 const api = "https://go.urbanairship.com/api/push"
@@ -48,15 +48,18 @@ type extra struct {
 
 // end UA's push object JSON
 
+var (
+	uaKey    = os.Getenv("UA_KEY")
+	uaSecret = os.Getenv("UA_MSECRET")
+)
+
 type Client struct {
 	h *http.Client
-	c *cfg.UA
 }
 
-func Init(c *cfg.UA) *Client {
+func Init() *Client {
 	a := &Client{
 		h: &http.Client{},
-		c: c,
 	}
 
 	return a
@@ -100,7 +103,7 @@ func (a *Client) Push(publicID string, message string, tags []string) (err error
 		return
 	}
 
-	req.SetBasicAuth(a.c.AppKey, a.c.AppMasterSecret)
+	req.SetBasicAuth(uaKey, uaSecret)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/vnd.urbanairship+json; version=3;")
 

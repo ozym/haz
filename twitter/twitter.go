@@ -3,8 +3,8 @@ package twitter
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
-	"github.com/GeoNet/cfg"
 	"net/url"
+	"os"
 	"strconv"
 )
 
@@ -12,10 +12,18 @@ type Twitter struct {
 	api *anaconda.TwitterApi
 }
 
-func Init(c *cfg.Twitter) (Twitter, error) {
-	anaconda.SetConsumerKey(c.ConsumerKey)
-	anaconda.SetConsumerSecret(c.ConsumerSecret)
-	api := anaconda.NewTwitterApi(c.OAuthToken, c.OAuthSecret)
+var (
+	consumerKey    = os.Getenv("TWITTER_CKEY")
+	consumerSecret = os.Getenv("TWITTER_CSECRET")
+	oauthToken     = os.Getenv("TWITTER_OTOKEN")
+	oauthSecret    = os.Getenv("TWITTER_OSECRET")
+	minMagnitude   = os.Getenv("TWITTER_THRESHOLD")
+)
+
+func Init() (Twitter, error) {
+	anaconda.SetConsumerKey(consumerKey)
+	anaconda.SetConsumerSecret(consumerSecret)
+	api := anaconda.NewTwitterApi(oauthToken, oauthSecret)
 
 	var err error
 

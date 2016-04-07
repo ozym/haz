@@ -3,27 +3,26 @@
 package main
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/log/logentries"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
 //go:generate configer haz-db-consumer.json
 var (
-	config = cfg.Load()
-	db     database.DB
+	db database.DB
 )
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
-	config.SQS.MaxNumberOfMessages = 1
-	config.SQS.VisibilityTimeout = 600
-	config.SQS.WaitTimeSeconds = 20
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
+	sqs.MaxNumberOfMessages = 1
+	sqs.VisibilityTimeout = 600
+	sqs.WaitTimeSeconds = 20
 }
 
 type message struct {
@@ -33,14 +32,11 @@ type message struct {
 func main() {
 	var err error
 
-	db, err = database.InitPG(config.DataBase)
+	db, err = database.InitPG()
 	if err != nil {
 		log.Fatalf("ERROR: problem with DB config: %s", err)
 	}
 	defer db.Close()
-
-	db.SetMaxIdleConns(config.DataBase.MaxIdleConns)
-	db.SetMaxOpenConns(config.DataBase.MaxOpenConns)
 
 	db.Check()
 
@@ -50,7 +46,7 @@ func main() {
 
 // listen for haz messages and saves them to the DB.
 func listen() {
-	rx, dx, err := sqs.InitRx(config.SQS)
+	rx, dx, err := sqs.InitRx()
 	if err != nil {
 		log.Fatalf("ERROR - problem creating SQS from config: %s", err)
 	}

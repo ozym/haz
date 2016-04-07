@@ -3,28 +3,27 @@
 package main
 
 import (
-	"github.com/GeoNet/cfg"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/haz/ua"
 	"github.com/GeoNet/log/logentries"
 	"log"
+	"os"
 )
 
 //go:generate configer haz-ua-consumer.json
 var (
-	config = cfg.Load()
-	idp    = msg.IdpQuake{}
-	uac    *ua.Client
+	idp = msg.IdpQuake{}
+	uac *ua.Client
 )
 
 func init() {
-	logentries.Init(config.Logentries.Token)
-	msg.InitLibrato(config.Librato.User, config.Librato.Key, config.Librato.Source)
-	uac = ua.Init(config.UA)
-	config.SQS.MaxNumberOfMessages = 1
-	config.SQS.VisibilityTimeout = 600
-	config.SQS.WaitTimeSeconds = 20
+	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
+	uac = ua.Init()
+	sqs.MaxNumberOfMessages = 1
+	sqs.VisibilityTimeout = 600
+	sqs.WaitTimeSeconds = 20
 }
 
 type message struct {
@@ -32,7 +31,7 @@ type message struct {
 }
 
 func main() {
-	rx, dx, err := sqs.InitRx(config.SQS)
+	rx, dx, err := sqs.InitRx()
 	if err != nil {
 		log.Fatalf("ERROR - problem creating SQS from config: %s", err)
 	}
