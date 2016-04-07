@@ -304,7 +304,6 @@ func makeDLQ() (string, error) {
 				QueueName: &name,
 				Attributes: map[string]*string{
 					`MessageRetentionPeriod`: aws.String(`1209600`),
-					`Policy`:                 aws.String(`{"Version": "2012-10-17", "Id": "dlq-default-policy"}`),
 				},
 			})
 		if err != nil {
