@@ -1,52 +1,64 @@
 package main
 
 import (
+	"bytes"
 	"errors"
+	"fmt"
 	"github.com/GeoNet/web"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 const feltURL = "http://felt.geonet.org.nz/services/reports/"
 
-func feltV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{"publicID"}, []string{}) {
-		return
+func feltV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{"publicID"}, []string{}); !res.ok {
+		return res
 	}
 
 	var publicID string
-	var ok bool
+	var err error
 
-	if publicID, ok = getPublicID(w, r); !ok {
-		return
+	if publicID, err = getPublicID(r); err != nil {
+		if err == os.ErrInvalid {
+			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
+			return res
+		}
+		if os.IsNotExist(err) {
+			res := &notFound
+			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
+			return res
+		}
+
+		return serviceUnavailableError(err)
 	}
 
-	res, err := client.Get(feltURL + publicID + ".geojson")
-	defer res.Body.Close()
+	var rs *http.Response
+	rs, err = client.Get(feltURL + publicID + ".geojson")
+	defer rs.Body.Close()
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b, err := ioutil.ReadAll(res.Body)
+	bt, err := ioutil.ReadAll(rs.Body)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
 	// Felt returns a 400 when it should probably be a 404.  Tapestry quirk?
 	switch {
-	case 200 == res.StatusCode:
-		w.Header().Set("Content-Type", web.V1GeoJSON)
-		web.Ok(w, r, &b)
-		return
-	case 4 == res.StatusCode/100:
-		web.NotFound(w, r, string(b))
-		return
-	case 5 == res.StatusCode/500:
-		web.ServiceUnavailable(w, r, errors.New("error proxying felt resports.  Shrug."))
-		return
+	case http.StatusOK == rs.StatusCode:
+		h.Set("Content-Type", web.V1GeoJSON)
+		b.Write(bt)
+		return &statusOK
+	case 4 == rs.StatusCode/100:
+		res := &notFound
+		res.msg = string(bt)
+		return res
+	case 5 == rs.StatusCode/500:
+		return serviceUnavailableError(errors.New("error proxying felt resports.  Shrug."))
 	}
 
-	web.ServiceUnavailable(w, r, errors.New("unknown response from felt."))
+	return serviceUnavailableError(errors.New("unknown response from felt."))
 }

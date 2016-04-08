@@ -17,23 +17,20 @@ const minMMID float64 = 5.0
 var capIDRe = regexp.MustCompile(`^[0-9a-z]+\.[0-9]+$`)
 var serverCName = os.Getenv("WEB_SERVER_CNAME")
 
-func capQuake(w http.ResponseWriter, r *http.Request) {
-	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	id := r.URL.Path[22:]
 
 	if !capIDRe.MatchString(id) {
-		web.BadRequest(w, r, "invalid ID: "+id)
-		return
+		return badRequest("invalid ID: " + id)
 	}
 
 	p := strings.Split(id, `.`)
 	if len(p) != 2 {
-		web.BadRequest(w, r, "invalid ID: "+id)
-		return
+		return badRequest("invalid ID: " + id)
 	}
 
 	c := capQuakeT{ID: id}
@@ -42,8 +39,7 @@ func capQuake(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query(`select modificationTimeUnixMicro, modificationtime from haz.quakehistory
 		where publicid = $1 AND modificationTimeUnixMicro < $2 AND status in ('reviewed','deleted')`, p[0], p[1])
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 	defer rows.Close()
 
@@ -54,8 +50,7 @@ func capQuake(w http.ResponseWriter, r *http.Request) {
 		var t time.Time
 		err := rows.Scan(&i, &t)
 		if err != nil {
-			web.ServiceUnavailable(w, r, err)
-			return
+			return serviceUnavailableError(err)
 		}
 		c.References = append(c.References, fmt.Sprintf("%s.%d,%s", c.Quake.PublicID, i, t.In(nz).Format(time.RFC3339)))
 	}
@@ -85,18 +80,17 @@ func capQuake(w http.ResponseWriter, r *http.Request) {
 		&c.Intensity,
 	)
 	if err == sql.ErrNoRows {
-		web.NotFound(w, r, "invalid ID: "+id)
-		return
+		res := &notFound
+		res.msg = fmt.Sprintf("invalid ID: " + id)
+		return res
 	}
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
 	cl, err := c.Quake.Closest()
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
 	c.Localities = c.Quake.Localities(minMMID)
@@ -107,22 +101,18 @@ func capQuake(w http.ResponseWriter, r *http.Request) {
 
 	c.Closest = cl
 
-	b := new(bytes.Buffer)
-
 	err = capTemplates.ExecuteTemplate(b, "capQuake", c)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	w.Header().Set("Content-Type", web.CAP)
-	web.OkBuf(w, r, b)
+	h.Set("Content-Type", web.CAP)
+	return &statusOK
 }
 
-func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
-	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	// we are only serving /cap/1.2/GPAv1.0/feed/atom1.0/quake at the moment and the router
@@ -136,8 +126,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 
 	rows, err := db.Query(capQuakeFeedSQL, int(minMMID))
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 	defer rows.Close()
 
@@ -150,8 +139,7 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 
 		err := rows.Scan(&p, &i, &t)
 		if err != nil {
-			web.ServiceUnavailable(w, r, err)
-			return
+			return serviceUnavailableError(err)
 		}
 
 		entry := capAtomEntry{
@@ -176,15 +164,11 @@ func capQuakeFeed(w http.ResponseWriter, r *http.Request) {
 	}
 
 	atom.Updated = tLatest
-
-	b := new(bytes.Buffer)
-
 	err = capTemplates.ExecuteTemplate(b, "capAtom", atom)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	w.Header().Set("Content-Type", web.Atom)
-	web.OkBuf(w, r, b)
+	h.Set("Content-Type", web.Atom)
+	return &statusOK
 }

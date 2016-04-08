@@ -19,8 +19,8 @@ var (
 )
 
 var header = web.Header{
-	Cache:     web.MaxAge10,
-	Surrogate: web.MaxAge10,
+	Cache:     maxAge10,
+	Surrogate: maxAge10,
 	Vary:      "Accept",
 }
 
@@ -57,5 +57,5 @@ func main() {
 func handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", router)
-	return header.GetGzip(mux)
+	return mux
 }

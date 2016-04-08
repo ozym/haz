@@ -15,8 +15,8 @@ func TestRoutes(t *testing.T) {
 	r := webtest.Route{
 		Accept:     web.V1GeoJSON,
 		Content:    web.V1GeoJSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -43,8 +43,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V2GeoJSON,
 		Content:    web.V2GeoJSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -72,8 +72,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 		Content:    web.V2GeoJSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -90,8 +90,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V1GeoJSON,
 		Content:    web.ErrContent,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusNotFound,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -105,8 +105,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V1JSON,
 		Content:    web.V1JSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge300,
+		Cache:      maxAge10,
+		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -119,8 +119,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V2JSON,
 		Content:    web.V2JSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge300,
+		Cache:      maxAge10,
+		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -134,8 +134,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 		Content:    web.V2JSON,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge300,
+		Cache:      maxAge10,
+		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -146,8 +146,8 @@ func TestRoutes(t *testing.T) {
 	// CAP routes - not versioned by Accept
 	r = webtest.Route{
 		Content:    web.CAP,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -159,8 +159,8 @@ func TestRoutes(t *testing.T) {
 	// Atom feed routes - not versioned by Accept
 	r = webtest.Route{
 		Content:    web.Atom,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge10,
+		Cache:      maxAge10,
+		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -173,8 +173,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V1GeoJSON,
 		Content:    web.ErrContent,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge86400,
+		Cache:      maxAge10,
+		Surrogate:  maxAge86400,
 		Response:   http.StatusBadRequest,
 		Vary:       "Accept",
 		TestAccept: false,
@@ -208,8 +208,8 @@ func TestRoutes(t *testing.T) {
 	r = webtest.Route{
 		Accept:     web.V2GeoJSON,
 		Content:    web.ErrContent,
-		Cache:      web.MaxAge10,
-		Surrogate:  web.MaxAge86400,
+		Cache:      maxAge10,
+		Surrogate:  maxAge86400,
 		Response:   http.StatusBadRequest,
 		Vary:       "Accept",
 		TestAccept: false,

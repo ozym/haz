@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"github.com/GeoNet/web"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
 	"net/http"
@@ -31,17 +30,17 @@ func init() {
 	docsIndex = b.Bytes()
 }
 
-func docs(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func docs(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	if r.URL.Path != "/" {
-		web.BadRequest(w, r, "invalid path")
-		return
+		return badRequest("invalid path")
 	}
 
-	web.Ok(w, r, &docsIndex)
+	b.Write(docsIndex)
+	return &statusOK
 }
 
 const h = `<html>

@@ -1,25 +1,38 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/web"
 	"net/http"
+	"os"
 )
 
-func quakeV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	var publicID string
-	var ok bool
+	var err error
 
-	if publicID, ok = getPublicIDPath(w, r); !ok {
-		return
+	if publicID, err = getPublicIDPath(r); err != nil {
+		if err == os.ErrInvalid {
+			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
+			return res
+		}
+		if os.IsNotExist(err) {
+			res := &notFound
+			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
+			return res
+		}
+
+		return badRequest(err.Error())
 	}
 
 	var d string
-	err := db.QueryRow(
+	err = db.QueryRow(
 		`SELECT row_to_json(fc)
                          FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(f)) as features
                          FROM (SELECT 'Feature' as type,
@@ -38,43 +51,41 @@ func quakeV1(w http.ResponseWriter, r *http.Request) {
                            ) as l
                          )) as properties FROM haz.quake as q where publicid = $1 ) As f )  as fc`, publicID).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V1GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V1GeoJSON)
+	return &statusOK
 }
 
-func quakesRegionV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{"regionID", "regionIntensity", "number", "quality"}, []string{}) {
-		return
+func quakesRegionV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{"regionID", "regionIntensity", "number", "quality"}, []string{}); !res.ok {
+		return res
 	}
 
-	var ok bool
-
-	if _, ok = getRegionID(w, r); !ok {
-		return
+	var err error
+	if _, err = getRegionID(r); err != nil {
+		return badRequest(err.Error())
 	}
 
-	if _, ok = getQuality(w, r); !ok {
-		return
+	if _, err = getQuality(r); err != nil {
+		return badRequest(err.Error())
 	}
 
 	var regionIntensity string
 
-	if regionIntensity, ok = getRegionIntensity(w, r); !ok {
-		return
+	if regionIntensity, err = getRegionIntensity(r); err != nil {
+		return badRequest(err.Error())
 	}
 
 	var n int
-	if n, ok = getNumberQuakes(w, r); !ok {
-		return
+	if n, err = getNumberQuakes(r); err != nil {
+		return badRequest(err.Error())
 	}
 
 	var d string
-	err := db.QueryRow(
+	err = db.QueryRow(
 		`SELECT row_to_json(fc)
                          FROM ( SELECT 'FeatureCollection' as type, COALESCE(array_to_json(array_agg(f)), '[]') as features
                          FROM (SELECT 'Feature' as type,
@@ -94,11 +105,10 @@ func quakesRegionV1(w http.ResponseWriter, r *http.Request) {
                          )) as properties FROM haz.quakeapi as q where mmid_newzealand >= $1
                          ORDER BY time DESC  limit $2 ) as f ) as fc`, int(msg.IntensityMMI(regionIntensity)), n).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V1GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V1GeoJSON)
+	return &statusOK
 }

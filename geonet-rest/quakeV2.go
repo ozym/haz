@@ -1,111 +1,127 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/GeoNet/web"
 	"net/http"
+	"os"
 )
 
-func quakeV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+		return badRequest("incorrect number of query parameters.")
 	}
 
 	var publicID string
-	var ok bool
+	var err error
 
-	if publicID, ok = getPublicIDPath(w, r); !ok {
-		return
+	if publicID, err = getPublicIDPath(r); err != nil {
+		if err == os.ErrInvalid {
+			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
+			return res
+		}
+		if os.IsNotExist(err) {
+			res := &notFound
+			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
+			return res
+		}
+
+		return badRequest(err.Error())
 	}
 
 	var d string
-	err := db.QueryRow(quakeV2SQL, publicID).Scan(&d)
+	err = db.QueryRow(quakeV2SQL, publicID).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V2GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V2GeoJSON)
+	return &statusOK
 }
 
-func quakesV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{"MMI"}, []string{}) {
-		return
+func quakesV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{"MMI"}, []string{}); !res.ok {
+		return res
 	}
 
 	var mmi int
-	var ok bool
+	var err error
 
-	if mmi, ok = getMMI(w, r); !ok {
-		return
+	if mmi, err = getMMI(r); err != nil {
+		return badRequest(err.Error())
 	}
 
 	var d string
-	err := db.QueryRow(quakesV2SQL, mmi).Scan(&d)
+	err = db.QueryRow(quakesV2SQL, mmi).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V2GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V2GeoJSON)
+	return &statusOK
 }
 
-func quakeHistoryV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func quakeHistoryV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+		return badRequest("incorrect number of query parameters.")
 	}
 
 	var publicID string
-	var ok bool
+	var err error
 
-	if publicID, ok = getPublicIDHistoryPath(w, r); !ok {
-		return
+	if publicID, err = getPublicIDHistoryPath(r); err != nil {
+		if err == os.ErrInvalid {
+			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
+			return res
+		}
+		if os.IsNotExist(err) {
+			res := &notFound
+			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
+			return res
+		}
+
+		return serviceUnavailableError(err)
 	}
 
 	var d string
-	err := db.QueryRow(quakeHistoryV2SQL, publicID).Scan(&d)
+	err = db.QueryRow(quakeHistoryV2SQL, publicID).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V2GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V2GeoJSON)
+	return &statusOK
 }
 
-func quakeStatsV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func quakeStatsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+		return badRequest("incorrect number of query parameters.")
 	}
 
 	var d string
 	err := db.QueryRow(quakeStatsV2SQL).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Surrogate-Control", web.MaxAge300)
-	w.Header().Set("Content-Type", web.V2JSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Surrogate-Control", maxAge300)
+	h.Set("Content-Type", web.V2JSON)
+	return &statusOK
 }

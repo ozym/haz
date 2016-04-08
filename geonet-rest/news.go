@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"github.com/GeoNet/web"
@@ -53,36 +54,38 @@ func unmarshalNews(b []byte) (f Feed, err error) {
 	return f, err
 }
 
-func newsV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func newsV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	j, err := fetchRSS(newsURL)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	w.Header().Set("Surrogate-Control", web.MaxAge300)
-	w.Header().Set("Content-Type", web.V1JSON)
-	web.Ok(w, r, &j)
+	h.Set("Surrogate-Control", maxAge300)
+	h.Set("Content-Type", web.V1JSON)
+	b.Write(j)
+
+	return &statusOK
 }
 
-func newsV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
+func newsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	j, err := fetchRSS(newsURL)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	w.Header().Set("Surrogate-Control", web.MaxAge300)
-	w.Header().Set("Content-Type", web.V2JSON)
-	web.Ok(w, r, &j)
+	h.Set("Surrogate-Control", maxAge300)
+	h.Set("Content-Type", web.V2JSON)
+	b.Write(j)
+
+	return &statusOK
 }
 
 func fetchRSS(url string) (b []byte, err error) {

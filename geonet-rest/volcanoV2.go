@@ -1,18 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"github.com/GeoNet/web"
 	"net/http"
 )
 
-func valV2(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{}, []string{}) {
-		return
-	}
-
-	if len(r.URL.Query()) != 0 {
-		web.BadRequest(w, r, "incorrect number of query parameters.")
-		return
+func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+		return res
 	}
 
 	var d string
@@ -32,11 +28,10 @@ func valV2(w http.ResponseWriter, r *http.Request) {
                            ) as l
                          )) as properties FROM (haz.volcano JOIN haz.volcanic_alert_level using (alert_level)) as v ) As f )  as fc`).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V2GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", web.V2GeoJSON)
+	return &statusOK
 }
