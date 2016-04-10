@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/GeoNet/web"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -49,7 +48,7 @@ func feltV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	// Felt returns a 400 when it should probably be a 404.  Tapestry quirk?
 	switch {
 	case http.StatusOK == rs.StatusCode:
-		h.Set("Content-Type", web.V1GeoJSON)
+		h.Set("Content-Type", V1GeoJSON)
 		b.Write(bt)
 		return &statusOK
 	case 4 == rs.StatusCode/100:

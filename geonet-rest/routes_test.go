@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"net/http"
 	"testing"
@@ -13,8 +12,8 @@ func TestRoutes(t *testing.T) {
 
 	// GeoJSON routes
 	r := webtest.Route{
-		Accept:     web.V1GeoJSON,
-		Content:    web.V1GeoJSON,
+		Accept:     V1GeoJSON,
+		Content:    V1GeoJSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
@@ -41,8 +40,8 @@ func TestRoutes(t *testing.T) {
 
 	// GeoJSON V2 routes
 	r = webtest.Route{
-		Accept:     web.V2GeoJSON,
-		Content:    web.V2GeoJSON,
+		Accept:     V2GeoJSON,
+		Content:    V2GeoJSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
@@ -71,7 +70,7 @@ func TestRoutes(t *testing.T) {
 	// GeoJSON routes without explicit accept should route to latest version
 	r = webtest.Route{
 		Accept:     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-		Content:    web.V2GeoJSON,
+		Content:    V2GeoJSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
@@ -88,8 +87,8 @@ func TestRoutes(t *testing.T) {
 
 	// Routes that should 404
 	r = webtest.Route{
-		Accept:     web.V1GeoJSON,
-		Content:    web.ErrContent,
+		Accept:     V1GeoJSON,
+		Content:    ErrContent,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusNotFound,
@@ -103,8 +102,8 @@ func TestRoutes(t *testing.T) {
 
 	// JSON routes
 	r = webtest.Route{
-		Accept:     web.V1JSON,
-		Content:    web.V1JSON,
+		Accept:     V1JSON,
+		Content:    V1JSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
@@ -117,8 +116,8 @@ func TestRoutes(t *testing.T) {
 
 	// V2 JSON routes
 	r = webtest.Route{
-		Accept:     web.V2JSON,
-		Content:    web.V2JSON,
+		Accept:     V2JSON,
+		Content:    V2JSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
@@ -133,7 +132,7 @@ func TestRoutes(t *testing.T) {
 	// JSON routes without explicit accept should route to latest version
 	r = webtest.Route{
 		Accept:     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-		Content:    web.V2JSON,
+		Content:    V2JSON,
 		Cache:      maxAge10,
 		Surrogate:  maxAge300,
 		Response:   http.StatusOK,
@@ -145,7 +144,7 @@ func TestRoutes(t *testing.T) {
 
 	// CAP routes - not versioned by Accept
 	r = webtest.Route{
-		Content:    web.CAP,
+		Content:    CAP,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
@@ -158,7 +157,7 @@ func TestRoutes(t *testing.T) {
 
 	// Atom feed routes - not versioned by Accept
 	r = webtest.Route{
-		Content:    web.Atom,
+		Content:    Atom,
 		Cache:      maxAge10,
 		Surrogate:  maxAge10,
 		Response:   http.StatusOK,
@@ -171,8 +170,8 @@ func TestRoutes(t *testing.T) {
 
 	// GeoJSON routes that should bad request
 	r = webtest.Route{
-		Accept:     web.V1GeoJSON,
-		Content:    web.ErrContent,
+		Accept:     V1GeoJSON,
+		Content:    ErrContent,
 		Cache:      maxAge10,
 		Surrogate:  maxAge86400,
 		Response:   http.StatusBadRequest,
@@ -206,8 +205,8 @@ func TestRoutes(t *testing.T) {
 
 	// V2 GeoJSON routes that should bad request
 	r = webtest.Route{
-		Accept:     web.V2GeoJSON,
-		Content:    web.ErrContent,
+		Accept:     V2GeoJSON,
+		Content:    ErrContent,
 		Cache:      maxAge10,
 		Surrogate:  maxAge86400,
 		Response:   http.StatusBadRequest,

@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"github.com/GeoNet/web"
 	"net/http"
 )
 
@@ -34,6 +33,6 @@ func intensityMeasuredLatestV1(r *http.Request, h http.Header, b *bytes.Buffer) 
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V1GeoJSON)
+	h.Set("Content-Type", V1GeoJSON)
 	return &statusOK
 }

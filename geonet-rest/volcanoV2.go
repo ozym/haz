@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"github.com/GeoNet/web"
 	"net/http"
 )
 
@@ -32,6 +31,6 @@ func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V2GeoJSON)
+	h.Set("Content-Type", V2GeoJSON)
 	return &statusOK
 }

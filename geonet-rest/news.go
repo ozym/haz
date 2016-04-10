@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
-	"github.com/GeoNet/web"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -65,7 +64,7 @@ func newsV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	h.Set("Surrogate-Control", maxAge300)
-	h.Set("Content-Type", web.V1JSON)
+	h.Set("Content-Type", V1JSON)
 	b.Write(j)
 
 	return &statusOK
@@ -82,7 +81,7 @@ func newsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	h.Set("Surrogate-Control", maxAge300)
-	h.Set("Content-Type", web.V2JSON)
+	h.Set("Content-Type", V2JSON)
 	b.Write(j)
 
 	return &statusOK

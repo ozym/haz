@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/GeoNet/web"
 	"net/http"
 	"os"
 )
@@ -41,7 +40,7 @@ func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V2GeoJSON)
+	h.Set("Content-Type", V2GeoJSON)
 	return &statusOK
 }
 
@@ -64,7 +63,7 @@ func quakesV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V2GeoJSON)
+	h.Set("Content-Type", V2GeoJSON)
 	return &statusOK
 }
 
@@ -101,7 +100,7 @@ func quakeHistoryV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V2GeoJSON)
+	h.Set("Content-Type", V2GeoJSON)
 	return &statusOK
 }
 
@@ -122,6 +121,6 @@ func quakeStatsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 	b.WriteString(d)
 	h.Set("Surrogate-Control", maxAge300)
-	h.Set("Content-Type", web.V2JSON)
+	h.Set("Content-Type", V2JSON)
 	return &statusOK
 }

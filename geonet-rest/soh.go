@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/GeoNet/web"
 	"net/http"
 	"strconv"
 	"time"
@@ -28,7 +27,7 @@ func init() {
 
 // returns a simple state of health page.  If heartbeat times in the DB are old then it also returns an http status of 500.
 func soh(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	h.Set("Content-Type", web.HtmlContent)
+	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
 	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
@@ -76,7 +75,7 @@ func soh(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 // returns a simple state of health page.  If the count of measured intensities falls below 50 this it also returns an http status of 500.
 func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	h.Set("Content-Type", web.HtmlContent)
+	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
 	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))

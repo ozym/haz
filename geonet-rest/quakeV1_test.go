@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"math"
 	"testing"
@@ -34,7 +33,7 @@ func TestQuakesV1(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V1GeoJSON,
+		Accept: V1GeoJSON,
 		URI:    "/quake?regionID=newzealand&regionIntensity=weak&number=100&quality=best,caution,good,deleted",
 	}
 
@@ -94,7 +93,7 @@ func TestQuakesV1(t *testing.T) {
 	}
 
 	c = webtest.Content{
-		Accept: web.V1GeoJSON,
+		Accept: V1GeoJSON,
 		URI:    "/quake?regionID=newzealand&regionIntensity=moderate&number=100&quality=best,caution,good,deleted",
 	}
 
@@ -120,7 +119,7 @@ func TestQuakeV1(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V1GeoJSON,
+		Accept: V1GeoJSON,
 		URI:    "/quake/2013p407387",
 	}
 

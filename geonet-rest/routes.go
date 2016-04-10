@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"github.com/GeoNet/web"
 	"net/http"
-	"strings"
 )
 
 var (
@@ -59,13 +56,13 @@ func init() {
 
 func router(w http.ResponseWriter, r *http.Request) {
 	switch r.Header.Get("Accept") {
-	case web.V2GeoJSON:
+	case V2GeoJSON:
 		muxV2GeoJSON.ServeHTTP(w, r)
-	case web.V1GeoJSON:
+	case V1GeoJSON:
 		muxV1GeoJSON.ServeHTTP(w, r)
-	case web.V1JSON:
+	case V1JSON:
 		muxV1JSON.ServeHTTP(w, r)
-	case web.V2JSON:
+	case V2JSON:
 		muxV2JSON.ServeHTTP(w, r)
 	default:
 		muxDefault.ServeHTTP(w, r)

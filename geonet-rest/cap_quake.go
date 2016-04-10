@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
-	"github.com/GeoNet/web"
 	"net/http"
 	"os"
 	"regexp"
@@ -106,7 +105,7 @@ func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		return serviceUnavailableError(err)
 	}
 
-	h.Set("Content-Type", web.CAP)
+	h.Set("Content-Type", CAP)
 	return &statusOK
 }
 
@@ -169,6 +168,6 @@ func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		return serviceUnavailableError(err)
 	}
 
-	h.Set("Content-Type", web.Atom)
+	h.Set("Content-Type", Atom)
 	return &statusOK
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"math"
 	"testing"
@@ -27,7 +26,7 @@ func TestValV2(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V2GeoJSON,
+		Accept: V2GeoJSON,
 		URI:    "/volcano/val",
 	}
 

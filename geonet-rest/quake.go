@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/GeoNet/haz/msg"
-	"github.com/GeoNet/web"
 	"net/http"
 	"os"
 )
@@ -55,7 +54,7 @@ func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V1GeoJSON)
+	h.Set("Content-Type", V1GeoJSON)
 	return &statusOK
 }
 
@@ -109,6 +108,6 @@ func quakesRegionV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	b.WriteString(d)
-	h.Set("Content-Type", web.V1GeoJSON)
+	h.Set("Content-Type", V1GeoJSON)
 	return &statusOK
 }

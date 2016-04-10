@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"io/ioutil"
 	"os"
@@ -54,7 +53,7 @@ func TestNewsV1(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V1JSON,
+		Accept: V1JSON,
 		URI:    "/news/geonet",
 	}
 

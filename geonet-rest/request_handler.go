@@ -18,6 +18,31 @@ const (
 	maxAge86400 = "max-age=86400"
 )
 
+const (
+	V1GeoJSON = "application/vnd.geo+json;version=1"
+	V1JSON    = "application/json;version=1"
+	V1CSV     = "text/csv;version=1"
+	V2GeoJSON = "application/vnd.geo+json;version=2"
+	V2JSON    = "application/json;version=2"
+	V2CSV     = "text/csv;version=2"
+)
+
+// These are for CAP format and Atom which is not versioned by Accept.
+const (
+	CAP  = "application/cap+xml"
+	Atom = "application/xml"
+)
+
+// These constants are for error and other pages.  They can be changed.
+const (
+	ErrContent  = "text/plain; charset=utf-8"
+	HtmlContent = "text/html; charset=utf-8"
+)
+
+type Header struct {
+	Cache, Surrogate string // Set as the default in the response header - can override in handler funcs.
+	Vary             string // This is added to the response header (which may already Vary on gzip).
+}
 type result struct {
 	ok   bool   // set true to indicated success
 	code int    // http status code for writing back the client e.g., http.StatusOK for success.
