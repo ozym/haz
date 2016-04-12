@@ -4,7 +4,6 @@ import (
 	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/log/logentries"
-	"github.com/GeoNet/web"
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
@@ -18,9 +17,9 @@ var (
 	client *http.Client
 )
 
-var header = web.Header{
-	Cache:     web.MaxAge10,
-	Surrogate: web.MaxAge10,
+var header = Header{
+	Cache:     maxAge10,
+	Surrogate: maxAge10,
 	Vary:      "Accept",
 }
 
@@ -57,5 +56,5 @@ func main() {
 func handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", router)
-	return header.GetGzip(mux)
+	return mux
 }

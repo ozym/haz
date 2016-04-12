@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"github.com/GeoNet/web"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -26,9 +26,8 @@ func init() {
 }
 
 // returns a simple state of health page.  If heartbeat times in the DB are old then it also returns an http status of 500.
-func soh(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", web.HtmlContent)
-	var b bytes.Buffer
+func soh(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
 	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
@@ -68,17 +67,15 @@ func soh(w http.ResponseWriter, r *http.Request) {
 	b.Write([]byte(foot))
 
 	if bad {
-		web.ServiceInternalServerErrorBuf(w, r, &b)
-		return
+		return internalServerError(fmt.Errorf(b.String()))
 	}
 
-	web.OkBuf(w, r, &b)
+	return &statusOK
 }
 
 // returns a simple state of health page.  If the count of measured intensities falls below 50 this it also returns an http status of 500.
-func impactSOH(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", web.HtmlContent)
-	var b bytes.Buffer
+func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
 	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
@@ -106,9 +103,8 @@ func impactSOH(w http.ResponseWriter, r *http.Request) {
 	b.Write([]byte(foot))
 
 	if bad {
-		web.ServiceInternalServerErrorBuf(w, r, &b)
-		return
+		return internalServerError(fmt.Errorf(b.String()))
 	}
 
-	web.OkBuf(w, r, &b)
+	return &statusOK
 }

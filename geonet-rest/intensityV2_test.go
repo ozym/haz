@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"math"
 	"testing"
@@ -28,7 +27,7 @@ func TestIntensityMeasuredV2(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V2GeoJSON,
+		Accept: V2GeoJSON,
 		URI:    "/intensity?type=measured",
 	}
 
@@ -81,7 +80,7 @@ func TestIntensityReportedLatestV2(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V2GeoJSON,
+		Accept: V2GeoJSON,
 		URI:    "/intensity?type=reported",
 	}
 
@@ -135,7 +134,7 @@ func TestIntensityReportedV2(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V2GeoJSON,
+		Accept: V2GeoJSON,
 		URI:    "/intensity?type=reported&publicID=2013p407387",
 	}
 

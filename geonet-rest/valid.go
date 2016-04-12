@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"github.com/GeoNet/web"
+	"fmt"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -17,171 +17,150 @@ var publicIDRe = regexp.MustCompile(`^[0-9a-z]+$`)
 var intensityRe = regexp.MustCompile(`^(unnoticeable|weak|light|moderate|strong|severe)$`)
 var qualityRe = regexp.MustCompile(`^(best|caution|deleted|good)$`)
 
-func getPublicIDPath(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getPublicIDPath(r *http.Request) (string, *result) {
 	publicID := r.URL.Path[quakeLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		web.BadRequest(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, badRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
-
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		web.NotFound(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, &notFound
 	}
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return publicID, false
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, true
+	return publicID, &statusOK
 }
 
-func getPublicIDHistoryPath(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getPublicIDHistoryPath(r *http.Request) (string, *result) {
 	publicID := r.URL.Path[quakeHistoryLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		web.BadRequest(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, badRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
 
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		web.NotFound(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, &notFound
 	}
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return publicID, false
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, true
+	return publicID, &statusOK
 }
 
-func getPublicID(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getPublicID(r *http.Request) (string, *result) {
 	publicID := r.URL.Query().Get("publicID")
 
 	if !publicIDRe.MatchString(publicID) {
-		web.BadRequest(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, badRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
 	var d string
 
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
+
 	if err == sql.ErrNoRows {
-		web.NotFound(w, r, "invalid publicID: "+publicID)
-		return publicID, false
+		return publicID, &notFound
 	}
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return publicID, false
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, true
+	return publicID, &statusOK
 }
 
-func getMMI(w http.ResponseWriter, r *http.Request) (int, bool) {
+func getMMI(r *http.Request) (int, error) {
 	mmi, err := strconv.Atoi(r.URL.Query().Get("MMI"))
 	if err != nil || mmi > 8 || mmi < -1 {
-		web.BadRequest(w, r, "Invalid MMI query param.")
-		return 0, false
+		return 0, fmt.Errorf("Invalid MMI query param.")
 	}
 
 	if mmi <= 2 {
 		mmi = -9
 	}
 
-	return mmi, true
+	return mmi, nil
 }
 
-func getIntensityType(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getIntensityType(r *http.Request) (string, error) {
 	t := r.URL.Query().Get("type")
 	switch t {
 	case `measured`, `reported`:
-		return t, true
+		return t, nil
 	default:
-		web.BadRequest(w, r, "invalid intensity type")
-		return ``, false
+		return ``, fmt.Errorf("invalid intensity type")
 	}
 }
 
-func getQuakeTime(w http.ResponseWriter, r *http.Request) (time.Time, bool) {
+func getQuakeTime(r *http.Request) (time.Time, *result) {
 	publicID := r.URL.Query().Get("publicID")
 	originTime := time.Time{}
 
 	if !publicIDRe.MatchString(publicID) {
-		web.BadRequest(w, r, "invalid publicID: "+publicID)
-		return originTime, false
+		return originTime, badRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
-	var err error
-
-	err = db.QueryRow("select time FROM haz.quake where publicid = $1", publicID).Scan(&originTime)
+	err := db.QueryRow("select time FROM haz.quake where publicid = $1", publicID).Scan(&originTime)
 	if err == sql.ErrNoRows {
-		web.NotFound(w, r, "invalid publicID: "+publicID)
-		return originTime, false
+		return originTime, &notFound
 	}
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return originTime, false
+		return originTime, serviceUnavailableError(err)
 	}
 
-	return originTime, true
+	return originTime, &statusOK
 }
 
-func getRegionID(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getRegionID(r *http.Request) (string, error) {
 	regionID := r.URL.Query().Get("regionID")
 
 	if regionID != "newzealand" {
-		web.BadRequest(w, r, "Invalid query parameter regionID: "+regionID)
-		return regionID, false
+		return regionID, fmt.Errorf("Invalid query parameter regionID: " + regionID)
 	}
 
-	return regionID, true
+	return regionID, nil
 }
 
-func getQuality(w http.ResponseWriter, r *http.Request) ([]string, bool) {
+func getQuality(r *http.Request) ([]string, error) {
 	quality := strings.Split(r.URL.Query().Get("quality"), ",")
 
 	for _, q := range quality {
 		if !qualityRe.MatchString(q) {
-			web.BadRequest(w, r, "Invalid quality: "+q)
-			return quality, false
+			return quality, fmt.Errorf("Invalid quality: " + q)
 		}
 	}
 
-	return quality, true
+	return quality, nil
 }
 
-func getRegionIntensity(w http.ResponseWriter, r *http.Request) (string, bool) {
+func getRegionIntensity(r *http.Request) (string, error) {
 	regionIntensity := r.URL.Query().Get("regionIntensity")
 
 	if !intensityRe.MatchString(regionIntensity) {
-		web.BadRequest(w, r, "Invalid regionIntensity: "+regionIntensity)
-		return regionIntensity, false
+		return regionIntensity, fmt.Errorf("Invalid regionIntensity: " + regionIntensity)
 	}
 
-	return regionIntensity, true
+	return regionIntensity, nil
 }
 
-func getNumberQuakes(w http.ResponseWriter, r *http.Request) (int, bool) {
+func getNumberQuakes(r *http.Request) (int, error) {
 	n, err := strconv.Atoi(r.URL.Query().Get("number"))
 	if err != nil {
-		web.BadRequest(w, r, "Invalid query parameter number")
-		return n, false
+		return n, fmt.Errorf("Invalid query parameter number")
 	}
 
 	switch n {
 	case 3, 30, 100, 500, 1000, 1500:
-		return n, true
+		return n, nil
 	default:
-		web.BadRequest(w, r, "Invalid query parameter number")
-		return n, false
+		return n, fmt.Errorf("Invalid query parameter number")
 	}
 }

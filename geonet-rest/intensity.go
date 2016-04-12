@@ -1,18 +1,17 @@
 package main
 
 import (
-	"github.com/GeoNet/web"
+	"bytes"
 	"net/http"
 )
 
-func intensityMeasuredLatestV1(w http.ResponseWriter, r *http.Request) {
-	if badQuery(w, r, []string{"type"}, []string{}) {
-		return
+func intensityMeasuredLatestV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+	if res := checkQuery(r, []string{"type"}, []string{}); !res.ok {
+		return res
 	}
 
 	if r.URL.Query().Get("type") != "measured" {
-		web.BadRequest(w, r, "type must be measured.")
-		return
+		return badRequest("type must be measured.")
 	}
 
 	var d string
@@ -30,11 +29,10 @@ func intensityMeasuredLatestV1(w http.ResponseWriter, r *http.Request) {
 				FROM impact.intensity_measured) as s 
 			) As f )  as fc`).Scan(&d)
 	if err != nil {
-		web.ServiceUnavailable(w, r, err)
-		return
+		return serviceUnavailableError(err)
 	}
 
-	b := []byte(d)
-	w.Header().Set("Content-Type", web.V1GeoJSON)
-	web.Ok(w, r, &b)
+	b.WriteString(d)
+	h.Set("Content-Type", V1GeoJSON)
+	return &statusOK
 }

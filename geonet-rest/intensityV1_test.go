@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web"
 	"github.com/GeoNet/web/webtest"
 	"math"
 	"testing"
@@ -28,7 +27,7 @@ func TestIntensityMeasuredV1(t *testing.T) {
 	defer teardown()
 
 	c := webtest.Content{
-		Accept: web.V1GeoJSON,
+		Accept: V1GeoJSON,
 		URI:    "/intensity?type=measured",
 	}
 

@@ -33,6 +33,16 @@
 			"revisionTime": "2015-03-30T17:44:51+13:00"
 		},
 		{
+			"path": "github.com/GeoNet/mtr/internal",
+			"revision": "53141614a2d24d8ff2170ee27359e7b50dab5288",
+			"revisionTime": "2016-03-17T18:17:41+13:00"
+		},
+		{
+			"path": "github.com/GeoNet/mtr/mtrapp",
+			"revision": "53141614a2d24d8ff2170ee27359e7b50dab5288",
+			"revisionTime": "2016-03-17T18:17:41+13:00"
+		},
+		{
 			"path": "github.com/GeoNet/web",
 			"revision": "3a472533fb10994718ed548999b1e3b02a0ac141",
 			"revisionTime": "2015-11-04T17:16:05+13:00"
