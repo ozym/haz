@@ -2,9 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -32,18 +30,9 @@ func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 			err = db.QueryRow(intenstityReportedLatestV2SQL).Scan(&d)
 		default:
 			var t time.Time
-			if t, err = getQuakeTime(r); err != nil {
-				if err == os.ErrInvalid {
-					res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
-					return res
-				}
-				if os.IsNotExist(err) {
-					res := &notFound
-					res.msg = fmt.Sprintf("invalid publicID: " + publicID)
-					return res
-				}
-
-				return serviceUnavailableError(err)
+			var res *result
+			if t, res = getQuakeTime(r); !res.ok {
+				return res
 			}
 			err = db.QueryRow(intenstityReportedWindowV2SQL, t.Add(time.Duration(-1*time.Minute)), t.Add(time.Duration(15*time.Minute))).Scan(&d)
 		}

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -18,63 +17,64 @@ var publicIDRe = regexp.MustCompile(`^[0-9a-z]+$`)
 var intensityRe = regexp.MustCompile(`^(unnoticeable|weak|light|moderate|strong|severe)$`)
 var qualityRe = regexp.MustCompile(`^(best|caution|deleted|good)$`)
 
-func getPublicIDPath(r *http.Request) (string, error) {
+func getPublicIDPath(r *http.Request) (string, *result) {
 	publicID := r.URL.Path[quakeLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, fmt.Errorf("invalid publicID: " + publicID)
+		return publicID, badRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		return publicID, os.ErrNotExist
+		return publicID, &notFound
 	}
 	if err != nil {
-		return publicID, err
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, nil
+	return publicID, &statusOK
 }
 
-func getPublicIDHistoryPath(r *http.Request) (string, error) {
+func getPublicIDHistoryPath(r *http.Request) (string, *result) {
 	publicID := r.URL.Path[quakeHistoryLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, os.ErrInvalid
+		return publicID, badRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
 
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		return publicID, os.ErrNotExist
+		return publicID, &notFound
 	}
 	if err != nil {
-		return publicID, err
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, nil
+	return publicID, &statusOK
 }
 
-func getPublicID(r *http.Request) (string, error) {
+func getPublicID(r *http.Request) (string, *result) {
 	publicID := r.URL.Query().Get("publicID")
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, os.ErrInvalid
+		return publicID, badRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
 	var d string
 
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
+
 	if err == sql.ErrNoRows {
-		return publicID, os.ErrNotExist
+		return publicID, &notFound
 	}
 	if err != nil {
-		return publicID, err
+		return publicID, serviceUnavailableError(err)
 	}
 
-	return publicID, nil
+	return publicID, &statusOK
 }
 
 func getMMI(r *http.Request) (int, error) {
@@ -100,23 +100,23 @@ func getIntensityType(r *http.Request) (string, error) {
 	}
 }
 
-func getQuakeTime(r *http.Request) (time.Time, error) {
+func getQuakeTime(r *http.Request) (time.Time, *result) {
 	publicID := r.URL.Query().Get("publicID")
 	originTime := time.Time{}
 
 	if !publicIDRe.MatchString(publicID) {
-		return originTime, os.ErrInvalid
+		return originTime, badRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
 	err := db.QueryRow("select time FROM haz.quake where publicid = $1", publicID).Scan(&originTime)
 	if err == sql.ErrNoRows {
-		return originTime, os.ErrNotExist
+		return originTime, &notFound
 	}
 	if err != nil {
-		return originTime, err
+		return originTime, serviceUnavailableError(err)
 	}
 
-	return originTime, nil
+	return originTime, &statusOK
 }
 
 func getRegionID(r *http.Request) (string, error) {

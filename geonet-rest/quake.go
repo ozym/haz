@@ -2,10 +2,8 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/GeoNet/haz/msg"
 	"net/http"
-	"os"
 )
 
 func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
@@ -14,24 +12,14 @@ func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	var publicID string
-	var err error
+	var res *result
 
-	if publicID, err = getPublicIDPath(r); err != nil {
-		if err == os.ErrInvalid {
-			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
-			return res
-		}
-		if os.IsNotExist(err) {
-			res := &notFound
-			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
-			return res
-		}
-
-		return badRequest(err.Error())
+	if publicID, res = getPublicIDPath(r); !res.ok {
+		return res
 	}
 
 	var d string
-	err = db.QueryRow(
+	err := db.QueryRow(
 		`SELECT row_to_json(fc)
                          FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(f)) as features
                          FROM (SELECT 'Feature' as type,

@@ -3,10 +3,8 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 const feltURL = "http://felt.geonet.org.nz/services/reports/"
@@ -17,24 +15,14 @@ func feltV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	var publicID string
-	var err error
+	var res *result
 
-	if publicID, err = getPublicID(r); err != nil {
-		if err == os.ErrInvalid {
-			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
-			return res
-		}
-		if os.IsNotExist(err) {
-			res := &notFound
-			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
-			return res
-		}
-
-		return serviceUnavailableError(err)
+	if publicID, res = getPublicID(r); !res.ok {
+		return res
 	}
 
 	var rs *http.Response
-	rs, err = client.Get(feltURL + publicID + ".geojson")
+	rs, err := client.Get(feltURL + publicID + ".geojson")
 	defer rs.Body.Close()
 	if err != nil {
 		return serviceUnavailableError(err)

@@ -2,9 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
-	"os"
 )
 
 func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
@@ -17,24 +15,14 @@ func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	var publicID string
-	var err error
+	var res *result
 
-	if publicID, err = getPublicIDPath(r); err != nil {
-		if err == os.ErrInvalid {
-			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
-			return res
-		}
-		if os.IsNotExist(err) {
-			res := &notFound
-			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
-			return res
-		}
-
-		return badRequest(err.Error())
+	if publicID, res = getPublicIDPath(r); !res.ok {
+		return res
 	}
 
 	var d string
-	err = db.QueryRow(quakeV2SQL, publicID).Scan(&d)
+	err := db.QueryRow(quakeV2SQL, publicID).Scan(&d)
 	if err != nil {
 		return serviceUnavailableError(err)
 	}
@@ -77,24 +65,14 @@ func quakeHistoryV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	var publicID string
-	var err error
+	var res *result
 
-	if publicID, err = getPublicIDHistoryPath(r); err != nil {
-		if err == os.ErrInvalid {
-			res := badRequest(fmt.Sprintf("invalid publicID " + publicID))
-			return res
-		}
-		if os.IsNotExist(err) {
-			res := &notFound
-			res.msg = fmt.Sprintf("invalid publicID: " + publicID)
-			return res
-		}
-
-		return serviceUnavailableError(err)
+	if publicID, res = getPublicIDHistoryPath(r); !res.ok {
+		return res
 	}
 
 	var d string
-	err = db.QueryRow(quakeHistoryV2SQL, publicID).Scan(&d)
+	err := db.QueryRow(quakeHistoryV2SQL, publicID).Scan(&d)
 	if err != nil {
 		return serviceUnavailableError(err)
 	}
