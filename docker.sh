@@ -1,45 +1,51 @@
-#!/bin/bash
+#!/bin/bash -e
 
-mkdir -p docker-build-tmp
-chmod +s docker-build-tmp
+# code will be compiled in this container
+BUILD_CONTAINER=golang:1.6.1-alpine
 
-BUILD='-X github.com/GeoNet/cfg.Build -'`git rev-parse --short HEAD` 
+DOCKER_TMP=docker-build-tmp
 
-# Build all executables in the golang-godep container.  Output statically linked binaries to docker-build-tmp
-docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/docker-build-tmp"  -e "CGO_ENABLED=0" -e "GOOS=linux" -e "BUILD=$BUILD" --rm -v \
-"$PWD":/usr/src/go/src/github.com/GeoNet/haz -w /usr/src/go/src/github.com/GeoNet/haz quay.io/geonet/golang-godep godep go install -a  -ldflags "${BUILD}" -installsuffix cgo ./...
+mkdir -p $DOCKER_TMP
+chmod +s $DOCKER_TMP
+mkdir -p ${DOCKER_TMP}/common/etc/ssl/certs
+mkdir -p ${DOCKER_TMP}/common/usr/share
 
-# Assemble common resource for ssl, timezones, and user.
-mkdir -p docker-build-tmp/common/etc/ssl/certs
-mkdir -p docker-build-tmp/common/usr/share
-echo "nobody:x:65534:65534:Nobody:/:" > docker-build-tmp/common/etc/passwd
-cp /etc/ssl/certs/ca-certificates.crt docker-build-tmp/common/etc/ssl/certs
-# An alternative is to use $GOROOT/lib/time/zoneinfo.zip
-rsync --archive /usr/share/zoneinfo docker-build-tmp/common/usr/share
+# Prefix for the logs
+BUILD='-X github.com/GeoNet/haz/vendor/github.com/GeoNet/log/logentries.Prefix=git-'`git rev-parse --short HEAD`
+
+# Build all executables in the Golang container.  Output statically linked binaries to docker-build-tmp
+# Assemble common resource for ssl and timezones
+docker run -e "GOBIN=/usr/src/go/src/github.com/GeoNet/haz/${DOCKER_TMP}" -e "GOPATH=/usr/src/go" -e "CGO_ENABLED=0" -e "GOOS=linux" -e "BUILD=$BUILD" --rm \
+	-v "$PWD":/usr/src/go/src/github.com/GeoNet/haz \
+	-w /usr/src/go/src/github.com/GeoNet/haz ${BUILD_CONTAINER} \
+	go install -a  -ldflags "${BUILD}" -installsuffix cgo ./...; \
+	cp /etc/ssl/certs/ca-certificates.crt ${DOCKER_TMP}/common/etc/ssl/certs; \
+	cp -Ra /usr/share/zoneinfo ${DOCKER_TMP}/common/usr/share
+
+# Assemble common resource for user.
+echo "nobody:x:65534:65534:Nobody:/:" > ${DOCKER_TMP}/common/etc/passwd
 
 # Docker images for apps
 for i in *-consumer haz-sc3-producer
 do
-	cp "${i}/${i}.json" docker-build-tmp
-	echo "FROM scratch" > docker-build-tmp/Dockerfile
-	echo "ADD common ${i} ${i}.json /" >> docker-build-tmp/Dockerfile
-	echo "USER nobody" >> docker-build-tmp/Dockerfile
-	echo "CMD [\"/${i}\"]" >> docker-build-tmp/Dockerfile
-	docker build --rm=true -t quay.io/geonet/haz:$i -f docker-build-tmp/Dockerfile docker-build-tmp
+	echo "FROM scratch" > ${DOCKER_TMP}/Dockerfile
+	echo "ADD common ${i} /" >> ${DOCKER_TMP}/Dockerfile
+	echo "USER nobody" >> ${DOCKER_TMP}/Dockerfile
+	echo "CMD [\"/${i}\"]" >> ${DOCKER_TMP}/Dockerfile
+	docker build --rm=true -t quay.io/geonet/haz:$i -f ${DOCKER_TMP}/Dockerfile ${DOCKER_TMP}
 done
 
 # Docker images for web apps with an open port and a tmpl directory
 for i in geonet-rest 
 do
-	cp "${i}/${i}.json" docker-build-tmp
-	rm -rf docker-build-tmp/common/tmpl
-	rsync --archive "${i}/tmpl" docker-build-tmp/common
-	rm -rf docker-build-tmp/common/docs
-	rsync --archive "${i}/docs" docker-build-tmp/common
-	echo "FROM scratch" > docker-build-tmp/Dockerfile
-	echo "ADD common ${i} ${i}.json /" >> docker-build-tmp/Dockerfile
-	echo "USER nobody" >> docker-build-tmp/Dockerfile
-	echo "EXPOSE 8080" >> docker-build-tmp/Dockerfile
-	echo "CMD [\"/${i}\"]" >> docker-build-tmp/Dockerfile
-	docker build --rm=true -t quay.io/geonet/haz:$i -f docker-build-tmp/Dockerfile docker-build-tmp
+	rm -rf ${DOCKER_TMP}/common/tmpl
+	rsync --archive "${i}/tmpl" ${DOCKER_TMP}/common
+	rm -rf ${DOCKER_TMP}/common/docs
+	rsync --archive "${i}/docs" ${DOCKER_TMP}/common
+	echo "FROM scratch" > ${DOCKER_TMP}/Dockerfile
+	echo "ADD common ${i} /" >> ${DOCKER_TMP}/Dockerfile
+	echo "USER nobody" >> ${DOCKER_TMP}/Dockerfile
+	echo "EXPOSE 8080" >> ${DOCKER_TMP}/Dockerfile
+	echo "CMD [\"/${i}\"]" >> ${DOCKER_TMP}/Dockerfile
+	docker build --rm=true -t quay.io/geonet/haz:$i -f ${DOCKER_TMP}/Dockerfile docker-build-tmp
 done
