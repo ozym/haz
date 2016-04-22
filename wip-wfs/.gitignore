@@ -1,0 +1,6 @@
+wip-wfs
+docker-build-tmp
+.idea/*
+doc/
+*.iml
+env.list.prod

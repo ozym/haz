@@ -1,0 +1,34 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "CEvEwEZNau7EIL6ON5M3yxoM6Dk=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/log/logentries",
+			"path": "github.com/GeoNet/log/logentries",
+			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
+			"revisionTime": "2016-04-22T03:46:59Z"
+		},
+		{
+			"checksumSHA1": "Ey/Wacyhire/uEa+PJTOnGIH5Y8=",
+			"path": "github.com/NYTimes/gziphandler",
+			"revision": "a88790d49798560db24af70fb6a10a66e2549a72",
+			"revisionTime": "2016-02-08T01:52:08Z"
+		},
+		{
+			"checksumSHA1": "NRqAI3XBi9poq+bWa8tI6ReVOh0=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/lib/pq",
+			"path": "github.com/lib/pq",
+			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
+			"revisionTime": "2016-04-22T03:46:59Z"
+		},
+		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/lib/pq/oid",
+			"path": "github.com/lib/pq/oid",
+			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
+			"revisionTime": "2016-04-22T03:46:59Z"
+		}
+	],
+	"rootPath": "github.com/GeoNet/haz/wip-wfs"
+}
