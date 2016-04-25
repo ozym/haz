@@ -40,4 +40,5 @@ psql --host=127.0.0.1 -d hazard --username=$db_user -c 'create extension postgis
 psql --host=127.0.0.1 --quiet --username=$db_user --dbname=hazard --file=${ddl_dir}/drop-create.ddl
 psql --host=127.0.0.1 --quiet --username=$db_user hazard -f ${ddl_dir}/impact-create.ddl
 psql --host=127.0.0.1 --quiet --username=$db_user hazard -f ${ddl_dir}/impact-functions.ddl
+psql --host=127.0.0.1 --quiet --username=$db_user hazard -f ${ddl_dir}/wfs-region-values.ddl
 psql --host=127.0.0.1 --quiet --username=$db_user hazard -f ${ddl_dir}/user-permissions.ddl

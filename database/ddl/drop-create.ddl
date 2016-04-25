@@ -85,7 +85,7 @@ CREATE TABLE haz.quakeregion (
     Geom GEOGRAPHY(POLYGON, 4326) NOT NULL
 );
 
-INSERT INTO haz.quakeregion VALUES ('newzealand', 'New Zealand', 'region', st_geomfromtext('POLYGON((190 -20, 182 -37, 184 -44, 167 -49, 160 -54, 164 -47, 165 -44, 170 -35, 174 -32, 190 -20))'::text, 4326));
+--INSERT INTO haz.quakeregion VALUES ('newzealand', 'New Zealand', 'region', st_geomfromtext('POLYGON((190 -20, 182 -37, 184 -44, 167 -49, 160 -54, 164 -47, 165 -44, 170 -35, 174 -32, 190 -20))'::text, 4326));
 
 CREATE TABLE haz.soh (
     serverID TEXT PRIMARY KEY, 
