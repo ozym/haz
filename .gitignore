@@ -11,3 +11,5 @@ haz-felt-consumer/haz-felt-consumer
 impact-intensity-consumer/impact-intensity-consumer
 geonet-rest/geonet-rest
 docker-build-tmp
+.idea
+mtr.iml
