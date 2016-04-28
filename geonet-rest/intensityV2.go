@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"net/http"
 	"time"
+	"github.com/GeoNet/weft"
 )
 
-func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{"type"}, []string{"publicID"}); !res.ok {
+func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{"type"}, []string{"publicID"}); !res.Ok {
 		return res
 	}
 
@@ -15,7 +16,7 @@ func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	var err error
 
 	if ts, err = getIntensityType(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	var d string
@@ -30,8 +31,8 @@ func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 			err = db.QueryRow(intenstityReportedLatestV2SQL).Scan(&d)
 		default:
 			var t time.Time
-			var res *result
-			if t, res = getQuakeTime(r); !res.ok {
+			var res *weft.Result
+			if t, res = getQuakeTime(r); !res.Ok {
 				return res
 			}
 			err = db.QueryRow(intenstityReportedWindowV2SQL, t.Add(time.Duration(-1*time.Minute)), t.Add(time.Duration(15*time.Minute))).Scan(&d)
@@ -39,11 +40,11 @@ func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	}
 
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V2GeoJSON)
 
-	return &statusOK
+	return &weft.StatusOK
 }

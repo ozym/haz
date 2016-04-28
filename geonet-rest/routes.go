@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"github.com/GeoNet/weft"
 )
 
 var (
@@ -14,42 +15,42 @@ var (
 
 func init() {
 	muxV1GeoJSON = http.NewServeMux()
-	muxV1GeoJSON.HandleFunc("/quake", toHandler(quakesRegionV1))
-	muxV1GeoJSON.HandleFunc("/quake/", toHandler(quakeV1))
-	muxV1GeoJSON.HandleFunc("/intensity", toHandler(intensityMeasuredLatestV1))
-	muxV1GeoJSON.HandleFunc("/felt/report", toHandler(feltV1))
+	muxV1GeoJSON.HandleFunc("/quake", weft.MakeHandlerAPI(quakesRegionV1))
+	muxV1GeoJSON.HandleFunc("/quake/", weft.MakeHandlerAPI(quakeV1))
+	muxV1GeoJSON.HandleFunc("/intensity", weft.MakeHandlerAPI(intensityMeasuredLatestV1))
+	muxV1GeoJSON.HandleFunc("/felt/report", weft.MakeHandlerAPI(feltV1))
 
 	muxV1JSON = http.NewServeMux()
-	muxV1JSON.HandleFunc("/news/geonet", toHandler(newsV1))
+	muxV1JSON.HandleFunc("/news/geonet", weft.MakeHandlerAPI(newsV1))
 
 	muxV2GeoJSON = http.NewServeMux()
-	muxV2GeoJSON.HandleFunc("/intensity", toHandler(intensityV2))
-	muxV2GeoJSON.HandleFunc("/quake", toHandler(quakesV2))
-	muxV2GeoJSON.HandleFunc("/quake/", toHandler(quakeV2))
-	muxV2GeoJSON.HandleFunc("/quake/history/", toHandler(quakeHistoryV2))
-	muxV2GeoJSON.HandleFunc("/volcano/val", toHandler(valV2))
+	muxV2GeoJSON.HandleFunc("/intensity", weft.MakeHandlerAPI(intensityV2))
+	muxV2GeoJSON.HandleFunc("/quake", weft.MakeHandlerAPI(quakesV2))
+	muxV2GeoJSON.HandleFunc("/quake/", weft.MakeHandlerAPI(quakeV2))
+	muxV2GeoJSON.HandleFunc("/quake/history/", weft.MakeHandlerAPI(quakeHistoryV2))
+	muxV2GeoJSON.HandleFunc("/volcano/val", weft.MakeHandlerAPI(valV2))
 
 	muxV2JSON = http.NewServeMux()
-	muxV2JSON.HandleFunc("/news/geonet", toHandler(newsV2))
-	muxV2JSON.HandleFunc("/quake/stats", toHandler(quakeStatsV2))
+	muxV2JSON.HandleFunc("/news/geonet", weft.MakeHandlerAPI(newsV2))
+	muxV2JSON.HandleFunc("/quake/stats", weft.MakeHandlerAPI(quakeStatsV2))
 
 	// muxDefault handles routes with no Accept version.
 	muxDefault = http.NewServeMux()
-	muxDefault.HandleFunc("/soh", toHandler(soh))
-	muxDefault.HandleFunc("/soh/impact", toHandler(impactSOH))
-	muxDefault.HandleFunc("/cap/1.2/GPA1.0/quake/", toHandler(capQuake))
-	muxDefault.HandleFunc("/cap/1.2/GPA1.0/feed/atom1.0/quake", toHandler(capQuakeFeed))
+	muxDefault.HandleFunc("/soh", weft.MakeHandlerAPI(soh))
+	muxDefault.HandleFunc("/soh/impact", weft.MakeHandlerAPI(impactSOH))
+	muxDefault.HandleFunc("/cap/1.2/GPA1.0/quake/", weft.MakeHandlerAPI(capQuake))
+	muxDefault.HandleFunc("/cap/1.2/GPA1.0/feed/atom1.0/quake", weft.MakeHandlerAPI(capQuakeFeed))
 	// The 'latest' version of the API for unversioned requests.
-	muxDefault.HandleFunc("/quake/", toHandler(quakeV2))
-	muxDefault.HandleFunc("/quake", toHandler(quakesV2))
-	muxDefault.HandleFunc("/quake/history/", toHandler(quakeHistoryV2))
-	muxDefault.HandleFunc("/quake/stats", toHandler(quakeStatsV2))
-	muxDefault.HandleFunc("/intensity", toHandler(intensityV2))
-	muxDefault.HandleFunc("/news/geonet", toHandler(newsV2))
-	muxDefault.HandleFunc("/volcano/val", toHandler(valV2))
+	muxDefault.HandleFunc("/quake/", weft.MakeHandlerAPI(quakeV2))
+	muxDefault.HandleFunc("/quake", weft.MakeHandlerAPI(quakesV2))
+	muxDefault.HandleFunc("/quake/history/", weft.MakeHandlerAPI(quakeHistoryV2))
+	muxDefault.HandleFunc("/quake/stats", weft.MakeHandlerAPI(quakeStatsV2))
+	muxDefault.HandleFunc("/intensity", weft.MakeHandlerAPI(intensityV2))
+	muxDefault.HandleFunc("/news/geonet", weft.MakeHandlerAPI(newsV2))
+	muxDefault.HandleFunc("/volcano/val", weft.MakeHandlerAPI(valV2))
 
 	for _, v := range []*http.ServeMux{muxV1JSON, muxV2JSON, muxV1GeoJSON, muxV2GeoJSON, muxDefault} {
-		v.HandleFunc("/", toHandler(docs))
+		v.HandleFunc("/", weft.MakeHandlerPage(docs))
 	}
 
 }
@@ -67,8 +68,4 @@ func router(w http.ResponseWriter, r *http.Request) {
 	default:
 		muxDefault.ServeHTTP(w, r)
 	}
-}
-
-func noRoute(w http.ResponseWriter, r *http.Request) {
-	badRequest("Can't find a route for this request. Please refer to /api-docs")
 }

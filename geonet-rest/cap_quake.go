@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
+	"github.com/GeoNet/weft"
 	"net/http"
 	"os"
 	"regexp"
@@ -16,20 +17,20 @@ const minMMID float64 = 5.0
 var capIDRe = regexp.MustCompile(`^[0-9a-z]+\.[0-9]+$`)
 var serverCName = os.Getenv("WEB_SERVER_CNAME")
 
-func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	id := r.URL.Path[22:]
 
 	if !capIDRe.MatchString(id) {
-		return badRequest("invalid ID: " + id)
+		return weft.BadRequest("invalid ID: " + id)
 	}
 
 	p := strings.Split(id, `.`)
 	if len(p) != 2 {
-		return badRequest("invalid ID: " + id)
+		return weft.BadRequest("invalid ID: " + id)
 	}
 
 	c := capQuakeT{ID: id}
@@ -38,7 +39,7 @@ func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	rows, err := db.Query(`select modificationTimeUnixMicro, modificationtime from haz.quakehistory
 		where publicid = $1 AND modificationTimeUnixMicro < $2 AND status in ('reviewed','deleted')`, p[0], p[1])
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 	defer rows.Close()
 
@@ -49,7 +50,7 @@ func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		var t time.Time
 		err := rows.Scan(&i, &t)
 		if err != nil {
-			return serviceUnavailableError(err)
+			return weft.ServiceUnavailableError(err)
 		}
 		c.References = append(c.References, fmt.Sprintf("%s.%d,%s", c.Quake.PublicID, i, t.In(nz).Format(time.RFC3339)))
 	}
@@ -79,17 +80,15 @@ func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		&c.Intensity,
 	)
 	if err == sql.ErrNoRows {
-		res := &notFound
-		res.msg = fmt.Sprintf("invalid ID: " + id)
-		return res
+		return &weft.NotFound
 	}
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	cl, err := c.Quake.Closest()
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	c.Localities = c.Quake.Localities(minMMID)
@@ -102,15 +101,15 @@ func capQuake(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 	err = capTemplates.ExecuteTemplate(b, "capQuake", c)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	h.Set("Content-Type", CAP)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
@@ -125,7 +124,7 @@ func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 	rows, err := db.Query(capQuakeFeedSQL, int(minMMID))
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 	defer rows.Close()
 
@@ -138,7 +137,7 @@ func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 		err := rows.Scan(&p, &i, &t)
 		if err != nil {
-			return serviceUnavailableError(err)
+			return weft.ServiceUnavailableError(err)
 		}
 
 		entry := capAtomEntry{
@@ -165,9 +164,9 @@ func capQuakeFeed(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	atom.Updated = tLatest
 	err = capTemplates.ExecuteTemplate(b, "capAtom", atom)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	h.Set("Content-Type", Atom)
-	return &statusOK
+	return &weft.StatusOK
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/russross/blackfriday"
 	"io/ioutil"
 	"net/http"
+	"github.com/GeoNet/weft"
 )
 
 var renderer blackfriday.Renderer
@@ -30,17 +31,17 @@ func init() {
 	docsIndex = b.Bytes()
 }
 
-func docs(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func docs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	if r.URL.Path != "/" {
-		return badRequest("invalid path")
+		return weft.BadRequest("invalid path")
 	}
 
 	b.Write(docsIndex)
-	return &statusOK
+	return &weft.StatusOK
 }
 
 const h = `<html>

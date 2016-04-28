@@ -3,15 +3,16 @@ package main
 import (
 	"bytes"
 	"net/http"
+	"github.com/GeoNet/weft"
 )
 
-func intensityMeasuredLatestV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{"type"}, []string{}); !res.ok {
+func intensityMeasuredLatestV1(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{"type"}, []string{}); !res.Ok {
 		return res
 	}
 
 	if r.URL.Query().Get("type") != "measured" {
-		return badRequest("type must be measured.")
+		return weft.BadRequest("type must be measured.")
 	}
 
 	var d string
@@ -29,10 +30,10 @@ func intensityMeasuredLatestV1(r *http.Request, h http.Header, b *bytes.Buffer) 
 				FROM impact.intensity_measured) as s 
 			) As f )  as fc`).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V1GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }
