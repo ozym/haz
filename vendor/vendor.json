@@ -18,9 +18,11 @@
 			"revisionTime": "2015-02-23T09:42:30+01:00"
 		},
 		{
+			"checksumSHA1": "ks1IXfZT5mIz8563JnQqFjkxQn4=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/log/logentries",
 			"path": "github.com/GeoNet/log/logentries",
-			"revision": "18c2731b9dd6d1f74215d1018b21f7b8d270d4fe",
-			"revisionTime": "2015-03-30T07:26:06+13:00"
+			"revision": "7444b7fd57bd08515924fdf8515888c5fbe2f530",
+			"revisionTime": "2016-04-13T16:41:35+12:00"
 		},
 		{
 			"path": "github.com/GeoNet/metrics",
@@ -214,5 +216,6 @@
 			"revision": "244f5ac324cb97e1987ef901a0081a77bfd8e845",
 			"revisionTime": "2015-08-22T15:05:30-07:00"
 		}
-	]
+	],
+	"rootPath": "github.com/GeoNet/haz"
 }
