@@ -1,0 +1,3736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<seiscomp xmlns="http://geofon.gfz-potsdam.de/ns/seiscomp3-schema/0.7" version="0.7">
+  <EventParameters>
+    <pick publicID="3494030">
+      <time>
+        <value>2003-08-21T16:50:22.743Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494046">
+      <time>
+        <value>2003-08-21T16:51:52.365Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="EHZ" stationCode="NEZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494051">
+      <time>
+        <value>2003-08-21T16:52:09.141Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="KAVZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494031">
+      <time>
+        <value>2003-08-21T16:50:37.263Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Sn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494033">
+      <time>
+        <value>2003-08-21T16:50:52.204Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494034">
+      <time>
+        <value>2003-08-21T16:51:06.441Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494050">
+      <time>
+        <value>2003-08-21T16:51:40.390Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="DIW" networkCode="NZ" locationCode="11"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494041">
+      <time>
+        <value>2003-08-21T16:50:15.700Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="HNZ" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <phaseHint>Pb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494054">
+      <time>
+        <value>2003-08-21T16:52:07.985Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="TUVZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494055">
+      <time>
+        <value>2003-08-21T16:52:08.235Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="MGZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494038">
+      <time>
+        <value>2003-08-21T16:51:58.311Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494042">
+      <time>
+        <value>2003-08-21T16:50:32.000Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494044">
+      <time>
+        <value>2003-08-21T16:50:38.330Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494056">
+      <time>
+        <value>2003-08-21T16:52:08.000Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="MOZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494032">
+      <time>
+        <value>2003-08-21T16:50:37.013Z</value>
+        <lowerUncertainty>0.25</lowerUncertainty>
+        <upperUncertainty>0.5</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Sn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494039">
+      <time>
+        <value>2003-08-21T16:50:24.580Z</value>
+        <lowerUncertainty>0.25</lowerUncertainty>
+        <upperUncertainty>0.5</upperUncertainty>
+      </time>
+      <waveformID channelCode="HN2" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <phaseHint>Sb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494045">
+      <time>
+        <value>2003-08-21T16:51:06.895Z</value>
+        <upperUncertainty>0.1</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494049">
+      <time>
+        <value>2003-08-21T16:51:41.090Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="OTW" networkCode="NZ" locationCode="11"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494028">
+      <time>
+        <value>2003-08-21T16:51:27.635Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494029">
+      <time>
+        <value>2003-08-21T16:51:21.711Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494035">
+      <time>
+        <value>2003-08-21T16:51:14.121Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494036">
+      <time>
+        <value>2003-08-21T16:51:21.817Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494052">
+      <time>
+        <value>2003-08-21T16:52:07.885Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="DRZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494040">
+      <time>
+        <value>2003-08-21T16:50:23.470Z</value>
+        <lowerUncertainty>0.25</lowerUncertainty>
+        <upperUncertainty>0.5</upperUncertainty>
+      </time>
+      <waveformID channelCode="HN1" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <phaseHint>Sb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494043">
+      <time>
+        <value>2003-08-21T16:50:15.680Z</value>
+        <lowerUncertainty>0.1</lowerUncertainty>
+        <upperUncertainty>0.25</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <phaseHint>Pb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="3494047">
+      <time>
+        <value>2003-08-21T16:51:56.825Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="EHZ" stationCode="RAEZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494048">
+      <time>
+        <value>2003-08-21T16:51:46.590Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="KIW" networkCode="NZ" locationCode="11"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494057">
+      <time>
+        <value>2003-08-21T16:52:06.790Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494037">
+      <time>
+        <value>2003-08-21T16:51:31.179Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="HHZ" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <pick publicID="3494053">
+      <time>
+        <value>2003-08-21T16:52:07.885Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID channelCode="SHZ" stationCode="NGZ" networkCode="NZ" locationCode="10"/>
+      <onset>emergent</onset>
+      <phaseHint>Pn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>rejected</evaluationStatus>
+    </pick>
+    <amplitude publicID="6827676">
+      <type>A</type>
+      <amplitude>
+        <value>2962.426000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.207Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827677">
+      <type>A</type>
+      <amplitude>
+        <value>0.001058</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.387Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827678">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:32.787Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827956">
+      <type>A</type>
+      <amplitude>
+        <value>1865.619000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:34.135Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827957">
+      <type>A</type>
+      <amplitude>
+        <value>0.000598</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:33.635Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827959">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:34.105Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827960">
+      <type>A</type>
+      <amplitude>
+        <value>2253.835000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:41.035Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827961">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000469</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.975Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827962">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:41.195Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827963">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:41.135Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827964">
+      <type>A</type>
+      <amplitude>
+        <value>2093.889000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:38.675Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827965">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000552</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:37.725Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827966">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:38.695Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827967">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:38.615Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827968">
+      <type>A</type>
+      <amplitude>
+        <value>612.643000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:31.471Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827969">
+      <type>A</type>
+      <amplitude>
+        <value>0.000525</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:06.431Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827970">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:07.211Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827971">
+      <type>A</type>
+      <amplitude>
+        <value>864.992000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:31.661Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827972">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000569</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:09.231Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827973">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:09.951Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827974">
+      <type>A</type>
+      <amplitude>
+        <value>820.636000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:33.121Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827975">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001176</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:15.121Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827976">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:15.811Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827977">
+      <type>AML</type>
+      <amplitude>
+        <value>52280.773000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:39.283Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827978">
+      <type>A</type>
+      <amplitude>
+        <value>0.038724</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:45.353Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827979">
+      <type>A</type>
+      <amplitude>
+        <value>0.000270</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:45.373Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827980">
+      <type>A</type>
+      <amplitude>
+        <value>0.007551</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:26.013Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827981">
+      <type>A</type>
+      <amplitude>
+        <value>115116.125000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:38.513Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827982">
+      <type>AML</type>
+      <amplitude>
+        <value>0.033910</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:37.563Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827983">
+      <type>A</type>
+      <amplitude>
+        <value>0.000350</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:37.853Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827984">
+      <type>A</type>
+      <amplitude>
+        <value>0.011376</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:38.533Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827985">
+      <type>A</type>
+      <amplitude>
+        <value>101237.461000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:42.943Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827986">
+      <type>AML</type>
+      <amplitude>
+        <value>0.068558</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:42.893Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827987">
+      <type>A</type>
+      <amplitude>
+        <value>0.000490</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:42.923Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827988">
+      <type>A</type>
+      <amplitude>
+        <value>0.006963</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:37.903Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827989">
+      <type>AML</type>
+      <amplitude>
+        <value>95245.367000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:54.064Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827990">
+      <type>A</type>
+      <amplitude>
+        <value>0.004562</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:50.404Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827991">
+      <type>A</type>
+      <amplitude>
+        <value>0.000040</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:51.004Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827992">
+      <type>A</type>
+      <amplitude>
+        <value>0.000588</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:48.924Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827993">
+      <type>A</type>
+      <amplitude>
+        <value>69970.492000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:37.674Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HH1" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827994">
+      <type>A</type>
+      <amplitude>
+        <value>0.007647</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:48.494Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HH1" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827995">
+      <type>A</type>
+      <amplitude>
+        <value>0.000060</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:48.894Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HH1" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827996">
+      <type>A</type>
+      <amplitude>
+        <value>0.001177</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:48.924Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HH1" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827997">
+      <type>A</type>
+      <amplitude>
+        <value>39944.336000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:40.514Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HH2" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6827998">
+      <type>A</type>
+      <amplitude>
+        <value>0.005657</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:47.894Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HH2" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6827999">
+      <type>A</type>
+      <amplitude>
+        <value>0.000030</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:11.524Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HH2" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828000">
+      <type>A</type>
+      <amplitude>
+        <value>0.000490</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:48.934Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HH2" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828001">
+      <type>AML</type>
+      <amplitude>
+        <value>912.322000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:07.861Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828002">
+      <type>A</type>
+      <amplitude>
+        <value>0.001263</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:23.641Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828003">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:23.581Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828004">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:07.871Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828005">
+      <type>A</type>
+      <amplitude>
+        <value>1306.612000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:56.311Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828006">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001589</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:23.861Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828007">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:33.581Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828008">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:00.831Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828009">
+      <type>A</type>
+      <amplitude>
+        <value>1373.117000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:56.501Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828010">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001388</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:21.991Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828011">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:22.001Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828012">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:00.251Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828013">
+      <type>AML</type>
+      <amplitude>
+        <value>1682.921000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:19.171Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828014">
+      <type>A</type>
+      <amplitude>
+        <value>0.001401</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:52.421Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828015">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:52.941Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828016">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:25.071Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828017">
+      <type>A</type>
+      <amplitude>
+        <value>3902.767000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:17.481Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828018">
+      <type>AML</type>
+      <amplitude>
+        <value>0.002186</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:17.421Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828019">
+      <type>A</type>
+      <amplitude>
+        <value>0.000020</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:17.451Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828020">
+      <type>A</type>
+      <amplitude>
+        <value>0.000294</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:08.261Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828021">
+      <type>A</type>
+      <amplitude>
+        <value>2692.394000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.651Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828022">
+      <type>AML</type>
+      <amplitude>
+        <value>0.002204</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.391Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828023">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.641Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828024">
+      <type>A</type>
+      <amplitude>
+        <value>0.000294</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.571Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828025">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:58:58.847Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828026">
+      <type>A</type>
+      <amplitude>
+        <value>3299.935000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.167Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828027">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001064</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.417Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828028">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.817Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828029">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:27.177Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828030">
+      <type>A</type>
+      <amplitude>
+        <value>2961.142000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:33.697Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828031">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001039</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:33.657Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828032">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:38.927Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828033">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:58:56.947Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828034">
+      <type>A</type>
+      <amplitude>
+        <value>90.538000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:45.529Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828035">
+      <type>A</type>
+      <amplitude>
+        <value>0.000036</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:33.179Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828037">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:54:31.319Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828038">
+      <type>A</type>
+      <amplitude>
+        <value>1703.650000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.819Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828039">
+      <type>A</type>
+      <amplitude>
+        <value>0.000361</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.769Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828041">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:39.939Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828042">
+      <type>A</type>
+      <amplitude>
+        <value>1163.298000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:39.229Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828043">
+      <type>A</type>
+      <amplitude>
+        <value>0.000559</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.069Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828044">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.119Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828045">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:40.159Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="NNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828046">
+      <type>A</type>
+      <amplitude>
+        <value>192.336000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:30.151Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828047">
+      <type>A</type>
+      <amplitude>
+        <value>0.000048</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:30.991Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828049">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:29.661Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHZ" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828050">
+      <type>A</type>
+      <amplitude>
+        <value>293.420000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:28.251Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828051">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:27.611Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828053">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:28.161Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828054">
+      <type>A</type>
+      <amplitude>
+        <value>386.098000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:30.441Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828055">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000198</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:30.161Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828057">
+      <type>A</type>
+      <amplitude>
+        <value>0.000392</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:30.811Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828058">
+      <type>A</type>
+      <amplitude>
+        <value>9949.672000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:27.050Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HN2" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828059">
+      <type>A</type>
+      <amplitude>
+        <value>0.249724</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:27.925Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HN2" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828060">
+      <type>A</type>
+      <amplitude>
+        <value>0.001530</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:28.275Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HN2" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828061">
+      <type>A</type>
+      <amplitude>
+        <value>0.023340</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:27.050Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HN2" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828062">
+      <type>A</type>
+      <amplitude>
+        <value>10136.699000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:25.390Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HN1" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828063">
+      <type>A</type>
+      <amplitude>
+        <value>0.203116</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:32.830Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HN1" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828064">
+      <type>A</type>
+      <amplitude>
+        <value>0.001470</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:32.715Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HN1" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828065">
+      <type>A</type>
+      <amplitude>
+        <value>0.023732</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:25.390Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HN1" stationCode="TAFS" networkCode="NZ" locationCode="20"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828066">
+      <type>AML</type>
+      <amplitude>
+        <value>819.874000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:32.420Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828067">
+      <type>A</type>
+      <amplitude>
+        <value>0.000997</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:32.320Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828068">
+      <type>A</type>
+      <amplitude>
+        <value>0.000020</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:55:02.720Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHZ" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828069">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:32.480Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHZ" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828070">
+      <type>A</type>
+      <amplitude>
+        <value>875.294000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.640Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHN" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828071">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.900Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHN" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828072">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.860Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHN" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828073">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:28.720Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHN" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828074">
+      <type>A</type>
+      <amplitude>
+        <value>769.260000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:39.160Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHE" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828075">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001104</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:39.020Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHE" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828076">
+      <type>A</type>
+      <amplitude>
+        <value>0.000050</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:55:03.940Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHE" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828077">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:36.200Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHE" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828078">
+      <type>AML</type>
+      <amplitude>
+        <value>6437.722000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:59.380Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828079">
+      <type>A</type>
+      <amplitude>
+        <value>0.009399</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:55.820Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828080">
+      <type>A</type>
+      <amplitude>
+        <value>0.000080</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:56.500Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828081">
+      <type>A</type>
+      <amplitude>
+        <value>0.000883</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:34.660Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828082">
+      <type>A</type>
+      <amplitude>
+        <value>9175.150000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:54.560Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHN" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828083">
+      <type>A</type>
+      <amplitude>
+        <value>0.010701</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:57.520Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHN" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828084">
+      <type>A</type>
+      <amplitude>
+        <value>0.000080</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:57.540Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHN" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828085">
+      <type>A</type>
+      <amplitude>
+        <value>0.001177</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:56.140Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHN" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828086">
+      <type>A</type>
+      <amplitude>
+        <value>9049.722000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:02.860Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHE" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828087">
+      <type>AML</type>
+      <amplitude>
+        <value>0.009074</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:03.020Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHE" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828088">
+      <type>A</type>
+      <amplitude>
+        <value>0.000070</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:04.420Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHE" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828089">
+      <type>A</type>
+      <amplitude>
+        <value>0.001275</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:57.320Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHE" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828090">
+      <type>AML</type>
+      <amplitude>
+        <value>21992.973000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:28.920Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828091">
+      <type>A</type>
+      <amplitude>
+        <value>0.023239</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.840Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828092">
+      <type>A</type>
+      <amplitude>
+        <value>0.000240</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.900Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828093">
+      <type>A</type>
+      <amplitude>
+        <value>0.007257</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.700Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828094">
+      <type>A</type>
+      <amplitude>
+        <value>41857.352000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.660Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHE" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828095">
+      <type>A</type>
+      <amplitude>
+        <value>0.028522</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.620Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHE" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828096">
+      <type>A</type>
+      <amplitude>
+        <value>0.000310</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:30.000Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHE" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828097">
+      <type>A</type>
+      <amplitude>
+        <value>0.015495</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:29.980Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHE" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828098">
+      <type>AML</type>
+      <amplitude>
+        <value>1827.878000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:05.730Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828099">
+      <type>A</type>
+      <amplitude>
+        <value>0.001145</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:33.490Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828100">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:34.230Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHZ" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828101">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:05.810Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHZ" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828102">
+      <type>A</type>
+      <amplitude>
+        <value>2277.482000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.870Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHN" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828103">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001174</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:08.110Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHN" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828104">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:08.570Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHN" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828105">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:07.950Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHN" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828106">
+      <type>A</type>
+      <amplitude>
+        <value>2172.564000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:03.430Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHE" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828107">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001136</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:03.570Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHE" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828108">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:04.150Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHE" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828109">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:03.530Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHE" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828110">
+      <type>AML</type>
+      <amplitude>
+        <value>7150.710000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:06.990Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828111">
+      <type>A</type>
+      <amplitude>
+        <value>0.007215</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:06.890Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828112">
+      <type>A</type>
+      <amplitude>
+        <value>0.000050</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:10.630Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828113">
+      <type>A</type>
+      <amplitude>
+        <value>0.001373</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:50:41.410Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828114">
+      <type>A</type>
+      <amplitude>
+        <value>2487.069000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:57.195Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHZ" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828115">
+      <type>A</type>
+      <amplitude>
+        <value>0.001590</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:24.825Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHZ" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828116">
+      <type>A</type>
+      <amplitude>
+        <value>0.000020</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:23.005Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHZ" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828117">
+      <type>A</type>
+      <amplitude>
+        <value>3662.914000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:59.685Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHN" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828118">
+      <type>A</type>
+      <amplitude>
+        <value>0.000744</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:59.615Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHN" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828119">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:59.985Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHN" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828120">
+      <type>A</type>
+      <amplitude>
+        <value>0.000098</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:59.735Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHN" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828121">
+      <type>A</type>
+      <amplitude>
+        <value>4325.214000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:57.095Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="HHE" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828122">
+      <type>A</type>
+      <amplitude>
+        <value>0.001223</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:56.855Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="HHE" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828123">
+      <type>A</type>
+      <amplitude>
+        <value>0.000010</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:56.895Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/s</unit>
+      <waveformID channelCode="HHE" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGV</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828124">
+      <type>A</type>
+      <amplitude>
+        <value>0.000196</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:51:56.105Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m/(s*s)</unit>
+      <waveformID channelCode="HHE" stationCode="CRLZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>PGA</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828125">
+      <type>A</type>
+      <amplitude>
+        <value>1331.823000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:25.185Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="DRZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828126">
+      <type>AML</type>
+      <amplitude>
+        <value>3710.360000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:23.135Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="CNZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828127">
+      <type>AML</type>
+      <amplitude>
+        <value>6434.365000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:24.310Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="NGZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828128">
+      <type>AML</type>
+      <amplitude>
+        <value>1232.907000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:15.385Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="TUVZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828129">
+      <type>A</type>
+      <amplitude>
+        <value>1560.453000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:54:13.610Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="MGZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>manual</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828130">
+      <type>AML</type>
+      <amplitude>
+        <value>134.492000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:20.510Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHZ" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828131">
+      <type>A</type>
+      <amplitude>
+        <value>0.000144</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:22.050Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHZ" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828134">
+      <type>A</type>
+      <amplitude>
+        <value>130.854000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:34.430Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHN" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828135">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000161</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:53:02.810Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHN" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="6828138">
+      <type>A</type>
+      <amplitude>
+        <value>114.498000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:26.870Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>dimensionless</unit>
+      <waveformID channelCode="SHE" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+    </amplitude>
+    <amplitude publicID="6828139">
+      <type>AML</type>
+      <amplitude>
+        <value>0.000141</value>
+      </amplitude>
+      <timeWindow>
+        <reference>2003-08-21T16:52:26.810Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID channelCode="SHE" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      <evaluationMode>automatic</evaluationMode>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <origin publicID="294643/GROPE">
+      <time>
+        <value>2003-08-21T16:50:04.256Z</value>
+        <uncertainty>1.87498</uncertainty>
+      </time>
+      <latitude>
+        <value>-45.03076</value>
+        <uncertainty>0.04021</uncertainty>
+      </latitude>
+      <longitude>
+        <value>167.09016</value>
+        <uncertainty>0.1956</uncertainty>
+      </longitude>
+      <depth>
+        <value>20</value>
+      </depth>
+      <depthType>operator assigned</depthType>
+      <referenceSystemID>smi:ogc.def.crs/EPSG/4272</referenceSystemID>
+      <methodID>GROPE</methodID>
+      <earthModelID>nz1dr</earthModelID>
+      <quality>
+        <usedPhaseCount>11</usedPhaseCount>
+        <usedStationCount>8</usedStationCount>
+        <standardError>0.79328</standardError>
+        <azimuthalGap>274</azimuthalGap>
+        <maximumDistance>6.557</maximumDistance>
+        <minimumDistance>0.590</minimumDistance>
+      </quality>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>reviewed</evaluationStatus>
+      <creationInfo>
+        <author>BGF</author>
+        <creationTime>2004-02-25T18:17:00.000Z</creationTime>
+        <modificationTime>2004-09-15T10:51:00.000Z</modificationTime>
+      </creationInfo>
+      <arrival>
+        <pickID>3494031</pickID>
+        <phase>Sn</phase>
+        <azimuth>145</azimuth>
+        <distance>1.053</distance>
+        <takeOffAngle>126</takeOffAngle>
+        <timeResidual>-0.37</timeResidual>
+        <weight>0.17</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494030</pickID>
+        <phase>Pn</phase>
+        <azimuth>145</azimuth>
+        <distance>1.053</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>-0.651</timeResidual>
+        <weight>0.9</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494032</pickID>
+        <phase>Sn</phase>
+        <azimuth>145</azimuth>
+        <distance>1.053</distance>
+        <takeOffAngle>126</takeOffAngle>
+        <timeResidual>-0.62</timeResidual>
+        <weight>0.42</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494042</pickID>
+        <phase>Pn</phase>
+        <azimuth>99</azimuth>
+        <distance>1.603</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>1.088</timeResidual>
+        <weight>0.89</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494040</pickID>
+        <phase>Sb</phase>
+        <azimuth>131</azimuth>
+        <distance>0.590</distance>
+        <takeOffAngle>80</takeOffAngle>
+        <timeResidual>-0.364</timeResidual>
+        <weight>0.42</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494044</pickID>
+        <phase>Pn</phase>
+        <azimuth>77</azimuth>
+        <distance>2.050</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>1.31</timeResidual>
+        <weight>0.89</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494033</pickID>
+        <phase>Pn</phase>
+        <azimuth>67</azimuth>
+        <distance>3.131</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>0.426</timeResidual>
+        <weight>0.42</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494041</pickID>
+        <phase>Pb</phase>
+        <azimuth>131</azimuth>
+        <distance>0.590</distance>
+        <takeOffAngle>80</takeOffAngle>
+        <timeResidual>0.091</timeResidual>
+        <weight>0.89</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494045</pickID>
+        <phase>Pn</phase>
+        <azimuth>72</azimuth>
+        <distance>4.228</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>0.143</timeResidual>
+        <weight>0.11</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494034</pickID>
+        <phase>Pn</phase>
+        <azimuth>74</azimuth>
+        <distance>4.202</distance>
+        <takeOffAngle>127</takeOffAngle>
+        <timeResidual>0.044</timeResidual>
+        <weight>0.06</weight>
+      </arrival>
+      <arrival>
+        <pickID>3494043</pickID>
+        <phase>Pb</phase>
+        <azimuth>59</azimuth>
+        <distance>0.694</distance>
+        <takeOffAngle>82</takeOffAngle>
+        <timeResidual>-1.689</timeResidual>
+        <weight>0.89</weight>
+      </arrival>
+      <stationMagnitude publicID="294643/GROPE/ML/6827961">
+        <magnitude>
+          <value>4.635</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827961</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827965">
+        <magnitude>
+          <value>4.706</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827965</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="QRZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827972">
+        <magnitude>
+          <value>4.731</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827972</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827975">
+        <magnitude>
+          <value>5.046</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827975</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="KHZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827977">
+        <magnitude>
+          <value>5.041</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827977</amplitudeID>
+        <waveformID channelCode="HHZ" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827982">
+        <magnitude>
+          <value>5.073</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827982</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827986">
+        <magnitude>
+          <value>5.379</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827986</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="WHZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6827989">
+        <magnitude>
+          <value>5.418</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6827989</amplitudeID>
+        <waveformID channelCode="HHZ" stationCode="RPZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828001">
+        <magnitude>
+          <value>4.505</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828001</amplitudeID>
+        <waveformID channelCode="HHZ" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828006">
+        <magnitude>
+          <value>5.046</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828006</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828010">
+        <magnitude>
+          <value>4.987</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828010</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="MQZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828013">
+        <magnitude>
+          <value>4.758</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828013</amplitudeID>
+        <waveformID channelCode="HHZ" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828018">
+        <magnitude>
+          <value>5.041</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828018</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828022">
+        <magnitude>
+          <value>5.045</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828022</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="DSZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828027">
+        <magnitude>
+          <value>5.001</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828027</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828031">
+        <magnitude>
+          <value>4.991</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828031</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="THZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828051">
+        <magnitude>
+          <value>4.668</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828051</amplitudeID>
+        <waveformID channelCode="HHN" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828055">
+        <magnitude>
+          <value>4.671</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828055</amplitudeID>
+        <waveformID channelCode="HHE" stationCode="BFZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828066">
+        <magnitude>
+          <value>4.848</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828066</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828071">
+        <magnitude>
+          <value>4.979</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828071</amplitudeID>
+        <waveformID channelCode="SHN" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828075">
+        <magnitude>
+          <value>5.017</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828075</amplitudeID>
+        <waveformID channelCode="SHE" stationCode="THZ" networkCode="NZ" locationCode="11"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828078">
+        <magnitude>
+          <value>5.037</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828078</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828087">
+        <magnitude>
+          <value>5.056</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828087</amplitudeID>
+        <waveformID channelCode="SHE" stationCode="AXZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828090">
+        <magnitude>
+          <value>4.604</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828090</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="MSZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828098">
+        <magnitude>
+          <value>5.1</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828098</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828103">
+        <magnitude>
+          <value>5.028</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828103</amplitudeID>
+        <waveformID channelCode="SHN" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828107">
+        <magnitude>
+          <value>5.013</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828107</amplitudeID>
+        <waveformID channelCode="SHE" stationCode="LTZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828110">
+        <magnitude>
+          <value>5.156</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828110</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="BWZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828126">
+        <magnitude>
+          <value>4.703</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828126</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="CNZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828127">
+        <magnitude>
+          <value>4.684</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828127</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="NGZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828128">
+        <magnitude>
+          <value>4.588</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828128</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="TUVZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828130">
+        <magnitude>
+          <value>4.773</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828130</amplitudeID>
+        <waveformID channelCode="SHZ" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828135">
+        <magnitude>
+          <value>4.741</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828135</amplitudeID>
+        <waveformID channelCode="SHN" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="294643/GROPE/ML/6828139">
+        <magnitude>
+          <value>4.683</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>6828139</amplitudeID>
+        <waveformID channelCode="SHE" stationCode="OIZ" networkCode="NZ" locationCode="10"/>
+      </stationMagnitude>
+      <magnitude publicID="294643/GROPE/ML">
+        <magnitude>
+          <value>5.003</value>
+          <uncertainty>0.159</uncertainty>
+        </magnitude>
+        <type>ML</type>
+        <originID>294643/GROPE</originID>
+        <stationCount>8</stationCount>
+        <creationInfo>
+          <author>BGF</author>
+          <creationTime>2004-02-25T18:17:00.000Z</creationTime>
+          <modificationTime>2010-01-13T22:14:00.000Z</modificationTime>
+        </creationInfo>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6827961</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6827965</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6827975</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6827982</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6827986</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828006</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828010</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828018</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828022</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828027</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828031</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828071</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828075</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828087</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828103</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>294643/GROPE/ML/6828107</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+      </magnitude>
+    </origin>
+    <event publicID="2190619">
+      <preferredOriginID>294643/GROPE</preferredOriginID>
+      <preferredMagnitudeID>294643/GROPE/ML</preferredMagnitudeID>
+      <type>earthquake</type>
+      <creationInfo>
+        <agencyID>WEL(CUSP_Catalogue)</agencyID>
+      </creationInfo>
+      <originReference>294643/GROPE</originReference>
+    </event>
+  </EventParameters>
+</seiscomp>

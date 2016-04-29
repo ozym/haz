@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<seiscomp xmlns="http://geofon.gfz-potsdam.de/ns/seiscomp3-schema/0.7" version="0.7">
+  <EventParameters>
+    <pick publicID="7503">
+      <time>
+        <value>1946-08-25T20:25:02.000Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID stationCode="WEL" networkCode="NZ"/>
+      <phaseHint>Pb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="7506">
+      <time>
+        <value>1946-08-25T20:25:33.000Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID stationCode="NPZ" networkCode="NZ"/>
+      <phaseHint>Sn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="7504">
+      <time>
+        <value>1946-08-25T20:25:13.000Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID stationCode="WEL" networkCode="NZ"/>
+      <onset>impulsive</onset>
+      <phaseHint>Sb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="7507">
+      <time>
+        <value>1946-08-25T20:26:06.000Z</value>
+        <lowerUncertainty>1.0</lowerUncertainty>
+      </time>
+      <waveformID stationCode="TUA" networkCode="NZ"/>
+      <onset>emergent</onset>
+      <phaseHint>Sn</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="7508">
+      <time>
+        <value>1946-08-25T20:26:15.000Z</value>
+        <lowerUncertainty>0.5</lowerUncertainty>
+        <upperUncertainty>1.0</upperUncertainty>
+      </time>
+      <waveformID stationCode="TUA" networkCode="NZ"/>
+      <phaseHint>Sb</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>confirmed</evaluationStatus>
+    </pick>
+    <pick publicID="7505">
+      <time>
+        <value>1946-08-25T20:25:21.000Z</value>
+      </time>
+      <waveformID stationCode="WEL" networkCode="NZ"/>
+      <onset>impulsive</onset>
+      <phaseHint>x</phaseHint>
+      <evaluationMode>manual</evaluationMode>
+    </pick>
+    <amplitude publicID="41302">
+      <type>AML</type>
+      <amplitude>
+        <value>0.007000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>1946-08-25T20:24:46.950Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID stationCode="WEL" networkCode="NZ"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="41303">
+      <type>AML</type>
+      <amplitude>
+        <value>0.001000</value>
+      </amplitude>
+      <timeWindow>
+        <reference>1946-08-25T20:24:46.960Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID stationCode="NPZ" networkCode="NZ"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <amplitude publicID="41977699">
+      <type>A</type>
+      <amplitude>
+        <value>0.000500</value>
+      </amplitude>
+      <timeWindow>
+        <reference>1946-08-25T20:24:46.960Z</reference>
+        <begin>0</begin>
+        <end>0</end>
+      </timeWindow>
+      <unit>m</unit>
+      <waveformID stationCode="TUA" networkCode="NZ"/>
+      <evaluationMode>manual</evaluationMode>
+      <comment>
+        <text>timing uncertain</text>
+      </comment>
+      <comment>
+        <text>W-A(2080)</text>
+      </comment>
+    </amplitude>
+    <origin publicID="1802/LOCAL">
+      <time>
+        <value>1946-08-25T20:24:46.950Z</value>
+        <uncertainty>0.2</uncertainty>
+      </time>
+      <latitude>
+        <value>-40.59</value>
+        <uncertainty>0.01</uncertainty>
+      </latitude>
+      <longitude>
+        <value>174.2</value>
+        <uncertainty>0.02</uncertainty>
+      </longitude>
+      <depth>
+        <value>12</value>
+      </depth>
+      <depthType>operator assigned</depthType>
+      <referenceSystemID>smi:ogc.def.crs/EPSG/4272</referenceSystemID>
+      <methodID>LOCAL</methodID>
+      <earthModelID>nz1d</earthModelID>
+      <quality>
+        <usedPhaseCount>5</usedPhaseCount>
+        <usedStationCount>3</usedStationCount>
+        <standardError>0.2</standardError>
+        <azimuthalGap>208</azimuthalGap>
+        <maximumDistance>2.887</maximumDistance>
+        <minimumDistance>0.809</minimumDistance>
+      </quality>
+      <evaluationMode>manual</evaluationMode>
+      <evaluationStatus>reviewed</evaluationStatus>
+      <creationInfo>
+        <author>GAE</author>
+        <creationTime>1982-01-28T00:00:00.000Z</creationTime>
+        <modificationTime>1982-01-28T00:00:00.000Z</modificationTime>
+      </creationInfo>
+      <arrival>
+        <pickID>7503</pickID>
+        <phase>Pb</phase>
+        <azimuth>148</azimuth>
+        <distance>0.809</distance>
+        <timeResidual>-0.01</timeResidual>
+        <weight>1.0</weight>
+      </arrival>
+      <arrival>
+        <pickID>7506</pickID>
+        <phase>Sn</phase>
+        <azimuth>356</azimuth>
+        <distance>1.529</distance>
+        <timeResidual>-0.03</timeResidual>
+        <weight>1.0</weight>
+      </arrival>
+      <arrival>
+        <pickID>7507</pickID>
+        <phase>Sn</phase>
+        <azimuth>53</azimuth>
+        <distance>2.887</distance>
+        <timeResidual>0.27</timeResidual>
+        <weight>1.0</weight>
+      </arrival>
+      <arrival>
+        <pickID>7508</pickID>
+        <phase>Sb</phase>
+        <azimuth>53</azimuth>
+        <distance>2.887</distance>
+        <timeResidual>-0.2</timeResidual>
+        <weight>1.0</weight>
+      </arrival>
+      <arrival>
+        <pickID>7504</pickID>
+        <phase>Sb</phase>
+        <azimuth>148</azimuth>
+        <distance>0.809</distance>
+        <timeResidual>-0.01</timeResidual>
+        <weight>1.0</weight>
+      </arrival>
+      <stationMagnitude publicID="1802/LOCAL/ML/41302">
+        <magnitude>
+          <value>4.1</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>41302</amplitudeID>
+        <waveformID stationCode="WEL" networkCode="NZ"/>
+      </stationMagnitude>
+      <stationMagnitude publicID="1802/LOCAL/ML/41303">
+        <magnitude>
+          <value>3.7</value>
+        </magnitude>
+        <type>ML</type>
+        <amplitudeID>41303</amplitudeID>
+        <waveformID stationCode="NPZ" networkCode="NZ"/>
+      </stationMagnitude>
+      <magnitude publicID="1802/LOCAL/ML">
+        <magnitude>
+          <value>3.9</value>
+          <uncertainty>0.283</uncertainty>
+        </magnitude>
+        <type>ML</type>
+        <originID>1802/LOCAL</originID>
+        <stationCount>2</stationCount>
+        <creationInfo>
+          <author>GAE</author>
+          <creationTime>1982-01-28T00:00:00.000Z</creationTime>
+          <modificationTime>1982-01-28T00:00:00.000Z</modificationTime>
+        </creationInfo>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>1802/LOCAL/ML/41302</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+        <stationMagnitudeContribution>
+          <stationMagnitudeID>1802/LOCAL/ML/41303</stationMagnitudeID>
+          <weight>1.0</weight>
+        </stationMagnitudeContribution>
+      </magnitude>
+    </origin>
+    <event publicID="1542894">
+      <preferredOriginID>1802/LOCAL</preferredOriginID>
+      <preferredMagnitudeID>1802/LOCAL/ML</preferredMagnitudeID>
+      <type>earthquake</type>
+      <creationInfo>
+        <agencyID>WEL(CUSP_Catalogue)</agencyID>
+        <author>New Zealand Seismological Report 167/1946</author>
+      </creationInfo>
+      <originReference>1802/LOCAL</originReference>
+    </event>
+  </EventParameters>
+</seiscomp>
