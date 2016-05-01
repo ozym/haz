@@ -215,15 +215,13 @@
         </a>
     </p>
 
-    <h5>All Quakes Shallower than 50 km and Occurring Within 50 meters of a Point (longitude 174, latitude -41)</h5>
+    <h5>All Quakes Shallower than 50 km and Occurring Within 5 km of a Point (longitude 174, latitude -41)</h5>
 
-    <p>NB. Even though the search term 'feet' is used, the example search below returns degrees (0.5 degrees is between
-        43 and 55 km within the New Zealand region)
-    </p>
+
 
     <p>
-        <a href="wms/kml?layers=geonet:quake_search_v1&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),50,meters)">
-            http://wfs.geonet.org.nz/geonet/wms/kml?layers=geonet:quake_search_v1&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),50,meters)
+        <a href="wms/kml?layers=geonet:quake_search_v1&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),5000,meters)">
+            http://wfs.geonet.org.nz/geonet/wms/kml?layers=geonet:quake_search_v1&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),5000,meters)
         </a>
     </p>
 
@@ -258,15 +256,12 @@
         </a>
     </p>
 
-    <h5>All Quakes Shallower than 50 km and Occurring Within 50 meters of a Point (longitude 174, latitude -41)</h5>
+    <h5>All Quakes Shallower than 50 km and Occurring Within 5 km of a Point (longitude 174, latitude -41)</h5>
 
-    <p>NB. Even though the search term 'feet' is used, the example search below returns degrees (0.5 degrees is between
-        43 and 55 km within the New Zealand region)
-    </p>
 
     <p>
-        <a href="ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),50,meters)">
-            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),50,meters)
+        <a href="ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),5000,meters)">
+            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=depth<50+AND+DWITHIN(origin_geom,Point+(175+-41),5000,meters)
         </a>
     </p>
 
