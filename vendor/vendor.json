@@ -35,14 +35,18 @@
 			"revisionTime": "2015-03-30T17:44:51+13:00"
 		},
 		{
+			"checksumSHA1": "ymAEv1HWJtH1J4dUTebqbCPEst0=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/internal",
 			"path": "github.com/GeoNet/mtr/internal",
-			"revision": "53141614a2d24d8ff2170ee27359e7b50dab5288",
-			"revisionTime": "2016-03-17T18:17:41+13:00"
+			"revision": "c2b801933841316d54a6751a19f804e9f541dfab",
+			"revisionTime": "2016-05-02T03:54:05Z"
 		},
 		{
+			"checksumSHA1": "6XSbACIZ5QU8NHzXhvmazb4NAJE=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/mtrapp",
 			"path": "github.com/GeoNet/mtr/mtrapp",
-			"revision": "53141614a2d24d8ff2170ee27359e7b50dab5288",
-			"revisionTime": "2016-03-17T18:17:41+13:00"
+			"revision": "c2b801933841316d54a6751a19f804e9f541dfab",
+			"revisionTime": "2016-05-02T03:54:05Z"
 		},
 		{
 			"path": "github.com/GeoNet/web",
@@ -53,6 +57,12 @@
 			"path": "github.com/GeoNet/web/webtest",
 			"revision": "3a472533fb10994718ed548999b1e3b02a0ac141",
 			"revisionTime": "2015-11-04T17:16:05+13:00"
+		},
+		{
+			"checksumSHA1": "tAXN6W3ebvXxOCNa2LLq2/nPA4w=",
+			"path": "github.com/GeoNet/weft",
+			"revision": "53cad5eb6e41d631600d3c5de983108563fcd8ee",
+			"revisionTime": "2016-05-02T04:28:30Z"
 		},
 		{
 			"path": "github.com/aws/aws-sdk-go/aws",

@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"github.com/GeoNet/weft"
 )
 
 const (
@@ -53,38 +54,38 @@ func unmarshalNews(b []byte) (f Feed, err error) {
 	return f, err
 }
 
-func newsV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func newsV1(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	j, err := fetchRSS(newsURL)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	h.Set("Surrogate-Control", maxAge300)
 	h.Set("Content-Type", V1JSON)
 	b.Write(j)
 
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func newsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func newsV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	j, err := fetchRSS(newsURL)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	h.Set("Surrogate-Control", maxAge300)
 	h.Set("Content-Type", V2JSON)
 	b.Write(j)
 
-	return &statusOK
+	return &weft.StatusOK
 }
 
 func fetchRSS(url string) (b []byte, err error) {

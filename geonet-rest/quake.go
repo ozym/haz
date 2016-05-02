@@ -4,17 +4,18 @@ import (
 	"bytes"
 	"github.com/GeoNet/haz/msg"
 	"net/http"
+	"github.com/GeoNet/weft"
 )
 
-func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	var publicID string
-	var res *result
+	var res *weft.Result
 
-	if publicID, res = getPublicIDPath(r); !res.ok {
+	if publicID, res = getPublicIDPath(r); !res.Ok {
 		return res
 	}
 
@@ -38,37 +39,37 @@ func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
                            ) as l
                          )) as properties FROM haz.quake as q where publicid = $1 ) As f )  as fc`, publicID).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V1GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func quakesRegionV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{"regionID", "regionIntensity", "number", "quality"}, []string{}); !res.ok {
+func quakesRegionV1(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{"regionID", "regionIntensity", "number", "quality"}, []string{}); !res.Ok {
 		return res
 	}
 
 	var err error
 	if _, err = getRegionID(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	if _, err = getQuality(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	var regionIntensity string
 
 	if regionIntensity, err = getRegionIntensity(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	var n int
 	if n, err = getNumberQuakes(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	var d string
@@ -92,10 +93,10 @@ func quakesRegionV1(r *http.Request, h http.Header, b *bytes.Buffer) *result {
                          )) as properties FROM haz.quakeapi as q where mmid_newzealand >= $1
                          ORDER BY time DESC  limit $2 ) as f ) as fc`, int(msg.IntensityMMI(regionIntensity)), n).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V1GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }

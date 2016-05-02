@@ -2,38 +2,39 @@ package main
 
 import (
 	"bytes"
+	"github.com/GeoNet/weft"
 	"net/http"
 )
 
-func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func quakeV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		return badRequest("incorrect number of query parameters.")
+		return weft.BadRequest("incorrect number of query parameters.")
 	}
 
 	var publicID string
-	var res *result
+	var res *weft.Result
 
-	if publicID, res = getPublicIDPath(r); !res.ok {
+	if publicID, res = getPublicIDPath(r); !res.Ok {
 		return res
 	}
 
 	var d string
 	err := db.QueryRow(quakeV2SQL, publicID).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V2GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func quakesV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{"MMI"}, []string{}); !res.ok {
+func quakesV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{"MMI"}, []string{}); !res.Ok {
 		return res
 	}
 
@@ -41,64 +42,64 @@ func quakesV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	var err error
 
 	if mmi, err = getMMI(r); err != nil {
-		return badRequest(err.Error())
+		return weft.BadRequest(err.Error())
 	}
 
 	var d string
 	err = db.QueryRow(quakesV2SQL, mmi).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V2GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func quakeHistoryV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func quakeHistoryV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		return badRequest("incorrect number of query parameters.")
+		return weft.BadRequest("incorrect number of query parameters.")
 	}
 
 	var publicID string
-	var res *result
+	var res *weft.Result
 
-	if publicID, res = getPublicIDHistoryPath(r); !res.ok {
+	if publicID, res = getPublicIDHistoryPath(r); !res.Ok {
 		return res
 	}
 
 	var d string
 	err := db.QueryRow(quakeHistoryV2SQL, publicID).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V2GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func quakeStatsV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func quakeStatsV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
 	if len(r.URL.Query()) != 0 {
-		return badRequest("incorrect number of query parameters.")
+		return weft.BadRequest("incorrect number of query parameters.")
 	}
 
 	var d string
 	err := db.QueryRow(quakeStatsV2SQL).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Surrogate-Control", maxAge300)
 	h.Set("Content-Type", V2JSON)
-	return &statusOK
+	return &weft.StatusOK
 }

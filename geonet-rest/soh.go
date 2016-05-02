@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"github.com/GeoNet/weft"
 )
 
 const head = `<html xmlns="http://www.w3.org/1999/xhtml"><head><title>GeoNet - SOH</title><style type="text/css">
@@ -26,7 +27,7 @@ func init() {
 }
 
 // returns a simple state of health page.  If heartbeat times in the DB are old then it also returns an http status of 500.
-func soh(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+func soh(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
@@ -67,14 +68,14 @@ func soh(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	b.Write([]byte(foot))
 
 	if bad {
-		return internalServerError(fmt.Errorf(b.String()))
+		return weft.InternalServerError(fmt.Errorf(b.String()))
 	}
 
-	return &statusOK
+	return &weft.StatusOK
 }
 
 // returns a simple state of health page.  If the count of measured intensities falls below 50 this it also returns an http status of 500.
-func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	h.Set("Content-Type", HtmlContent)
 
 	b.Write([]byte(head))
@@ -103,8 +104,8 @@ func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	b.Write([]byte(foot))
 
 	if bad {
-		return internalServerError(fmt.Errorf(b.String()))
+		return weft.InternalServerError(fmt.Errorf(b.String()))
 	}
 
-	return &statusOK
+	return &weft.StatusOK
 }

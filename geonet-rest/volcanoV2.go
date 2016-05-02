@@ -3,10 +3,11 @@ package main
 import (
 	"bytes"
 	"net/http"
+	"github.com/GeoNet/weft"
 )
 
-func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
-	if res := checkQuery(r, []string{}, []string{}); !res.ok {
+func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
 		return res
 	}
 
@@ -27,10 +28,10 @@ func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *result {
                            ) as l
                          )) as properties FROM (haz.volcano JOIN haz.volcanic_alert_level using (alert_level)) as v ) As f )  as fc`).Scan(&d)
 	if err != nil {
-		return serviceUnavailableError(err)
+		return weft.ServiceUnavailableError(err)
 	}
 
 	b.WriteString(d)
 	h.Set("Content-Type", V2GeoJSON)
-	return &statusOK
+	return &weft.StatusOK
 }

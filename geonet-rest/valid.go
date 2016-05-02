@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"github.com/GeoNet/weft"
 )
 
 const quakeLen = 7         //  len("/quake/")
@@ -17,50 +18,50 @@ var publicIDRe = regexp.MustCompile(`^[0-9a-z]+$`)
 var intensityRe = regexp.MustCompile(`^(unnoticeable|weak|light|moderate|strong|severe)$`)
 var qualityRe = regexp.MustCompile(`^(best|caution|deleted|good)$`)
 
-func getPublicIDPath(r *http.Request) (string, *result) {
+func getPublicIDPath(r *http.Request) (string, *weft.Result) {
 	publicID := r.URL.Path[quakeLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, badRequest("invalid publicID: " + publicID)
+		return publicID, weft.BadRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		return publicID, &notFound
+		return publicID, &weft.NotFound
 	}
 	if err != nil {
-		return publicID, serviceUnavailableError(err)
+		return publicID, weft.ServiceUnavailableError(err)
 	}
 
-	return publicID, &statusOK
+	return publicID, &weft.StatusOK
 }
 
-func getPublicIDHistoryPath(r *http.Request) (string, *result) {
+func getPublicIDHistoryPath(r *http.Request) (string, *weft.Result) {
 	publicID := r.URL.Path[quakeHistoryLen:]
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, badRequest("invalid publicID: " + publicID)
+		return publicID, weft.BadRequest("invalid publicID: " + publicID)
 	}
 
 	var d string
 
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 	if err == sql.ErrNoRows {
-		return publicID, &notFound
+		return publicID, &weft.NotFound
 	}
 	if err != nil {
-		return publicID, serviceUnavailableError(err)
+		return publicID, weft.ServiceUnavailableError(err)
 	}
 
-	return publicID, &statusOK
+	return publicID, &weft.StatusOK
 }
 
-func getPublicID(r *http.Request) (string, *result) {
+func getPublicID(r *http.Request) (string, *weft.Result) {
 	publicID := r.URL.Query().Get("publicID")
 
 	if !publicIDRe.MatchString(publicID) {
-		return publicID, badRequest(fmt.Sprintf("invalid publicID " + publicID))
+		return publicID, weft.BadRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
 	var d string
@@ -68,13 +69,13 @@ func getPublicID(r *http.Request) (string, *result) {
 	err := db.QueryRow("select publicid FROM haz.quake where publicid = $1", publicID).Scan(&d)
 
 	if err == sql.ErrNoRows {
-		return publicID, &notFound
+		return publicID, &weft.NotFound
 	}
 	if err != nil {
-		return publicID, serviceUnavailableError(err)
+		return publicID, weft.ServiceUnavailableError(err)
 	}
 
-	return publicID, &statusOK
+	return publicID, &weft.StatusOK
 }
 
 func getMMI(r *http.Request) (int, error) {
@@ -100,23 +101,23 @@ func getIntensityType(r *http.Request) (string, error) {
 	}
 }
 
-func getQuakeTime(r *http.Request) (time.Time, *result) {
+func getQuakeTime(r *http.Request) (time.Time, *weft.Result) {
 	publicID := r.URL.Query().Get("publicID")
 	originTime := time.Time{}
 
 	if !publicIDRe.MatchString(publicID) {
-		return originTime, badRequest(fmt.Sprintf("invalid publicID " + publicID))
+		return originTime, weft.BadRequest(fmt.Sprintf("invalid publicID " + publicID))
 	}
 
 	err := db.QueryRow("select time FROM haz.quake where publicid = $1", publicID).Scan(&originTime)
 	if err == sql.ErrNoRows {
-		return originTime, &notFound
+		return originTime, &weft.NotFound
 	}
 	if err != nil {
-		return originTime, serviceUnavailableError(err)
+		return originTime, weft.ServiceUnavailableError(err)
 	}
 
-	return originTime, &statusOK
+	return originTime, &weft.StatusOK
 }
 
 func getRegionID(r *http.Request) (string, error) {
