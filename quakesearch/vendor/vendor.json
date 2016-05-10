@@ -1,0 +1,58 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "x66dBA9On6IvryKWc/nUaIAw3k8=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/Golang-Ellipsoid/ellipsoid",
+			"path": "github.com/GeoNet/Golang-Ellipsoid/ellipsoid",
+			"revision": "10011b4848dd7e342380859da0b842b55c0ada70",
+			"revisionTime": "2016-04-12T04:30:34Z"
+		},
+		{
+			"checksumSHA1": "uLliYwA15UxM0Q8LsPhgFKQ+5LY=",
+			"path": "github.com/GeoNet/haz/database",
+			"revision": "10011b4848dd7e342380859da0b842b55c0ada70",
+			"revisionTime": "2016-04-12T04:30:34Z"
+		},
+		{
+			"checksumSHA1": "lLWi1jjVrA9uhmBu+79c5hTvBMA=",
+			"path": "github.com/GeoNet/haz/msg",
+			"revision": "10011b4848dd7e342380859da0b842b55c0ada70",
+			"revisionTime": "2016-04-12T04:30:34Z"
+		},
+		{
+			"checksumSHA1": "ks1IXfZT5mIz8563JnQqFjkxQn4=",
+			"origin": "github.com/GeoNet/quakesearch-go/vendor/github.com/GeoNet/log/logentries",
+			"path": "github.com/GeoNet/log/logentries",
+			"revision": "7444b7fd57bd08515924fdf8515888c5fbe2f530",
+			"revisionTime": "2016-04-13T16:41:35+12:00"
+		},
+		{
+			"checksumSHA1": "FN/5I+hdaeTRKYC/JR5tIBdvwZA=",
+			"path": "github.com/GeoNet/metrics",
+			"revision": "5161e09d1ca5d85798d090752c2f7d5ab9ab6e17",
+			"revisionTime": "2015-03-30T17:44:51+13:00"
+		},
+		{
+			"checksumSHA1": "rhHOk+5nbl7RuoAWgTpX85Rw/Gg=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/metrics/librato",
+			"path": "github.com/GeoNet/metrics/librato",
+			"revision": "10011b4848dd7e342380859da0b842b55c0ada70",
+			"revisionTime": "2016-04-12T04:30:34Z"
+		},
+		{
+			"checksumSHA1": "7peGPwyhdJqvsztyCdT9MJH90pU=",
+			"path": "github.com/lib/pq",
+			"revision": "93e9980741c9e593411b94e07d5bad8cfb4809db",
+			"revisionTime": "2015-05-02T14:36:36+03:00"
+		},
+		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "93e9980741c9e593411b94e07d5bad8cfb4809db",
+			"revisionTime": "2015-05-02T14:36:36+03:00"
+		}
+	],
+	"rootPath": "github.com/GeoNet/quakesearch-go"
+}

@@ -1,0 +1,12 @@
+.git
+.gitignore
+Dockerrun.aws.json
+quakesearch
+doc
+README*
+etc
+prod
+*_test.go
+*test.json
+test_db
+docker-run.sh

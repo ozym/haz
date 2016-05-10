@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GeoNet &ndash; Quake Search</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9"/>
+        <meta name="copyright" content="GNS Science"/>
+        <meta name="description" content="The GeoNet Project - Monitoring geological hazards in New Zealand"/>
+        <meta name="keywords" content="Earthquake, catalogue, NZ, GeoNet, seismic, hazard, new zealand"/>
+
+        <meta property="og:title" content="GeoNet Quake Search">
+        <meta property="twitter:title" content="GeoNet Quake Search">
+        <meta property="og:description" content="The GeoNet Project - Monitoring geological hazards in New Zealand">
+        <meta property="twitter:description" content="The GeoNet Project - Monitoring geological hazards in New Zealand">
+        <meta property="og:image" content="http://info.geonet.org.nz/download/attachments/950285/QS.png">
+        <meta property="twitter:image:src" content="http://info.geonet.org.nz/download/attachments/950285/QS.png">
+
+        <link rel="home" href="http://geonet.org.nz/"/>
+        <link rel="shortcut icon" href="http://www.geonet.org.nz/favicon.ico" type="image/x-icon"/>
+
+        <link type="text/css" rel="stylesheet" href="http://static.geonet.org.nz/geonet-2.0.3/css/bootstrap-geonet.css"/>
+        <link type="text/css" rel="stylesheet" href="http://static.geonet.org.nz/geonet-2.0.3/css/quake-map-modal.css"/>
+        <link type="text/css" rel="stylesheet" href="http://static.geonet.org.nz/leaflet/0.7.7/leaflet.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/quakesearch.css"/>
+
+        <script src="http://static.geonet.org.nz/jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="http://static.geonet.org.nz/geonet-2.0.3/js/bootstrap-geonet.js" type="text/javascript"></script>
+        <script src="http://static.geonet.org.nz/geonet-2.0.3/js/bootstrap-2.0.0-init-popover.js" type="text/javascript"></script>
+        <script src="http://static.geonet.org.nz/leaflet/0.7.7/leaflet.js" type="text/javascript">></script>
+
+        <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="assets/js/quakesearch-interactive.js"></script>
+
+    </head>
+
+    <body class="background-image-none">
+
+        <div class="background-gradient-none">
+
+            <!-- menu bar -->
+            <div data-dropdown="dropdown" class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner"><div class="container">
+                        <a shape="rect" data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+
+                            <span class="icon-bar"></span><span class="icon-bar"></span>
+                            <span class="icon-bar"></span></a>
+                        <a shape="rect" class="brand" href="http://geonet.org.nz/">GeoNet</a>
+                        <div class="nav-collapse">
+                            <ul class="nav">
+                                <li><a href="http://info.geonet.org.nz/x/WIAO">Connect <i class="icon-info-sign icon-white"></i></a></li>
+                                <li><a href="http://info.geonet.org.nz/x/DYAO">Data <i class="icon-info-sign icon-white"></i></a></li>
+                                <li><a href="http://info.geonet.org.nz/x/FoAO">Networks <i class="icon-info-sign icon-white"></i></a></li>
+                                <li><a href="http://info.geonet.org.nz">News <i class="icon-info-sign icon-white"></i></a></li>
+                                <li><a shape="rect" href="http://geonet.org.nz/quakes/">Quakes </a></li>
+                                <li><a shape="rect" href="http://geonet.org.nz/tsunami/">Tsunami</a></li>
+                                <li><a shape="rect" href="http://geonet.org.nz/volcano/">Volcano</a></li>
+                            </ul>
+                            <ul class="nav navbar-text pull-right navbar-pull-right-text">
+                                <li><a shape="rect" href="http://www.eqc.govt.nz/" target="_blank">EQC</a> &amp; <a shape="rect" href="http://www.gns.cri.nz/" target="_blank">GNS Science</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- content -->
+        <div class="container container-background">
+            <div class="page-header">
+                <h1>Quake Search</h1>
+            </div>
+            <p>This application allows you to search the New Zealand earthquake catalogue using temporal, spatial,
+               depth and magnitude constraints, build queries to request data in different formats,
+               or show search results on an interactive map.
+            </p>
+            <p>Enter search parameters in the text boxes or select values from the default options.
+               The search boundary can be changed by zooming or panning the map after selecting the <b>Map Extent</b> option.
+            </p>
+            <p>Catalogue data are stored at the precision used in the calculations. Please refer to
+               <a target="_blank" href="http://info.geonet.org.nz/x/LYch">Catalogue Output</a>
+               for descriptions of the fields and our recommendations for rounding. The data are made available under
+               the <a target="_blank" href="http://info.geonet.org.nz/x/BYIW">GeoNet Data Policy</a>.
+            </p>
+
+            <div class="alert">
+                <img class="img-rounded" src='http://info.geonet.org.nz/images/icons/emoticons/warning.png'/>
+                Please note that the earthquake catalogue is currently incomplete.
+                Please regularly check our progress closing
+                <a target="_blank" href="http://info.geonet.org.nz/x/NwCD"> 'The Gap'</a>
+                to see if it affects your query.
+            </div>
+            <br/>
+            <div class="row">
+                <div class="span5">
+                    <!-- 1. date -->
+                    <div class="breadcrumb">
+                        <strong>Date </strong> (UTC) &nbsp;
+                        <input class="btn btn-mini" type="button" id="btnDateClear" value="Clear" />
+                    </div>
+                    <div class='inline'>
+                        <label class="radio inline">
+                            <input type="radio" name="dateRadios" value="a">
+						         Last Week
+                        </label>
+
+                        <label class="radio inline">
+                            <input type="radio" name="dateRadios" value="b" checked="checked">
+							     Last Month
+                        </label>
+
+                        <label class="radio inline">
+                            <input type="radio" name="dateRadios" value="c" checked="checked">
+								Last Year
+                        </label>
+                    </div>
+                    <br/>
+                    <div class="inline row-fluid">
+                        <span class="span2">From</span>
+                        <div class="input-append date span5"  style="width:140px;" data-date="2013-2-2" data-date-format="yyyy-mm-dd">
+                            <input id="dateFrom"  class="input-small" style="width:80px;" placeholder="yyyy-mm-dd" type="text">
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                        <select class="input-mini" style="width:70px;" id="hourFrom"></select>
+                    </div>
+                    <div class="inline row-fluid">
+                        <span class="span2">To</span>
+                        <div class="input-append date span5" style="width:140px;" data-date="2013-3-2" data-date-format="yyyy-mm-dd">
+                            <input id="dateTo" class="input-small" style="width:80px;" placeholder="yyyy-mm-dd" type="text">
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                        <select class="input-mini" style="width:70px;" id="hourTo" ></select>
+                    </div>
+
+                    <!-- 2.  Coordinates -->
+                    <div class="breadcrumb">
+                        <strong>Location</strong>  &nbsp;
+                        <input class="btn btn-mini" type="button" id="btnLocationClear" value="Clear" />
+                    </div>
+                    <div class="row-fluid">
+                        <label class="radio inline">
+                            <input type="radio" name="locRadios" value="mapextent" checked="checked">
+                            <b>Map Extent</b>
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="locRadios" value="custom" id="locCustom">
+                            <b>Enter Coordinates</b>
+                        </label>
+                    </div>
+                    <div >
+                        <button id="btnLatLon" type="button" class="btn btn-link" data-toggle="collapse" data-target="#divLatLon" title="Show coordinate fields">
+                            <strong>Latitude/Longitude </strong> <i class="icon-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div id="divLatLon" class="collapse">
+                        <br/>
+                        <div class="inline row-fluid">
+                            <label class="inline text span4 offset2 row-fluid">
+                               <span class="span4"><small class="pull-right" style="margin:5px 0 0 0;">North&nbsp;</small></span>
+                               <input class="input-small span8" style="width:80px;" type="text" id="maxLat" name='numField'/>
+                            </label>
+                        </div>
+                        <div class="inline row-fluid">
+                             <label class="inline text span4 row-fluid">
+                               <span class="span4"><small class="pull-right" style="margin:5px 0 0 0;">West &nbsp;</small></span>
+                               <input class="input-small span8" style="width:80px;" type="text" id="minLon" name='numField'/>
+                            </label>
+                            <label class="inline text span4 row-fluid">
+                               <span class="span4"><small class="pull-right" style="margin:5px 0 0 0;">East&nbsp;</small></span>
+                               <input class="input-small span8" style="width:80px;" type="text" id="maxLon" name='numField'/>
+                            </label>
+                        </div>
+                        <div class="inline row-fluid">
+                           <label class="inline text span4 offset2 row-fluid">
+                               <span class="span4"><small  class="pull-right" style="margin:5px 0 0 0;">South&nbsp;</small></span>
+                               <input  class="input-small span8" style="width:80px;" type="text" id="minLat" name='numField'/>
+                            </label>
+                        </div>
+                    </div>
+
+                    <span><b>Region</b></span>
+
+                    <div class="row-fluid">
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="aucklandnorthland">
+				            Auckland &amp; Northland
+                        </label>
+                        <label class="radio inline span6" style="width:150px;">
+                            <input type="radio" name="locRadios" value="canterbury">
+				            Canterbury
+                        </label>
+                    </div>
+                    <div class="row-fluid">
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="fiordland">
+				            Fiordland
+                        </label>
+                        <label class="radio inline span6" style="width:150px;">
+                            <input type="radio" name="locRadios" value="gisborne">
+				            Gisborne
+                        </label>
+                    </div>
+                    <div class="row-fluid">
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="hawkesbay">
+				            Hawke's Bay
+                        </label>
+                        <label class="radio inline span6" style="width:150px;">
+                            <input type="radio" name="locRadios" value="nelsonwestcoast">
+				            Nelson &amp; West Coast
+                        </label>
+                    </div>
+                    <div class="row-fluid">
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="otagosouthland">
+				            Otago &amp; Southland
+                        </label>
+                        <label class="radio inline span6" style="width:150px;">
+                            <input type="radio" name="locRadios" value="taranaki">
+				            Taranaki
+                        </label>
+                    </div>
+                    <div class="row-fluid">
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="tongagrirobayofplenty">
+				            Tongariro &amp; Bay of Plenty
+                        </label>
+                        <label class="radio inline span6" style="width:170px;">
+                            <input type="radio" name="locRadios" value="wellington">
+				            Wellington &amp; Marlborough
+                        </label>
+                    </div>
+                    <br/>
+
+                    <!-- 3. depth -->
+                    <div class="breadcrumb">
+                        <strong>Depth &amp; Magnitude</strong>
+                        &nbsp; &nbsp;
+                        <input class="btn btn-mini" type="button" id="btnMagDepthQualityClear" value="Clear" />
+                    </div>
+
+                   <div class="inline row-fluid">
+                        <div class="span3" style="width:70px;"><span style="line-height:35px;">Depth&nbsp;(km):</span></div>
+                        <div class="inline text span4">
+                          <small>Min</small>
+                          <input class="input-small" style="width:70px;" type="text" id="minDepth" name='numField'/>
+                        </div>
+                        <div class="inline text span4">
+                          <small>Max</small>
+                          <input class="input-small" style="width:70px;" type="text" id="maxDepth" name='numField'/>
+                        </div>
+                   </div>
+
+                    <!-- 4. magnitude -->
+                    <div class="inline row-fluid">
+                        <div class="span3" style="width:70px;"><span style="line-height:35px;">Magnitude:</span></div>
+                        <div class="inline text span4"><small>Min</small>
+                           <input class="input-small" style="width:70px;" type="text" id="minMag" name='numField'/>
+                        </div>
+                        <div class="inline text span4"><small>Max</small>
+                           <input class="input-small" style="width:70px;" type="text" id="maxMag" name='numField'/>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <!-- 5. quality -->
+                    <!-- 6. output format -->
+                    <div class="alert alert-success">
+                        <strong>Output</strong> &nbsp;
+                        <label class="radio inline" style="margin-bottom:5px;">
+                            <input type="radio" name="resultRadios" value="map">
+						     <span>Show on Map</span>
+                        </label>
+                        <label class="radio inline" style="margin-bottom:5px;">
+                            <input type="radio" name="resultRadios" value="query">
+						    <span>Build Query</span>
+                        </label>
+                    </div>
+
+                    <div class="inline row-fluid hide" id='queryOutputFormat'>
+                        <span class="span4" style="margin-top:5px;">Output Format</span>
+                        <select class="input-medium" style="width:100px;" id="outputFormat"></select>
+                    </div>
+
+                    <div id='image-options' class='alert alert-info hide inline'>
+                        <span >Size:</span>
+                        <select class="input-small" id="imgSizeSelect"></select>
+                        <input type="checkbox" id='mapTownCheck'> &nbsp;<span >Show Places</span>
+
+                    </div>
+
+                    <!-- 7. the submit -->
+                    <div class="form-actions hide" id='submitQuery'>
+                        <div  class="pull-right">
+                            <input class="btn btn-primary" type="button" id="btnShowQuery"  value="Search"/>
+                            &nbsp;
+                            <input class="btn btn-primary" type="button" id="btnReset"  value="Reset" style='display:none'/>
+                        </div>
+                    </div>
+                    <div class="form-actions" id='submitMap'>
+                        <label class="inline">Max Number of Quakes:
+                           <select class="input-small" style="width:80px; margin:5px 0 0 0;" id="maxQuakesSelect"></select>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           <input class="btn btn-primary pull-right" style="margin-top:5px;" type="button" id="btnShowMap"  value="Show"/>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- the interactive map -->
+                <div class="span7" id='map-container'>
+                    <div class='inline row-fluid'>
+                        <div id="haz-map" class="span8 small-quake-search-map"></div>
+                        <div id='mapLegend' class="span4 hide"  style="width:150px;">
+                            <div style="height:460px;">
+                                 <img src="//static.geonet.org.nz/geonet-2.0.4/images/kml/legend.png" alt="legend" class="white" style="max-height:100%; max-width:100%;"/>
+                            </div>
+                            <br/>
+                            <a id="largerMapButton" style="width:auto;"
+			                    class="btn btn-primary"
+			                    href="javascript:showLargeMap();"
+			                    title="View full screen map.">Full&nbsp;Screen&nbsp;Map</a>
+                        </div>
+                    </div>
+                    <div class='inline row-fluid'>
+                        <div class='span6' style="padding:10px 0 0 0;" id="result-count"></div>
+
+                        <div class='span2' style="width:60px; padding:10px 0 0 0;">
+                            <a data-original-title="Copyright"
+                               data-content= "&lt;p&gt;Background map data copyright &lt;a href='http://www.openstreetmap.org/' target='_blank' &gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href='http://creativecommons.org/licenses/by-sa/2.0/' target='_blank' &gt;CC-BY-SA&lt;/a&gt;. Tiles Courtesy of &lt;a href=&quot;http://www.mapquest.com/&quot; target=&quot;_blank&quot;&gt;MapQuest&lt;/a&gt; &lt;img src=&quot;http://developer.mapquest.com/content/osm/mq_logo.png&quot;&gt;, NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. Contains data sourced from &lt;a href='http://www.linz.govt.nz/' target='_blank' &gt;Land Information New Zealand&lt;/a&gt;. Crown Copyright reserved.&lt;/p&gt;"
+                               rel="popover" href="#">Copyright.
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal quake-map-modal hide fade" id="myModal" tabindex="-1" aria-hidden="true">
+		              <div class="modal-footer">
+			             <a id="large-map-close-button" class="btn btn-danger btn-small" aria-hidden="true"
+				            href="javascript:closeLargeMap();" title="Close large map.">Close</a>
+		              </div>
+	              </div>
+            </div>
+
+            <!-- 8. query builder result -->
+            <div id='result' style='display:none'>
+                <div id="result-number">
+                    <strong>Result</strong>
+                </div>
+                <div id="result-details" >
+                <p class="text-info">The URL(s) to request quakes for the specified condition is shown below,
+                    copy the url or click on Download to get quakes data. </p>
+
+                <textarea class='span9' id='result-text' rows="2" ></textarea>
+
+                <p class="text-warning" style='display:none'>
+                    Note: Multiple requests are needed to request
+                    large amount of data as the maximum number of quakes per request is limited to 20,000 to prevent system crash.</p>
+
+                <div class="form-actions">
+                    <div class="pull-right">
+                        <a href="#" id="btnDownload" target="_blank"> <input class="btn btn-primary" type="button" value="Download"/></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <!-- footer -->
+            <div class="footer" id="footer">
+                <div class="row">
+                    <div class="span3">
+                        <ul id="logo">
+                            <li id="geonet"><a shape="rect" href="http://www.geonet.org.nz" target="_blank"><span>GeoNet</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="span6"><p>GeoNet is a collaboration between the
+                            <a shape="rect" href="http://www.eqc.govt.nz" target="_blank">Earthquake Commission</a> and
+                            <a shape="rect" href="http://www.gns.cri.nz/" target="_blank">GNS Science</a>.</p>
+                        <p> <a shape="rect" href="http://info.geonet.org.nz/x/loYh" target="_blank">about</a> |
+                            <a shape="rect" href="http://info.geonet.org.nz/x/JYAO" target="_blank">contact</a> |
+                            <a shape="rect" href="http://info.geonet.org.nz/x/RYAo" target="_blank">privacy</a> |
+                            <a shape="rect" href="http://info.geonet.org.nz/x/EIIW" target="_blank">disclaimer</a>
+                        </p>
+                        <p>GeoNet content is copyright
+                            <a shape="rect" href="http://www.gns.cri.nz/" target="_blank">GNS Science</a> and is licensed under a
+                            <a shape="rect" href="http://creativecommons.org/licenses/by/3.0/nz/" target="_blank" rel="license">Creative Commons Attribution 3.0 New Zealand License</a>
+                        </p>
+                    </div>
+                    <div class="span2">
+                        <ul id="logo">
+                            <li id="eqc"><a shape="rect" href="http://www.eqc.govt.nz" target="_blank">
+                                    <span>EQC</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span1">
+                        <ul id="logo">
+                            <li id="gns"><a shape="rect" href="http://www.gns.cri.nz" target="_blank">
+                                    <span>GNS Science</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span1 offset5">
+                        <ul id="logo"><li id="ccby">
+                                <a shape="rect" href="http://creativecommons.org/licenses/by/3.0/nz/">
+                                    <span>CC-BY</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
