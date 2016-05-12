@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/GeoNet/weft"
 	"log"
 	"net/http"
 	"net/url"
@@ -27,13 +28,9 @@ const (
 	CONTENT_TYPE_XML = "application/xml"
 	CONTENT_TYPE_KML = "application/vnd.google-earth.kml+xml"
 
-	// These constants represent part of a public API and can't be changed.
-	V1GeoJSON = "application/vnd.geo+json;version=1"
-	V1JSON    = "application/json;version=1"
-	V1CSV     = "text/csv;version=1"
-	V2GeoJSON = "application/vnd.geo+json;version=2"
-	V2JSON    = "application/json;version=2"
-	V2CSV     = "text/csv;version=2"
+	CONTENT_TYPE_GeoJSON = "application/vnd.geo+json"
+	CONTENT_TYPE_JSON    = "application/json"
+	CONTENT_TYPE_CSV     = "text/csv"
 )
 
 var (
@@ -61,9 +58,9 @@ func init() {
 	}
 }
 
-func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	//1. check query parameters
-	if res := checkQuery(r, requiredParams, optionalParams); !res.ok {
+	if res := weft.CheckQuery(r, requiredParams, optionalParams); !res.Ok {
 		return res
 	}
 	v := r.URL.Query()
@@ -80,7 +77,7 @@ func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		log.Println("##2 outputFormat", params.outputFormat, " sub type", params.subType)
 		return getQuakesGml3(r, h, b, params)
 	}
-	return &statusOK
+	return &weft.StatusOK
 }
 
 /**
@@ -88,14 +85,14 @@ func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 * so use string content instead.
 * kml?region=canterbury&startdate=2010-6-29T21:00:00&enddate=2015-7-29T22:00:00
  */
-func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *result {
+func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	//1. check query parameters
-	if res := checkQuery(r, []string{}, optionalParams); !res.ok {
+	if res := weft.CheckQuery(r, []string{}, optionalParams); !res.Ok {
 		return res
 	}
 
 	v := r.URL.Query()
-	sqlPre := `select publicid, eventtype, to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS origintime,
+	sqlString := `select publicid, eventtype, to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS origintime,
      latitude, longitude, depth, depthtype, magnitude, magnitudetype, evaluationmethod, evaluationstatus,
      evaluationmode, earthmodel, usedphasecount,usedstationcount, minimumdistance, azimuthalgap, magnitudeuncertainty,
      originerror, magnitudestationcount, to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS modificationtime
@@ -103,15 +100,15 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 
 	params := getQueryParams(v)
 
-	sqlString, err1 := getSqlQueryString(sqlPre, params)
+	sqlString, err1 := getSqlQueryString(sqlString, params)
 	if err1 != nil {
-		return badRequest(err1.Error())
+		return weft.BadRequest(err1.Error())
 	}
 
 	rows, err := db.Query(sqlString)
 
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
 	count := 0
@@ -150,7 +147,7 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 			&modificationtime,
 		)
 		if err != nil {
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		count++
 
@@ -175,7 +172,7 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 		t, err := time.Parse(RFC3339_FORMAT, origintime)
 		if err != nil {
 			log.Panic("time format error", err)
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 
 		tu := t.In(time.UTC)
@@ -298,14 +295,14 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *result {
 	//w.Header().Set("Content-Type", "application/xml") //test!!
 	h.Set("Content-Type", CONTENT_TYPE_KML)
 	h.Set("Content-Disposition", `attachment; filename="earthquakes.kml"`)
-	return &statusOK
+	return &weft.StatusOK
 
 }
 
 /**
 * GML3 format
 **/
-func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *result {
+func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *weft.Result {
 	sqlPre := `select publicid, eventtype, to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS origintime,
            latitude, longitude, depth, depthtype, magnitude,  magnitudetype, evaluationmethod, evaluationstatus,
            evaluationmode, earthmodel, usedphasecount,usedstationcount, minimumdistance, azimuthalgap, magnitudeuncertainty,
@@ -314,13 +311,13 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 
 	sqlString, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
-		return badRequest(err1.Error())
+		return weft.BadRequest(err1.Error())
 	}
 
 	rows, err := db.Query(sqlString)
 
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
 
@@ -400,7 +397,7 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 			&modificationtime, &gml,
 		)
 		if err != nil {
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		b.Write([]byte("<wfs:member>\n"))
 		b.Write([]byte(fmt.Sprintf("<geonet:quake gml:id=\"quake.%s\">\n", publicid)))
@@ -475,10 +472,10 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 
 	// send result response
 	h.Set("Content-Type", CONTENT_TYPE_XML)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *result {
+func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *weft.Result {
 	sqlPre := `select publicid, eventtype, to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS origintime,
            latitude, longitude, depth, depthtype, magnitude,  magnitudetype, evaluationmethod, evaluationstatus,
            evaluationmode, earthmodel, usedphasecount,usedstationcount, minimumdistance, azimuthalgap, magnitudeuncertainty,
@@ -487,13 +484,13 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 
 	sqlString, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
-		return badRequest(err1.Error())
+		return weft.BadRequest(err1.Error())
 	}
 
 	rows, err := db.Query(sqlString)
 
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
 
@@ -550,7 +547,7 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 			&modificationtime, &gml,
 		)
 		if err != nil {
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		b.Write([]byte("<gml:featureMember>\n"))
 		b.Write([]byte(fmt.Sprintf("<geonet:quake fid=\"quake.%s\">\n", publicid)))
@@ -624,10 +621,10 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 
 	// send result response
 	h.Set("Content-Type", CONTENT_TYPE_XML)
-	return &statusOK
+	return &weft.StatusOK
 }
 
-func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *result {
+func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *weft.Result {
 	//21  fields
 	sqlPre := `select format('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s',
                publicid,eventtype,to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
@@ -638,13 +635,13 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
 
 	sqlString, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
-		return badRequest(err1.Error())
+		return weft.BadRequest(err1.Error())
 	}
 
 	rows, err := db.Query(sqlString)
 
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
 	defer rows.Close()
@@ -662,7 +659,7 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
 	for rows.Next() {
 		err := rows.Scan(&d)
 		if err != nil {
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		b.Write([]byte(d))
 		b.Write(eol)
@@ -671,13 +668,13 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
 
 	// send result response
 	h.Set("Content-Disposition", `attachment; filename="earthquakes.csv"`)
-	h.Set("Content-Type", V1CSV)
-	return &statusOK
+	h.Set("Content-Type", CONTENT_TYPE_CSV)
+	return &weft.StatusOK
 }
 
 //http://hutl14681.gns.cri.nz:8081/geojson?limit=100&bbox=163.60840,-49.18170,182.98828,-32.28713&startdate=2015-6-27T22:00:00&enddate=2015-7-27T23:00:00
 //(r *http.Request, h http.Header, b *bytes.Buffer) *result
-func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *result {
+func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *QueryParams) *weft.Result {
 	sqlPre := `select publicid, eventtype, to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS origintime,
               depth, depthtype, magnitude, magnitudetype, evaluationmethod, evaluationstatus,
               evaluationmode, earthmodel, usedphasecount,usedstationcount, minimumdistance, azimuthalgap, magnitudeuncertainty,
@@ -686,13 +683,13 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 
 	sqlString, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
-		return badRequest(err1.Error())
+		return weft.BadRequest(err1.Error())
 	}
 
 	rows, err := db.Query(sqlString)
 
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
 	allFeatures := make([]Feature, 0)
@@ -728,7 +725,7 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 			&modificationtime, &geojson,
 		)
 		if err != nil {
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		quakeFeature := Feature{Type: "Feature"}
 		//get geometry
@@ -736,7 +733,7 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 		err = json.Unmarshal([]byte(geojson), &featureGeo)
 		if err != nil {
 			log.Panic("error", err)
-			return internalServerError(err)
+			return weft.InternalServerError(err)
 		}
 		quakeFeature.Geometry = featureGeo
 		//get properties
@@ -807,16 +804,16 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 	}
 
 	// send result response
-	h.Set("Content-Type", V1GeoJSON)
+	h.Set("Content-Type", CONTENT_TYPE_GeoJSON)
 	// h.Set("Accept", V1GeoJSON)
 	jsonBytes, err := json.Marshal(outputJson)
 	if err != nil {
-		return internalServerError(err)
+		return weft.InternalServerError(err)
 	}
 
 	b.Write(jsonBytes)
 
-	return &statusOK
+	return &weft.StatusOK
 }
 
 func getQueryParams(v url.Values) *QueryParams {

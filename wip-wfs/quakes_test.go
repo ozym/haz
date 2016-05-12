@@ -57,7 +57,7 @@ func TestQuakesGeoJson(t *testing.T) {
 	defer teardown()
 	//1. get all quakes
 	c := Content{
-		Accept: V1GeoJSON,
+		Accept: CONTENT_TYPE_GeoJSON,
 		URI:    "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&maxFeatures=100&&cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)",
 	}
 	b, err := c.getContent(ts)
@@ -75,7 +75,7 @@ func TestQuakesGeoJson(t *testing.T) {
 
 	//2. get only one quake
 	c = Content{
-		Accept: V1GeoJSON,
+		Accept: CONTENT_TYPE_GeoJSON,
 		URI:    "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&maxFeatures=100&cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)+AND+origintime>='2010-01-01'+AND+origintime<'2015-01-01'",
 	}
 	b, err = c.getContent(ts)
@@ -101,8 +101,8 @@ func TestRoutes(t *testing.T) {
 
 	//1 GeoJSON routes
 	r := Route{
-		Accept:   V1GeoJSON,
-		Content:  V1GeoJSON,
+		Accept:   CONTENT_TYPE_GeoJSON,
+		Content:  CONTENT_TYPE_GeoJSON,
 		Response: http.StatusOK,
 	}
 	r.addRoute("/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&maxFeatures=100&cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)")
@@ -113,8 +113,8 @@ func TestRoutes(t *testing.T) {
 
 	//2 CSV routes
 	r = Route{
-		Accept:   V1CSV,
-		Content:  V1CSV,
+		Accept:   CONTENT_TYPE_CSV,
+		Content:  CONTENT_TYPE_CSV,
 		Response: http.StatusOK,
 	}
 	r.addRoute("/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=csv&maxFeatures=100&cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)")
@@ -166,8 +166,8 @@ func TestGeoJSON(t *testing.T) {
 
 	// GeoJSON routes
 	r := Route{
-		Accept:   V1GeoJSON,
-		Content:  V1GeoJSON,
+		Accept:   CONTENT_TYPE_GeoJSON,
+		Content:  CONTENT_TYPE_GeoJSON,
 		Response: http.StatusOK,
 	}
 	r.addRoute("/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&maxFeatures=100&cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)+AND+origintime>='2000-01-01'+AND+origintime<'2015-01-01'")

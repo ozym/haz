@@ -3,31 +3,79 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "CEvEwEZNau7EIL6ON5M3yxoM6Dk=",
-			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/log/logentries",
-			"path": "github.com/GeoNet/log/logentries",
-			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
-			"revisionTime": "2016-04-22T03:46:59Z"
+			"checksumSHA1": "x66dBA9On6IvryKWc/nUaIAw3k8=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/Golang-Ellipsoid/ellipsoid",
+			"path": "github.com/GeoNet/Golang-Ellipsoid/ellipsoid",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
 		},
 		{
-			"checksumSHA1": "Ey/Wacyhire/uEa+PJTOnGIH5Y8=",
-			"path": "github.com/NYTimes/gziphandler",
-			"revision": "a88790d49798560db24af70fb6a10a66e2549a72",
-			"revisionTime": "2016-02-08T01:52:08Z"
+			"checksumSHA1": "uLliYwA15UxM0Q8LsPhgFKQ+5LY=",
+			"path": "github.com/GeoNet/haz/database",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "lLWi1jjVrA9uhmBu+79c5hTvBMA=",
+			"path": "github.com/GeoNet/haz/msg",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "ks1IXfZT5mIz8563JnQqFjkxQn4=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/log/logentries",
+			"path": "github.com/GeoNet/log/logentries",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "FN/5I+hdaeTRKYC/JR5tIBdvwZA=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/metrics",
+			"path": "github.com/GeoNet/metrics",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "rhHOk+5nbl7RuoAWgTpX85Rw/Gg=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/metrics/librato",
+			"path": "github.com/GeoNet/metrics/librato",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "ymAEv1HWJtH1J4dUTebqbCPEst0=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/internal",
+			"path": "github.com/GeoNet/mtr/internal",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "6XSbACIZ5QU8NHzXhvmazb4NAJE=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/mtrapp",
+			"path": "github.com/GeoNet/mtr/mtrapp",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
+		},
+		{
+			"checksumSHA1": "tAXN6W3ebvXxOCNa2LLq2/nPA4w=",
+			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/weft",
+			"path": "github.com/GeoNet/weft",
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
 		},
 		{
 			"checksumSHA1": "NRqAI3XBi9poq+bWa8tI6ReVOh0=",
 			"origin": "github.com/GeoNet/haz/vendor/github.com/lib/pq",
 			"path": "github.com/lib/pq",
-			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
-			"revisionTime": "2016-04-22T03:46:59Z"
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
 		},
 		{
 			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
 			"origin": "github.com/GeoNet/haz/vendor/github.com/lib/pq/oid",
 			"path": "github.com/lib/pq/oid",
-			"revision": "802f7bacbb0bbd80e3fd41f0f9942de5099de552",
-			"revisionTime": "2016-04-22T03:46:59Z"
+			"revision": "3d6a17d6593210990282675adc5c3df3fb11c1cb",
+			"revisionTime": "2016-05-01T22:17:12Z"
 		}
 	],
 	"rootPath": "github.com/GeoNet/haz/wip-wfs"
