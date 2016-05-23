@@ -1,0 +1,7 @@
+quakesearch
+quakesearch-go
+docker-build-tmp
+.idea/*
+doc/
+*.iml
+env.list.prod
