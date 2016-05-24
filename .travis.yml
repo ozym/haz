@@ -11,6 +11,8 @@ script:
 - export $(cat geonet-rest/env.list | grep = | xargs) && go test ./geonet-rest  -v
 - export $(cat msg/env.list | grep = | xargs) && go test ./msg  -v
 - export $(cat quakesearch/env.list | grep = | xargs) && go test ./quakesearch -v
+- export $(cat wfs/env.list | grep = | xargs) && go test ./wfs  -v
+
 notifications:
   hipchat:
     rooms:
