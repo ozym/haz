@@ -14,6 +14,8 @@ import (
 	"time"
 )
 
+// TODO same comments about b.WriteString(... instead of b.Write([]byte
+
 const (
 	empty_param_value   = -1000
 	GML_BBOX_NZ         = "164,-49 -176, -32"
@@ -65,6 +67,7 @@ func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 	}
 	v := r.URL.Query()
 	params := getQueryParams(v)
+	// TODO is this logging needed for prod?
 	log.Println("##outputFormat|", params.outputFormat, "| sub type", params.subType)
 	if params.outputFormat == "JSON" {
 		return getQuakesGeoJson(r, h, b, params)
@@ -171,6 +174,7 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 
 		t, err := time.Parse(RFC3339_FORMAT, origintime)
 		if err != nil {
+			// TODO don't panic - this will exit the goroutine and no response will be sent to the user.
 			log.Panic("time format error", err)
 			return weft.InternalServerError(err)
 		}
