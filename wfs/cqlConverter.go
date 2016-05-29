@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// TODO same injection comments as quakesearch.
+
 /**
  * A cql converter that converts CQL query to SQL query
  * Baishan 15/4/2016

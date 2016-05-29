@@ -44,6 +44,7 @@ func indexPage(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 		return weft.BadRequest("invalid path")
 	}
 
+	// TODO no need for the NewWriter.
 	w := bufio.NewWriter(b)
 	err := indexTemp.Execute(w, nil)
 

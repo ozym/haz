@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// TODO https if possible.
 const (
 	ICON_LEGEND_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.4/images/kml/"
 	GEONET_LOGO_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.3/images/logo-gns.png"

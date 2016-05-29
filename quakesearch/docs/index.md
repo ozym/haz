@@ -11,6 +11,9 @@ magnitude constraints.
 
 ## Versioning
 
+TODO - the code doesn't actually seem to version on accept.  It is ok not to version and I don' think this app really
+needs it.  Should this be deleted?
+
 API queries may be versioned via the Accept header. Please specify
 the Accept header for your request exactly as specified for the
 endpoint query you are using.  If you don't specify an Accept header

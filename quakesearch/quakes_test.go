@@ -1,5 +1,7 @@
 package main
 
+// TODO would be great to update this to use wefttest for testing the routes.
+
 import (
 	"bytes"
 	"encoding/json"

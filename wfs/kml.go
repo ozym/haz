@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// https if possible
+// Looks like the same code as in quakesearch?
 const (
 	ICON_LEGEND_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.4/images/kml/"
 	GEONET_LOGO_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.3/images/logo-gns.png"

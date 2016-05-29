@@ -14,6 +14,7 @@ var db database.DB
 
 func init() {
 	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
+	// TODO we don't use Librato any more.
 	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 }
 
@@ -45,6 +46,7 @@ func inbound(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
+			// TODO no need to vary accept - I can't see the accept versioning going on.
 			// Routing is based on Accept query parameters
 			// e.g., version=1 in application/json;version=1
 			// so caching must Vary based on Accept.

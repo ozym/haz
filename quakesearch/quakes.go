@@ -1,5 +1,7 @@
 package main
 
+// TODO you can use b.WriteString to avoid all the casting b.Write([]byte(...)).
+
 import (
 	"bytes"
 	"database/sql"
@@ -18,6 +20,7 @@ import (
 const (
 	empty_param_value = -1000
 	GML_BBOX_NZ       = "164,-49 -176, -32"
+	// TODO looks like this isn't used?  If it is then please use a protocol less url.
 	GEONET_ASSET_URL  = "http://static.geonet.org.nz/"
 	MAX_QUAKES_NUMBER = 20000 //for each search
 
@@ -547,6 +550,7 @@ func getQuakesGml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 		b.Write([]byte("</geonet:quake></gml:featureMember>\n"))
 	}
 
+	// TODO there is already a deferred rows.Close() and you don't use the DB again in this func so strictly this is not necessary.
 	rows.Close()
 	b.Write([]byte(`</wfs:FeatureCollection>`))
 
@@ -775,6 +779,9 @@ func getQueryParams(v url.Values) *QueryParams {
 	}
 }
 
+// TODO wrt to sql injection - I think this is nearly ok but if it's != "" and there
+// is an error from strconv.Atoi then you should return that error to the client as
+// a bad request.
 func parseFloatVal(valstring string) float64 {
 	if valstring != "" {
 		if f, err := strconv.ParseFloat(valstring, 64); err == nil {
@@ -784,6 +791,9 @@ func parseFloatVal(valstring string) float64 {
 	return empty_param_value
 }
 
+// TODO wrt to sql injection - I think this is nearly ok but if it's != "" and there
+// is an error from strconv.Atoi then you should return that error to the client as
+// a bad request.
 func parseIntVal(valstring string) int {
 	if valstring != "" {
 		if val, err := strconv.Atoi(valstring); err == nil {
@@ -794,6 +804,12 @@ func parseIntVal(valstring string) int {
 }
 
 /* generate sql query string based on query parameters from url*/
+// TODO - how are you avoiding SQL injection?  This looks like a bad security hole to me.
+// I can see why you want to do this but you need to inspect the queries first very carefully.
+// You really need to check all the numbers convert to number, all the date times to date times and
+// that the string values are in some set of allowable ones.
+// It looks like there is some paramter checking going on but if there is an error parsing a value
+// you should return that error to the client.
 func getSqlQueryString(sqlPre string, params *QueryParams) string {
 	condition := false
 	sql := sqlPre
@@ -872,6 +888,9 @@ func getGmlBbox(bbox string) string {
 	return ""
 }
 
+// TODO injection again - the pattern matching isn't bound to the begining and end of the string
+// ^...$ so it doesn't catch any errors.
+// once you've constructed the longer string then try to parse the time as well.
 func checkDateFormat(date string) string {
 	if date == "" {
 		return ""
