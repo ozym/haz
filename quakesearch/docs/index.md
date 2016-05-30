@@ -9,26 +9,6 @@ API provides access the New Zealand earthquake catalogue, allows
 the user to search quakes using temporal, spatial, depth and
 magnitude constraints.
 
-## Versioning
-
-TODO - the code doesn't actually seem to version on accept.  It is ok not to version and I don' think this app really
-needs it.  Should this be deleted?
-
-API queries may be versioned via the Accept header. Please specify
-the Accept header for your request exactly as specified for the
-endpoint query you are using.  If you don't specify an Accept header
-with a version then your request will be routed to the current
-highest API version of the query.
-
-Taking advantage of the API versioning will pay dividends in the
-future for any client that you write. We use the jq command for JSON
-pretty printing etc. A curl command might look like:
-
-    curl -H "Accept: application/vnd.geo+json;version=1" "http://...API-QUERY..." | jq .
-
-You may also be able to find a browser plugin to help with setting the
-Accept header for requests.
-
 ## Compression
 
 The response for a query can be compressed. If your client can handle a
@@ -59,7 +39,7 @@ Get Quakes in CSV format for specified time, location, magnitude and depth.
 
 ### Accept Version
 
-    text/csv;version=1
+    text/csv
 
 ### Parameters
 
@@ -130,7 +110,7 @@ Get Quakes in GeoJSON format for specified time, location, magnitude and depth.
 
 ### Accept Version
 
-    application/vnd.geo+json;version=1
+    application/vnd.geo+json
 
 ### Parameters
 
