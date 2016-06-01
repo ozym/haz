@@ -8,11 +8,10 @@ import (
 	"strings"
 )
 
-// https if possible
-// Looks like the same code as in quakesearch?
+//TODO same code as in quakesearch, considering lib project
 const (
-	ICON_LEGEND_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.4/images/kml/"
-	GEONET_LOGO_IMG_URL = "http://static.geonet.org.nz/geonet-2.0.3/images/logo-gns.png"
+	ICON_LEGEND_IMG_URL = "https://static.geonet.org.nz/geonet-2.0.4/images/kml/"
+	GEONET_LOGO_IMG_URL = "https://static.geonet.org.nz/geonet-2.0.3/images/logo-gns.png"
 )
 
 var (

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"github.com/GeoNet/weft"
 	"html/template"
@@ -44,9 +43,7 @@ func indexPage(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 		return weft.BadRequest("invalid path")
 	}
 
-	// TODO no need for the NewWriter.
-	w := bufio.NewWriter(b)
-	err := indexTemp.Execute(w, nil)
+	err := indexTemp.Execute(b, nil)
 
 	if err != nil {
 		return weft.InternalServerError(err)
