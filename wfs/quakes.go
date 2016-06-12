@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/GeoNet/weft"
 	"log"
@@ -13,8 +14,6 @@ import (
 	"strings"
 	"time"
 )
-
-// TODO same comments about b.WriteString(... instead of b.Write([]byte
 
 const (
 	empty_param_value   = -1000
@@ -47,6 +46,15 @@ var (
 		"cql_filter",
 		"subtype",
 	}
+
+	//the wfs database field types
+	WFS_DB_GEOM_FIELD        = "origin_geom"
+	WFS_DB_FIELDS_STRING     = []string{"publicid", "eventtype", "magnitudetype", "depthtype", "evaluationmethod", "evaluationstatus", "evaluationmode", "earthmodel"}
+	WFS_DB_FIELDS_TIME       = []string{"origintime", "modificationtime"}
+	WFS_DB_FIELDS_NUMBER     = []string{"depth", "magnitude", "usedphasecount", "usedstationcount", "minimumdistance", "azimuthalgap", "originerror"}
+	WFS_DB_FIELDS_MAP_STRING map[string]struct{}
+	WFS_DB_FIELDS_MAP_TIME   map[string]struct{}
+	WFS_DB_FIELDS_MAP_NUMBER map[string]struct{}
 )
 
 func init() {
@@ -58,6 +66,13 @@ func init() {
 		NZTzLocation = time.Local
 		log.Println("Unable to get NZ timezone, use local time instead!")
 	}
+	//populate the maps with slice values
+	WFS_DB_FIELDS_MAP_STRING = make(map[string]struct{}, len(WFS_DB_FIELDS_STRING))
+	sliceToMap(WFS_DB_FIELDS_STRING, WFS_DB_FIELDS_MAP_STRING)
+	WFS_DB_FIELDS_MAP_TIME = make(map[string]struct{}, len(WFS_DB_FIELDS_STRING))
+	sliceToMap(WFS_DB_FIELDS_TIME, WFS_DB_FIELDS_MAP_TIME)
+	WFS_DB_FIELDS_MAP_NUMBER = make(map[string]struct{}, len(WFS_DB_FIELDS_STRING))
+	sliceToMap(WFS_DB_FIELDS_NUMBER, WFS_DB_FIELDS_MAP_NUMBER)
 }
 
 func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
@@ -66,9 +81,11 @@ func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 		return res
 	}
 	v := r.URL.Query()
-	params := getQueryParams(v)
-	// TODO is this logging needed for prod?
-	log.Println("##outputFormat|", params.outputFormat, "| sub type", params.subType)
+	params, err := getQueryParams(v)
+	if err != nil {
+		return weft.BadRequest(err.Error())
+	}
+
 	if params.outputFormat == "JSON" {
 		return getQuakesGeoJson(r, h, b, params)
 	} else if params.outputFormat == "CSV" {
@@ -77,8 +94,9 @@ func getQuakesWfs(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 		return getQuakesGml2(r, h, b, params)
 		//text/xml; subtype=gml/3.2
 	} else if params.outputFormat == "TEXT/XML" && params.subType == "GML/3.2" {
-		log.Println("##2 outputFormat", params.outputFormat, " sub type", params.subType)
 		return getQuakesGml3(r, h, b, params)
+	} else {
+		return weft.BadRequest("Invalid outputFormat")
 	}
 	return &weft.StatusOK
 }
@@ -101,14 +119,17 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
      originerror, magnitudestationcount, to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS modificationtime
      from haz.quake_search_v1 `
 
-	params := getQueryParams(v)
+	params, err := getQueryParams(v)
+	if err != nil {
+		return weft.BadRequest(err.Error())
+	}
 
-	sqlString, err1 := getSqlQueryString(sqlString, params)
+	sqlString, args, err1 := getSqlQueryString(sqlString, params)
 	if err1 != nil {
 		return weft.BadRequest(err1.Error())
 	}
 
-	rows, err := db.Query(sqlString)
+	rows, err := db.Query(sqlString, args...)
 
 	if err != nil {
 		return weft.InternalServerError(err)
@@ -174,8 +195,6 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 
 		t, err := time.Parse(RFC3339_FORMAT, origintime)
 		if err != nil {
-			// TODO don't panic - this will exit the goroutine and no response will be sent to the user.
-			log.Panic("time format error", err)
 			return weft.InternalServerError(err)
 		}
 
@@ -264,8 +283,6 @@ func getQuakesKml(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result 
 
 	}
 
-	rows.Close()
-
 	doc := NewDocument(fmt.Sprintf("%d New Zealand Earthquakes", count), "1",
 		"New Zealand earthquake as located by the GeoNet project.")
 	//1. add style map and style
@@ -313,20 +330,17 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
            originerror, magnitudestationcount, to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS modificationtime,
            ST_AsGML(3,origin_geom) as gml from haz.quake_search_v1 `
 
-	sqlString, err1 := getSqlQueryString(sqlPre, params)
+	sqlString, args, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
 		return weft.BadRequest(err1.Error())
 	}
 
-	rows, err := db.Query(sqlString)
+	rows, err := db.Query(sqlString, args...)
 
 	if err != nil {
 		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
-
-	// var b bytes.Buffer
-	eol := []byte("\n")
 
 	var (
 		boundLower string
@@ -349,7 +363,7 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 
 	t := time.Now()
 
-	b.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
+	b.WriteString(`<?xml version="1.0" encoding="UTF-8"?>
     <wfs:FeatureCollection
        xmlns:wfs="http://www.opengis.net/wfs/2.0"
        xmlns:gml="http://www.opengis.net/gml/3.2"
@@ -364,9 +378,9 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
           <gml:lowerCorner>` + boundLower + `</gml:lowerCorner>
            <gml:upperCorner>` + boundUpper + `</gml:upperCorner>
        </gml:Envelope>
-     </wfs:boundedBy>`))
+     </wfs:boundedBy>`)
 
-	b.Write(eol)
+	b.WriteString("\n")
 
 	for rows.Next() {
 		var ( //note the null values
@@ -403,76 +417,75 @@ func getQuakesGml3(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 		if err != nil {
 			return weft.InternalServerError(err)
 		}
-		b.Write([]byte("<wfs:member>\n"))
-		b.Write([]byte(fmt.Sprintf("<geonet:quake gml:id=\"quake.%s\">\n", publicid)))
+		b.WriteString("<wfs:member>\n")
+		b.WriteString(fmt.Sprintf("<geonet:quake gml:id=\"quake.%s\">\n", publicid))
 		//
-		b.Write([]byte("<gml:boundedBy>\n<gml:Envelope srsDimension=\"2\" srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">\n"))
-		b.Write([]byte(fmt.Sprintf("<gml:lowerCorner>%g %g</gml:lowerCorner>\n", longitude, latitude)))
-		b.Write([]byte(fmt.Sprintf("<gml:upperCorner>%g %g</gml:upperCorner>\n", longitude, latitude)))
-		b.Write([]byte("</gml:Envelope>\n</gml:boundedBy>\n"))
+		b.WriteString("<gml:boundedBy>\n<gml:Envelope srsDimension=\"2\" srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">\n")
+		b.WriteString(fmt.Sprintf("<gml:lowerCorner>%g %g</gml:lowerCorner>\n", longitude, latitude))
+		b.WriteString(fmt.Sprintf("<gml:upperCorner>%g %g</gml:upperCorner>\n", longitude, latitude))
+		b.WriteString("</gml:Envelope>\n</gml:boundedBy>\n")
 
-		b.Write([]byte(fmt.Sprintf("<geonet:publicid>%s</geonet:publicid>\n", publicid)))
-		b.Write([]byte(fmt.Sprintf("<geonet:origintime>%s</geonet:origintime>\n", origintime)))
-		b.Write([]byte(fmt.Sprintf("<geonet:latitude>%g</geonet:latitude>\n", latitude)))
-		b.Write([]byte(fmt.Sprintf("<geonet:longitude>%g</geonet:longitude>\n", longitude)))
+		b.WriteString(fmt.Sprintf("<geonet:publicid>%s</geonet:publicid>\n", publicid))
+		b.WriteString(fmt.Sprintf("<geonet:origintime>%s</geonet:origintime>\n", origintime))
+		b.WriteString(fmt.Sprintf("<geonet:latitude>%g</geonet:latitude>\n", latitude))
+		b.WriteString(fmt.Sprintf("<geonet:longitude>%g</geonet:longitude>\n", longitude))
 		if eventtype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:eventtype>%s</geonet:eventtype>\n", eventtype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:eventtype>%s</geonet:eventtype>\n", eventtype.String))
 		}
 		if modificationtime.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:modificationtime>%s</geonet:modificationtime>\n", modificationtime.String)))
+			b.WriteString(fmt.Sprintf("<geonet:modificationtime>%s</geonet:modificationtime>\n", modificationtime.String))
 		}
 		if depth.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:depth>%g</geonet:depth>\n", depth.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:depth>%g</geonet:depth>\n", depth.Float64))
 		}
 		if depthtype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:depthtype>%s</geonet:depthtype>\n", depthtype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:depthtype>%s</geonet:depthtype>\n", depthtype.String))
 		}
 		if magnitude.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitude>%g</geonet:magnitude>\n", magnitude.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitude>%g</geonet:magnitude>\n", magnitude.Float64))
 		}
 		if magnitudetype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudetype>%s</geonet:magnitudetype>\n", magnitudetype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudetype>%s</geonet:magnitudetype>\n", magnitudetype.String))
 		}
 		if evaluationmethod.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationmethod>%s</geonet:evaluationmethod>\n", evaluationmethod.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationmethod>%s</geonet:evaluationmethod>\n", evaluationmethod.String))
 		}
 		if evaluationstatus.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationstatus>%s</geonet:evaluationstatus>\n", evaluationstatus.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationstatus>%s</geonet:evaluationstatus>\n", evaluationstatus.String))
 		}
 		if evaluationmode.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationmode>%s</geonet:evaluationmode>\n", evaluationmode.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationmode>%s</geonet:evaluationmode>\n", evaluationmode.String))
 		}
 		if earthmodel.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:earthmodel>%s</geonet:earthmodel>\n", earthmodel.String)))
+			b.WriteString(fmt.Sprintf("<geonet:earthmodel>%s</geonet:earthmodel>\n", earthmodel.String))
 		}
 		if usedphasecount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:usedphasecount>%d</geonet:usedphasecount>\n", usedphasecount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:usedphasecount>%d</geonet:usedphasecount>\n", usedphasecount.Int64))
 		}
 		if usedstationcount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:usedstationcount>%d</geonet:usedstationcount>\n", usedstationcount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:usedstationcount>%d</geonet:usedstationcount>\n", usedstationcount.Int64))
 		}
 		if minimumdistance.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:minimumdistance>%g</geonet:minimumdistance>\n", minimumdistance.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:minimumdistance>%g</geonet:minimumdistance>\n", minimumdistance.Float64))
 		}
 		if azimuthalgap.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:azimuthalgap>%g</geonet:azimuthalgap>\n", azimuthalgap.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:azimuthalgap>%g</geonet:azimuthalgap>\n", azimuthalgap.Float64))
 		}
 		if magnitudeuncertainty.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudeuncertainty>%g</geonet:magnitudeuncertainty>\n", magnitudeuncertainty.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudeuncertainty>%g</geonet:magnitudeuncertainty>\n", magnitudeuncertainty.Float64))
 		}
 		if originerror.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:originerror>%g</geonet:originerror>\n", originerror.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:originerror>%g</geonet:originerror>\n", originerror.Float64))
 		}
 		if magnitudestationcount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudestationcount>%d</geonet:magnitudestationcount>\n", magnitudestationcount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudestationcount>%d</geonet:magnitudestationcount>\n", magnitudestationcount.Int64))
 		}
 		//geonet:origin_geom
-		b.Write([]byte(fmt.Sprintf("<geonet:origin_geom>%s</geonet:origin_geom>\n", gml)))
-		b.Write([]byte("</geonet:quake></wfs:member>\n"))
+		b.WriteString(fmt.Sprintf("<geonet:origin_geom>%s</geonet:origin_geom>\n", gml))
+		b.WriteString("</geonet:quake></wfs:member>\n")
 	}
 
-	rows.Close()
-	b.Write([]byte(`</wfs:FeatureCollection>`))
+	b.WriteString(`</wfs:FeatureCollection>`)
 
 	// send result response
 	h.Set("Content-Type", CONTENT_TYPE_XML)
@@ -486,12 +499,12 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
            originerror, magnitudestationcount, to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS modificationtime,
            ST_AsGML(origin_geom) as gml from haz.quake_search_v1 `
 
-	sqlString, err1 := getSqlQueryString(sqlPre, params)
+	sqlString, args, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
 		return weft.BadRequest(err1.Error())
 	}
 
-	rows, err := db.Query(sqlString)
+	rows, err := db.Query(sqlString, args...)
 
 	if err != nil {
 		return weft.InternalServerError(err)
@@ -505,7 +518,7 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 	if bbox1 == "" {
 		bbox1 = GML_BBOX_NZ
 	}
-	b.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
+	b.WriteString(`<?xml version="1.0" encoding="UTF-8"?>
     <wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs"
      xmlns:gml="http://www.opengis.net/gml"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -515,7 +528,7 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
        <gml:Box srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
           <gml:coordinates decimal="." cs="," ts=" ">` + bbox1 + `</gml:coordinates>
        </gml:Box>
-     </gml:boundedBy>`))
+     </gml:boundedBy>`)
 	b.Write(eol)
 
 	for rows.Next() {
@@ -553,75 +566,74 @@ func getQuakesGml2(r *http.Request, h http.Header, b *bytes.Buffer, params *Quer
 		if err != nil {
 			return weft.InternalServerError(err)
 		}
-		b.Write([]byte("<gml:featureMember>\n"))
-		b.Write([]byte(fmt.Sprintf("<geonet:quake fid=\"quake.%s\">\n", publicid)))
+		b.WriteString("<gml:featureMember>\n")
+		b.WriteString(fmt.Sprintf("<geonet:quake fid=\"quake.%s\">\n", publicid))
 		//
-		b.Write([]byte("<gml:boundedBy>\n<gml:Box srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">\n"))
-		b.Write([]byte(fmt.Sprintf("<gml:coordinates decimal=\".\" cs=\",\" ts=\" \">%g,%g %g,%g</gml:coordinates>\n", longitude, latitude, longitude, latitude)))
-		b.Write([]byte("</gml:Box>\n</gml:boundedBy>\n"))
+		b.WriteString("<gml:boundedBy>\n<gml:Box srsName=\"http://www.opengis.net/gml/srs/epsg.xml#4326\">\n")
+		b.WriteString(fmt.Sprintf("<gml:coordinates decimal=\".\" cs=\",\" ts=\" \">%g,%g %g,%g</gml:coordinates>\n", longitude, latitude, longitude, latitude))
+		b.WriteString("</gml:Box>\n</gml:boundedBy>\n")
 
-		b.Write([]byte(fmt.Sprintf("<geonet:publicid>%s</geonet:publicid>\n", publicid)))
-		b.Write([]byte(fmt.Sprintf("<geonet:origintime>%s</geonet:origintime>\n", origintime)))
-		b.Write([]byte(fmt.Sprintf("<geonet:latitude>%g</geonet:latitude>\n", latitude)))
-		b.Write([]byte(fmt.Sprintf("<geonet:longitude>%g</geonet:longitude>\n", longitude)))
+		b.WriteString(fmt.Sprintf("<geonet:publicid>%s</geonet:publicid>\n", publicid))
+		b.WriteString(fmt.Sprintf("<geonet:origintime>%s</geonet:origintime>\n", origintime))
+		b.WriteString(fmt.Sprintf("<geonet:latitude>%g</geonet:latitude>\n", latitude))
+		b.WriteString(fmt.Sprintf("<geonet:longitude>%g</geonet:longitude>\n", longitude))
 		if eventtype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:eventtype>%s</geonet:eventtype>\n", eventtype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:eventtype>%s</geonet:eventtype>\n", eventtype.String))
 		}
 		if modificationtime.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:modificationtime>%s</geonet:modificationtime>\n", modificationtime.String)))
+			b.WriteString(fmt.Sprintf("<geonet:modificationtime>%s</geonet:modificationtime>\n", modificationtime.String))
 		}
 		if depth.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:depth>%g</geonet:depth>\n", depth.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:depth>%g</geonet:depth>\n", depth.Float64))
 		}
 		if depthtype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:depthtype>%s</geonet:depthtype>\n", depthtype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:depthtype>%s</geonet:depthtype>\n", depthtype.String))
 		}
 		if magnitude.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitude>%g</geonet:magnitude>\n", magnitude.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitude>%g</geonet:magnitude>\n", magnitude.Float64))
 		}
 		if magnitudetype.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudetype>%s</geonet:magnitudetype>\n", magnitudetype.String)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudetype>%s</geonet:magnitudetype>\n", magnitudetype.String))
 		}
 		if evaluationmethod.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationmethod>%s</geonet:evaluationmethod>\n", evaluationmethod.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationmethod>%s</geonet:evaluationmethod>\n", evaluationmethod.String))
 		}
 		if evaluationstatus.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationstatus>%s</geonet:evaluationstatus>\n", evaluationstatus.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationstatus>%s</geonet:evaluationstatus>\n", evaluationstatus.String))
 		}
 		if evaluationmode.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:evaluationmode>%s</geonet:evaluationmode>\n", evaluationmode.String)))
+			b.WriteString(fmt.Sprintf("<geonet:evaluationmode>%s</geonet:evaluationmode>\n", evaluationmode.String))
 		}
 		if earthmodel.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:earthmodel>%s</geonet:earthmodel>\n", earthmodel.String)))
+			b.WriteString(fmt.Sprintf("<geonet:earthmodel>%s</geonet:earthmodel>\n", earthmodel.String))
 		}
 		if usedphasecount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:usedphasecount>%d</geonet:usedphasecount>\n", usedphasecount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:usedphasecount>%d</geonet:usedphasecount>\n", usedphasecount.Int64))
 		}
 		if usedstationcount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:usedstationcount>%d</geonet:usedstationcount>\n", usedstationcount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:usedstationcount>%d</geonet:usedstationcount>\n", usedstationcount.Int64))
 		}
 		if minimumdistance.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:minimumdistance>%g</geonet:minimumdistance>\n", minimumdistance.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:minimumdistance>%g</geonet:minimumdistance>\n", minimumdistance.Float64))
 		}
 		if azimuthalgap.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:azimuthalgap>%g</geonet:azimuthalgap>\n", azimuthalgap.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:azimuthalgap>%g</geonet:azimuthalgap>\n", azimuthalgap.Float64))
 		}
 		if magnitudeuncertainty.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudeuncertainty>%g</geonet:magnitudeuncertainty>\n", magnitudeuncertainty.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudeuncertainty>%g</geonet:magnitudeuncertainty>\n", magnitudeuncertainty.Float64))
 		}
 		if originerror.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:originerror>%g</geonet:originerror>\n", originerror.Float64)))
+			b.WriteString(fmt.Sprintf("<geonet:originerror>%g</geonet:originerror>\n", originerror.Float64))
 		}
 		if magnitudestationcount.Valid {
-			b.Write([]byte(fmt.Sprintf("<geonet:magnitudestationcount>%d</geonet:magnitudestationcount>\n", magnitudestationcount.Int64)))
+			b.WriteString(fmt.Sprintf("<geonet:magnitudestationcount>%d</geonet:magnitudestationcount>\n", magnitudestationcount.Int64))
 		}
 		//geonet:origin_geom
-		b.Write([]byte(fmt.Sprintf("<geonet:origin_geom>%s</geonet:origin_geom>\n", gml)))
-		b.Write([]byte("</geonet:quake></gml:featureMember>\n"))
+		b.WriteString(fmt.Sprintf("<geonet:origin_geom>%s</geonet:origin_geom>\n", gml))
+		b.WriteString("</geonet:quake></gml:featureMember>\n")
 	}
 
-	rows.Close()
-	b.Write([]byte(`</wfs:FeatureCollection>`))
+	b.WriteString(`</wfs:FeatureCollection>`)
 
 	// send result response
 	h.Set("Content-Type", CONTENT_TYPE_XML)
@@ -637,38 +649,34 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
                usedstationcount,magnitudestationcount, minimumdistance,
                azimuthalgap,originerror,magnitudeuncertainty) as csv from haz.quake_search_v1`
 
-	sqlString, err1 := getSqlQueryString(sqlPre, params)
+	sqlString, args, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
 		return weft.BadRequest(err1.Error())
 	}
 
-	rows, err := db.Query(sqlString)
+	rows, err := db.Query(sqlString, args...)
 
 	if err != nil {
 		return weft.InternalServerError(err)
 	}
 	defer rows.Close()
-	defer rows.Close()
 
 	var (
-		// b bytes.Buffer
 		d string
 	)
-	eol := []byte("\n")
 
-	b.Write([]byte("publicid,eventtype,origintime,modificationtime,longitude, latitude, magnitude, depth,magnitudetype,depthtype," +
+	b.WriteString("publicid,eventtype,origintime,modificationtime,longitude, latitude, magnitude, depth,magnitudetype,depthtype," +
 		"evaluationmethod,evaluationstatus,evaluationmode,earthmodel,usedphasecount,usedstationcount,magnitudestationcount,minimumdistance," +
-		"azimuthalgap,originerror,magnitudeuncertainty"))
-	b.Write(eol)
+		"azimuthalgap,originerror,magnitudeuncertainty")
+	b.WriteString("\n")
 	for rows.Next() {
 		err := rows.Scan(&d)
 		if err != nil {
 			return weft.InternalServerError(err)
 		}
-		b.Write([]byte(d))
-		b.Write(eol)
+		b.WriteString(d)
+		b.WriteString("\n")
 	}
-	rows.Close()
 
 	// send result response
 	h.Set("Content-Disposition", `attachment; filename="earthquakes.csv"`)
@@ -685,12 +693,12 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
               originerror, magnitudestationcount, to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') AS modificationtime,
               ST_AsGeoJSON(origin_geom) as geojson from haz.quake_search_v1`
 
-	sqlString, err1 := getSqlQueryString(sqlPre, params)
+	sqlString, args, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
 		return weft.BadRequest(err1.Error())
 	}
 
-	rows, err := db.Query(sqlString)
+	rows, err := db.Query(sqlString, args...)
 
 	if err != nil {
 		return weft.InternalServerError(err)
@@ -800,7 +808,6 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 		quakeFeature.Properties = quakeProp
 		allFeatures = append(allFeatures, quakeFeature)
 	}
-	rows.Close()
 
 	outputJson := GeoJsonFeatureCollection{
 		Type:     "FeatureCollection",
@@ -820,43 +827,78 @@ func getQuakesGeoJson(r *http.Request, h http.Header, b *bytes.Buffer, params *Q
 	return &weft.StatusOK
 }
 
-func getQueryParams(v url.Values) *QueryParams {
-	return &QueryParams{
+func getQueryParams(v url.Values) (*QueryParams, error) {
+	qp := &QueryParams{
 		outputFormat: strings.ToUpper(v.Get("outputFormat")),
-		maxFeatures:  parseIntVal(v.Get("maxFeatures")),
 		cqlFilter:    v.Get("cql_filter"),
 		subType:      strings.ToUpper(v.Get("subtype")),
 	}
+
+	if max, err := parseIntVal(v.Get("maxFeatures")); err != nil {
+		return qp, errors.New("Invalid maxFeatures " + v.Get("maxFeatures"))
+	} else {
+		qp.maxFeatures = max
+	}
+	return qp, nil
+
 }
 
-func parseIntVal(valstring string) int {
+func parseIntVal(valstring string) (int, error) {
 	if valstring != "" {
-		if val, err := strconv.Atoi(valstring); err == nil {
-			return val
-		}
+		return strconv.Atoi(valstring)
 	}
-	return empty_param_value
+	return empty_param_value, nil
+}
+
+//check database field type
+func checkDatabaseFieldType(fieldName string) int {
+	if mapContains(WFS_DB_FIELDS_MAP_TIME, fieldName) {
+		return WFS_DB_FIELD_TYPE_TIME
+	} else if mapContains(WFS_DB_FIELDS_MAP_NUMBER, fieldName) {
+		return WFS_DB_FIELD_TYPE_NUMBER
+	} else if mapContains(WFS_DB_FIELDS_MAP_STRING, fieldName) {
+		return WFS_DB_FIELD_TYPE_STRING
+	} else {
+		return WFS_DB_FIELD_TYPE_UNKNOWN
+	}
+}
+
+//check a map contains a key
+func mapContains(mapSet map[string]struct{}, key string) bool {
+	_, ok := mapSet[key]
+	return ok
+}
+
+//fill a map with a slice as key
+func sliceToMap(slice []string, mapSet map[string]struct{}) {
+	for _, s := range slice {
+		mapSet[s] = struct{}{}
+	}
 }
 
 /* generate sql query string based on query parameters from url*/
-func getSqlQueryString(sqlPre string, params *QueryParams) (string, error) {
+func getSqlQueryString(sqlPre string, params *QueryParams) (string, []interface{}, error) {
 	sql := sqlPre
+	var args []interface{}
 	if params.cqlFilter != "" {
 		cql := NewCqlConverter(params.cqlFilter)
-		cql2Sql, err := cql.ToSQL()
+		cql2Sql, args1, err := cql.ToSQL()
 		params.bbox = cql.BBOX
 		if err == nil {
 			sql += fmt.Sprintf(" WHERE %s", cql2Sql)
-		} else {
-			return "", err
+			args = args1
+		} else { //return error
+			return "", args, err
 		}
+	} else {
+		args = []interface{}{}
 	}
 
 	if params.maxFeatures != empty_param_value {
 		sql += fmt.Sprintf(" limit %d", params.maxFeatures)
 	}
-	log.Println("##sql", sql)
-	return sql, nil
+
+	return sql, args, nil
 
 }
 

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"github.com/GeoNet/weft"
 	"html/template"
@@ -13,7 +12,6 @@ var (
 	serveMux  *http.ServeMux
 )
 
-// TODO - there is no accept versioning which is ok.  May need the comments deleting from the docs?
 func init() {
 	indexTemp = template.Must(template.ParseFiles("assets/tmpl/index.html"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
@@ -39,9 +37,7 @@ func indexPage(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 		return weft.BadRequest("invalid path")
 	}
 
-	// TODO b is already a writer, this call isn't needed.  Just execute the template straight into b
-	w := bufio.NewWriter(b)
-	err := indexTemp.Execute(w, nil)
+	err := indexTemp.Execute(b, nil)
 
 	if err != nil {
 		return weft.InternalServerError(err)
