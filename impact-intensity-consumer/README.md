@@ -25,7 +25,7 @@ The number of concurrent SQS listeners can be can be controlled with the config 
 
 ### Monitoring
 
-Metrics are sent to Librato Metrics.
+Metrics are sent to mtr and logs sent to Logentries.
 
 ### Logging
 

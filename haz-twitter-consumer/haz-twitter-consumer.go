@@ -6,13 +6,11 @@ import (
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/haz/twitter"
-	"github.com/GeoNet/log/logentries"
 	"log"
 	"os"
 	"strconv"
 )
 
-//go:generate configer haz-twitter-consumer.json
 var (
 	idp       = msg.IdpQuake{}
 	ttr       twitter.Twitter
@@ -20,8 +18,6 @@ var (
 )
 
 func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600
 	sqs.WaitTimeSeconds = 20
