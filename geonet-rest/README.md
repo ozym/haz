@@ -80,7 +80,7 @@ There are state of health pages available for montoring with web probes:
 
 ### Logging and Metrics
 
-Can be sent to Logentries and Librato Metrics respectively by setting the appropriate credentials in the config.
+Can be sent to Logentries and mtr respectively by setting the appropriate credentials in the config.
 
 Fatal application errors, 4xx and 5xx requests are syslogged.
 

@@ -6,22 +6,17 @@ import (
 	"github.com/GeoNet/haz/database"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
-	"github.com/GeoNet/log/logentries"
 	_ "github.com/lib/pq"
 	"log"
-	"os"
 	"time"
 )
 
-//go:generate configer haz-felt-consumer.json
 var (
 	db    database.DB
 	retry = time.Duration(30) * time.Second
 )
 
 func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600
 	sqs.WaitTimeSeconds = 20

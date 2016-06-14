@@ -6,20 +6,15 @@ import (
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
 	"github.com/GeoNet/haz/ua"
-	"github.com/GeoNet/log/logentries"
 	"log"
-	"os"
 )
 
-//go:generate configer haz-ua-consumer.json
 var (
 	idp = msg.IdpQuake{}
 	uac *ua.Client
 )
 
 func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 	uac = ua.Init()
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600

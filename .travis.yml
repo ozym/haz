@@ -1,6 +1,20 @@
+sudo: required
+
 language: go
 go:
 - 1.6.1
+services:
+  - docker
+
+before_deploy:
+  - docker login --email="." --username="geonet+dockerbuild" --password="$docker_password" quay.io
+
+# trying to fix postgis bug which comes on the travis infrastructure that has sudo.
+before_install:
+ - export DEBIAN_FRONTEND=noninteractive;
+   sudo -E apt-get -yq update &>> ~/apt-get-update.log;
+   sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install postgresql-9.4-postgis-2.2
+
 install: true
 addons:
   postgresql: '9.4'
@@ -8,10 +22,7 @@ before_script:
 - psql -U postgres -c "create extension postgis"
 - ./database/scripts/initdb-93.sh
 script: 
-- export $(cat geonet-rest/env.list | grep = | xargs) && go test ./geonet-rest  -v
-- export $(cat msg/env.list | grep = | xargs) && go test ./msg  -v
-- export $(cat quakesearch/env.list | grep = | xargs) && go test ./quakesearch -v
-- export $(cat wfs/env.list | grep = | xargs) && go test ./wfs  -v
+- ./all.sh
 
 notifications:
   hipchat:
@@ -20,4 +31,14 @@ notifications:
     notify: true
     on_success: always
     on_failure: always
-    
+
+deploy:
+   - provider: script
+     skip_cleanup: true
+     script: ./build-push.sh haz-twitter-consumer haz-duty-consumer haz-ua-consumer haz-pim-consumer haz-eqnews-consumer haz-db-consumer haz-felt-consumer impact-intensity-consumer geonet-rest
+     on: 
+       branch: master 
+ 
+env:
+    global:
+         - secure: lzlbM60dyckStCeFSmwrK/C80Tx0u6HyROjqzNCHFzidJk9qEDBlK6H1qEav3xMgjCIbxnZgJp+3u1cyH7KzI2+mDqf83GI+uVobMX0dD9qcG7HAYbR8DVG1ZwoCIW8aUYVs2cA0Qq0SUwvVaBntOljT6ZeBg91JVhmLZN7SeTZMRmSY/+XjLJ5RMn9frhsxNUyfPYhZa1NSAEMncUx9EtoK0PRf/+b3ldYROBEMYw7t1X9hE7s5vV2RMAJJentWZbRtcvRxB/TeYaQH1a1/jdrZrJ84CJhqToaZbNXdTZoVWY0u/d0+ANNPrW7oY9t8X6kXS8Q4luly/LDpaaRx1pv3m3P1FrTXUZ9sRhw0Y++gc+PkBSFeysK9R4Qm1e7KD4SMYbcjDFNoJ6buv7FwgdwRgTQefWs62nVpGJThVBJr53qnOFzrXhgvZ9F9U7SeD2RoCOEW5KjMC8yzk06kQs14BY96WPpbK+o1j2JqexBstTeXy2uhA/SzEfTg6yuuX9bg0S00JpUvZnhTFweK0kg0vUjqG2LjEL0OQ7AQmL7hRId7Vpi9A3rpyYw9fzGu3sO82tsOq5ZDKwFnxX4yPcofyDmYuPoXeeLTqqSi+K5t+5Thkr/xMA1/bAVZPRH+5V2K/DDXN65zGqBqzsyU8Vt5gUdQwfBMQvq5ukbYD/k=

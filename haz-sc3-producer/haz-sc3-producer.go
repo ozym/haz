@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sns"
-	"github.com/GeoNet/log/logentries"
 	"io/ioutil"
 	"log"
 	"os"
@@ -18,18 +17,12 @@ import (
 	"time"
 )
 
-//go:generate configer haz-sc3-producer.json
 var (
 	sn          sns.SNS
 	sc3SpoolDir = os.Getenv("SC3_SPOOL_DIR")
 	sc3Site     = os.Getenv("SC3_SITE")
 	heartBeatId = os.Getenv("HEARTBEAT_SERVICE_ID")
 )
-
-func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
-}
 
 // main kicks off SeisComPML processing and HeartBeat generation.
 func main() {

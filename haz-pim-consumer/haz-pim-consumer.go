@@ -4,20 +4,15 @@ import (
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/pagerduty"
 	"github.com/GeoNet/haz/sqs"
-	"github.com/GeoNet/log/logentries"
 	"log"
-	"os"
 )
 
-//go:generate configer haz-pim-consumer.json
 var (
 	idp = msg.IdpQuake{}
 	pd  *pagerduty.Client
 )
 
 func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 	pd = pagerduty.Init()
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600

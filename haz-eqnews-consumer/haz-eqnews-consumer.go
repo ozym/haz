@@ -3,13 +3,11 @@ package main
 import (
 	"github.com/GeoNet/haz/msg"
 	"github.com/GeoNet/haz/sqs"
-	"github.com/GeoNet/log/logentries"
 	"log"
 	"net/smtp"
 	"os"
 )
 
-//go:generate configer haz-eqnews-consumer.json
 var (
 	idp      = msg.IdpQuake{}
 	mailHost string
@@ -19,8 +17,6 @@ var (
 )
 
 func init() {
-	logentries.Init(os.Getenv("LOGENTRIES_TOKEN"))
-	msg.InitLibrato(os.Getenv("LIBRATO_USER"), os.Getenv("LIBRATO_KEY"), os.Getenv("LIBRATO_SOURCE"))
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600
 	sqs.WaitTimeSeconds = 20
