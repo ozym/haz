@@ -96,7 +96,6 @@ func receive(qUrl string, svc *sqs.SQS, rx chan msg.Raw) {
 					Body:          *raw.Body,
 					ReceiptHandle: *raw.ReceiptHandle,
 				}
-				log.Println(m)
 				rx <- m
 			}
 		}
