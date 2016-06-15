@@ -35,18 +35,16 @@
 			"revisionTime": "2015-03-30T17:44:51+13:00"
 		},
 		{
-			"checksumSHA1": "ymAEv1HWJtH1J4dUTebqbCPEst0=",
-			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/internal",
+			"checksumSHA1": "FcAtIa3dCgJBin+SrFiTOEU/bsA=",
 			"path": "github.com/GeoNet/mtr/internal",
-			"revision": "c2b801933841316d54a6751a19f804e9f541dfab",
-			"revisionTime": "2016-05-02T03:54:05Z"
+			"revision": "4fb102694b06f2cf1a264ee8a605fea046155c7e",
+			"revisionTime": "2016-06-12T23:08:40Z"
 		},
 		{
-			"checksumSHA1": "6XSbACIZ5QU8NHzXhvmazb4NAJE=",
-			"origin": "github.com/GeoNet/haz/vendor/github.com/GeoNet/mtr/mtrapp",
+			"checksumSHA1": "oyzYMUNOEaxnse/GPkadnPeMjTM=",
 			"path": "github.com/GeoNet/mtr/mtrapp",
-			"revision": "c2b801933841316d54a6751a19f804e9f541dfab",
-			"revisionTime": "2016-05-02T03:54:05Z"
+			"revision": "4fb102694b06f2cf1a264ee8a605fea046155c7e",
+			"revisionTime": "2016-06-12T23:08:40Z"
 		},
 		{
 			"path": "github.com/GeoNet/web",

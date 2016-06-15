@@ -31,6 +31,16 @@ const (
 	MsgTx   ID = 1202
 	MsgProc ID = 1203
 	MsgErr  ID = 1204
+
+	// Timer
+	AvgMean   ID = 2001
+	MaxFifty  ID = 2002
+	MaxNinety ID = 2003
+
+	// Data latency
+	Mean   ID = 3001
+	Fifty  ID = 3002
+	Ninety ID = 3003
 )
 
 var idColours = map[int]string{
@@ -53,9 +63,17 @@ var idColours = map[int]string{
 	1202: "#984ea3",
 	1203: "deepskyblue",
 	1204: "#e41a1c",
+
+	2001: "#ff0000",
+	2002: "#00ff00",
+	2003: "#0000ff",
+
+	3001: "deepskyblue",
+	3002: "deeppink",
+	3003: "limegreen",
 }
 
-var idLables = map[int]string{
+var idLabels = map[int]string{
 	1:   "Requests",
 	200: "200 OK",
 	400: "400 Bad Request",
@@ -75,6 +93,14 @@ var idLables = map[int]string{
 	1202: "Msg Tx",
 	1203: "Msg Processed",
 	1204: "Msg Error",
+
+	2001: "Avg Mean",
+	2002: "Max Fifty",
+	2003: "Max Ninety",
+
+	3001: "Mean",
+	3002: "Fifty",
+	3003: "Ninety",
 }
 
 func Colour(id int) string {
@@ -85,8 +111,8 @@ func Colour(id int) string {
 	return "yellow"
 }
 
-func Lable(id int) string {
-	if s, ok := idLables[id]; ok {
+func Label(id int) string {
+	if s, ok := idLabels[id]; ok {
 		return s
 	}
 
