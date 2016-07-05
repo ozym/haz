@@ -216,3 +216,48 @@ func (db *DB) SaveHeartBeat(h msg.HeartBeat) error {
 
 	return txn.Commit()
 }
+
+// SaveHeartBeatQRT saves heartbeat messages into the QRT schema.  This is used by
+// the origin web servers.  This func can be removed once the web site is
+// using the API.
+func (db *DB) SaveHeartBeatQRT(h msg.HeartBeat) error {
+	txn, err := db.Begin()
+	if err != nil {
+		return err
+	}
+
+	_, err = txn.Exec(`DELETE FROM qrt.soh WHERE serverID = $1`, h.ServiceID)
+	if err != nil {
+		txn.Rollback()
+		return err
+	}
+
+	_, err = txn.Exec(`INSERT INTO qrt.soh(serverID, timeReceived) VALUES($1,$2)`, h.ServiceID, h.SentTime)
+	if err != nil {
+		txn.Rollback()
+		return err
+	}
+
+	return txn.Commit()
+}
+
+// SaveHeartBeatQRT saves quake messages into the QRT schema.  This is used by
+// the origin web servers.  This func can be removed once the web site is
+// using the API.
+func (db *DB) SaveQuakeQRT(q msg.Quake) error {
+	_,err := db.Exec(`SELECT qrt.add_event($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+	q.PublicID, q.AgencyID, q.Latitude, q.Longitude, q.Time, q.ModificationTime, q.Depth,
+	q.UsedPhaseCount, q.Magnitude, q.MagnitudeType, q.MagnitudeStationCount, q.Status(), q.Type)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec(`INSERT INTO qrt.eventhistory(publicid, latitude, longitude, origintime,
+	updatetime, depth, usedPhaseCount, magnitude, magnitudetype, magnitudeStationCount, status, type)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+	q.PublicID, q.Latitude, q.Longitude, q.Time, q.ModificationTime, q.Depth, q.UsedPhaseCount, q.Magnitude,
+	q.MagnitudeType, q.MagnitudeStationCount, q.Status(), q.Type)
+
+	return err
+}
+

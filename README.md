@@ -20,7 +20,7 @@ This could possibly include reseting GOPATH if you need to keep origin and a for
 
 #### Producers
 
-* haz-sc3-producer - produces haz messges from SeisComPML.  Need sfile system access in the container.  See Container Testing below.
+* haz-sc3-producer - produces haz messges from SeisComPML.  Need file system access in the container.  See Container Testing below.
 
 #### Consumers
 
@@ -54,7 +54,19 @@ Quake data can be back loaded from SeisComPML.  Download SeisComPML from the S3 
 ```
 aws s3 sync s3://seiscompml07 /work/seismcompml07 --exclude "*"  --include "2015p*"
 cd haz-db-loader
-godep go run haz-db-loader.go
+go run haz-db-loader.go
+```
+
+### Loading Quake Data - Origin Web Servers
+
+Init the database with the qrt schema from the `geonet` project.
+
+Quake data can be back loaded from SeisComPML.  Download SeisComPML from the S3 bucket and then load it to the DB using `haz-db-loader`:
+
+```
+aws s3 sync s3://seiscompml07 /work/seismcompml07 --exclude "*"  --include "2015p*"
+cd haz-db-origin-loader
+go run haz-db-origin-loader.go
 ```
 
 ## Tests
@@ -68,7 +80,7 @@ As well as a running database a small amount of impact test data must be added:
 Then run all tests
 
 ```
-godep go test ./...
+./all.sh
 ```
 
 ## Docker Builds
