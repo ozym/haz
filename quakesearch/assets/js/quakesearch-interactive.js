@@ -1045,10 +1045,10 @@ function initMap(dataUrl) {
     aerialTopo.maxxxxZommm = 14;
     //map switcher
     var baseLayers = {
-        "Aerial / Topo" : aerialTopo,
-        "Map" : osmMap
+        "Map": osmMap,
+        "Aerial / Topo": aerialTopo
     };
-    quakesMapApp.map.addLayer(aerialTopo);
+    quakesMapApp.map.addLayer(osmMap);
     //add layer switch
     quakesMapApp.layerControl = L.control.layers(baseLayers);
     // force refresh ovverlays on ie
