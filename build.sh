@@ -56,6 +56,8 @@ do
 		mkdir $DOCKER_TMP/assets
 		rsync --archive --quiet --ignore-missing-args  ${i}/assets docker-build-tmp/
 
+        # Add a default Dockerfile
+
 		rm -f $DOCKER_TMP/Dockerfile
 
 		echo "FROM scratch" > docker-build-tmp/Dockerfile
@@ -63,6 +65,10 @@ do
 		echo "USER nobody" >> docker-build-tmp/Dockerfile
 		echo "EXPOSE 8080" >> docker-build-tmp/Dockerfile
 		echo "CMD [\"/${i}\"]" >> docker-build-tmp/Dockerfile
+
+        # If a project specifies a Dockerfile then copy it over the top of the default file.
+
+        rsync --ignore-missing-args ${i}/Dockerfile docker-build-tmp/
 
 		docker build -t quay.io/geonet/${i}:$VERSION -f docker-build-tmp/Dockerfile docker-build-tmp
 

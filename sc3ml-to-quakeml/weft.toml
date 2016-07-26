@@ -1,0 +1,50 @@
+title = "QuakeML API"
+repo = "https://github.com/GeoNet/haz"
+
+[query.publicID]
+description = "the event public identifier."
+type = "string"
+
+[[endpoint]]
+uri = "/quakeml/1.2/"
+title = "QuakeML 1.2"
+description = "version 1.2 QuakeML."
+
+[[endpoint.request]]
+method = "GET"
+function = "quakeml12"
+accept = "text/xml"
+parameter = "publicID"
+default = true
+
+[[endpoint]]
+uri = "/quakeml-rt/1.2/"
+title = "QuakeML 1.2 RT"
+description = "version 1.2 Real Time QuakeML."
+
+[[endpoint.request]]
+method = "GET"
+function = "quakeml12RT"
+accept = "text/xml"
+parameter = "publicID"
+default = true
+
+[[endpoint]]
+uri = "/csv/1.0.0/"
+title = "CSV"
+description = "simple CSV output."
+
+[[endpoint.request]]
+method = "GET"
+function = "csv"
+accept = "text/csv"
+parameter = "publicID"
+default = true
+
+discussion = """<p>The following requests can be made:</>
+<dl>
+<dt>/csv/1.0.0/(publicID)/event</dt><dd>event information</dd>
+<dt>/csv/1.0.0/(publicID)/picks</dt><dd>all picks</dd>
+<dt>/csv/1.0.0/(publicID)/event/picks</dt><dd>associated picks</dd>
+</dl>
+"""

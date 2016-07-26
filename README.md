@@ -29,6 +29,7 @@ Subprojects `*-consumer` consume `msg.Haz` or `msg.Impact` messages from SQS and
 ### Web Applications
 
 * geonet-rest - the server for api.geonet.org.nz
+* sc3ml-to-quakeml - web services to return QuakeML from SeisComPML.
 
 ### Support Applications
 
@@ -74,7 +75,7 @@ go run haz-db-origin-loader.go
 As well as a running database a small amount of impact test data must be added:
 
 ```
-./geonet-rest/scripts/initdb-93.sh
+./database/scripts/initdb-93.sh
 ```
 
 Then run all tests
