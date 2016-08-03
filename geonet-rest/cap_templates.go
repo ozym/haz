@@ -43,7 +43,7 @@ const (
 )
 
 var (
-	capTemplates = template.Must(template.New("").Funcs(funcMap).ParseGlob("tmpl/cap*.tmpl"))
+	capTemplates = template.Must(template.New("").Funcs(funcMap).ParseGlob("assets/tmpl/cap*.tmpl"))
 	nz           *time.Location
 	expire       = time.Duration(48) * time.Hour
 )

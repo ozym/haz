@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
+	"github.com/GeoNet/weft"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
 	"net/http"
-	"github.com/GeoNet/weft"
 )
 
 var renderer blackfriday.Renderer
@@ -22,7 +22,7 @@ func init() {
 	extensions |= blackfriday.EXTENSION_DEFINITION_LISTS
 	extensions |= blackfriday.EXTENSION_HEADER_IDS
 
-	input, _ := ioutil.ReadFile("docs/index.md")
+	input, _ := ioutil.ReadFile("assets/docs/index.md")
 
 	var b bytes.Buffer
 	b.WriteString(h)
