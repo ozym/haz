@@ -270,7 +270,7 @@ func (cql *CqlConverter) ToBBoxSql(sql *bytes.Buffer, args []interface{}) ([]int
 		}
 		bbox := fmt.Sprintf("%s %s,%s %s", tokens[1], tokens[2], tokens[3], tokens[4])
 		args = append(args, fmt.Sprintf("LINESTRING(%s)", bbox))
-		sql.WriteString(fmt.Sprintf(" ST_Contains(ST_SetSRID(ST_Envelope($%d::geometry),4326),%s)", len(args), tokens[0]))
+		sql.WriteString(fmt.Sprintf(" ST_Contains(ST_SetSRID(ST_Envelope($%d::geometry),4326),ST_Shift_Longitude(%s))", len(args), tokens[0]))
 		//keep the bbox string for later user
 		cql.BBOX = tokens[1] + "," + tokens[2] + "," + tokens[3] + "," + tokens[4]
 	} else {

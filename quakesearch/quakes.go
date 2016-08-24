@@ -883,13 +883,13 @@ func getSqlQuery(sqlPre string, params *QueryParams) (string, []interface{}) {
 	if params.region != "" {
 		sql += getSqlAndOrWhere(count > 0)
 		count++
-		sql += fmt.Sprintf(" ST_Contains(ST_Shift_Longitude((select geom from haz.quakeregion where regionname = $%d)::geometry), origin_geom)  ", count)
+		sql += fmt.Sprintf(" ST_Contains(((select geom from haz.quakeregion where regionname = $%d)::geometry), ST_Shift_Longitude(origin_geom))  ", count)
 		args = append(args, params.region)
 	} else {
 		if params.bbox != "" {
 			sql += getSqlAndOrWhere(count > 0)
 			count++
-			sql += fmt.Sprintf(" ST_Contains(ST_SetSRID(ST_Envelope($%d::geometry),4326), origin_geom)", count)
+			sql += fmt.Sprintf(" ST_Contains(ST_SetSRID(ST_Envelope($%d::geometry),4326), ST_Shift_Longitude(origin_geom))", count)
 			args = append(args, fmt.Sprintf("LINESTRING(%s)", params.bbox))
 		}
 	}

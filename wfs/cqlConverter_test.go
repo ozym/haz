@@ -22,7 +22,7 @@ func TestGetParenthesisedTokens(t *testing.T) {
 
 func TestToBBoxSql(t *testing.T) {
 	cqlString := `BBOX(origin_geom, 174,-41,175, -42)`
-	expected := `ST_Contains(ST_SetSRID(ST_Envelope($1::geometry),4326),origin_geom)`
+	expected := `ST_Contains(ST_SetSRID(ST_Envelope($1::geometry),4326),ST_Shift_Longitude(origin_geom))`
 	expectedArg := "'LINESTRING(174 -41,175 -42)'"
 	var sql bytes.Buffer
 	cql := NewCqlConverter(cqlString)
