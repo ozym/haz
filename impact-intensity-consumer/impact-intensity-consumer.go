@@ -10,11 +10,13 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"time"
+	"sync"
+	"math"
 )
 
 var (
-	db             database.DB
-	retry          = time.Duration(30) * time.Second
+	db database.DB
+	retry = time.Duration(30) * time.Second
 	expireInterval = time.Duration(10) * time.Second
 )
 
@@ -22,10 +24,39 @@ type message struct {
 	msg.Intensity
 }
 
+// reportedLimiter is used to limit the rate at which each source
+// can send reports.
+var reportedLimiter = struct {
+	sync.RWMutex
+	seen map[string]time.Time
+}{seen: make(map[string]time.Time)}
+
 func init() {
 	sqs.MaxNumberOfMessages = 1
 	sqs.VisibilityTimeout = 600
 	sqs.WaitTimeSeconds = 20
+
+	// once per minute remove any seen sources from more than 1 hour ago.
+	go func() {
+		ticker := time.NewTicker(time.Minute).C
+
+		for {
+			select {
+			case <-ticker:
+				reportedLimiter.Lock()
+
+				now := time.Now().UTC().Add(time.Hour * -1)
+
+				for k, t := range reportedLimiter.seen {
+					if t.Before(now) {
+						delete(reportedLimiter.seen, k)
+					}
+				}
+
+				reportedLimiter.Unlock()
+			}
+		}
+	}()
 }
 
 // main sets up the DB connection and then runs listen to process intensity messages from SQS.
@@ -89,6 +120,7 @@ func (m *message) Process() bool {
 	case "measured":
 		m.saveMeasured()
 	case "reported":
+		m.seenReported()
 		m.saveReported()
 	default:
 		m.SetErr(fmt.Errorf("no method to save intensity message with quality: %s", m.Quality))
@@ -112,10 +144,47 @@ func (m *message) saveMeasured() {
 }
 
 func (m *message) saveReported() {
+	if m.Err() != nil {
+		return
+	}
+
 	_, err := db.Exec("select impact.add_intensity_reported($1, $2, $3, $4, $5, $6)", m.Source, m.Longitude, m.Latitude, m.Time, m.MMI, m.Comment)
 
 	if err != nil {
 		m.SetErr(err)
+		return
+	}
+
+	reportedLimiter.Lock()
+
+	t := reportedLimiter.seen[m.Source]
+
+	// there are no guarantees that messages arrive in time order.  In
+	// general they are oldest first.
+	if m.Time.After(t) {
+		reportedLimiter.seen[m.Source] = m.Time
+	}
+
+	reportedLimiter.Unlock()
+}
+
+// seenReported sets i.err if a source sends reports that are within 60s.
+func (m *message) seenReported() {
+	if m.Err() != nil {
+		return
+	}
+
+	reportedLimiter.RLock()
+	t, ok := reportedLimiter.seen[m.Source]
+	reportedLimiter.RUnlock()
+
+	// if there is no entry for this source in reportedLimiter there is no more work to do.
+	if !ok {
+		return
+	}
+
+	if math.Abs(t.Sub(m.Time).Seconds()) < 60.0 {
+		m.SetErr(fmt.Errorf("message from source %s already seen within 60s", m.Source))
 	}
 }
 
