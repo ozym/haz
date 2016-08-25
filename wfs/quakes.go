@@ -644,10 +644,12 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
 	//21  fields
 	sqlPre := `select format('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s',
                publicid,eventtype,to_char(origintime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
-               to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),longitude, latitude, magnitude,
-               depth,magnitudetype, depthtype, evaluationmethod, evaluationstatus, evaluationmode, earthmodel, usedphasecount,
-               usedstationcount,magnitudestationcount, minimumdistance,
-               azimuthalgap,originerror,magnitudeuncertainty) as csv from haz.quake_search_v1`
+               to_char(modificationtime, 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),CAST(longitude AS NUMERIC(16,8)),
+               CAST(latitude AS NUMERIC(16,8)), CAST(magnitude AS NUMERIC(16,8)), CAST(depth AS NUMERIC(16,8)),
+               magnitudetype, depthtype, evaluationmethod, evaluationstatus, evaluationmode, earthmodel, usedphasecount,
+               usedstationcount,magnitudestationcount, CAST(minimumdistance AS NUMERIC(16,8)),CAST(azimuthalgap AS NUMERIC(16,8)),
+               CAST(originerror AS NUMERIC(16,8)),CAST(magnitudeuncertainty AS NUMERIC(16,8)) ) as csv
+               from haz.quake_search_v1`
 
 	sqlString, args, err1 := getSqlQueryString(sqlPre, params)
 	if err1 != nil {
@@ -665,7 +667,7 @@ func getQuakesCsv(r *http.Request, h http.Header, b *bytes.Buffer, params *Query
 		d string
 	)
 
-	b.WriteString("publicid,eventtype,origintime,modificationtime,longitude, latitude, magnitude, depth,magnitudetype,depthtype," +
+	b.WriteString("publicid,eventtype,origintime,modificationtime,longitude,latitude,magnitude,depth,magnitudetype,depthtype," +
 		"evaluationmethod,evaluationstatus,evaluationmode,earthmodel,usedphasecount,usedstationcount,magnitudestationcount,minimumdistance," +
 		"azimuthalgap,originerror,magnitudeuncertainty")
 	b.WriteString("\n")
