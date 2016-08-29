@@ -26,8 +26,8 @@ func init() {
 	   http://wfs.geonet.org.nz/geonet/wms/kml?layers=geonet:quake_search_v1&maxFeatures=50
 	*/
 	serveMux = http.NewServeMux()
-	serveMux.HandleFunc("/wms/kml", weft.MakeHandlerAPI(getQuakesKml))
-	serveMux.HandleFunc("/ows", weft.MakeHandlerAPI(getQuakesWfs))
+	serveMux.HandleFunc("/geonet/wms/kml", weft.MakeHandlerAPI(getQuakesKml))
+	serveMux.HandleFunc("/geonet/ows", weft.MakeHandlerAPI(getQuakesWfs))
 	serveMux.HandleFunc("/", weft.MakeHandlerPage(indexPage))
 }
 
