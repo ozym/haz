@@ -139,7 +139,6 @@
 var qsInteractive = {
     MAX_NUMBER_QUAKES:20000,
     SERVICE_PATH : '',
-    GOOGLE_MAP_URL: 'https://maps.google.co.nz/maps?q=',
     mapCentreNZ: [-41.27, 173.28],
     selectedRegion:null,
     regionCenters:{
@@ -790,6 +789,8 @@ var qsInteractive = {
 var quakesMapApp = {
     URL_PREFIX : "http://www.geonet.org.nz/quakes/region/newzealand/",
     GEOJSON_URL : "/quakes/services/quakes/newzealand",
+    BING_KEY : '###',
+
     ieVersion:-1,
     currentTime:null,
     MAGCLASSES : ["Mag <2","Mag 2-3","Mag 3-4", "Mag 4-5","Mag 5-6","Mag 6-7","Mag \u22657"],//>=7
@@ -802,6 +803,88 @@ var quakesMapApp = {
     regionLayer:null,
     layerControl:null,
     regionMap:false,
+
+   //init map
+   initMap:function(key) {
+        if (key) {
+            quakesMapApp.BING_KEY = key;
+        }
+        quakesMapApp.ieVersion = quakesMapApp.getIEVersion();
+
+        quakesMapApp.map = new L.Map('haz-map', {
+            attributionControl: false,
+            worldCopyJump: false
+        }).setView(qsInteractive.mapCentreNZ, 5);
+
+        var osmGeonetUrl = 'http://{s}.geonet.org.nz/osm/tiles/{z}/{x}/{y}.png', //
+                osmMqUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', //
+                cloudmadeAttribution = '',
+                osmLayerGeonet = new L.TileLayer(osmGeonetUrl, {
+                    minZoom: 1,
+                    maxZoom: 18,
+                    attribution: cloudmadeAttribution,
+                    errorTileUrl: 'http://static.geonet.org.nz/osm/images/logo_geonet.png',
+                    subdomains: ['static1', 'static2', 'static3', 'static4', 'static5']
+                });
+
+        var bingLayer = new L.BingLayer(quakesMapApp.BING_KEY, {type: "Aerial"});
+
+        //map switcher
+        var baseLayers = {
+            "Map": osmLayerGeonet,
+            "Aerial": bingLayer
+        };
+
+        quakesMapApp.map.addLayer(osmLayerGeonet);
+        //add layer switch
+        quakesMapApp.layerControl = L.control.layers(baseLayers);
+        // force refresh ovverlays on ie
+        quakesMapApp.layerControl.refreshOverlay = function () {
+            var i, input, obj,
+                inputs = this._form.getElementsByTagName('input'),
+                inputsLen = inputs.length;
+            this._handlingClick = true;
+            for (i = 0; i < inputsLen; i++) {
+                input = inputs[i];
+                obj = this._layers[input.layerId];
+                if (input.checked && this._map.hasLayer(obj.layer)) {
+                    if (obj.overlay) {//turn off and then turn on the overlay
+                        this._map.removeLayer(obj.layer);
+                        this._map.addLayer(obj.layer);
+                    }
+                }
+            }
+            this._handlingClick = false;
+        };
+        // force expand layer control
+        quakesMapApp.layerControl.changeLayout = function (expand) {
+            this.options.collapsed = !expand;
+            if (expand) {//remove listener
+                L.DomEvent.off(this._container, 'mouseout', this._collapse);
+                this._map.off('movestart', this._collapse);
+                this._expand();
+            } else {//add listener
+                L.DomEvent.on(this._container, 'mouseout', this._collapse, this);
+                this._map.on('movestart', this._collapse, this);
+                this._collapse();
+            }
+        };
+
+        quakesMapApp.layerControl.addTo(quakesMapApp.map)
+        //check coordinates
+        quakesMapApp.map.getBBoxArray = function () {
+            var bound = this.getBounds();
+            if (bound) {
+                return bound.toBBoxString().split(',')
+            }
+            return null;
+        };
+
+        quakesMapApp.map.on('moveend', function (e) {
+            quakesMapApp.updateMapBound();
+        });
+
+    },
 
     clearOverLays:function(clearRegion){
         if(this.allQuakesLayers.length > 0){
@@ -987,134 +1070,14 @@ var quakesMapApp = {
     }
 };
 
-function initMap(dataUrl) {
-    if(dataUrl){
-        quakesMapApp.GEOJSON_URL = dataUrl;
-    }
-    quakesMapApp.ieVersion = quakesMapApp.getIEVersion();
-
-    quakesMapApp.map = new L.Map('haz-map', {
-        attributionControl: false,
-        worldCopyJump: false
-    }).setView(qsInteractive.mapCentreNZ, 5);
-
-    var osmGeonetUrl = 'http://{s}.geonet.org.nz/osm/tiles/{z}/{x}/{y}.png',//
-    osmMqUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',//
-    cloudmadeAttribution = '',
-    osmLayerGeonet = new L.TileLayer(osmGeonetUrl, {
-        minZoom : 1,
-        maxZoom : 15,
-        attribution: cloudmadeAttribution,
-        errorTileUrl: 'http://static.geonet.org.nz/osm/images/logo_geonet.png',
-        subdomains:[ 'static1', 'static2', 'static3', 'static4', 'static5']
-    }),
-    osmLayerMq = new L.TileLayer(osmMqUrl, {
-        minZoom : 16,
-        maxZoom : 17,
-        attribution: cloudmadeAttribution,
-        errorTileUrl: 'http://static.geonet.org.nz/osm/images/logo_geonet.png',
-        subdomains:['otile1','otile2','otile3','otile4']
-    });
-
-    var mqAerialUrl =  "http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg",
-    mqAerialLayer = new L.TileLayer(mqAerialUrl,
-    {
-        maxZoom: 11,
-        minZoom: 1,
-        attribution: cloudmadeAttribution,
-        errorTileUrl: 'http://static.geonet.org.nz/osm/images/logo_geonet.png',
-        subdomains:['oatile1','oatile2','oatile3','oatile4']
-    }
-    );
-
-    var topoUrl = 'http://{s}.geonet.org.nz/nztopo/{z}/{x}/{y}.png',
-    topoLayer = new L.TileLayer(topoUrl,
-    {
-        maxZoom: 14,
-        minZoom: 12,
-        opacity: 0.5,
-        attribution: cloudmadeAttribution,
-        errorTileUrl: 'http://static.geonet.org.nz/osm/images/logo_geonet.png',
-        subdomains:[ 'static1', 'static2', 'static3', 'static4', 'static5']
-    }
-    );
-
-    var osmMap = L.layerGroup([osmLayerGeonet, osmLayerMq]);
-    var aerialTopo = L.layerGroup([mqAerialLayer, topoLayer]);
-    osmMap.maxxxxZommm = 17;
-    aerialTopo.maxxxxZommm = 14;
-    //map switcher
-    var baseLayers = {
-        "Map": osmMap,
-        "Aerial / Topo": aerialTopo
-    };
-    quakesMapApp.map.addLayer(osmMap);
-    //add layer switch
-    quakesMapApp.layerControl = L.control.layers(baseLayers);
-    // force refresh ovverlays on ie
-    quakesMapApp.layerControl.refreshOverlay = function(){
-        var i, input, obj,
-        inputs = this._form.getElementsByTagName('input'),
-        inputsLen = inputs.length;
-        this._handlingClick = true;
-        for (i = 0; i < inputsLen; i++) {
-            input = inputs[i];
-            obj = this._layers[input.layerId];
-            if (input.checked && this._map.hasLayer(obj.layer)) {
-                if (obj.overlay) {//turn off and then turn on the overlay
-                    this._map.removeLayer(obj.layer);
-                    this._map.addLayer(obj.layer);
-                }
-            }
-        }
-        this._handlingClick = false;
-    };
-    // force expand layer control
-    quakesMapApp.layerControl.changeLayout = function(expand){
-        this.options.collapsed = !expand;
-        if(expand) {//remove listener
-            L.DomEvent.off(this._container, 'mouseout', this._collapse);
-            this._map.off('movestart', this._collapse);
-            this._expand();
-        }else{//add listener
-            L.DomEvent.on(this._container, 'mouseout', this._collapse, this);
-            this._map.on('movestart', this._collapse, this);
-            this._collapse();
-        }
-    };
-
-    quakesMapApp.layerControl.addTo(quakesMapApp.map)
-    //set map zoom on base layer change
-    quakesMapApp.map.on('baselayerchange', function(e){
-        if(e.layer.maxxxxZommm ){
-            this.options.maxZoom = e.layer.maxxxxZommm;
-            if(this.getZoom() > e.layer.maxxxxZommm){
-                this.setZoom(e.layer.maxxxxZommm);
-            }
-        }
-    });
-    //check coordinates
-    quakesMapApp.map.getBBoxArray = function(){
-        var bound = this.getBounds();
-        if(bound){
-            return bound.toBBoxString().split(',')
-        }
-        return null;
-    };
-
-    quakesMapApp.map.on('moveend', function(e){
-        quakesMapApp.updateMapBound();
-    });
-
-};
 
 /*** app starts heres !!! ***/
-jQuery(document).ready(function() {
+function initPageElements(key) {
     qsInteractive.initDatePicker();
     qsInteractive.initSelectionBoxes();
     qsInteractive.initEvents();
     //init map
-    initMap();
+    quakesMapApp.initMap(key);
     qsInteractive.resetFields(true);
     //populate coordinates fields with map extents
     qsInteractive.setLocationOption('mapextent',true);
@@ -1153,8 +1116,7 @@ jQuery(document).ready(function() {
             scroll(0, 0);
         }
     })
-
-});
+}
 
 function closeLargeMap() {
     jQuery("#myModal").modal('hide');
