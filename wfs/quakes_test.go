@@ -21,8 +21,8 @@ const (
 var (
 	client *http.Client
 
-	url_wfs = "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&maxFeatures=100"
-	url_kml = "/wms/kml?layers=geonet:quake_search_v1&maxFeatures=100"
+	url_wfs = "/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&maxFeatures=100"
+	url_kml = "/geonet/wms/kml?layers=geonet:quake_search_v1&maxFeatures=100"
 
 	cql1 = "cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)"
 	cql2 = "cql_filter=BBOX(origin_geom,163.60840,-49.18170,182.98828,-32.28713)+AND+origintime>='2010-01-01'+AND+origintime<'2015-01-01'"
