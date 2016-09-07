@@ -5,6 +5,7 @@ import (
 	"github.com/GeoNet/weft"
 	"html/template"
 	"net/http"
+	"os"
 )
 
 var (
@@ -37,11 +38,18 @@ func indexPage(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 		return weft.BadRequest("invalid path")
 	}
 
-	err := indexTemp.Execute(b, nil)
+	var p searchPage
+	p.ApiKey = os.Getenv("BING_API_KEY")
+
+	err := indexTemp.ExecuteTemplate(b, "base", p)
 
 	if err != nil {
 		return weft.InternalServerError(err)
 	}
 
 	return &weft.StatusOK
+}
+
+type searchPage struct {
+	ApiKey string
 }
