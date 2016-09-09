@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"math"
 	"testing"
 )
@@ -25,12 +25,7 @@ func TestValV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/volcano/val",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/volcano/val"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}

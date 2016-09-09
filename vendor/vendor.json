@@ -47,16 +47,6 @@
 			"revisionTime": "2016-06-12T23:08:40Z"
 		},
 		{
-			"path": "github.com/GeoNet/web",
-			"revision": "3a472533fb10994718ed548999b1e3b02a0ac141",
-			"revisionTime": "2015-11-04T17:16:05+13:00"
-		},
-		{
-			"path": "github.com/GeoNet/web/webtest",
-			"revision": "3a472533fb10994718ed548999b1e3b02a0ac141",
-			"revisionTime": "2015-11-04T17:16:05+13:00"
-		},
-		{
 			"checksumSHA1": "tAXN6W3ebvXxOCNa2LLq2/nPA4w=",
 			"path": "github.com/GeoNet/weft",
 			"revision": "53cad5eb6e41d631600d3c5de983108563fcd8ee",
@@ -65,8 +55,8 @@
 		{
 			"checksumSHA1": "qxcW1hstrjlHw/t4qGzigqDudcc=",
 			"path": "github.com/GeoNet/weft/wefttest",
-			"revision": "41015edb289da3eb5bec2c2b1e5a59934b42b086",
-			"revisionTime": "2016-05-24T01:55:39Z"
+			"revision": "7731fd024874fdbc587769031d19161c35bc9df4",
+			"revisionTime": "2016-08-12T00:01:52Z"
 		},
 		{
 			"path": "github.com/aws/aws-sdk-go/aws",

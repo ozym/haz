@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"math"
 	"testing"
 	"time"
@@ -32,12 +32,10 @@ func TestQuakesV1(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
+	b, err := wt.Request{
 		Accept: V1GeoJSON,
-		URI:    "/quake?regionID=newzealand&regionIntensity=weak&number=100&quality=best,caution,good,deleted",
-	}
-
-	b, err := c.Get(ts)
+		URL:    "/quake?regionID=newzealand&regionIntensity=weak&number=100&quality=best,caution,good,deleted",
+	}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -92,15 +90,10 @@ func TestQuakesV1(t *testing.T) {
 		t.Error("didn't find quake 2013p407387 in the list of Features.")
 	}
 
-	c = webtest.Content{
+	b, err = wt.Request{
 		Accept: V1GeoJSON,
-		URI:    "/quake?regionID=newzealand&regionIntensity=moderate&number=100&quality=best,caution,good,deleted",
-	}
-
-	b, err = c.Get(ts)
-	if err != nil {
-		t.Fatal(err)
-	}
+		URL:    "/quake?regionID=newzealand&regionIntensity=moderate&number=100&quality=best,caution,good,deleted",
+	}.Do(ts.URL)
 
 	quakes = quakeV1Features{}
 
@@ -118,12 +111,7 @@ func TestQuakeV1(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V1GeoJSON,
-		URI:    "/quake/2013p407387",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V1GeoJSON, URL: "/quake/2013p407387"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
