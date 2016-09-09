@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"math"
 	"testing"
 	"time"
@@ -43,12 +43,7 @@ func TestQuakesV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/quake?MMI=3",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/quake?MMI=3"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -100,12 +95,7 @@ func TestQuakesV2(t *testing.T) {
 		t.Error("didn't find quake 2013p407387 in the list of Features.")
 	}
 
-	c = webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/quake?MMI=6",
-	}
-
-	b, err = c.Get(ts)
+	b, err = wt.Request{Accept: V2GeoJSON, URL: "/quake?MMI=6"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -126,12 +116,7 @@ func TestQuakeV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/quake/2013p407387",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/quake/2013p407387"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -188,12 +173,7 @@ func TestQuakeHistoryV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/quake/history/2013p407387",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/quake/history/2013p407387"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -268,12 +248,7 @@ func TestQuakeStatsV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2JSON,
-		URI:    "/quake/stats",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2JSON, URL: "/quake/stats"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/xml"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"testing"
 )
 
@@ -23,12 +23,7 @@ func TestCapQuakeFeed(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: "application/xml",
-		URI:    "/cap/1.2/GPA1.0/feed/atom1.0/quake",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: "application/xml", URL: "/cap/1.2/GPA1.0/feed/atom1.0/quake"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -74,12 +69,7 @@ func TestCapQuake(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: "application/cap+xml",
-		URI:    "/cap/1.2/GPA1.0/quake/2015p012816.1420493554884741",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: "application/cap+xml", URL: "/cap/1.2/GPA1.0/quake/2015p012816.1420493554884741"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}

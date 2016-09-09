@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -52,12 +52,7 @@ func TestNewsV1(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V1JSON,
-		URI:    "/news/geonet",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V1JSON, URL: "/news/geonet"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}

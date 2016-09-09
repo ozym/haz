@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/GeoNet/web/webtest"
+	wt "github.com/GeoNet/weft/wefttest"
 	"math"
 	"testing"
 )
@@ -26,12 +26,7 @@ func TestIntensityMeasuredV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/intensity?type=measured",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/intensity?type=measured"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -79,12 +74,7 @@ func TestIntensityReportedLatestV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/intensity?type=reported",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/intensity?type=reported"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -133,12 +123,7 @@ func TestIntensityReportedV2(t *testing.T) {
 	setup()
 	defer teardown()
 
-	c := webtest.Content{
-		Accept: V2GeoJSON,
-		URI:    "/intensity?type=reported&publicID=2013p407387",
-	}
-
-	b, err := c.Get(ts)
+	b, err := wt.Request{Accept: V2GeoJSON, URL: "/intensity?type=reported&publicID=2013p407387"}.Do(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
