@@ -17,7 +17,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # code will be compiled in this container
-BUILD_CONTAINER=golang:1.6.1-alpine
+BUILD_CONTAINER=golang:1.7.0-alpine
 
 DOCKER_TMP=docker-build-tmp
 
@@ -71,6 +71,8 @@ do
         rsync --ignore-missing-args ${i}/Dockerfile docker-build-tmp/
 
 		docker build -t quay.io/geonet/${i}:$VERSION -f docker-build-tmp/Dockerfile docker-build-tmp
+		# tag latest.  Makes it easier to test with compose. 
+		docker tag quay.io/geonet/${i}:$VERSION quay.io/geonet/${i}:latest
 
 		rm -f $DOCKER_TMP/$i
 done
