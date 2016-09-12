@@ -36,7 +36,7 @@ notifications:
 deploy:
    - provider: script
      skip_cleanup: true
-     script: ./build-push.sh haz-twitter-consumer haz-duty-consumer haz-ua-consumer haz-pim-consumer haz-eqnews-consumer haz-db-consumer haz-db-origin-consumer haz-felt-consumer impact-intensity-consumer geonet-rest sc3ml-to-quakeml wfs quakesearch
+     script: ./build-push.sh haz-twitter-consumer haz-duty-consumer haz-ua-consumer haz-pim-consumer haz-eqnews-consumer haz-db-consumer haz-db-origin-consumer impact-intensity-consumer geonet-rest sc3ml-to-quakeml wfs quakesearch
      on: 
        branch: master 
  
