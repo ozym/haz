@@ -16,7 +16,9 @@ import (
 const (
 	DATE_PATTERN      = "^(\\d{4})-(\\d{1,2})-(\\d{1,2})$"
 	DATE_TIME_PATTERN = "^(\\d{4})-(\\d{1,2})-(\\d{1,2})T(\\d{1,2}):(\\d{1,2}):(\\d{1,2})$"
-	NUMBER_PATTERN    = "^-?[.\\d]+$"
+	//2016-09-11T21:25:43.729Z
+	DATE_TIME_PATTERN_ISO = "^(\\d{4})-(\\d{1,2})-(\\d{1,2})T(\\d{1,2}):(\\d{1,2}):(\\d{1,2}).(\\d{3})Z$"
+	NUMBER_PATTERN        = "^-?[.\\d]+$"
 	//token types
 	TT_EOF          = -1
 	TT_WORD         = -3
@@ -51,6 +53,7 @@ type CqlConverter struct {
 	previousTokenType2 int    //previous previous token type in the CQL string
 	previousToken2     string //previous previous token in the CQL
 	BBOX               string
+	SortBy             string //any sort by clause, append to end of sql
 }
 
 //search string contains another string
@@ -217,7 +220,7 @@ func (cql *CqlConverter) NextToken() {
 			cql.currentTokenType = TT_DWITHIN
 		} else if lval == "sortby" {
 			cql.currentTokenType = TT_SORTBY
-		} else if PatternMatch(DATE_PATTERN, stripVal) || PatternMatch(DATE_TIME_PATTERN, stripVal) {
+		} else if PatternMatch(DATE_PATTERN, stripVal) || PatternMatch(DATE_TIME_PATTERN, stripVal) || PatternMatch(DATE_TIME_PATTERN_ISO, stripVal) {
 			cql.currentTokenType = TT_TIMESTRING
 		}
 	}
@@ -541,6 +544,41 @@ func (cql *CqlConverter) ToSQL() (string, []interface{}, error) {
 	for cql.currentTokenType != TT_EOF {
 		cql.NextToken()
 
+		if cql.currentTokenType == TT_SORTBY { //ignore sortBy=###, and trim leading AND/OR
+			var isSortBy bool
+			var sqlString string
+			if cql.previousTokenType1 == TT_LOGIC_OPS { //AND/OR
+				sqlString = sql.String()
+				//trim the tailing AND/OR
+				sqlString = strings.TrimSpace(sqlString)
+				sqlString = strings.TrimRight(sqlString, cql.previousToken1)
+			}
+			//1. go next to the = operator
+			cql.NextToken()
+			if cql.currentTokenType == TT_RELATION_OPS { //=
+				//2. go next to the field name
+				cql.NextToken()
+				if cql.currentTokenType == TT_WORD {
+					//validate field name
+					fType := checkDatabaseFieldType(strings.ToLower(cql.currentToken))
+					if fType == WFS_DB_FIELD_TYPE_UNKNOWN {
+						return sql.String(), args, errors.New("Unkown column name for sortBy " + cql.currentToken)
+					}
+					//keep the sortBy field
+					cql.SortBy = cql.currentToken
+					//3. go to next pair
+					cql.NextToken()
+					isSortBy = true
+				}
+			}
+			if isSortBy {
+				if sqlString != "" {
+					//reset sql to trim the tailing AND/OR
+					sql.Reset()
+					sql.WriteString(sqlString)
+				}
+			}
+		}
 		//validate data format
 		if cql.previousTokenType1 == TT_RELATION_OPS && (cql.currentTokenType == TT_WORD || cql.currentTokenType == TT_TIMESTRING) {
 			//get the field type for the token before the operator e.g. magnitude>=3
@@ -589,6 +627,10 @@ func (cql *CqlConverter) ToSQL() (string, []interface{}, error) {
 			sql.WriteString(" ")
 		}
 
+	}
+
+	if cql.SortBy != "" {
+		sql.WriteString(" ORDER BY " + cql.SortBy)
 	}
 
 	return sql.String(), args, err
