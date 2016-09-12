@@ -86,20 +86,12 @@ Then run all tests
 
 ## Docker Builds
 
-Build static Go binaries that run as the `nobody` user in minimal Docker containers using `docker.sh`.  There is no need to add Dockerfiles to each subproject.  All Docker images are tags in the `haz` repo.
+`./build.sh proj-name [proj-name]...`
 
-Remove the `docker-build-tmp` dir first to ensure a clean build:
+`./build-push proj-name [proj-name]...`
 
-```
-rm -rf docker-build-tmp
-./docker.sh
-```
+Also refer to `.travis.yml`.
 
-Once an image has been tested it can be pushed to the repo e.g.,
-
-```
-docker push quay.io/geonet/haz:geonet-rest
-```
 
 ### Container Testing
 
