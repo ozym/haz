@@ -229,11 +229,11 @@
     <br/>
     <h4> GeoJSON format </h4>
 
-    <h5>All Quakes Above Magnitude 6 </h5>
+    <h5>All Quakes Above Magnitude 6 with event type "earthquake", sort by magnitude </h5>
 
     <p>
-        <a href="geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>6">
-            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>6
+        <a href="geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>6+AND+eventtype=earthquake+AND+sortBy=magnitude">
+            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>6+AND+eventtype=earthquake+AND+sortBy=magnitude
         </a>
     </p>
 
@@ -245,15 +245,15 @@
         </a>
     </p>
 
-    <h5>All Quakes Above Magnitude 3 after 1 January 2013 and Occurring Within a Polygon Around Canterbury
+    <h5>All Quakes Above Magnitude 3 after 1 January 2010 and Occurring Within a Polygon Around Canterbury
         (corresponding to the Canterbury Region)</h5>
 
     <p>NB. To search a polygon, you need to search a closed shape, i.e. the first longitude/latitude pair is repeated
         again at the end </p>
 
     <p>
-        <a href="geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>3+AND+origintime>='2013-01-01'+AND+WITHIN(origin_geom,POLYGON((172.951+-41.767,+172.001+-42.832,+169.564+-44.341,+172.312+-45.412,+175.748+-42.908,+172.951+-41.767)))">
-            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>3+AND+origintime>='2013-01-01'+AND+WITHIN(origin_geom,POLYGON((172.951+-41.767,+172.001+-42.832,+169.564+-44.341,+172.312+-45.412,+175.748+-42.908,+172.951+-41.767)))
+        <a href="geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>3+AND+origintime>='2010-01-01T00:00:00.000Z'+AND+WITHIN(origin_geom,POLYGON((172.951+-41.767,+172.001+-42.832,+169.564+-44.341,+172.312+-45.412,+175.748+-42.908,+172.951+-41.767)))">
+            http://wfs.geonet.org.nz/geonet/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonet:quake_search_v1&outputFormat=json&cql_filter=magnitude>3+AND+origintime>='2010-01-01T00:00:00.000Z'+AND+WITHIN(origin_geom,POLYGON((172.951+-41.767,+172.001+-42.832,+169.564+-44.341,+172.312+-45.412,+175.748+-42.908,+172.951+-41.767)))
         </a>
     </p>
 
