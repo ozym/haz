@@ -70,6 +70,10 @@ var (
 		{ID: wt.L(), URL: url_kml + "&" + cql2, Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
 		{ID: wt.L(), URL: url_kml + "&" + cql3, Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
 		{ID: wt.L(), URL: url_kml + "&" + cql4, Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
+
+		// soh routes
+		{ID: wt.L(), URL: "/soh"},
+		{ID: wt.L(), URL: "/soh/up"},
 	}
 )
 

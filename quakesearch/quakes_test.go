@@ -71,6 +71,10 @@ var routes = wt.Requests{
 	{ID: wt.L(), URL: "/kml?limit=100&bbox=163.60840,-49.18170,182.98828,-32.28713&minmag=3&maxmag=10", Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
 	{ID: wt.L(), URL: "/kml?limit=100&bbox=163.60840,-49.18170,182.98828,-32.28713&mindepth=10&maxdepth=200", Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
 	{ID: wt.L(), URL: "/kml?limit=100&region=canterbury&minmag=3&maxmag=7&mindepth=1&maxdepth=200", Content: CONTENT_TYPE_KML, Accept: CONTENT_TYPE_KML},
+
+	// soh routes
+	{ID: wt.L(), URL: "/soh"},
+	{ID: wt.L(), URL: "/soh/up"},
 }
 
 func TestRoutes(t *testing.T) {

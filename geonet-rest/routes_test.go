@@ -97,6 +97,12 @@ var routes = wt.Requests{
 	// V2 GeoJSON routes that should bad request
 	{ID: wt.L(), Accept: V2GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/quake?MMI=9"},
 	{ID: wt.L(), Accept: V2GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/quake?MMI=-2"},
+
+	// soh routes
+	{ID: wt.L(), URL: "/soh"},
+	{ID: wt.L(), URL: "/soh/up"},
+	{ID: wt.L(), URL: "/soh/esb"},
+	{ID: wt.L(), Status: http.StatusServiceUnavailable, URL: "/soh/impact"}, // not enough data so gets an error
 }
 
 // Test all routes give the expected response.  Also check with

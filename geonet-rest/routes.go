@@ -1,6 +1,7 @@
 package main
 
 import (
+
 	"net/http"
 	"github.com/GeoNet/weft"
 )
@@ -35,9 +36,13 @@ func init() {
 	muxV2JSON.HandleFunc("/quake/stats", weft.MakeHandlerAPI(quakeStatsV2))
 
 	// muxDefault handles routes with no Accept version.
+	// soh routes
 	muxDefault = http.NewServeMux()
-	muxDefault.HandleFunc("/soh", weft.MakeHandlerAPI(soh))
-	muxDefault.HandleFunc("/soh/impact", weft.MakeHandlerAPI(impactSOH))
+	muxDefault.HandleFunc("/soh", http.HandlerFunc(soh))
+	muxDefault.HandleFunc("/soh/esb", http.HandlerFunc(sohEsb))
+	muxDefault.HandleFunc("/soh/up", http.HandlerFunc(up))
+	muxDefault.HandleFunc("/soh/impact", http.HandlerFunc(impactSOH))
+
 	muxDefault.HandleFunc("/cap/1.2/GPA1.0/quake/", weft.MakeHandlerAPI(capQuake))
 	muxDefault.HandleFunc("/cap/1.2/GPA1.0/feed/atom1.0/quake", weft.MakeHandlerAPI(capQuakeFeed))
 	// The 'latest' version of the API for unversioned requests.
