@@ -2,11 +2,11 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
 	"github.com/GeoNet/weft"
+	"log"
 )
 
 const head = `<html xmlns="http://www.w3.org/1999/xhtml"><head><title>GeoNet - SOH</title><style type="text/css">
@@ -26,9 +26,19 @@ func init() {
 	old = time.Duration(-1) * time.Minute
 }
 
-// returns a simple state of health page.  If heartbeat times in the DB are old then it also returns an http status of 500.
-func soh(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
-	h.Set("Content-Type", HtmlContent)
+// returns a simple state of health page.  If heartbeat times in the
+// DB are old then it also returns an http status of 500.
+// Not useful for inclusion in app metrics so weft not used.
+func sohEsb(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", HtmlContent)
+
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		w.Header().Set("Surrogate-Control", "max-age=86400")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var b bytes.Buffer
 
 	b.Write([]byte(head))
 	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
@@ -60,6 +70,7 @@ func soh(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 		}
 		rows.Close()
 	} else {
+		log.Printf("ERROR: %v", err)
 		bad = true
 		b.Write([]byte(`<tr class="tr error"><td>DB error</td><td>` + err.Error() + `</td></tr>`))
 	}
@@ -68,44 +79,94 @@ func soh(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	b.Write([]byte(foot))
 
 	if bad {
-		return weft.InternalServerError(fmt.Errorf(b.String()))
+		w.WriteHeader(http.StatusServiceUnavailable)
 	}
 
-	return &weft.StatusOK
+	b.WriteTo(w)
 }
 
 // returns a simple state of health page.  If the count of measured intensities falls below 50 this it also returns an http status of 500.
-func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
-	h.Set("Content-Type", HtmlContent)
+//func impactSOH(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+// Not useful for inclusion in app metrics so weft not used.
+func impactSOH(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", HtmlContent)
 
-	b.Write([]byte(head))
-	b.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
-	b.Write([]byte(`<h3>Impact</h3>`))
-
-	var bad bool
-
-	b.Write([]byte(`<table><tr><th>Impact</th><th>Count</th></tr>`))
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		w.Header().Set("Surrogate-Control", "max-age=86400")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	var meas int
 	err := db.QueryRow("select count(*) from impact.intensity_measured").Scan(&meas)
+	if err != nil  {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		log.Printf("ERROR: %v", err)
+	}
+
+	if meas < 50 {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		log.Printf("ERROR: less than 50 shaking stations %d", meas)
+	}
+
+	w.Write([]byte(head))
+	w.Write([]byte(`<p>Current time is: ` + time.Now().UTC().String() + `</p>`))
+	w.Write([]byte(`<h3>Impact</h3>`))
+
+	w.Write([]byte(`<table><tr><th>Impact</th><th>Count</th></tr>`))
+
+
 	if err == nil {
 		if meas < 50 {
-			bad = true
-			b.Write([]byte(`<tr class="tr error"><td>shaking measured</td><td>` + strconv.Itoa(meas) + ` < 50</td></tr>`))
+			w.Write([]byte(`<tr class="tr error"><td>shaking measured</td><td>` + strconv.Itoa(meas) + ` < 50</td></tr>`))
 		} else {
-			b.Write([]byte(`<tr><td>shaking measured</td><td>` + strconv.Itoa(meas) + ` >= 50</td></tr>`))
+			w.Write([]byte(`<tr><td>shaking measured</td><td>` + strconv.Itoa(meas) + ` >= 50</td></tr>`))
 		}
 	} else {
-		bad = true
-		b.Write([]byte(`<tr class="tr error"><td>DB error</td><td>` + err.Error() + `</td></tr>`))
+		w.Write([]byte(`<tr class="tr error"><td>DB error</td><td>` + err.Error() + `</td></tr>`))
 	}
-	b.Write([]byte(`</table>`))
+	w.Write([]byte(`</table>`))
 
-	b.Write([]byte(foot))
+	w.Write([]byte(foot))
+}
 
-	if bad {
-		return weft.InternalServerError(fmt.Errorf(b.String()))
+// up is for testing that the app has started e.g., for with load balancers.
+// It indicates the app is started.  It may still be serving errors.
+// Not useful for inclusion in app metrics so weft not used.
+func up(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		w.Header().Set("Surrogate-Control", "max-age=86400")
+		w.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
-	return &weft.StatusOK
+	w.Write([]byte("<html><head></head><body>up</body></html>"))
+	log.Print("up ok")
+}
+
+// soh is for external service probes.
+// writes a service unavailable error to w if the service is not working.
+// Not useful for inclusion in app metrics so weft not used.
+func soh(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		w.Header().Set("Surrogate-Control", "max-age=86400")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var c int
+
+	if err := db.QueryRow("SELECT 1").Scan(&c); err != nil {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		w.Write([]byte("<html><head></head><body>service error</body></html>"))
+		log.Printf("ERROR: soh service error %s", err)
+		return
+	}
+
+	w.Write([]byte("<html><head></head><body>ok</body></html>"))
+	log.Print("soh ok")
 }
