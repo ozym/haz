@@ -14,6 +14,10 @@ var routes = wt.Requests{
 	{ID: wt.L(), URL: "/csv/1.0.0/2016p500086/event"},
 	{ID: wt.L(), URL: "/csv/1.0.0/2016p500086/picks"},
 	{ID: wt.L(), URL: "/csv/1.0.0/2016p500086/event/picks"},
+
+	// soh routes
+	{ID: wt.L(), URL: "/soh"},
+	{ID: wt.L(), URL: "/soh/up"},
 }
 
 func TestRoutes(t *testing.T) {
