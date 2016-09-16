@@ -8,7 +8,7 @@ web:
    - db
   env_file: geonet-rest.env
 db:
-  image: quay.io/geonet/haz:database 
+  image: quay.io/geonet/haz-db:9.4
   ports:
    - "5432:5432"
 producer:
