@@ -7,10 +7,7 @@ RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y postgresql-9.4 postgresql-9.4-postgis-2.2
-
-RUN mkdir -p /var/lib/pgsql/data && \
-    chown postgres:postgres /var/lib/pgsql/data
+    apt-get install -y postgresql-9.5 postgresql-9.5-postgis-2.2
 
 USER postgres
 
@@ -24,12 +21,12 @@ RUN /etc/init.d/postgresql start  && \
     /usr/bin/psql --quiet --username=postgres --dbname=hazard --file=/ddl/impact-create.ddl && \
     /usr/bin/psql --quiet --username=postgres --dbname=hazard --file=/ddl/impact-functions.ddl && \
     /usr/bin/psql --quiet --username=postgres --dbname=hazard --file=/ddl/wfs-region-values.ddl && \
-    /usr/bin/psql --quiet --username=postgres --dbname=hazard --file=/ddl/user-permissions.ddl && \
+    /usr/bin/psql --quiet --username=postgres --dbname=hazard --file=/ddl/user-permissions.ddl
 
-RUN echo "host    all             all             0.0.0.0/0            trust" >> /etc/postgresql/9.4/main/pg_hba.conf && \
-    echo "local   all         all                               trust" >> /etc/postgresql/9.4/main/pg_hba.conf && \
-    echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
+RUN echo "host    all             all             0.0.0.0/0            trust" >> /etc/postgresql/9.5/main/pg_hba.conf && \
+    echo "local   all         all                               trust" >> /etc/postgresql/9.5/main/pg_hba.conf && \
+    echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
 
 EXPOSE 5432
 
-CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.5/bin/postgres", "-D", "/var/lib/postgresql/9.5/main", "-c", "config_file=/etc/postgresql/9.5/main/postgresql.conf"]
