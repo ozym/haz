@@ -200,14 +200,16 @@
 			"revisionTime": "2016-04-05T17:19:17-07:00"
 		},
 		{
+			"checksumSHA1": "dNYxHiBLalTqluak2/Z8c3RsSEM=",
 			"path": "github.com/lib/pq",
-			"revision": "f7ea31d05cd1cccff3ba98af46ccc261d4ff3fdd",
-			"revisionTime": "2015-02-17T22:27:36+01:00"
+			"revision": "50761b0867bd1d9d069276790bcd4a3bccf2324a",
+			"revisionTime": "2016-08-31T22:25:20Z"
 		},
 		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
 			"path": "github.com/lib/pq/oid",
-			"revision": "f7ea31d05cd1cccff3ba98af46ccc261d4ff3fdd",
-			"revisionTime": "2015-02-17T22:27:36+01:00"
+			"revision": "50761b0867bd1d9d069276790bcd4a3bccf2324a",
+			"revisionTime": "2016-08-31T22:25:20Z"
 		},
 		{
 			"path": "github.com/russross/blackfriday",
