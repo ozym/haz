@@ -113,3 +113,18 @@ Send a quake and check it arrived (you should get GeoJSON for the quake):
 rsync /work/seismcompml07/2015p494191.xml /work/spool/
 curl http://localhost:8080/quake/2015p494191
 ```
+
+### Deployment
+
+#### AWS Elastic Beanstalk
+
+`geonet-rest`, `quakesearch`, `sc3ml-to-quakeml`, `wfs`.
+
+There are files for EB - both to deploy the application and also set
+up logging from the container (application) to CloudWatch Logs.  Create a zip file and then upload the 
+zip to EB.
+
+```
+cd deploy
+zip wfs.zip Dockerrun.aws.json .ebextensions/*
+```
