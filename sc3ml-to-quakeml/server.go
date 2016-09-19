@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"time"
-	_ "github.com/GeoNet/log/logentries"
 	"github.com/GeoNet/weft"
 	"bytes"
 )

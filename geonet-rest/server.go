@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/GeoNet/haz/database"
-	_ "github.com/GeoNet/log/logentries"
 	"github.com/GeoNet/weft"
 	_ "github.com/lib/pq"
 	"log"
