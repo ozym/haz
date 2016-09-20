@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "quay.io/geonet/haz:geonet-rest"
+      "Name": "862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/geonet-rest:prod"
       },
       "Ports": [
       {

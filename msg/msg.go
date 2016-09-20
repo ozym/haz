@@ -5,7 +5,6 @@
 package msg
 
 import (
-	_ "github.com/GeoNet/log/logentries"
 	"github.com/GeoNet/mtr/mtrapp"
 	"log"
 )

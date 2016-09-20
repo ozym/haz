@@ -38,13 +38,18 @@ Subprojects `*-consumer` consume `msg.Haz` or `msg.Impact` messages from SQS and
 
 ## Database
 
-Uses postgis.  Pull and run an image that initializes the database on startup (without further configuration):
+Uses postgis.  Pull and run the image (which already has the hazard db initialised and ready to use):
 
 ```
-docker run --name hazdb -p 5432:5432 -d  quay.io/geonet/haz:database
+docker run --name hazdb -p 5432:5432 -d quay.io/geonet/haz-db:9.4
 ``` 
 
-On start the hazard DB is initialized which will delay DB availability.  The image can also be built using `./docker-db.sh`
+A Postgres 9.4 with Postgis 2.2 image can be built and pushed using:
+
+```
+docker build --rm=true -t quay.io/geonet/haz-db:9.4 -f database/Dockerfile database
+docker push quay.io/geonet/haz-db:9.4
+```
 
 There is also a script to (re)initialise the DB  `./database/scripts/initdb-93.sh`
 
@@ -72,13 +77,7 @@ go run haz-db-origin-loader.go
 
 ## Tests
 
-As well as a running database a small amount of impact test data must be added:
-
-```
-./database/scripts/initdb-93.sh
-```
-
-Then run all tests
+With the DB up run all tests
 
 ```
 ./all.sh
@@ -106,11 +105,26 @@ sudo chown nobody /work/spool
 
 Run the containers with `docker-compose up`.
 
-Visit http://localhost:8080/soh and check that heartbeat messages are arriving.
+Visit http://localhost:8080/soh/esb and check that heartbeat messages are arriving.
 
 Send a quake and check it arrived (you should get GeoJSON for the quake):
 
 ```
 rsync /work/seismcompml07/2015p494191.xml /work/spool/
 curl http://localhost:8080/quake/2015p494191
+```
+
+### Deployment
+
+#### AWS Elastic Beanstalk
+
+`geonet-rest`, `quakesearch`, `sc3ml-to-quakeml`, `wfs`.
+
+There are files for EB - both to deploy the application and also set
+up logging from the container (application) to CloudWatch Logs.  Create a zip file and then upload the 
+zip to EB.
+
+```
+cd deploy
+zip wfs.zip Dockerrun.aws.json .ebextensions/*
 ```

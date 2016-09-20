@@ -18,12 +18,6 @@
 			"revisionTime": "2015-02-23T09:42:30+01:00"
 		},
 		{
-			"checksumSHA1": "CoYwxPlpMO8OrsObcBMwgpDe2Fc=",
-			"path": "github.com/GeoNet/log/logentries",
-			"revision": "cd4ed67848db80e4865170ca2625253cff31e917",
-			"revisionTime": "2016-09-14T05:56:08Z"
-		},
-		{
 			"path": "github.com/GeoNet/metrics",
 			"revision": "5161e09d1ca5d85798d090752c2f7d5ab9ab6e17",
 			"revisionTime": "2015-03-30T17:44:51+13:00"
@@ -200,14 +194,16 @@
 			"revisionTime": "2016-04-05T17:19:17-07:00"
 		},
 		{
+			"checksumSHA1": "dNYxHiBLalTqluak2/Z8c3RsSEM=",
 			"path": "github.com/lib/pq",
-			"revision": "f7ea31d05cd1cccff3ba98af46ccc261d4ff3fdd",
-			"revisionTime": "2015-02-17T22:27:36+01:00"
+			"revision": "50761b0867bd1d9d069276790bcd4a3bccf2324a",
+			"revisionTime": "2016-08-31T22:25:20Z"
 		},
 		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
 			"path": "github.com/lib/pq/oid",
-			"revision": "f7ea31d05cd1cccff3ba98af46ccc261d4ff3fdd",
-			"revisionTime": "2015-02-17T22:27:36+01:00"
+			"revision": "50761b0867bd1d9d069276790bcd4a3bccf2324a",
+			"revisionTime": "2016-08-31T22:25:20Z"
 		},
 		{
 			"path": "github.com/russross/blackfriday",
