@@ -1,5 +1,5 @@
 web:
-  image: quay.io/geonet/geonet-rest:latest
+  image: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/geonet-rest:latest
   # use ports so we can access them directly on the host machine for easy testing.  
   #  expose would be more appropriate for other purposes.
   ports:
@@ -8,16 +8,16 @@ web:
    - db
   env_file: geonet-rest.env
 db:
-  image: quay.io/geonet/haz-db:9.4
+  image: quay.io/geonet/haz-db:9.5
   ports:
    - "5432:5432"
 producer:
-  image: quay.io/geonet/haz-sc3-producer:latest
+  image: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-sc3-producer:latest
   volumes: 
   - /work/spool:/work/spool
   env_file: sc3-producer.env
 consumer:
-  image: quay.io/geonet/haz-db-consumer:latest
+  image: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-db-consumer:latest
   links:   
    - db
   env_file: db-consumer.env
