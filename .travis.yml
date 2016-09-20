@@ -7,7 +7,10 @@ services:
   - docker
 
 before_deploy:
-  - docker login --email="." --username="geonet+dockerbuild" --password="$docker_password" quay.io
+  - docker --version
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region ap-southeast-2) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
 
 # trying to fix postgis bug which comes on the travis infrastructure that has sudo.
 before_install:
@@ -42,4 +45,5 @@ deploy:
  
 env:
     global:
-         - secure: lzlbM60dyckStCeFSmwrK/C80Tx0u6HyROjqzNCHFzidJk9qEDBlK6H1qEav3xMgjCIbxnZgJp+3u1cyH7KzI2+mDqf83GI+uVobMX0dD9qcG7HAYbR8DVG1ZwoCIW8aUYVs2cA0Qq0SUwvVaBntOljT6ZeBg91JVhmLZN7SeTZMRmSY/+XjLJ5RMn9frhsxNUyfPYhZa1NSAEMncUx9EtoK0PRf/+b3ldYROBEMYw7t1X9hE7s5vV2RMAJJentWZbRtcvRxB/TeYaQH1a1/jdrZrJ84CJhqToaZbNXdTZoVWY0u/d0+ANNPrW7oY9t8X6kXS8Q4luly/LDpaaRx1pv3m3P1FrTXUZ9sRhw0Y++gc+PkBSFeysK9R4Qm1e7KD4SMYbcjDFNoJ6buv7FwgdwRgTQefWs62nVpGJThVBJr53qnOFzrXhgvZ9F9U7SeD2RoCOEW5KjMC8yzk06kQs14BY96WPpbK+o1j2JqexBstTeXy2uhA/SzEfTg6yuuX9bg0S00JpUvZnhTFweK0kg0vUjqG2LjEL0OQ7AQmL7hRId7Vpi9A3rpyYw9fzGu3sO82tsOq5ZDKwFnxX4yPcofyDmYuPoXeeLTqqSi+K5t+5Thkr/xMA1/bAVZPRH+5V2K/DDXN65zGqBqzsyU8Vt5gUdQwfBMQvq5ukbYD/k=
+         - secure: "mtDzpGoJ4h890XkWjDpAfd2wAw41m0fJ7AS+FpgyaEvgP2baiEbTks98syU5KtJpiH/eW13IVYFyLOiyx9xW4636tVbEERvz2QBYjTAnVFuVhtLzBPE3B9e7Hn4r5jvb1ccuPLx5iPuCfoYrL+F47CBiVBcR3g5LpoTT3GQPogao6CH56pwGQyJxPCXk9eF8Gtd2nu3SkdYBFFYgxze9qNCQXyVFAzI9WXBEgxJEpMuUP8LGdCqtdmPq/fZMnsG/kQbfb+LTFCi7u/HLraY2lBzPNpUmzFsb5D4kKXXR3UJ+KuCVhVDX9ENVGJYLhlmV6mIq0ECnliaqiqOFuy1ZEVWuo9IoFbPGcZ9GBDE5QZgj+kumBLgtmc/AbwZmb6+HlnFtL3oIWcTbtkALWfnW9UZPxNWq1iG78fVsLBEHVoY2TtXLVG9K2aVRKpD1Frs/aFWV6MQ9ZCDDf5fp5SwKvF7XMC5TIZVMklvzSB9l6j4qgwqiO7VKN7eIlE97IoHDqn7jn5h6haGGkGabLw3mtL4eaxfXKRkAWj4aRaDHUXb/Iqznli13AUDyvJ+OML7gYkvPDT+4vKgZcm+L/CSEw6Fp3gihkxT7l6iVTXBcParHxBtxq9SDRApSTrqSa/nFvm3tP6vUXoIKYrBS94uaWZyzByvIfzC7AeaRYuAdKdw="
+         - secure: "T5YzxuvH1HyYrCjx6E/55Ih+eNv6PfwavDwG3l36kUko2+ETx+8URB7gICwEBrb//z+OwcAzq2nRDNoraUaxzqWQr4T2kmuhsv71t9Ooe/ObdTfx1Boh8IGytGgKbZ7puNnRVOTaW+PKpmEJRY1uWdEzskSEIst8Xo8okB8AbipAKzT236nUSWXPR328g5LDWKRNpVNqQuZD8DVpc6oltGfU43DqfOe1yLLFWNe0ujlO7yHYjQEyTS7hNkV08U3rRji/M6mVLzbjJ8dCwgKwsu5Pi+rQXZGd09sKAL/1AbBzReEGaJN4fi3X3Vt/g3RXVCOE8IionIE94j3jQTSh4S6yHQwfMCZhIer68CeIRGQDyyVgznkxg5dGAfQZVN5ihjwH9OYxELOGzxfQk5SWamt4L+R07nYQ/PIAMfetOsgbMUJbhhY/cDdRRB67ScpXvO7swVx+AX5K+MjKiid1rFGN5qZktCwZ4fS/462IXxsITzLM/bx13F7+BgifVYnQoei2k2IsCfFZKqT6KlfbVAMG0Y+zcVAx/6etBshhz1VcF0ESVdSgwceCt4wKfAvbKVsSN6OZgkkE1pXODOM8NqDDP+IFuKE0Q4YM+5vBwab20EqfARcSkQ9yKruG+ybNCzYmrlQG6i5TjC1Jt1tcox0pV25HXnroDpiWjjxBbuA="
