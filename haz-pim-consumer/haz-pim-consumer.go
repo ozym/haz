@@ -29,6 +29,8 @@ func main() {
 		log.Fatalf("ERROR - problem creating SQS from config: %s", err)
 	}
 
+	log.Print("starting message listner")
+
 	for {
 		r := <-rx
 		h := message{}

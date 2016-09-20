@@ -32,6 +32,8 @@ func main() {
 		log.Fatalf("ERROR AWS SNS config: %s", err.Error())
 	}
 
+	log.Print("starting message listner")
+
 	go heartBeat()
 	sc3ml()
 }

@@ -44,6 +44,8 @@ func main() {
 
 	log.Printf("Twitter magnitude threshold %.1f", threshold)
 
+	log.Print("starting message listner")
+
 	for {
 		r := <-rx
 		h := message{}

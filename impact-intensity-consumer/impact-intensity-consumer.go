@@ -72,7 +72,7 @@ func main() {
 	dbPing()
 	go deleteExpired()
 
-	log.Println("starting message listener.")
+	log.Println("starting message listener")
 	listen()
 }
 
