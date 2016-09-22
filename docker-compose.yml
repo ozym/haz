@@ -8,7 +8,7 @@ web:
    - db
   env_file: geonet-rest.env
 db:
-  image: quay.io/geonet/haz-db:9.5
+  image: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-db:9.5
   ports:
    - "5432:5432"
 producer:

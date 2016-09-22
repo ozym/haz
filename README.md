@@ -2,8 +2,6 @@
 
 Projects related to haz messaging and the haz DB.  
 
-[![Build Status](https://travis-ci.org/GeoNet/haz.svg?branch=master)](https://travis-ci.org/GeoNet/haz)
-
 ## Working with Forks
 
 To work with a fork of this repo you will need to clone the fork in such a way to preserve the import paths.  Fork and clone to preserve the organization name e.g.,  
@@ -41,14 +39,14 @@ Subprojects `*-consumer` consume `msg.Haz` or `msg.Impact` messages from SQS and
 Uses postgis.  Pull and run the image (which already has the hazard db initialised and ready to use):
 
 ```
-docker run --name hazdb -p 5432:5432 -d quay.io/geonet/haz-db:9.4
+docker run --name hazdb -p 5432:5432 -d 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-db:9.5
 ``` 
 
 A Postgres 9.4 with Postgis 2.2 image can be built and pushed using:
 
 ```
-docker build --rm=true -t quay.io/geonet/haz-db:9.4 -f database/Dockerfile database
-docker push quay.io/geonet/haz-db:9.4
+docker build --rm=true -t 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-db:9.5 -f database/Dockerfile database
+docker push 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/haz-db:9.5
 ```
 
 There is also a script to (re)initialise the DB  `./database/scripts/initdb-93.sh`

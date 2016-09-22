@@ -2,9 +2,6 @@
 
 Listens to an SQS queue for intensity messages and saves them to the impact DB.
 
-[![Build Status](https://snap-ci.com/GeoNet/impact-intensity-consumer/branch/master/build_image)](https://snap-ci.com/GeoNet/impact-intensity-consumer/branch/master)
-[![Docker Repository on Quay.io](https://quay.io/repository/geonet/impact-intensity-consumer/status "Docker Repository on Quay.io")](https://quay.io/repository/geonet/impact-intensity-consumer)
-
 ## Message Format
 
 ## Deployment
