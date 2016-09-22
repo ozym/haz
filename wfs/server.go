@@ -24,6 +24,8 @@ func main() {
 		log.Println("ERROR: problem pinging DB - is it up and contactable? 500s will be served")
 	}
 
+	log.Println("starting server")
+
 	http.Handle("/", handler())
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("WEB_SERVER_PORT"), nil))
 }

@@ -23,14 +23,6 @@ Either or both of:
 
 The number of concurrent SQS listeners can be can be controlled with the config parameter `NumberOfListeners`.  
 
-### Monitoring
-
-Metrics are sent to mtr and logs sent to Logentries.
-
-### Logging
-
-Logs to standard out.
-
 ### Database Fault Tolerance.
 
 The app is tolerant of (most) database faults:

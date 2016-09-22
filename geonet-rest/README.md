@@ -78,9 +78,9 @@ There are state of health pages available for montoring with web probes:
 * http://.../soh - this will return a 500 error if any HeartBeat messages in the DB are old.
 * http://.../soh/impact - this will return a 500 error if the measured shaking intensity messages fall below 50.  Not all servers may be receiving these messages.
 
-### Logging and Metrics
+### Metrics
 
-Can be sent to Logentries and mtr respectively by setting the appropriate credentials in the config.
+Can be sent to mtr respectively by setting the appropriate credentials in the config.
 
 Fatal application errors, 4xx and 5xx requests are syslogged.
 
