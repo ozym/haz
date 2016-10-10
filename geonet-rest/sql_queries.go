@@ -1,5 +1,28 @@
 package main
 
+const quakeProtoSQL = `SELECT time, modificationTime, depth, magnitude, locality,
+				floor(mmid_newzealand) as "mmi",
+				quality,
+				ST_X(geom::geometry) as longitude,
+				ST_Y(geom::geometry) as latitude
+			FROM haz.quake WHERE publicID = $1`
+
+const quakeHistoryProtoSQL = `SELECT time, modificationTime, depth, magnitude, locality,
+				floor(mmid_newzealand) as "mmi",
+				quality,
+				ST_X(geom::geometry) as longitude,
+				ST_Y(geom::geometry) as latitude
+			FROM haz.quakehistory WHERE publicid = $1 ORDER BY modificationtime DESC`
+
+
+const quakesProtoSQL = `SELECT publicid, time, modificationTime, depth, magnitude, locality,
+				floor(mmid_newzealand) as "mmi",
+				quality,
+				ST_X(geom::geometry) as longitude,
+				ST_Y(geom::geometry) as latitude
+			FROM haz.quakeapi where mmid_newzealand >= $1`
+
+
 const quakeV2SQL = `SELECT row_to_json(fc)
 FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(f)) as features
 	FROM (SELECT 'Feature' as type,

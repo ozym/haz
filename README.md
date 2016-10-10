@@ -34,6 +34,10 @@ Subprojects `*-consumer` consume `msg.Haz` or `msg.Impact` messages from SQS and
 * haz-aws-messaging - creates AWS resources for the haz messaging.  `impact-intensity-consumer` has a CFN template for it's resources. 
 * haz-db-loader - used to load SeisComPML into the db.  See below.
 
+## Protobufs
+
+Compile protobufs 
+
 ## Database
 
 Uses postgis.  Pull and run the image (which already has the hazard db initialised and ready to use):

@@ -103,6 +103,24 @@ var routes = wt.Requests{
 	{ID: wt.L(), URL: "/soh/up"},
 	{ID: wt.L(), URL: "/soh/esb"},
 	{ID: wt.L(), Status: http.StatusServiceUnavailable, URL: "/soh/impact"}, // not enough data so gets an error
+
+	// protobuf routes
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake/2013p407387"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake/history/2013p407387"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=-1"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=0"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=1"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=2"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=3"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=4"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=5"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=6"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=7"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=8"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/intensity?type=measured"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/intensity?type=reported"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/intensity?type=reported&publicID=2013p407387"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/volcano/val"},
 }
 
 // Test all routes give the expected response.  Also check with

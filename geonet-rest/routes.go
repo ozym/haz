@@ -1,7 +1,6 @@
 package main
 
 import (
-
 	"net/http"
 	"github.com/GeoNet/weft"
 )
@@ -12,6 +11,7 @@ var (
 	muxV2GeoJSON *http.ServeMux
 	muxV2JSON    *http.ServeMux
 	muxDefault   *http.ServeMux
+	muxProto *http.ServeMux
 )
 
 func init() {
@@ -35,6 +35,14 @@ func init() {
 	muxV2JSON.HandleFunc("/news/geonet", weft.MakeHandlerAPI(newsV2))
 	muxV2JSON.HandleFunc("/quake/stats", weft.MakeHandlerAPI(quakeStatsV2))
 
+	// protobufs
+	muxProto = http.NewServeMux()
+	muxProto.HandleFunc("/quake", weft.MakeHandlerAPI(quakesProto))
+	muxProto.HandleFunc("/quake/", weft.MakeHandlerAPI(quakeProto))
+	muxProto.HandleFunc("/quake/history/", weft.MakeHandlerAPI(quakeHistoryProto))
+	muxProto.HandleFunc("/intensity", weft.MakeHandlerAPI(intensityProto))
+	muxProto.HandleFunc("/volcano/val", weft.MakeHandlerAPI(valProto))
+
 	// muxDefault handles routes with no Accept version.
 	// soh routes
 	muxDefault = http.NewServeMux()
@@ -54,7 +62,7 @@ func init() {
 	muxDefault.HandleFunc("/news/geonet", weft.MakeHandlerAPI(newsV2))
 	muxDefault.HandleFunc("/volcano/val", weft.MakeHandlerAPI(valV2))
 
-	for _, v := range []*http.ServeMux{muxV1JSON, muxV2JSON, muxV1GeoJSON, muxV2GeoJSON, muxDefault} {
+	for _, v := range []*http.ServeMux{muxV1JSON, muxV2JSON, muxV1GeoJSON, muxV2GeoJSON, muxDefault, muxProto} {
 		v.HandleFunc("/", weft.MakeHandlerPage(docs))
 	}
 
@@ -62,6 +70,8 @@ func init() {
 
 func router(w http.ResponseWriter, r *http.Request) {
 	switch r.Header.Get("Accept") {
+	case protobuf:
+		muxProto.ServeHTTP(w, r)
 	case V2GeoJSON:
 		muxV2GeoJSON.ServeHTTP(w, r)
 	case V1GeoJSON:
