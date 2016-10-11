@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package haz;
+option go_package = "haz";
+
+// protoc --proto_path=protobuf/haz/ --go_out=. protobuf/haz/haz.proto
+
+// Quake is for earthquake information.
+message Quake {
+    // the unique public identifier for this quake.
+    string public_iD = 1;
+    // the origin time of the quake.
+    Timestamp time = 2;
+    // the modification time of the quake information.
+    Timestamp modification_time = 3;
+    // latitude of the quake location.
+    double latitude = 4;
+    // longitude of the quake location.
+    double longitude = 5;
+    // the depth of the quake in km.
+    double depth = 6;
+    // magnitude of the quake.
+    double magnitude = 7;
+    // distance and direction to the nearest locality.
+    string locality = 8;
+    // the quality of this information; `best`, `good`, `caution`, `deleted`.
+    string quality = 9;
+    // the calculated MMI shaking at the closest locality in the New Zealand region.
+    int32 mmi = 10;
+}
+
+// Timestamp for encoding time stamps.
+message Timestamp {
+    // Unix time in seconds
+    int64 sec = 1;
+    // Fractional part of time in nanoseconds.
+    int64 nsec = 2;
+}
+
+message Quakes {
+    repeated Quake quakes = 1;
+}
+
+message Volcano {
+    // a unique identifier for the volcano.
+    string volcano_iD = 1;
+    // the volcano title.
+    string title = 2;
+    // latitude of the volcano.
+    double latitude = 3;
+    // longitude of the volcano.
+    double longitude = 4;
+
+    VAL val = 5;
+}
+
+// volcanic alert level.
+message VAL {
+    int32 level = 1;
+    string activity = 2;
+    string hazards = 3;
+}
+
+message Volcanoes {
+    repeated Volcano volcanoes = 1;
+}
+
+message MMI {
+    // latitude of the mmi.
+    double latitude = 1;
+    // longitude of the mmi.
+    double longitude = 2;
+    // the mmi at the location.  Currently the max mmi.
+    int32 mmi = 3;
+    // count of mmi values at the location.
+    int32 count = 4;
+}
+
+message Shaking {
+    repeated MMI mmi = 1;
+
+    map<int32, int32> mmi_summary = 2;
+
+    int32 mmi_total = 3;
+}

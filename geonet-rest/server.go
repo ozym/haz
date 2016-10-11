@@ -22,6 +22,7 @@ const (
 	V1JSON    = "application/json;version=1"
 	V2GeoJSON = "application/vnd.geo+json;version=2"
 	V2JSON    = "application/json;version=2"
+	protobuf = "application/x-protobuf"
 )
 
 // These are for CAP format and Atom which is not versioned by Accept.
