@@ -20,7 +20,9 @@ const quakesProtoSQL = `SELECT publicid, time, modificationTime, depth, magnitud
 				quality,
 				ST_X(geom::geometry) as longitude,
 				ST_Y(geom::geometry) as latitude
-			FROM haz.quakeapi where mmid_newzealand >= $1`
+			FROM haz.quakeapi where mmid_newzealand >= $1
+			AND In_newzealand = true
+			ORDER BY time DESC  limit 100`
 
 
 const quakeV2SQL = `SELECT row_to_json(fc)
