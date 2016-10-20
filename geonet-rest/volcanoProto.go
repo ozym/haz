@@ -19,7 +19,8 @@ func valProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 
 	if rows, err = db.Query(`SELECT id, title, alert_level, activity, hazards,
 				ST_X(location::geometry), ST_Y(location::geometry)
-				FROM haz.volcano JOIN haz.volcanic_alert_level using (alert_level)`); err != nil {
+				FROM haz.volcano JOIN haz.volcanic_alert_level using (alert_level)
+				ORDER BY alert_level DESC, title ASC`); err != nil {
 		return weft.ServiceUnavailableError(err)
 	}
 
