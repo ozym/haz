@@ -121,6 +121,7 @@ var routes = wt.Requests{
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/intensity?type=reported"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/intensity?type=reported&publicID=2013p407387"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/volcano/val"},
+	//{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge300, URL: "/news/geonet"},
 }
 
 // Test all routes give the expected response.  Also check with
