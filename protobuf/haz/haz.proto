@@ -83,3 +83,30 @@ message Shaking {
 
     int32 mmi_total = 3;
 }
+
+message Story {
+    string Title = 1;
+    string link = 2;
+    Timestamp published = 3;
+}
+
+message News {
+    repeated Story stories = 1;
+}
+
+message Rate {
+    Timestamp time = 1;
+    int32 count = 2;
+}
+
+message QuakeStats {
+    // quakes per day
+    repeated Rate per_day = 1;
+
+    // magnitude count over the last 7 days
+    map<int32, int32> week = 2;
+    // magnitude count over the last 28 days
+    map<int32, int32> month = 3;
+    // magnitude count over the last 365 days
+    map<int32, int32> year = 4;
+}

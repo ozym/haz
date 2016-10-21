@@ -202,3 +202,23 @@ select row_to_json(f) from (
 		month.count_mags as "days28",
 		week.count_mags as "days7"
 		FROM year, month, week) as fc) as f`
+
+const quakesPerDaySQL = `WITH perday AS (
+SELECT date_trunc('day', time) as day
+FROM haz.quakeapi
+WHERE in_newzealand AND NOT deleted
+)
+SELECT day, count(day)
+FROM perday GROUP BY day ORDER BY day
+`
+
+// use this query with fmt.Sprintf to set the days interval e.g.
+//   if rows, err = db.Query(fmt.Sprintf(sumMagsSQL, 365)); err != nil {
+const sumMagsSQL = `WITH mags AS (
+SELECT time, floor(magnitude) AS magnitude
+FROM haz.quakeapi
+WHERE in_newzealand AND NOT deleted
+)
+SELECT magnitude, count(magnitude)
+FROM mags where  time >= (now() - interval '%d days') group by magnitude
+`

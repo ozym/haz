@@ -8,10 +8,13 @@ import (
 	"net/http"
 	"strings"
 	"github.com/GeoNet/weft"
+	"github.com/GeoNet/haz"
+	"time"
+	"github.com/golang/protobuf/proto"
 )
 
 const (
-	mlink   = "http://info.geonet.org.nz/m/view-rendered-page.action?abstractPageId="
+	mlink = "http://info.geonet.org.nz/m/view-rendered-page.action?abstractPageId="
 	newsURL = "http://info.geonet.org.nz/createrssfeed.action?types=blogpost&spaces=conf_all&title=GeoNet+News+RSS+Feed&labelString%3D&excludedSpaceKeys%3D&sort=created&maxResults=10&timeSpan=500&showContent=true&publicFeed=true&confirm=Create+RSS+Feed"
 )
 
@@ -84,6 +87,60 @@ func newsV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	h.Set("Surrogate-Control", maxAge300)
 	h.Set("Content-Type", V2JSON)
 	b.Write(j)
+
+	return &weft.StatusOK
+}
+
+func newsProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		return res
+	}
+
+	res, err := client.Get(newsURL)
+	defer res.Body.Close()
+	if err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	f, err := unmarshalNews(body)
+	if err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	var n haz.News
+
+	for _, v := range f.Entries {
+		s := haz.Story{
+			Title: v.Title,
+			Link: v.Link.Href,
+		}
+
+		t, err := time.Parse(time.RFC3339, v.Published)
+		if err != nil {
+			return weft.ServiceUnavailableError(err)
+		}
+
+		ts := haz.Timestamp{Sec: t.Unix(), Nsec: int64(t.Nanosecond())}
+
+		s.Published = &ts
+
+		n.Stories = append(n.Stories, &s)
+	}
+
+	var by []byte
+	if by, err = proto.Marshal(&n); err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	b.Write(by)
+
+	h.Set("Content-Type", protobuf)
+	h.Set("Surrogate-Control", maxAge300)
 
 	return &weft.StatusOK
 }
