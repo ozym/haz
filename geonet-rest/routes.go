@@ -39,6 +39,7 @@ func init() {
 	muxProto = http.NewServeMux()
 	muxProto.HandleFunc("/quake", weft.MakeHandlerAPI(quakesProto))
 	muxProto.HandleFunc("/quake/", weft.MakeHandlerAPI(quakeProto))
+	muxProto.HandleFunc("/quake/technical/", weft.MakeHandlerAPI(quakeTechnicalProto))
 	muxProto.HandleFunc("/quake/history/", weft.MakeHandlerAPI(quakeHistoryProto))
 	muxProto.HandleFunc("/intensity", weft.MakeHandlerAPI(intensityProto))
 	muxProto.HandleFunc("/volcano/val", weft.MakeHandlerAPI(valProto))

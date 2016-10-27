@@ -107,6 +107,7 @@ var routes = wt.Requests{
 	// protobuf routes
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake/2013p407387"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake/history/2013p407387"},
+	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake/technical/2013p407387"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=-1"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=0"},
 	{ID: wt.L(), Accept: protobuf, Content: protobuf, Surrogate: maxAge10, URL: "/quake?MMI=1"},
