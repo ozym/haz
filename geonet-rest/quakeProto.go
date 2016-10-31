@@ -9,7 +9,12 @@ import (
 	"time"
 	"database/sql"
 	"fmt"
+	"io/ioutil"
+	"github.com/GeoNet/haz/sc3ml"
+	"strings"
 )
+
+const s3 = "http://seiscompml07.s3-website-ap-southeast-2.amazonaws.com/"
 
 func quakeStatsProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
@@ -236,4 +241,80 @@ func quakesProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	b.Write(by)
 	h.Set("Content-Type", protobuf)
 	return &weft.StatusOK
+}
+
+// fetches SC3ML and turns it into a protobuf.
+func quakeTechnicalProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
+	if res := weft.CheckQuery(r, []string{}, []string{}); !res.Ok {
+		return res
+	}
+
+	by, res := getBytes(s3 + strings.TrimPrefix(r.URL.Path, "/quake/technical/") + ".xml", "")
+	if !res.Ok {
+		return res
+	}
+
+	q, err := sc3ml.QuakeTechnical(by)
+	if err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	m, err := proto.Marshal(&q)
+	if err != nil {
+		return weft.ServiceUnavailableError(err)
+	}
+
+	b.Write(m)
+
+	h.Set("Content-Type", protobuf)
+	return &weft.StatusOK
+}
+
+/*
+getBytes fetches bytes for the requested url.  accept
+may be left as the empty string.
+*/
+func getBytes(url, accept string) ([]byte, *weft.Result) {
+	var r *http.Response
+	var req *http.Request
+	var err error
+	var b []byte
+
+	if accept == "" {
+		r, err = client.Get(url)
+		if err != nil {
+			return b, weft.InternalServerError(err)
+		}
+	} else {
+		req, err = http.NewRequest("GET", url, nil)
+		if err != nil {
+			return b, weft.InternalServerError(err)
+		}
+
+		req.Header.Add("Accept", accept)
+
+		r, err = client.Do(req)
+		if err != nil {
+			return b, weft.InternalServerError(err)
+		}
+	}
+	defer r.Body.Close()
+
+	b, err = ioutil.ReadAll(r.Body)
+	if err != nil {
+		return b, weft.InternalServerError(err)
+	}
+
+	switch r.StatusCode {
+	case http.StatusOK:
+		return b, &weft.StatusOK
+	case http.StatusNotFound:
+		return b, &weft.NotFound
+	default:
+		// TODO do we need to handle more errors here?
+		return b, weft.InternalServerError(fmt.Errorf("server error"))
+
+	}
+
+	return b, &weft.StatusOK
 }

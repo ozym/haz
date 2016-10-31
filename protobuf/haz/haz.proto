@@ -110,3 +110,87 @@ message QuakeStats {
     // magnitude count over the last 365 days
     map<int32, int32> year = 4;
 }
+
+// QuakeTechnical for encoding technical information about a quake.
+// More information than haz.Quake.
+message QuakeTechnical {
+    string public_iD = 1;
+    string type = 2;
+
+    string agency = 3;
+
+    Timestamp time = 4;
+    Timestamp modification_time = 5;
+
+    RealQuantity latitude = 6;
+    RealQuantity longitude = 7;
+    RealQuantity depth = 8;
+
+    string depth_type = 9;
+
+    string method = 10;
+    string earth_model = 11;
+
+    string evaluation_mode = 12;
+    string evaluation_status = 13;
+
+    int64 used_phase_count = 14;
+    int64 used_station_count = 15;
+    double standard_error = 16;
+    double azimuthal_gap = 17;
+    double minimum_distance = 18;
+    double maximum_distance = 19;
+    double median_distance = 20;
+
+    repeated Pick pick = 21;
+
+    RealQuantity magnitude = 22;
+    string magnitude_type = 23;
+
+    repeated Magnitude magnitudes = 24;
+}
+
+message RealQuantity {
+    double value = 1;
+    double uncertainty = 2;
+}
+
+message StationMagnitude {
+    Waveform waveform = 1;
+
+    RealQuantity magnitude = 2;
+    string type = 3;
+
+    double azimuth = 4;
+    double distance = 5;
+    double residual = 6;
+    double weight = 7;
+
+    RealQuantity amplitude = 8;
+}
+
+message Magnitude {
+    RealQuantity magnitude = 1;
+    string type = 2;
+    int64 station_count = 3;
+    repeated StationMagnitude station_magnitude = 4;
+}
+
+message Pick {
+    Waveform waveform = 1;
+    Timestamp time = 2;
+    string phase = 3;
+    double azimuth = 4;
+    double distance = 5;
+    double residual = 6;
+    double weight = 7;
+    string evaluation_mode = 8;
+    string evaluation_status = 9;
+}
+
+message Waveform {
+    string network = 1;
+    string station = 2;
+    string location = 3;
+    string channel = 4;
+}
