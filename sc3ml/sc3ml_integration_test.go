@@ -16,7 +16,7 @@ import (
 //     go test -tags=integration
 func TestUnmarshalIntegration(t *testing.T) {
 	var err error
-	var ep EventParameters
+	var ep eventParameters
 	var f *os.File
 	var b []byte
 	var files []os.FileInfo
@@ -38,7 +38,7 @@ func TestUnmarshalIntegration(t *testing.T) {
 			}
 			f.Close()
 
-			if ep, err = Unmarshal(b); err != nil {
+			if ep, err = unmarshal(b); err != nil {
 				t.Fatal(err)
 			}
 
