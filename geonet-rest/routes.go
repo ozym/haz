@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http"
 	"github.com/GeoNet/weft"
+	"net/http"
 )
 
 var (
@@ -11,7 +11,7 @@ var (
 	muxV2GeoJSON *http.ServeMux
 	muxV2JSON    *http.ServeMux
 	muxDefault   *http.ServeMux
-	muxProto *http.ServeMux
+	muxProto     *http.ServeMux
 )
 
 func init() {

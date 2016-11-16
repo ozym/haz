@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/GeoNet/haz"
 	wt "github.com/GeoNet/weft/wefttest"
+	"github.com/golang/protobuf/proto"
 	"math"
 	"testing"
-	"github.com/GeoNet/haz"
-	"github.com/golang/protobuf/proto"
 )
 
 func TestIntensityMeasuredProto(t *testing.T) {
@@ -26,10 +26,10 @@ func TestIntensityMeasuredProto(t *testing.T) {
 	if len(i.Mmi) != 1 {
 		t.Error("found wrong number of intensities.")
 	}
-	if math.Abs(i.Mmi[0].Longitude - 175.49) > tolerance {
+	if math.Abs(i.Mmi[0].Longitude-175.49) > tolerance {
 		t.Error("incorrect Longitude")
 	}
-	if math.Abs(i.Mmi[0].Latitude + 40.2) > tolerance {
+	if math.Abs(i.Mmi[0].Latitude+40.2) > tolerance {
 		t.Error("incorrect Latitude")
 	}
 	if i.Mmi[0].Mmi != 4 {
@@ -56,10 +56,10 @@ func TestIntensityReportedLatestProto(t *testing.T) {
 	if len(i.Mmi) != 1 {
 		t.Error("found wrong number of intensities.")
 	}
-	if math.Abs(i.Mmi[0].Longitude - 176.489868) > tolerance {
+	if math.Abs(i.Mmi[0].Longitude-176.489868) > tolerance {
 		t.Error("incorrect Longitude")
 	}
-	if math.Abs(i.Mmi[0].Latitude + 40.201721) > tolerance {
+	if math.Abs(i.Mmi[0].Latitude+40.201721) > tolerance {
 		t.Error("incorrect Latitude")
 	}
 	if i.Mmi[0].Mmi != 6 {
@@ -105,10 +105,10 @@ func TestIntensityReportedProto(t *testing.T) {
 	if len(i.Mmi) != 1 {
 		t.Error("found wrong number of intensities.")
 	}
-	if math.Abs(i.Mmi[0].Longitude - 176.489868) > tolerance {
+	if math.Abs(i.Mmi[0].Longitude-176.489868) > tolerance {
 		t.Error("incorrect Longitude")
 	}
-	if math.Abs(i.Mmi[0].Latitude + 40.201721) > tolerance {
+	if math.Abs(i.Mmi[0].Latitude+40.201721) > tolerance {
 		t.Error("incorrect Latitude")
 	}
 	if i.Mmi[0].Mmi != 6 {

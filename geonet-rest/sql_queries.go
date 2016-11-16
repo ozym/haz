@@ -14,7 +14,6 @@ const quakeHistoryProtoSQL = `SELECT time, modificationTime, depth, magnitude, l
 				ST_Y(geom::geometry) as latitude
 			FROM haz.quakehistory WHERE publicid = $1 ORDER BY modificationtime DESC`
 
-
 const quakesProtoSQL = `SELECT publicid, time, modificationTime, depth, magnitude, locality,
 				floor(mmid_newzealand) as "mmi",
 				quality,
@@ -23,7 +22,6 @@ const quakesProtoSQL = `SELECT publicid, time, modificationTime, depth, magnitud
 			FROM haz.quakeapi where mmid_newzealand >= $1
 			AND In_newzealand = true
 			ORDER BY time DESC  limit 100`
-
 
 const quakeV2SQL = `SELECT row_to_json(fc)
 FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(f)) as features

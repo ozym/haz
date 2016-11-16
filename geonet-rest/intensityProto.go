@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
-	"net/http"
-	"github.com/GeoNet/weft"
 	"github.com/GeoNet/haz"
+	"github.com/GeoNet/weft"
 	"github.com/golang/protobuf/proto"
+	"net/http"
 	"time"
 )
 

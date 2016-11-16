@@ -3,8 +3,8 @@ package main
 import (
 	"bytes"
 	"github.com/GeoNet/haz/msg"
-	"net/http"
 	"github.com/GeoNet/weft"
+	"net/http"
 )
 
 func quakeV1(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {

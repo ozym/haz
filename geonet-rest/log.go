@@ -11,4 +11,3 @@ func init() {
 		log.SetPrefix(Prefix + " ")
 	}
 }
-

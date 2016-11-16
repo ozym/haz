@@ -2,11 +2,11 @@ package main
 
 import (
 	"bytes"
+	"github.com/GeoNet/weft"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
-	"github.com/GeoNet/weft"
-	"log"
 )
 
 const head = `<html xmlns="http://www.w3.org/1999/xhtml"><head><title>GeoNet - SOH</title><style type="text/css">
@@ -99,7 +99,7 @@ func impactSOH(w http.ResponseWriter, r *http.Request) {
 
 	var meas int
 	err := db.QueryRow("select count(*) from impact.intensity_measured").Scan(&meas)
-	if err != nil  {
+	if err != nil {
 		w.WriteHeader(http.StatusServiceUnavailable)
 		log.Printf("ERROR: %v", err)
 	}
@@ -114,7 +114,6 @@ func impactSOH(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`<h3>Impact</h3>`))
 
 	w.Write([]byte(`<table><tr><th>Impact</th><th>Count</th></tr>`))
-
 
 	if err == nil {
 		if meas < 50 {

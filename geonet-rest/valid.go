@@ -3,12 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/GeoNet/weft"
 	"net/http"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
-	"github.com/GeoNet/weft"
 )
 
 const quakeLen = 7         //  len("/quake/")

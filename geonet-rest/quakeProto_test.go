@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/GeoNet/haz"
 	wt "github.com/GeoNet/weft/wefttest"
+	"github.com/golang/protobuf/proto"
 	"math"
 	"testing"
-	"github.com/GeoNet/haz"
-	"github.com/golang/protobuf/proto"
 	"time"
 )
 
@@ -36,16 +36,16 @@ func TestQuakeProto(t *testing.T) {
 	if q.Mmi != 4 {
 		t.Error("incorrect MMI")
 	}
-	if math.Abs(q.Depth - 20.334389) > tolerance {
+	if math.Abs(q.Depth-20.334389) > tolerance {
 		t.Error("incorrect depth")
 	}
-	if math.Abs(q.Magnitude - 4.027879) > tolerance {
+	if math.Abs(q.Magnitude-4.027879) > tolerance {
 		t.Error("incorrect magnitude")
 	}
-	if math.Abs(q.Longitude - 172.94479) > tolerance {
+	if math.Abs(q.Longitude-172.94479) > tolerance {
 		t.Error("incorrect Longitude")
 	}
-	if math.Abs(q.Latitude + 43.359699) > tolerance {
+	if math.Abs(q.Latitude+43.359699) > tolerance {
 		t.Error("incorrect Latitude")
 	}
 
@@ -55,7 +55,7 @@ func TestQuakeProto(t *testing.T) {
 
 	tm := time.Unix(q.Time.Sec, q.Time.Nsec)
 
-	if math.Abs(float64(time.Now().UTC().Sub(tm) / time.Second)) > 10 {
+	if math.Abs(float64(time.Now().UTC().Sub(tm)/time.Second)) > 10 {
 		t.Error("time should be closer to now.  The time in the test data is reset when it is loaded. ")
 	}
 }
@@ -95,16 +95,16 @@ func TestQuakesProto(t *testing.T) {
 			if q.Mmi != 4 {
 				t.Error("incorrect MMI")
 			}
-			if math.Abs(q.Depth - 20.334389) > tolerance {
+			if math.Abs(q.Depth-20.334389) > tolerance {
 				t.Error("incorrect depth")
 			}
-			if math.Abs(q.Magnitude - 4.027879) > tolerance {
+			if math.Abs(q.Magnitude-4.027879) > tolerance {
 				t.Error("incorrect magnitude")
 			}
-			if math.Abs(q.Longitude - 172.94479) > tolerance {
+			if math.Abs(q.Longitude-172.94479) > tolerance {
 				t.Error("incorrect Longitude")
 			}
-			if math.Abs(q.Latitude + 43.359699) > tolerance {
+			if math.Abs(q.Latitude+43.359699) > tolerance {
 				t.Error("incorrect Latitude")
 			}
 
@@ -114,7 +114,7 @@ func TestQuakesProto(t *testing.T) {
 
 			tm := time.Unix(q.Time.Sec, q.Time.Nsec)
 
-			if math.Abs(float64(time.Now().UTC().Sub(tm) / time.Second)) > 10 {
+			if math.Abs(float64(time.Now().UTC().Sub(tm)/time.Second)) > 10 {
 				t.Error("time should be closer to now.  The time in the test data is reset when it is loaded. ")
 			}
 		}
@@ -164,16 +164,16 @@ func TestQuakeHistoryProto(t *testing.T) {
 			if q.Mmi != 4 {
 				t.Error("incorrect MMI")
 			}
-			if math.Abs(q.Depth - 20.334389) > tolerance {
+			if math.Abs(q.Depth-20.334389) > tolerance {
 				t.Error("incorrect depth")
 			}
-			if math.Abs(q.Magnitude - 4.027879) > tolerance {
+			if math.Abs(q.Magnitude-4.027879) > tolerance {
 				t.Error("incorrect magnitude")
 			}
-			if math.Abs(q.Longitude - 172.94479) > tolerance {
+			if math.Abs(q.Longitude-172.94479) > tolerance {
 				t.Error("incorrect Longitude")
 			}
-			if math.Abs(q.Latitude + 43.359699) > tolerance {
+			if math.Abs(q.Latitude+43.359699) > tolerance {
 				t.Error("incorrect Latitude")
 			}
 
@@ -183,7 +183,7 @@ func TestQuakeHistoryProto(t *testing.T) {
 
 			tm := time.Unix(q.Time.Sec, q.Time.Nsec)
 
-			if math.Abs(float64(time.Now().UTC().Sub(tm) / time.Second)) > 10 {
+			if math.Abs(float64(time.Now().UTC().Sub(tm)/time.Second)) > 10 {
 				t.Error("time should be closer to now.  The time in the test data is reset when it is loaded. ")
 			}
 		}
