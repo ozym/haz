@@ -22,6 +22,7 @@ const (
 	V1JSON    = "application/json;version=1"
 	V2GeoJSON = "application/vnd.geo+json;version=2"
 	V2JSON    = "application/json;version=2"
+	JSON      = "application/json"
 	protobuf  = "application/x-protobuf"
 )
 

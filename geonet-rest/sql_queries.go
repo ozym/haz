@@ -220,3 +220,87 @@ WHERE in_newzealand AND NOT deleted
 SELECT magnitude, count(magnitude)
 FROM mags where  time >= (now() - interval '%d days') group by magnitude
 `
+
+const quakesNZWWWSQL = `SELECT row_to_json(fc)
+FROM ( SELECT 'FeatureCollection' as type,
+COALESCE(array_to_json(array_agg(f)), '[]') as features,
+row_to_json(
+(SELECT n FROM (SELECT 'EPSG' as type,
+	row_to_json((
+		SELECT m FROM (SELECT '4326' as "code") as m)) as properties) as n)
+) as crs
+	FROM (SELECT 'Feature' as type,
+		'quake.' || publicid as "id",
+		ST_AsGeoJSON(q.geom)::json as geometry,
+		'origin_geom' as "geometry_name",
+		row_to_json((SELECT l FROM
+			(
+				SELECT
+				publicid AS "publicid",
+				to_char(time, 'YYYY-MM-DD HH24:MI:SS.US') as "origintime",
+				depth,
+				magnitude,
+				intensity,
+				status,
+				agencyid as "agency",
+				to_char(modificationtime, 'YYYY-MM-DD HH24:MI:SS.US') AS "updatetime"
+				) as l
+)) as properties FROM haz.quakeapi as q where mmid_newzealand >= $1
+AND In_newzealand = true
+ORDER BY time DESC  limit $2 ) as f) as fc`
+
+const quakesWWWSQL = `SELECT row_to_json(fc)
+FROM ( SELECT 'FeatureCollection' as type,
+COALESCE(array_to_json(array_agg(f)), '[]') as features,
+row_to_json(
+(SELECT n FROM (SELECT 'EPSG' as type,
+	row_to_json((
+		SELECT m FROM (SELECT '4326' as "code") as m)) as properties) as n)
+) as crs
+	FROM (SELECT 'Feature' as type,
+		'quake.' || publicid as "id",
+		ST_AsGeoJSON(q.geom)::json as geometry,
+		'origin_geom' as "geometry_name",
+		row_to_json((SELECT l FROM
+			(
+				SELECT
+				publicid AS "publicid",
+				to_char(time, 'YYYY-MM-DD HH24:MI:SS.US') as "origintime",
+				depth,
+				magnitude,
+				intensity,
+				status,
+				agencyid as "agency",
+				to_char(modificationtime, 'YYYY-MM-DD HH24:MI:SS.US') AS "updatetime"
+				) as l
+)) as properties FROM haz.quakeapi as q where mmi >= $1
+AND In_newzealand = true
+ORDER BY time DESC  limit $2 ) as f) as fc`
+
+const quakeWWWSQL = `SELECT row_to_json(fc)
+FROM ( SELECT 'FeatureCollection' as type,
+COALESCE(array_to_json(array_agg(f)), '[]') as features,
+row_to_json(
+(SELECT n FROM (SELECT 'EPSG' as type,
+	row_to_json((
+		SELECT m FROM (SELECT '4326' as "code") as m)) as properties) as n)
+) as crs
+	FROM (SELECT 'Feature' as type,
+		'quake.' || publicid as "id",
+		ST_AsGeoJSON(q.geom)::json as geometry,
+		'origin_geom' as "geometry_name",
+		row_to_json((SELECT l FROM
+			(
+				SELECT
+				publicid AS "publicid",
+				to_char(time, 'YYYY-MM-DD HH24:MI:SS.US') as "origintime",
+				depth,
+				magnitude,
+				intensity,
+				status,
+				agencyid as "agency",
+				to_char(modificationtime, 'YYYY-MM-DD HH24:MI:SS.US') AS "updatetime"
+				) as l
+)) as properties FROM haz.quakeapi as q where publicid = $1
+AND In_newzealand = true
+ORDER BY time DESC  limit 100 ) as f) as fc`
