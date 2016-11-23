@@ -1,10 +1,10 @@
 package main
 
 import (
-	wt "github.com/GeoNet/weft/wefttest"
-	"testing"
 	"github.com/GeoNet/haz"
+	wt "github.com/GeoNet/weft/wefttest"
 	"github.com/golang/protobuf/proto"
+	"testing"
 )
 
 func TestNewsProto(t *testing.T) {

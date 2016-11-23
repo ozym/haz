@@ -2,8 +2,8 @@ package main
 
 import (
 	"bytes"
-	"net/http"
 	"github.com/GeoNet/weft"
+	"net/http"
 )
 
 func valV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {

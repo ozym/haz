@@ -3,9 +3,9 @@ package main
 import (
 	"bytes"
 	"errors"
+	"github.com/GeoNet/weft"
 	"io/ioutil"
 	"net/http"
-	"github.com/GeoNet/weft"
 )
 
 const feltURL = "http://felt.geonet.org.nz/services/reports/"

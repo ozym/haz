@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/GeoNet/haz"
 	wt "github.com/GeoNet/weft/wefttest"
+	"github.com/golang/protobuf/proto"
 	"math"
 	"testing"
-	"github.com/GeoNet/haz"
-	"github.com/golang/protobuf/proto"
 )
 
 func TestValProto(t *testing.T) {
@@ -45,10 +45,10 @@ func TestValProto(t *testing.T) {
 			if v.Val.Level != 1 {
 				t.Error("incorrect level")
 			}
-			if math.Abs(v.Longitude -175.563) > tolerance {
+			if math.Abs(v.Longitude-175.563) > tolerance {
 				t.Error("incorrect Longitude")
 			}
-			if math.Abs(v.Latitude +39.281) > tolerance {
+			if math.Abs(v.Latitude+39.281) > tolerance {
 				t.Error("incorrect Latitude")
 			}
 		}

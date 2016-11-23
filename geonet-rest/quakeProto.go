@@ -2,16 +2,16 @@ package main
 
 import (
 	"bytes"
-	"github.com/GeoNet/weft"
-	"net/http"
-	"github.com/GeoNet/haz"
-	"github.com/golang/protobuf/proto"
-	"time"
 	"database/sql"
 	"fmt"
-	"io/ioutil"
+	"github.com/GeoNet/haz"
 	"github.com/GeoNet/haz/sc3ml"
+	"github.com/GeoNet/weft"
+	"github.com/golang/protobuf/proto"
+	"io/ioutil"
+	"net/http"
 	"strings"
+	"time"
 )
 
 const s3 = "http://seiscompml07.s3-website-ap-southeast-2.amazonaws.com/"
@@ -92,7 +92,6 @@ func quakeStatsProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Resu
 		q.Week[k] = v
 	}
 	rows.Close()
-
 
 	var by []byte
 
@@ -249,7 +248,7 @@ func quakeTechnicalProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.
 		return res
 	}
 
-	by, res := getBytes(s3 + strings.TrimPrefix(r.URL.Path, "/quake/technical/") + ".xml", "")
+	by, res := getBytes(s3+strings.TrimPrefix(r.URL.Path, "/quake/technical/")+".xml", "")
 	if !res.Ok {
 		return res
 	}

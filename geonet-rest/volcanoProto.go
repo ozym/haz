@@ -2,11 +2,11 @@ package main
 
 import (
 	"bytes"
-	"net/http"
-	"github.com/GeoNet/weft"
 	"database/sql"
 	"github.com/GeoNet/haz"
+	"github.com/GeoNet/weft"
 	"github.com/golang/protobuf/proto"
+	"net/http"
 )
 
 func valProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {

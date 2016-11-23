@@ -13,7 +13,7 @@ import (
 const tolerance float64 = 0.0001
 
 var measuredTest = []msg.Intensity{
-	msg.Intensity{Source: "NZ.WEL",
+	{Source: "NZ.WEL",
 		Longitude: 175.49,
 		Latitude:  -40.2,
 		Time:      time.Now().UTC(),
@@ -22,19 +22,19 @@ var measuredTest = []msg.Intensity{
 }
 
 var reportedTest = []msg.Intensity{
-	msg.Intensity{Source: "id1",
+	{Source: "id1",
 		Longitude: 176.49,
 		Latitude:  -40.2,
 		Time:      time.Now().UTC(),
 		MMI:       4,
 	},
-	msg.Intensity{Source: "id2",
+	{Source: "id2",
 		Longitude: 176.49,
 		Latitude:  -40.2,
 		Time:      time.Now().UTC(),
 		MMI:       5,
 	},
-	msg.Intensity{Source: "id3",
+	{Source: "id3",
 		Longitude: 176.49,
 		Latitude:  -40.2,
 		Time:      time.Now().UTC(),

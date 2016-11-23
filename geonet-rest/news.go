@@ -4,17 +4,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"github.com/GeoNet/haz"
+	"github.com/GeoNet/weft"
+	"github.com/golang/protobuf/proto"
 	"io/ioutil"
 	"net/http"
 	"strings"
-	"github.com/GeoNet/weft"
-	"github.com/GeoNet/haz"
 	"time"
-	"github.com/golang/protobuf/proto"
 )
 
 const (
-	mlink = "http://info.geonet.org.nz/m/view-rendered-page.action?abstractPageId="
+	mlink   = "http://info.geonet.org.nz/m/view-rendered-page.action?abstractPageId="
 	newsURL = "http://info.geonet.org.nz/createrssfeed.action?types=blogpost&spaces=conf_all&title=GeoNet+News+RSS+Feed&labelString%3D&excludedSpaceKeys%3D&sort=created&maxResults=10&timeSpan=500&showContent=true&publicFeed=true&confirm=Create+RSS+Feed"
 )
 
@@ -49,7 +49,7 @@ func unmarshalNews(b []byte) (f Feed, err error) {
 
 	// Copy the story link and make the link to the
 	// mobile friendly version of the story.
-	for i, _ := range f.Entries {
+	for i := range f.Entries {
 		f.Entries[i].Href = f.Entries[i].Link.Href
 		f.Entries[i].MHref = mlink + strings.Split(f.Entries[i].Id, "-")[1]
 	}
@@ -117,7 +117,7 @@ func newsProto(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
 	for _, v := range f.Entries {
 		s := haz.Story{
 			Title: v.Title,
-			Link: v.Link.Href,
+			Link:  v.Link.Href,
 		}
 
 		t, err := time.Parse(time.RFC3339, v.Published)

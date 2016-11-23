@@ -2,9 +2,9 @@ package main
 
 import (
 	"bytes"
+	"github.com/GeoNet/weft"
 	"net/http"
 	"time"
-	"github.com/GeoNet/weft"
 )
 
 func intensityV2(r *http.Request, h http.Header, b *bytes.Buffer) *weft.Result {
