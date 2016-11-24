@@ -41,6 +41,8 @@ var routes = wt.Requests{
 	{ID: wt.L(), Accept: V2GeoJSON, Content: V2GeoJSON, Surrogate: maxAge10, URL: "/intensity?type=reported"},
 	{ID: wt.L(), Accept: V2GeoJSON, Content: V2GeoJSON, Surrogate: maxAge10, URL: "/intensity?type=reported&publicID=2013p407387"},
 	{ID: wt.L(), Accept: V2GeoJSON, Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/val"},
+	{ID: wt.L(), Accept: V2GeoJSON, Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/quake/ngauruhoe"},
+	{ID: wt.L(), Accept: V2GeoJSON, Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/region/ngauruhoe"},
 
 	// GeoJSON routes without explicit accept should route to latest version
 	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/quake/2013p407387"},
@@ -48,6 +50,8 @@ var routes = wt.Requests{
 	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/intensity?type=measured"},
 	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/intensity?type=reported"},
 	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/val"},
+	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/quake/ngauruhoe"},
+	{ID: wt.L(), Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", Content: V2GeoJSON, Surrogate: maxAge10, URL: "/volcano/region/ngauruhoe"},
 
 	// Routes that should 404
 	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Status: http.StatusNotFound, Surrogate: maxAge10, URL: "/quake/2013p407399"},
@@ -93,6 +97,8 @@ var routes = wt.Requests{
 	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/fred"},
 	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/felt/report?quakeID=2012p498491"},
 	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/intensity?type=reported"}, // no reported at V1
+	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/volcano/quake/1"},
+	{ID: wt.L(), Accept: V1GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/volcano/quake?id=ngauruhoe"},
 
 	// V2 GeoJSON routes that should bad request
 	{ID: wt.L(), Accept: V2GeoJSON, Content: ErrContent, Surrogate: maxAge86400, Status: http.StatusBadRequest, URL: "/quake?MMI=9"},
