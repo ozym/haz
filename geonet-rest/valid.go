@@ -165,3 +165,37 @@ func getNumberQuakes(r *http.Request) (int, error) {
 		return n, fmt.Errorf("Invalid query parameter number")
 	}
 }
+
+func getVolcanoIDQuake(r *http.Request) (string, error) {
+
+	volcanoID := strings.TrimPrefix(r.URL.Path, "/volcano/quake/")
+	var d string
+
+	err := db.QueryRow("select id FROM haz.volcano where id = $1", volcanoID).Scan(&d)
+
+	if err == sql.ErrNoRows {
+		return volcanoID, fmt.Errorf("Invalid query parameter volcanoID, no results")
+	}
+	if err != nil {
+		return volcanoID, fmt.Errorf("Invalid query parameter volcanoID")
+	}
+
+	return volcanoID, nil
+}
+
+func getVolcanoIDRegion(r *http.Request) (string, error) {
+
+	volcanoID := strings.TrimPrefix(r.URL.Path, "/volcano/region/")
+	var d string
+
+	err := db.QueryRow("select id FROM haz.volcano where id = $1", volcanoID).Scan(&d)
+
+	if err == sql.ErrNoRows {
+		return volcanoID, fmt.Errorf("Invalid query parameter volcanoID, no results")
+	}
+	if err != nil {
+		return volcanoID, fmt.Errorf("Invalid query parameter volcanoID")
+	}
+
+	return volcanoID, nil
+}
