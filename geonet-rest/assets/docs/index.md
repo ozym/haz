@@ -23,7 +23,7 @@ Bugs
 
 ## Bugs
 
-The code that provide these services is available at [https://github.com/GeoNet/haz/geonet-rest](https://github.com/GeoNet/haz/geonet-rest) If you believe you have found a bug please raise an issue or pull request there.
+The code that provide these services is available at [https://github.com/GeoNet/haz/tree/master/geonet-rest](https://github.com/GeoNet/haz/tree/master/geonet-rest) If you believe you have found a bug please raise an issue or pull request there.
 
 # Endpoints
 
@@ -224,7 +224,7 @@ rate
 
 ## Quakes ## {#quakes}
 
-Rerturns quakes possibly felt in the New Zealand region during the last 365 days up to a maximum of 100 quakes.
+Returns quakes possibly felt in the New Zealand region during the last 365 days up to a maximum of 100 quakes.
 
     [GET] /quake?MMI=(int)
 
